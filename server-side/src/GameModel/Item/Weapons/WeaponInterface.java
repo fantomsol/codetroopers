@@ -18,7 +18,7 @@ public interface WeaponInterface extends Item {
 	Integer getRange();
 
 
-	//Cooldown is in seconds
+	//WeaponCooldown is in seconds
 	Integer getCooldown();
 
 	Boolean getIsOnCooldown();

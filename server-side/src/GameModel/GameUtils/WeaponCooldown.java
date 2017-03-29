@@ -6,12 +6,12 @@ import GameModel.Item.Weapons.WeaponInterface;
 /**
  * Created by latiif on 3/29/17.
  */
-public class Cooldown implements Runnable {
+public class WeaponCooldown implements Runnable {
 
 	private final int cooldownDuration;
 	private WeaponInterface weapon;
 
-	public Cooldown(Weapon weapon) {
+	public WeaponCooldown(Weapon weapon) {
 		this.cooldownDuration = weapon.getCooldown()*1000;
 		this.weapon = weapon;
 	}

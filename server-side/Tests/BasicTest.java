@@ -1,22 +1,15 @@
-import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Created by latiif on 3/28/17.
  */
 
-public class TestClass {
-
-	@Before
-	public void setup() throws InterruptedException {
-		Thread.sleep(500);
-	}
+public class BasicTest {
 
 	@Test
-	public void firstTest(){
+	public void hitDamageTest(){
 
 		Player p1= new Player("p1");
 		Player p2 = new Player("p2");
@@ -28,7 +21,7 @@ public class TestClass {
 	}
 
 	@Test
-	public void untilKilled(){
+	public void untilKilledTest(){
 		Player p1= new Player("p1");
 		Player p2= new Player("p2");
 
@@ -41,7 +34,7 @@ public class TestClass {
 	}
 
 	@Test
-	public void attackFirst() throws InterruptedException {
+	public void attackFirstTest() throws InterruptedException {
 		Player p1= new Player("p1");
 		Player p2= new Player("p2");
 
@@ -72,7 +65,7 @@ public class TestClass {
 	}
 
 	@Test
-	public void getsKilled(){
+	public void getsKilledTest(){
 		Player p1,p2,p3;
 
 		p1=new Player("p1");

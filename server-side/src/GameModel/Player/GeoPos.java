@@ -38,7 +38,7 @@ public class GeoPos {
 	}
 
 	void setLongitude(Double newLongitude){
-		if (abs(newLongitude)>90) {
+		if (abs(newLongitude)>180) {
 			throw new IllegalArgumentException("Longitude values is not correct: " + newLongitude);
 		}
 			this.longitude=newLongitude;

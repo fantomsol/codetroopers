@@ -1,6 +1,7 @@
 package GameModel.Player;
 
 
+import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.Armour;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Armours.ArmoursFactory;
@@ -17,12 +18,18 @@ import java.util.List;
  * Created by latiif on 3/22/17.
  */
 public class Player {
+
+
+	private Boolean onlineStatus=false;
+	private Boolean canGoOffline=false;
+
 	private GeoPos geoPos;
 	private Double hp;
 	private Integer armour;
 	private Integer xp;
 	private Integer gold;
 	private Integer vision;
+	private Integer offlineCooldown=2;
 	private List<WeaponInterface> weapons;
 	private List<Armour> armours;
 	private Boolean isAlive;
@@ -49,6 +56,7 @@ public class Player {
 		hp=new Double(100);
 		gold = new Integer(1000);
 		this.isAlive=Boolean.TRUE;
+
 
 		armours= new ArrayList<>();
 		weapons= new ArrayList<>();
@@ -90,7 +98,6 @@ public class Player {
 	}
 
 	public void attackOtherPlayer(final Player otherPlayer){
-		//System.out.println(otherPlayer);
 		if (!getIsAlive()){
 			return;
 		}
@@ -119,4 +126,41 @@ public class Player {
 	}
 
 
+	public void goOnline(){
+		if (isOnline()){
+			return;
+		}
+		onlineStatus=true;
+		new RadarCooldown(this).start();
+	}
+
+	public void goOffline(){
+		if (!isOnline()){
+			return;
+		}
+
+		if (getCanGoOffline()){
+			onlineStatus=false;
+			setCanGoOffline(false);
+		}
+
+
+
+	}
+
+	public Boolean isOnline(){
+		return new Boolean(onlineStatus);
+	}
+
+	public Integer getOfflineCooldown(){
+		return this.offlineCooldown;
+	}
+
+	public void setCanGoOffline(Boolean value){
+		this.canGoOffline=value;
+	}
+
+	public Boolean getCanGoOffline(){
+		return new Boolean(canGoOffline);
+	}
 }
