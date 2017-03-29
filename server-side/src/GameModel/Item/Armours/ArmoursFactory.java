@@ -1,4 +1,4 @@
-package GameModel.Armours;
+package GameModel.Item.Armours;
 
 /**
  * Created by latiif on 3/22/17.
@@ -16,7 +16,7 @@ public class ArmoursFactory {
 		}
 
 
-		throw new IllegalArgumentException("Armour with id:" + id+" cannot be found");
+		throw new IllegalArgumentException("Armours with id:" + id+" cannot be found");
 	}
 
 }

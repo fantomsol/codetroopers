@@ -1,22 +1,17 @@
-package GameModel.Weapons;
+package GameModel.Item.Weapons;
+
+import GameModel.GameUtils.Cooldown;
 
 /**
  * Created by latiif on 3/22/17.
  */
-class Pistol implements Weapon {
+class Pistol extends Weapon implements WeaponInterface {
 
-	private final int ID=1;
-
-	private final Integer damage=5;
-
-	private final Integer range= 10;
-	private final Integer cooldown=5;
-	private final Integer cost=100;
 
 
 	@Override
 	public Integer getId() {
-		return ID;
+		return 1;
 	}
 
 	@Override
@@ -24,23 +19,25 @@ class Pistol implements Weapon {
 		return "Hand Pistol";
 	}
 
+
 	@Override
 	public Integer getDamage() {
-		return damage;
+		return 5;
 	}
 
 	@Override
 	public Integer getRange() {
-		return range;
+		return 10;
 	}
 
 	@Override
 	public Integer getCooldown() {
-		return cooldown;
+		return 1;
 	}
 
 	@Override
 	public Integer getCost() {
-		return cost;
+		return 100;
 	}
+
 }

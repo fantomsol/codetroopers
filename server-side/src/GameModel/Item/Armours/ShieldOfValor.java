@@ -1,4 +1,4 @@
-package GameModel.Armours;
+package GameModel.Item.Armours;
 
 /**
  * Created by latiif on 3/22/17.
@@ -28,5 +28,10 @@ package GameModel.Armours;
 	@Override
 	public Integer getCost() {
 		return cost;
+	}
+
+	@Override
+	public String getItemType() {
+		return "armour";
 	}
 }

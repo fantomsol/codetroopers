@@ -1,4 +1,5 @@
-package GameModel.Armours;
+package GameModel.Item.Armours;
+
 
 /**
  * Created by latiif on 3/22/17.

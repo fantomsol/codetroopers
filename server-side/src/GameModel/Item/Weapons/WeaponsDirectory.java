@@ -1,4 +1,4 @@
-package GameModel.Weapons;
+package GameModel.Item.Weapons;
 
 /**
  * Created by latiif on 3/22/17.
