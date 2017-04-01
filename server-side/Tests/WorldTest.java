@@ -25,7 +25,7 @@ public class WorldTest {
 		world.registerPlayer(p2);
 
 
-		world.playerChangePos(p1.getID());
+		//world.playerChangePos(p1.getID());
 
 
 	}

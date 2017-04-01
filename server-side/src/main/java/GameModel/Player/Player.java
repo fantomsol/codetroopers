@@ -122,7 +122,7 @@ public class Player {
 
 		StringBuilder sb= new StringBuilder();
 
-		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive());
+		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive()).append("@").append(geoPos);
 
 		return sb.toString();
 	}

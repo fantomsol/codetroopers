@@ -1,6 +1,7 @@
 package GameModel;
 
 import GameModel.GameUtils.GeoDistance;
+import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
 
 import java.util.ArrayList;
@@ -42,8 +43,12 @@ public class World {
 		players.add(player);
 	}
 
-	public void playerChangePos(final String id){
+	public void playerChangePos(final String id, final GeoPos newPos){
 		Player player= getPlayerById(id);
+		player.updatePos(newPos);
+
+		System.out.println(players.size());
+
 		if (!player.isOnline()){
 			return;
 		}

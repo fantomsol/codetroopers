@@ -43,4 +43,13 @@ public class GeoPos {
 		}
 			this.longitude=newLongitude;
 	}
+
+	@Override
+	public String toString(){
+		StringBuilder stringBuilder= new StringBuilder();
+
+		stringBuilder.append("(lat:").append(latitude).append(",long:").append(longitude).append(")");
+
+		return stringBuilder.toString();
+	}
 }

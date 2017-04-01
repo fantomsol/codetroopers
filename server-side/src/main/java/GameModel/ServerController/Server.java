@@ -1,16 +1,17 @@
+package GameModel.ServerController;
+
+import GameModel.Player.GeoPos;
+import GameModel.Player.Player;
+import GameModel.ServerController.EventListeners.PlayerChangePositionListener;
+import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
+import GameModel.World;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
-import com.eclipsesource.json.JsonObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.netty.channel.unix.Socket;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 /**
@@ -18,10 +19,10 @@ import java.util.List;
  */
 public class Server {
 
-	ObjectMapper mapper;
 	static private SocketIOServer socketIOServer;
+	static public World world= new World();
 
-	static private void startServer(){
+	static public void startServer(){
 		Configuration config = new Configuration();
 		config.setHostname("192.168.10.186");
 		config.setPort(3000);
@@ -39,19 +40,27 @@ public class Server {
 
 
 
-		socketIOServer.addEventListener("moved",MovedEvent.class, new DataListener<MovedEvent>() {
+
+		socketIOServer.addEventListener(
+				"position-changed",
+				PlayerChangePositionEvent.class,
+				new PlayerChangePositionListener(world)
+		);
+
+				/*
+		socketIOServer.addEventListener("moved",PlayerChangePositionEvent.class, new DataListener<PlayerChangePositionEvent>() {
 			@Override
-			public void onData(SocketIOClient socketIOClient, MovedEvent s, AckRequest ackRequest) throws Exception {
+			public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent s, AckRequest ackRequest) throws Exception {
 
 				System.out.println(s.getLang());
 
-				MovedEvent movedEvent=new MovedEvent(57.709167,11.971756);
+				PlayerChangePositionEvent movedEvent=new PlayerChangePositionEvent(57.709167,11.971756);
 
 				//socketIOServer.getBroadcastOperations().sendEvent("server-respond",movedEvent);
 
 
 				socketIOClient.sendEvent("opponent",movedEvent);
-				 movedEvent=new MovedEvent(57.709167,11.9716755);
+				 movedEvent=new PlayerChangePositionEvent(57.709167,11.9716755);
 
 				//socketIOServer.getBroadcastOperations().sendEvent("server-respond",movedEvent);
 
@@ -59,6 +68,7 @@ public class Server {
 				socketIOClient.sendEvent("opponent",movedEvent);
 			}
 		});
+		*/
 
 
 
@@ -70,8 +80,16 @@ public class Server {
 
 	public static void main(String[] args) {
 
-		System.out.println("Running");
 		startServer();
+
+		Player p1=new Player("Llusx",new GeoPos(0.0,0.0));
+		Player p2= new Player("test",new GeoPos(0.0,0.0));
+
+		p1.goOnline();;
+		p2.goOnline();
+
+		world.registerPlayer(p1);
+		world.registerPlayer(p2);
 
 
 
