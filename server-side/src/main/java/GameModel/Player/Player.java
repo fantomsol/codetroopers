@@ -28,8 +28,8 @@ public class Player {
 	private Integer armour;
 	private Integer xp;
 	private Integer gold;
-	private Integer vision;
-	private Integer offlineCooldown=2;
+	private Integer vision=PlayerConstants.START_VISION;
+	private Integer offlineCooldown=PlayerConstants.START_VISION;
 	private List<WeaponInterface> weapons;
 	private List<Armour> armours;
 	private Boolean isAlive;
@@ -53,8 +53,10 @@ public class Player {
 	public Player(final String id) {
 		this.id=id;
 
-		hp=new Double(100);
-		gold = new Integer(1000);
+		hp=PlayerConstants.MAX_HEALTH;
+
+		gold = PlayerConstants.START_GOLD;
+
 		this.isAlive=Boolean.TRUE;
 
 
@@ -89,7 +91,7 @@ public class Player {
 
 
 	public void getAttacked(final Integer damage){
-		Double actualDamage= new Double(damage*100)/(100+this.armour);
+		Double actualDamage= PlayerConstants.damageCaluculation(damage,this.armour);
 		hp-=actualDamage;
 
 		if (hp<=0){
@@ -162,5 +164,17 @@ public class Player {
 
 	public Boolean getCanGoOffline(){
 		return new Boolean(canGoOffline);
+	}
+
+	public String getID(){
+		return this.id;
+	}
+
+	public GeoPos getGeoPos(){
+		return this.geoPos;
+	}
+
+	public Integer getVision(){
+		return this.vision;
 	}
 }
