@@ -2,8 +2,12 @@ package GameModel.ServerController;
 
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
+import GameModel.ServerController.EventListeners.GetPlayerInfoListener;
 import GameModel.ServerController.EventListeners.PlayerChangePositionListener;
+import GameModel.ServerController.EventListeners.SigninListener;
+import GameModel.ServerController.EventObjects.GetPlayerInfoEvent;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
+import GameModel.ServerController.EventObjects.SigninEvent;
 import GameModel.World;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.Configuration;
@@ -11,7 +15,13 @@ import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
+import com.corundumstudio.socketio.listener.DisconnectListener;
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -19,7 +29,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class Server {
 
-	static private SocketIOServer socketIOServer;
+	public static Map<Player,SocketIOClient> map= new Hashtable<Player, SocketIOClient>();
+
+	static SocketIOServer socketIOServer;
 	static public World world= new World();
 
 	static public void startServer(){
@@ -31,14 +43,34 @@ public class Server {
 		socketIOServer = new SocketIOServer(config);
 
 		socketIOServer.addConnectListener(new ConnectListener() {
-			@Override
 			public void onConnect(SocketIOClient socketIOClient) {
 				System.out.println("Client Connected");
 			}
 		});
 
+		socketIOServer.addDisconnectListener(new DisconnectListener() {
+			public void onDisconnect(SocketIOClient socketIOClient) {
 
 
+				for (Map.Entry<Player, SocketIOClient> entry : map.entrySet()) {
+
+					if (socketIOClient.equals(entry.getValue())){
+						System.out.println("Removed data for player "+entry.getKey().getID());
+						map.remove(entry.getKey());
+						break;
+					}
+				}
+
+			}
+		});
+
+
+
+		socketIOServer.addEventListener(
+				"signin",
+				SigninEvent.class,
+				new SigninListener(world)
+		);
 
 
 		socketIOServer.addEventListener(
@@ -47,35 +79,41 @@ public class Server {
 				new PlayerChangePositionListener(world)
 		);
 
-				/*
-		socketIOServer.addEventListener("moved",PlayerChangePositionEvent.class, new DataListener<PlayerChangePositionEvent>() {
-			@Override
-			public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent s, AckRequest ackRequest) throws Exception {
 
-				System.out.println(s.getLang());
-
-				PlayerChangePositionEvent movedEvent=new PlayerChangePositionEvent(57.709167,11.971756);
-
-				//socketIOServer.getBroadcastOperations().sendEvent("server-respond",movedEvent);
-
-
-				socketIOClient.sendEvent("opponent",movedEvent);
-				 movedEvent=new PlayerChangePositionEvent(57.709167,11.9716755);
-
-				//socketIOServer.getBroadcastOperations().sendEvent("server-respond",movedEvent);
-
-
-				socketIOClient.sendEvent("opponent",movedEvent);
-			}
-		});
-		*/
-
-
-
-
+		socketIOServer.addEventListener(
+				"get-player-info",
+				GetPlayerInfoEvent.class,
+				new GetPlayerInfoListener(world)
+		);
 		socketIOServer.start();
+	}
 
 
+	//Sends data back to the player
+	public static void updateNearbyPlayers(final Player player){
+		if (map.containsKey(player)) {
+
+
+			Player[] array= new Player[player.getPlayersNearby().size()];
+
+			for(int i=0;i<array.length;i++){
+				array[i]=player.getPlayersNearby().get(i);
+			}
+
+			map.get(player).sendEvent("nearby-players-update",array);
+		}
+	}
+
+
+	public static<T> JsonArray list2JsonArray(List<T> list){
+
+		JsonArray res= new JsonArray();
+
+		for (T o: list){
+			res.add(o.toString());
+		}
+
+		return res;
 	}
 
 	public static void main(String[] args) {
@@ -84,13 +122,18 @@ public class Server {
 
 		Player p1=new Player("Llusx",new GeoPos(0.0,0.0));
 		Player p2= new Player("test",new GeoPos(0.0,0.0));
+		Player p3= new Player("Lucky",new GeoPos(0.0,0.0));
+		Player p4= new Player("Jade",new GeoPos(0.0,0.0));
 
-		p1.goOnline();;
+
+		p1.goOnline();
 		p2.goOnline();
+		p4.goOnline();
 
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);
-
+		world.registerPlayer(p3);
+		world.registerPlayer(p4);
 
 
 	}

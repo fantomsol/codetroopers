@@ -18,7 +18,7 @@ public class PlayerChangePositionListener implements DataListener<PlayerChangePo
 		thisWorld= world;
 	}
 
-	@Override
+
 	public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent playerChangePositionEvent, AckRequest ackRequest) throws Exception {
 		thisWorld.playerChangePos(
 				playerChangePositionEvent.getId(),

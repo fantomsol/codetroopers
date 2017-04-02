@@ -5,7 +5,7 @@ package GameModel.Item.Weapons;
  */
 public class WeaponsFactory {
 
-	public static WeaponInterface createWeapon(Integer id){
+	public static Weapon createWeapon(Integer id){
 		if (id==1){
 			return new Pistol();
 		}

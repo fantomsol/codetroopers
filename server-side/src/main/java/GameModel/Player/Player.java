@@ -5,9 +5,11 @@ import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.Armour;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Armours.ArmoursFactory;
+import GameModel.Item.Weapons.Weapon;
 import GameModel.Item.Weapons.WeaponInterface;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class Player {
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
 	private Integer offlineCooldown=PlayerConstants.START_VISION;
-	private List<WeaponInterface> weapons;
+	private List<Weapon> weapons;
 	private List<Armour> armours;
 	private Boolean isAlive;
 
@@ -60,8 +62,8 @@ public class Player {
 		this.isAlive=Boolean.TRUE;
 
 
-		armours= new ArrayList<>();
-		weapons= new ArrayList<>();
+		armours= new ArrayList<Armour>();
+		weapons= new ArrayList<Weapon>();
 
 		armours.add(ArmoursFactory.createArmour(ArmoursDirectory.SHIELD_OF_VALOR));
 		updateArmourValue();
@@ -117,6 +119,7 @@ public class Player {
 		}
 	}
 
+	/*
 	@Override
 	public String toString(){
 
@@ -124,9 +127,16 @@ public class Player {
 
 		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive()).append("@").append(geoPos);
 
+		sb.append("sees: ");
+
+		for(Player p: playersNearby){
+			sb.append(p.getID()).append('\n');
+		}
+
+
 		return sb.toString();
 	}
-
+*/
 
 	public void goOnline(){
 		if (isOnline()){
@@ -176,5 +186,20 @@ public class Player {
 
 	public Integer getVision(){
 		return this.vision;
+	}
+
+	@JsonIgnore
+	private transient List<Player> playersNearby= new ArrayList<Player>();
+
+	public List<Player> getPlayersNearby(){
+		return new ArrayList<Player>(this.playersNearby);
+	}
+
+	public void addNearbyPlayer(Player player){
+		this.playersNearby.add(player);
+	}
+
+	public void removeNearbyPlayer(Player player){
+		this.playersNearby.remove(player);
 	}
 }
