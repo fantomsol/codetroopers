@@ -1,7 +1,6 @@
 package cth.codetroopers.urbanwarfare.GameUtils;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,10 +8,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
-import cth.codetroopers.urbanwarfare.MainActivity;
+import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 
 /**
  * Created by latiif on 4/1/17.
@@ -32,8 +30,10 @@ public class LocationHandler {
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
+
                 MainActivity.googleMapHandler.goToLocation(location);
-                ClientController.changePosition("test",location);
+                ClientController.changePosition(location);
+
             }
 
             @Override

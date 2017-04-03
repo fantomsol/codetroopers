@@ -11,7 +11,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Activities.MainActivity;
+import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -22,6 +26,11 @@ import io.socket.emitter.Emitter;
 
 public class ClientController {
 
+    public static String playerID;
+    public static JSONObject playerInfo;
+
+    public static List<JSONObject> opponents=new ArrayList<>();
+
     private static Socket socket;
 
 
@@ -29,20 +38,32 @@ public class ClientController {
         socket.on("player-info", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
+                JSONObject msg= (JSONObject) args[0];
 
+                try {
+                    if (msg.get("id").equals(playerID)){
+                        playerInfo= msg;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+
 
         socket.on("nearby-players-update", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
+                Log.i("nearby", String.valueOf( args.length));
 
+                ClientController.opponents.clear();
+                for (int i=0;i<args.length;i++){
 
+                    ClientController.opponents.add((JSONObject) args[i]);
+                }
 
-
-                Log.i("nearbyplayers",args.toString());
-
-
+                MainActivity.googleMapHandler.pinOpponents();
             }
         });
     }
@@ -58,21 +79,23 @@ public class ClientController {
 
         addListeners();
         socket.connect();
+        signIn(ClientController.playerID);
     }
 
-    public static void changePosition(final String id, Location position){
+    public static void changePosition(Location position){
 
         JSONObject object= new JSONObject();
 
         LatLng pos= new LatLng(position.getLatitude(),position.getLongitude());
 
         try {
-            object.put("id","test");
+            object.put("id",playerID);
             object.put("lat",pos.latitude);
             object.put("lang",pos.longitude);
 
 
             socket.emit("position-changed",object);
+            requestPlayerInformation(playerID);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -86,6 +109,7 @@ public class ClientController {
             object.put("id",id);
 
             socket.emit("signin",object);
+            requestPlayerInformation(id);
         } catch (JSONException e) {
             e.printStackTrace();
         }

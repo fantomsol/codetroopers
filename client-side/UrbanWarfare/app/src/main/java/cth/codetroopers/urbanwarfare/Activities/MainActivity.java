@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare;
+package cth.codetroopers.urbanwarfare.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import java.net.URISyntaxException;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
 import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
+import cth.codetroopers.urbanwarfare.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,20 +40,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-         googleMapHandler= new GoogleMapHandler(this);
-         locationHandler= new LocationHandler(this.getApplicationContext());
+        googleMapHandler= new GoogleMapHandler(this);
+        locationHandler= new LocationHandler(this.getApplicationContext());
 
-
-
-        try {
-            ClientController.Init();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-
-        ClientController.requestPlayerInformation("test");
-        ClientController.signIn("test");
     }
+
+
 
 }

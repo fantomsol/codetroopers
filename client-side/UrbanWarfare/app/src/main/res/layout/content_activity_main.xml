@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="cth.codetroopers.urbanwarfare.MainActivity"
+    tools:context="cth.codetroopers.urbanwarfare.Activities.MainActivity"
     tools:showIn="@layout/main_actvitiy"
     tools:layout_editor_absoluteY="0dp"
     tools:layout_editor_absoluteX="0dp">
@@ -29,7 +29,7 @@
         map:layout_constraintRight_toRightOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         map:layout_constraintVertical_bias="0.0"
-        tools:context="cth.codetroopers.urbanwarfare.MainActivity"
+        tools:context="cth.codetroopers.urbanwarfare.Activities.MainActivity"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         tools:layout_constraintTop_creator="1"

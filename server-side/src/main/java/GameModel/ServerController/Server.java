@@ -127,7 +127,7 @@ public class Server {
 
 
 		p1.goOnline();
-		p2.goOnline();
+		//p2.goOnline();
 		p4.goOnline();
 
 		world.registerPlayer(p1);
