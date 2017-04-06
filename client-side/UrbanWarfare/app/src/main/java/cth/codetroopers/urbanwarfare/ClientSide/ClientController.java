@@ -69,7 +69,7 @@ public class ClientController {
     }
 
     public static void Init() throws URISyntaxException {
-        socket = IO.socket("http://84.217.63.86:8080");
+        socket = IO.socket("http://10.0.2.2:3000");
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
