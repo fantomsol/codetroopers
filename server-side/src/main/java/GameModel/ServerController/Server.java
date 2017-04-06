@@ -36,7 +36,7 @@ public class Server {
 
 	static public void startServer(){
 		Configuration config = new Configuration();
-		config.setHostname("192.168.10.186");
+		config.setHostname("127.0.0.1");
 		config.setPort(3000);
 
 
