@@ -16,8 +16,6 @@ public class WeaponCooldown implements Runnable {
 		this.weapon = weapon;
 	}
 
-
-	@Override
 	public void run() {
 		weapon.setIsOnCooldown(true);
 

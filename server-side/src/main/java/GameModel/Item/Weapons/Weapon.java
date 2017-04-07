@@ -14,7 +14,6 @@ public abstract class Weapon implements WeaponInterface {
 		setIsOnCooldown(false);
 	}
 
-	@Override
 	public Integer fireWeapon() {
 		if (getIsOnCooldown()){
 			return 0;
@@ -26,19 +25,14 @@ public abstract class Weapon implements WeaponInterface {
 
 	}
 
-
-	@Override
 	public Boolean getIsOnCooldown() {
 		return new Boolean(isOnCooldown);
 	}
 
-	@Override
 	public void setIsOnCooldown(Boolean value) {
 		this.isOnCooldown=value;
 	}
 
-
-	@Override
 	public String getItemType() {
 		return this.getClass().getName();
 	}
