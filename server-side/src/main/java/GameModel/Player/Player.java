@@ -28,6 +28,7 @@ public class Player {
 	private GeoPos geoPos;
 	private Double hp;
 	private Integer armour;
+	public Score score;
 	private Integer xp;
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
@@ -60,6 +61,8 @@ public class Player {
 		gold = PlayerConstants.START_GOLD;
 
 		this.isAlive=Boolean.TRUE;
+
+		score= new Score(0,0);
 
 
 		armours= new ArrayList<Armour>();
@@ -98,6 +101,7 @@ public class Player {
 
 		if (hp<=0){
 			isAlive=false;
+			score.increaseDeaths();
 		}
 	}
 
@@ -116,16 +120,17 @@ public class Player {
 
 		otherPlayer.getAttacked(damage);
 		if (!otherPlayer.isAlive){
+			score.increaseKills();
 		}
 	}
 
-	/*
+
 	@Override
 	public String toString(){
 
 		StringBuilder sb= new StringBuilder();
 
-		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive()).append("@").append(geoPos);
+		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive()).append("@").append(geoPos).append(" "+score);
 
 		sb.append("sees: ");
 
@@ -136,7 +141,7 @@ public class Player {
 
 		return sb.toString();
 	}
-*/
+
 
 	public void goOnline(){
 		if (isOnline()){

@@ -43,6 +43,7 @@ public class ClientController {
                 try {
                     if (msg.get("id").equals(playerID)){
                         playerInfo= msg;
+                        MainActivity.updateGUI();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -114,6 +115,20 @@ public class ClientController {
             e.printStackTrace();
         }
 
+
+    }
+
+    public static void attack(final String otherPlayerId){
+
+        JSONObject object= new JSONObject();
+
+        try {
+            object.put("id",playerID);
+            object.put("oId",otherPlayerId);
+            socket.emit("attack",object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

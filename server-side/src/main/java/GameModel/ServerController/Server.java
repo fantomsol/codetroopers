@@ -2,9 +2,11 @@ package GameModel.ServerController;
 
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
+import GameModel.ServerController.EventListeners.AttackEventListener;
 import GameModel.ServerController.EventListeners.GetPlayerInfoListener;
 import GameModel.ServerController.EventListeners.PlayerChangePositionListener;
 import GameModel.ServerController.EventListeners.SigninListener;
+import GameModel.ServerController.EventObjects.AttackEvent;
 import GameModel.ServerController.EventObjects.GetPlayerInfoEvent;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
 import GameModel.ServerController.EventObjects.SigninEvent;
@@ -65,6 +67,11 @@ public class Server {
 		});
 
 
+		socketIOServer.addEventListener(
+				"attack",
+				AttackEvent.class,
+				new AttackEventListener(world)
+		);
 
 		socketIOServer.addEventListener(
 				"signin",
@@ -104,6 +111,12 @@ public class Server {
 		}
 	}
 
+
+	public static void updatePlayer(Player player){
+		if (map.containsKey(player)){
+			map.get(player).sendEvent("player-info",player);
+		}
+	}
 
 	public static<T> JsonArray list2JsonArray(List<T> list){
 

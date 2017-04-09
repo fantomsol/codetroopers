@@ -29,6 +29,16 @@ public class World {
 		}
 	}
 
+	public void performAttack(String attackerId, String attackeeId){
+		Player attacker = getPlayerById(attackerId);
+		Player attackee= getPlayerById(attackeeId);
+
+		attacker.attackOtherPlayer(attackee);
+
+		Server.updatePlayer(attacker);
+		Server.updatePlayer(attackee);
+	}
+
 	public Player getPlayerById(final String id){
 		for(Player player:players){
 			if (player.getID().equals(id)){

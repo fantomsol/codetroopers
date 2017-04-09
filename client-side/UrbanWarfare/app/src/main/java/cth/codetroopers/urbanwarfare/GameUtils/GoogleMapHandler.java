@@ -69,6 +69,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
 
         LatLng pos=new LatLng(lat,lng);
 
+
         playerMarker= map.addMarker(new MarkerOptions().title("Player").position(pos).icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
 
       //  map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -76,6 +77,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
 
         applyDarkStyle();
 
+        map.setOnMarkerClickListener(new AttackOpponentListener());
     }
 
 
@@ -126,8 +128,12 @@ public class GoogleMapHandler implements OnMapReadyCallback {
 
                     LatLng pos=new LatLng(lat,lng);
 
-                    opponentsMarkers.add(map.addMarker(new MarkerOptions().position(pos).title(op_id)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.opponent))));
+                    Marker marker = map.addMarker(new MarkerOptions().position(pos).title(op_id)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.opponent)));
+
+                    marker.setTag(opponent);
+
+                    opponentsMarkers.add(marker);
                 }
 
             }
