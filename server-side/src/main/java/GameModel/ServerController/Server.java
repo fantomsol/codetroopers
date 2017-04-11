@@ -10,17 +10,14 @@ import GameModel.ServerController.EventObjects.AttackEvent;
 import GameModel.ServerController.EventObjects.GetPlayerInfoEvent;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
 import GameModel.ServerController.EventObjects.SigninEvent;
-import GameModel.World;
-import com.corundumstudio.socketio.AckRequest;
+import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
-import com.corundumstudio.socketio.listener.DataListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -31,12 +28,15 @@ import java.util.Map;
  */
 public class Server {
 
-	public static Map<Player,SocketIOClient> map= new Hashtable<Player, SocketIOClient>();
+	public  Map<Player,SocketIOClient> map= new Hashtable<Player, SocketIOClient>();
 
-	static SocketIOServer socketIOServer;
-	static public World world= new World();
+	 SocketIOServer socketIOServer;
 
-	static public void startServer(){
+	 public SocketIOServer getServerSocket(){
+	 	return socketIOServer;
+	 }
+
+	 public void startServer(){
 		Configuration config = new Configuration();
 		config.setHostname("127.0.0.1");
 		config.setPort(3000);
@@ -67,37 +67,13 @@ public class Server {
 		});
 
 
-		socketIOServer.addEventListener(
-				"attack",
-				AttackEvent.class,
-				new AttackEventListener(world)
-		);
 
-		socketIOServer.addEventListener(
-				"signin",
-				SigninEvent.class,
-				new SigninListener(world)
-		);
-
-
-		socketIOServer.addEventListener(
-				"position-changed",
-				PlayerChangePositionEvent.class,
-				new PlayerChangePositionListener(world)
-		);
-
-
-		socketIOServer.addEventListener(
-				"get-player-info",
-				GetPlayerInfoEvent.class,
-				new GetPlayerInfoListener(world)
-		);
 		socketIOServer.start();
 	}
 
 
 	//Sends data back to the player
-	public static void updateNearbyPlayers(final Player player){
+	public  void updateNearbyPlayers(final Player player){
 		if (map.containsKey(player)) {
 
 
@@ -112,13 +88,13 @@ public class Server {
 	}
 
 
-	public static void updatePlayer(Player player){
+	public  void updatePlayer(Player player){
 		if (map.containsKey(player)){
 			map.get(player).sendEvent("player-info",player);
 		}
 	}
 
-	public static<T> JsonArray list2JsonArray(List<T> list){
+	public <T> JsonArray list2JsonArray(List<T> list){
 
 		JsonArray res= new JsonArray();
 
@@ -130,7 +106,7 @@ public class Server {
 	}
 
 	public static void main(String[] args) {
-
+/*
 		startServer();
 
 		Player p1=new Player("Llusx",new GeoPos(0.0,0.0));
@@ -149,6 +125,6 @@ public class Server {
 		world.registerPlayer(p3);
 		world.registerPlayer(p4);
 
-
+*/
 	}
 }

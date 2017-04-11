@@ -1,4 +1,4 @@
-package GameModel;
+package GameModel.WorldPackage;
 
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Player.GeoPos;
@@ -15,8 +15,25 @@ public class World {
 
 	private List<Player> players;
 
+	private Server server;
+
+	public Server getServer(){
+		return server;
+	}
+
 	public World(){
 		players=new ArrayList<Player>();
+
+
+		server= new Server();
+
+		server.startServer();
+
+		ServerEventListeners serverEventListeners= new ServerEventListeners(this);
+		serverEventListeners.addServerEventListeners(server.getServerSocket());
+
+
+
 	}
 
 
@@ -35,8 +52,8 @@ public class World {
 
 		attacker.attackOtherPlayer(attackee);
 
-		Server.updatePlayer(attacker);
-		Server.updatePlayer(attackee);
+		server.updatePlayer(attacker);
+		server.updatePlayer(attackee);
 	}
 
 	public Player getPlayerById(final String id){
@@ -120,10 +137,10 @@ public class World {
 					oPlayer.removeNearbyPlayer(player);
 				}
 			}
-			Server.updateNearbyPlayers(oPlayer);
+			server.updateNearbyPlayers(oPlayer);
 		}
 
-		Server.updateNearbyPlayers(player);
+		server.updateNearbyPlayers(player);
 	}
 
 

@@ -2,7 +2,7 @@ package GameModel.ServerController.EventListeners;
 
 import GameModel.Player.GeoPos;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
-import GameModel.World;
+import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;

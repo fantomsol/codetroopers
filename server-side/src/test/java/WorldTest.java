@@ -1,7 +1,7 @@
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
-import GameModel.World;
+import GameModel.WorldPackage.World;
 import org.junit.Test;
 
 /**
