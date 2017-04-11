@@ -57,6 +57,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
         map.setMinZoomPreference(22);
         map.setMaxZoomPreference(22);
 
+        /*
         Double lat=0.0,lng=0.0;
         try {
 
@@ -69,20 +70,20 @@ public class GoogleMapHandler implements OnMapReadyCallback {
 
         LatLng pos=new LatLng(lat,lng);
 
+*/
+        playerMarker= map.addMarker(new MarkerOptions().title("Player").position(new LatLng(0,0)).icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
 
-        playerMarker= map.addMarker(new MarkerOptions().title("Player").position(pos).icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
-
-      //  map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+      map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         
 
-        applyDarkStyle();
+      //  applyDarkStyle();
 
         map.setOnMarkerClickListener(new AttackOpponentListener());
     }
 
 
     public void goToLocation(Location location){
-        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(location.getLatitude(),location.getLongitude())));
+
         pinPlayer();
         Log.i("camera","change location to "+location.getLatitude()+":"+location.getLongitude());
     }
@@ -143,7 +144,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
     }
 
     private Marker playerMarker;
-    private void pinPlayer(){
+    public void pinPlayer(){
 
         Double lat=0.0,lng=0.0;
         try {
@@ -155,11 +156,21 @@ public class GoogleMapHandler implements OnMapReadyCallback {
             e.printStackTrace();
         }
 
-        LatLng pos=new LatLng(lat,lng);
+        final LatLng pos=new LatLng(lat,lng);
 
 
-        playerMarker.setPosition(pos);
-        Log.i("camera","change location to "+lat+":"+lng);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                playerMarker.setPosition(pos);
+
+                map.moveCamera(CameraUpdateFactory.newLatLng(pos));
+
+            }
+        });
+
+        Log.i("player","change location to "+lat+":"+lng);
 
     }
 

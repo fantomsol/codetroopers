@@ -142,6 +142,7 @@ public class Server {
 		p1.goOnline();
 		//p2.goOnline();
 		p4.goOnline();
+		p4.updatePos(new GeoPos(38.63473,-90.29408));
 
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);

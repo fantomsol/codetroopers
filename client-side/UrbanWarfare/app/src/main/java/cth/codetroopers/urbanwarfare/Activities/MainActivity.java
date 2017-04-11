@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         locationHandler = new LocationHandler(this.getApplicationContext());
 
 
-
+        initGUI();
     }
 
     private void initGUI(){

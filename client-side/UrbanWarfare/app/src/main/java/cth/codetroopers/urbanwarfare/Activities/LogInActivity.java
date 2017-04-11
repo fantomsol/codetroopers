@@ -40,13 +40,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private void launchActivity(){
 
-        try {
-            ClientController.Init();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,LoadingActivity.class));
         finish();
     }
 }

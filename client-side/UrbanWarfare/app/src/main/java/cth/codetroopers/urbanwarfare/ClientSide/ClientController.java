@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
@@ -44,6 +45,9 @@ public class ClientController {
                     if (msg.get("id").equals(playerID)){
                         playerInfo= msg;
                         MainActivity.updateGUI();
+                        if (MainActivity.googleMapHandler!=null) {
+                            MainActivity.googleMapHandler.pinPlayer();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

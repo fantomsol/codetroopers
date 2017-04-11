@@ -31,7 +31,7 @@ public class LocationHandler {
             @Override
             public void onLocationChanged(Location location) {
 
-                MainActivity.googleMapHandler.goToLocation(location);
+              //  MainActivity.googleMapHandler.goToLocation(location);
                 ClientController.changePosition(location);
 
             }

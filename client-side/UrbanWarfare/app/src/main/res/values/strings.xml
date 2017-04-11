@@ -8,4 +8,9 @@
     <string name="log_in">Log in</string>
     <string name="title_activity_testmainact">TESTMAINACT</string>
     <string name="enter_your_id_here">Enter your id here</string>
+
+
+    <string name="establish_connection">Establishing connection to server</string>
+    <string name="signingin">Signing in to server</string>
+    <string name="fetch_information">Fetching player information</string>
 </resources>
