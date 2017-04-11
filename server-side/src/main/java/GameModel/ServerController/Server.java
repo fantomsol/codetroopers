@@ -28,7 +28,11 @@ import java.util.Map;
  */
 public class Server {
 
-	public  Map<Player,SocketIOClient> map= new Hashtable<Player, SocketIOClient>();
+	public Server(){
+		map= new Hashtable<Player, SocketIOClient>();
+	}
+
+	public  Map<Player,SocketIOClient> map;
 
 	 SocketIOServer socketIOServer;
 
@@ -36,41 +40,50 @@ public class Server {
 	 	return socketIOServer;
 	 }
 
+
+	 public void startServer(String hostname, int port){
+		 Configuration config = new Configuration();
+		 config.setHostname(hostname);
+		 config.setPort(port);
+
+
+		 socketIOServer = new SocketIOServer(config);
+
+		 socketIOServer.addConnectListener(new ConnectListener() {
+			 public void onConnect(SocketIOClient socketIOClient) {
+				 System.out.println("Client Connected");
+			 }
+		 });
+
+		 socketIOServer.addDisconnectListener(new DisconnectListener() {
+			 public void onDisconnect(SocketIOClient socketIOClient) {
+
+
+				 for (Map.Entry<Player, SocketIOClient> entry : map.entrySet()) {
+
+					 if (socketIOClient.equals(entry.getValue())){
+						 System.out.println("Removed data for player "+entry.getKey().getID());
+						 map.remove(entry.getKey());
+						 break;
+					 }
+				 }
+
+			 }
+		 });
+
+
+
+		 socketIOServer.start();
+	 }
+
 	 public void startServer(){
-		Configuration config = new Configuration();
-		config.setHostname("127.0.0.1");
-		config.setPort(3000);
-
-
-		socketIOServer = new SocketIOServer(config);
-
-		socketIOServer.addConnectListener(new ConnectListener() {
-			public void onConnect(SocketIOClient socketIOClient) {
-				System.out.println("Client Connected");
-			}
-		});
-
-		socketIOServer.addDisconnectListener(new DisconnectListener() {
-			public void onDisconnect(SocketIOClient socketIOClient) {
-
-
-				for (Map.Entry<Player, SocketIOClient> entry : map.entrySet()) {
-
-					if (socketIOClient.equals(entry.getValue())){
-						System.out.println("Removed data for player "+entry.getKey().getID());
-						map.remove(entry.getKey());
-						break;
-					}
-				}
-
-			}
-		});
-
-
-
-		socketIOServer.start();
+	 	startServer("127.0.0.1",3000);
 	}
 
+
+	public void shutdown(){
+	 	socketIOServer.stop();
+	}
 
 	//Sends data back to the player
 	public  void updateNearbyPlayers(final Player player){

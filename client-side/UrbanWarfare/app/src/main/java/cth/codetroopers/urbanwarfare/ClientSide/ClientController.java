@@ -27,6 +27,37 @@ import io.socket.emitter.Emitter;
 
 public class ClientController {
 
+
+    public static boolean getIsOnline(){
+        try {
+            return playerInfo.getBoolean("online");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+
+    public static void requestChangeRadarStatus(){
+        JSONObject object= new JSONObject();
+
+
+
+
+        try {
+            object.put("playerId",playerID);
+            object.put("wantToGoOnline",!getIsOnline());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        socket.emit("change-radar-status",object);
+    }
+
     public static String playerID;
     public static JSONObject playerInfo;
 

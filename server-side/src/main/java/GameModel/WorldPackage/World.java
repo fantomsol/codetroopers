@@ -29,8 +29,7 @@ public class World {
 
 		server.startServer();
 
-		ServerEventListeners serverEventListeners= new ServerEventListeners(this);
-		serverEventListeners.addServerEventListeners(server.getServerSocket());
+		ServerEventListeners serverEventListeners= new ServerEventListeners(this, server.getServerSocket());
 
 
 
@@ -78,6 +77,20 @@ public class World {
 		System.out.println(players.size());
 
 		if (!player.isOnline()){
+
+			//Remove the player from their nearby players' lists
+			for (Player op:player.getPlayersNearby()){
+				op.getPlayersNearby().remove(player);
+				//update the other player's nearby list
+				server.updateNearbyPlayers(op);
+			}
+
+			//someone who's offline cannot see anyone
+			player.getPlayersNearby().clear();
+			//update the player's nearby list
+			server.updateNearbyPlayers(player);
+
+			//no need to do anything else
 			return;
 		}
 

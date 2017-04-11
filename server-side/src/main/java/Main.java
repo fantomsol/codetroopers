@@ -15,7 +15,6 @@ public class Main {
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);
 
-		p1.goOnline();
 		p2.goOnline();
 
 		p2.updatePos(new GeoPos(38.63473,-90.29408));

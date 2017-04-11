@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     static TextView txtName;
     static ProgressBar progressHp;
+    static ImageButton radarButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
     private void initGUI(){
         txtName = (TextView) findViewById(R.id.txtName);
         progressHp = (ProgressBar) findViewById(R.id.progressHp);
+        radarButton= (ImageButton) findViewById(R.id.radarButton);
+
+
+        radarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ClientController.requestChangeRadarStatus();
+            }
+        });
     }
 
 
@@ -70,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String name="NAME";
                     Integer hp= 0;
-
+                    Boolean onlineStatus=false;
 
                     try {
                         name=ClientController.playerInfo.getString("id");
                         hp=ClientController.playerInfo.getInt("hp");
+                        onlineStatus=ClientController.playerInfo.getBoolean("online");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -82,6 +94,14 @@ public class MainActivity extends AppCompatActivity {
 
                     txtName.setText(name);
                     progressHp.setProgress(hp);
+
+                    if (onlineStatus){
+                        radarButton.setImageResource(R.drawable.visible);
+                    }
+                    else {
+                        radarButton.setImageResource(R.drawable.invisible);
+                    }
+
                 }
             });
         }

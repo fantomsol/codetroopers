@@ -197,7 +197,7 @@ public class Player {
 	private transient List<Player> playersNearby= new ArrayList<Player>();
 
 	public List<Player> getPlayersNearby(){
-		return new ArrayList<Player>(this.playersNearby);
+		return (this.playersNearby);
 	}
 
 	public void addNearbyPlayer(Player player){
@@ -206,5 +206,19 @@ public class Player {
 
 	public void removeNearbyPlayer(Player player){
 		this.playersNearby.remove(player);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Player)) {
+			return false;
+		}
+		Player other = (Player) o;
+		return this.id.equals(other.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
 	}
 }
