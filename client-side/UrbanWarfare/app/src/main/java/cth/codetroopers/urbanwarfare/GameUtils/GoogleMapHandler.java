@@ -2,6 +2,7 @@ package cth.codetroopers.urbanwarfare.GameUtils;
 
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Handler;
 import android.os.Looper;
@@ -12,11 +13,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -33,8 +37,9 @@ import cth.codetroopers.urbanwarfare.R;
 
 public class GoogleMapHandler implements OnMapReadyCallback {
 
-    private GoogleMap map;
+     private GoogleMap map;
     private FragmentActivity context;
+
 
     public GoogleMapHandler(FragmentActivity context){
 
@@ -57,28 +62,22 @@ public class GoogleMapHandler implements OnMapReadyCallback {
         map.setMinZoomPreference(22);
         map.setMaxZoomPreference(22);
 
-        /*
-        Double lat=0.0,lng=0.0;
-        try {
-
-            lat=(Double) ClientController.playerInfo.getJSONObject("geoPos").get("latitude");
-            lng= (Double) ClientController.playerInfo.getJSONObject("geoPos").get("longitude");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        LatLng pos=new LatLng(lat,lng);
-
-*/
         playerMarker= map.addMarker(new MarkerOptions().title("Player").position(new LatLng(0,0)).icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
 
       map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         
 
-      //  applyDarkStyle();
+       applyDarkStyle();
+
+
+
+        OpponentIconGenerator.setContext(this.context);
+
 
         map.setOnMarkerClickListener(new AttackOpponentListener());
+
+
+
     }
 
 
@@ -117,24 +116,29 @@ public class GoogleMapHandler implements OnMapReadyCallback {
                 for (JSONObject opponent:ClientController.opponents){
                     Double lat=0.0,lng=0.0;
                     String op_id="Secret";
+                    Integer hp=100;
+                    BitmapDescriptor descriptor= BitmapDescriptorFactory.defaultMarker();
                     try {
 
                         lat=(Double) opponent.getJSONObject("geoPos").get("latitude");
                         lng= (Double) opponent.getJSONObject("geoPos").get("longitude");
-                        op_id=(String) opponent.get("id");
 
-                    } catch (JSONException e) {
+                        descriptor= OpponentIconGenerator.getInstance().generateFromPlayer(opponent);
+
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     LatLng pos=new LatLng(lat,lng);
 
+
                     Marker marker = map.addMarker(new MarkerOptions().position(pos).title(op_id)
-                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.opponent)));
+                            .icon(descriptor));
 
                     marker.setTag(opponent);
 
                     opponentsMarkers.add(marker);
+                    //marker.showInfoWindow();
                 }
 
             }
@@ -164,7 +168,6 @@ public class GoogleMapHandler implements OnMapReadyCallback {
             @Override
             public void run() {
                 playerMarker.setPosition(pos);
-
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
 
             }

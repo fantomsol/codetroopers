@@ -1,5 +1,7 @@
 package cth.codetroopers.urbanwarfare.GameUtils;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -16,10 +18,14 @@ import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
     @Override
     public boolean onMarkerClick(Marker marker) {
+        Log.i("attack","attack dettected");
+
         if (marker.getTag()==null){
             //Player is attacking himself(xerself, hahaha, not an SJW - TRUMP 2016)
         }else {
             JSONObject opponent = (JSONObject) marker.getTag();
+
+
 
             String opponentID= null;
 

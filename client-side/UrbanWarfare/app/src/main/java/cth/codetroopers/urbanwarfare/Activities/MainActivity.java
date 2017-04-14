@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     public static GoogleMapHandler googleMapHandler;
     public static LocationHandler locationHandler;
 
+    public static View mapFragment;
 
     static TextView txtName;
     static ProgressBar progressHp;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         initGUI();
+
+
     }
 
     private void initGUI(){
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         progressHp = (ProgressBar) findViewById(R.id.progressHp);
         radarButton= (ImageButton) findViewById(R.id.radarButton);
 
+        mapFragment = findViewById(R.id.map);
 
         radarButton.setOnClickListener(new View.OnClickListener() {
             @Override

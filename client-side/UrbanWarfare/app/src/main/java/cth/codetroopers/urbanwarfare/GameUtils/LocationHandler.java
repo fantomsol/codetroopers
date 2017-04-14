@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
@@ -33,6 +34,7 @@ public class LocationHandler {
 
               //  MainActivity.googleMapHandler.goToLocation(location);
                 ClientController.changePosition(location);
+                Log.i("gps","change in location detected");
 
             }
 
@@ -63,6 +65,6 @@ public class LocationHandler {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationManager.requestLocationUpdates("gps", 500, 0.5f, locationListener);
+        locationManager.requestLocationUpdates("gps", 500, 0.0001f, locationListener);
     }
 }

@@ -51,7 +51,7 @@ public class World {
 
 		attacker.attackOtherPlayer(attackee);
 
-		server.updatePlayer(attacker);
+		server.updateNearbyPlayers(attacker);
 		server.updatePlayer(attackee);
 	}
 

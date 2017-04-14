@@ -17,6 +17,7 @@ import java.util.concurrent.TimeoutException;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
+import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -27,6 +28,10 @@ import io.socket.emitter.Emitter;
 
 public class ClientController {
 
+    private static LoadingActivityInterface loadingActivity;
+    public static void subscribeLoadingActivity(LoadingActivityInterface activity){
+        loadingActivity=activity;
+    }
 
     public static boolean getIsOnline(){
         try {
@@ -74,11 +79,16 @@ public class ClientController {
 
                 try {
                     if (msg.get("id").equals(playerID)){
+
+                        if (playerInfo==null){
+                            loadingActivity.onDataFetched();
+                        }
                         playerInfo= msg;
                         MainActivity.updateGUI();
                         if (MainActivity.googleMapHandler!=null) {
                             MainActivity.googleMapHandler.pinPlayer();
                         }
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -106,17 +116,21 @@ public class ClientController {
 
     public static void Init() throws URISyntaxException {
         socket = IO.socket("http://10.0.2.2:3000");
+
+
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 Log.i("information","CONNECTED");
+                loadingActivity.onConnected();
             }
         });
 
         addListeners();
         socket.connect();
-        signIn(ClientController.playerID);
+
     }
+
 
     public static void changePosition(Location position){
 
@@ -150,6 +164,7 @@ public class ClientController {
             e.printStackTrace();
         }
 
+        loadingActivity.onSignedin();
 
     }
 
