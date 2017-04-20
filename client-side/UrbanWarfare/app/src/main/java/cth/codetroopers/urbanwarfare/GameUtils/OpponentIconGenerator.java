@@ -22,6 +22,31 @@ import cth.codetroopers.urbanwarfare.R;
 
 /**
  * Created by latiif on 4/14/17.
+ *
+ * This class servers as a some type of a factory.
+ * We send in the JSON object of a player, and it returns a marker that can be placed on the map.
+ * To do so, we use an external library that does have an IconGenerator class, and instead of passing it a simple image to be parsed as a maker, we pass it a view to be processed as a marker.
+ *
+ * To pass a view we first need to parse the xml file named opponent_info.xml to a View object.
+ * To do so, we use something called LayoutInflater.
+ *
+ * For this class we use the Factory Pattern.
+ */
+
+/*
+USEFUL READS:
+*
+* LayoutInflater:
+* https://developer.android.com/reference/android/view/LayoutInflater.html
+*
+* A nice thread on StackOverflow: http://stackoverflow.com/questions/3477422/what-does-layoutinflater-in-android-do
+*
+*
+*Google Maps Android API utility library:
+* http://googlemaps.github.io/android-maps-utils/
+*
+* This library contains many useful classes to faciliate the manipulation of Google Maps in general and markers especially.
+ * DO WATCH the example video on that page.
  */
 
 public class OpponentIconGenerator {
@@ -41,27 +66,41 @@ public class OpponentIconGenerator {
 
     private OpponentIconGenerator(){
         iconGenerator= new IconGenerator(context);
-        //Make background trasparent
+        //Make background transparent
         iconGenerator.setBackground(null);
     }
 
 
-
+    /**
+     * We transform a player into a bitmap that can be placed on the map as a marker
+     * @param player the JSON object containing the player's data.
+     * @return A BitMapDescriptor object that can be placed on the map directly.
+     * @throws Exception If the context has not been set yet.
+     */
     public BitmapDescriptor generateFromPlayer(JSONObject player) throws Exception {
         if (context==null){
             throw new Exception("No context set");
         }
 
+        //We inflate the xml file named opponent_info.xml into the map of MainActivity
         View view= inflater.inflate(R.layout.opponent_info, (ViewGroup) MainActivity.mapFragment,false);
 
+        //Grab a handle of the elements in the xml file
         TextView txtName= (TextView)  view.findViewById(R.id.txtNameOpponent);
         ProgressBar prgHp= (ProgressBar) view.findViewById(R.id.prgHp);
 
+
+        //Fill in the elements with the corresponding information from the player JSON object
         txtName.setText(player.getString("id"));
         prgHp.setProgress(player.getInt("hp"));
 
+        //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);
 
+        //Finally, we return the icon made by the icon generator as a BitMapDescriptor
+        /*
+        BitMap descriptor is the type that google maps uses to deal with bitmaps, they can be created by using the static method BitMapDescriptorFactory.fromBitmap(...)
+         */
         return BitmapDescriptorFactory.fromBitmap(iconGenerator.makeIcon());
 
     }
