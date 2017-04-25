@@ -18,7 +18,7 @@ public class AssaultRifle extends Weapon {
     }
 
     public Integer getRange() {
-        return 15;
+        return 13;
     }
 
     public Integer getCooldown() {
