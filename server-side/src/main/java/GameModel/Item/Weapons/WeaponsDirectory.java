@@ -8,4 +8,8 @@ public final class WeaponsDirectory {
 	}
 
 	public final static Integer PISTOL = 1;
+
+	public final static Integer SNIPER = 2;
+
+	public final static Integer ASSAULT_RIFLE=3;
 }

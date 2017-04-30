@@ -11,8 +11,12 @@ public class ArmoursFactory {
 
 	public static Armour createArmour(Integer id){
 
-		if (id==1){
+		if (id==ArmoursDirectory.SHIELD_OF_VALOR){
 			return new ShieldOfValor();
+		}
+
+		if(id==ArmoursDirectory.RIGHTEOUS_GLORY){
+			return new RighteousGlory();
 		}
 
 

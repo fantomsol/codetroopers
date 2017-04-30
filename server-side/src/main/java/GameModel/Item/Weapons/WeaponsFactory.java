@@ -6,10 +6,17 @@ package GameModel.Item.Weapons;
 public class WeaponsFactory {
 
 	public static Weapon createWeapon(Integer id){
-		if (id==1){
+		if (id==WeaponsDirectory.PISTOL){
 			return new Pistol();
 		}
 
+		if (id==WeaponsDirectory.SNIPER){
+			return new Sniper();
+		}
+
+		if (id==WeaponsDirectory.ASSAULT_RIFLE){
+			return new AssaultRifle();
+		}
 
 		throw new IllegalArgumentException("Weapons with id:" + id+" cannot be found");
 	}

@@ -6,4 +6,5 @@ package GameModel.Item.Armours;
  */
 public final class ArmoursDirectory {
 	public final static Integer SHIELD_OF_VALOR=1;
+	public final static Integer RIGHTEOUS_GLORY = 2;
 }
