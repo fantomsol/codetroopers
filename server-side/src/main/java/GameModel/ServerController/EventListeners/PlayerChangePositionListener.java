@@ -3,6 +3,7 @@ package GameModel.ServerController.EventListeners;
 import GameModel.Player.GeoPos;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
 import GameModel.WorldPackage.World;
+import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;
@@ -10,21 +11,19 @@ import com.corundumstudio.socketio.listener.DataListener;
 /**
  * Created by latiif on 4/1/17.
  */
-public class PlayerChangePositionListener implements DataListener<PlayerChangePositionEvent>{
+public class PlayerChangePositionListener extends EventListener implements DataListener<PlayerChangePositionEvent>{
 
-	private World thisWorld;
 
-	public PlayerChangePositionListener(final  World world){
-		thisWorld= world;
+	public PlayerChangePositionListener(IMediator mediator) {
+		super(mediator);
 	}
 
-
 	public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent playerChangePositionEvent, AckRequest ackRequest) throws Exception {
-		thisWorld.playerChangePos(
+		mediator.playerChangePos(
 				playerChangePositionEvent.getId(),
 				new GeoPos(playerChangePositionEvent.getLat(),playerChangePositionEvent.getLang())
 		);
 
-		System.out.println(thisWorld.getPlayerById(playerChangePositionEvent.getId()));
+		System.out.println(mediator.getPlayerById(playerChangePositionEvent.getId()));
 	}
 }

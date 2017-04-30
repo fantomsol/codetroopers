@@ -1,16 +1,8 @@
 package GameModel.ServerController;
 
-import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
-import GameModel.ServerController.EventListeners.AttackEventListener;
-import GameModel.ServerController.EventListeners.GetPlayerInfoListener;
-import GameModel.ServerController.EventListeners.PlayerChangePositionListener;
-import GameModel.ServerController.EventListeners.SigninListener;
-import GameModel.ServerController.EventObjects.AttackEvent;
-import GameModel.ServerController.EventObjects.GetPlayerInfoEvent;
-import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
-import GameModel.ServerController.EventObjects.SigninEvent;
-import GameModel.WorldPackage.World;
+
+import Mediator.ServerModelMediator;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -26,10 +18,14 @@ import java.util.Map;
 /**
  * Created by latiif on 3/20/17.
  */
-public class Server {
+public class Server implements IServer {
+
+
 
 	public Server(){
 		map= new Hashtable<Player, SocketIOClient>();
+
+
 	}
 
 	public  Map<Player,SocketIOClient> map;
@@ -107,6 +103,17 @@ public class Server {
 		}
 	}
 
+	private ServerModelMediator mediator;
+	public void setMediator(ServerModelMediator serverModelMediator) {
+
+		mediator=serverModelMediator;
+		new ServerEventListeners(mediator,getServerSocket());
+	}
+
+	public void playerSignin(Player p, SocketIOClient socketIOClient) {
+		map.put(p,socketIOClient);
+	}
+
 	public <T> JsonArray list2JsonArray(List<T> list){
 
 		JsonArray res= new JsonArray();
@@ -118,26 +125,4 @@ public class Server {
 		return res;
 	}
 
-	public static void main(String[] args) {
-/*
-		startServer();
-
-		Player p1=new Player("Llusx",new GeoPos(0.0,0.0));
-		Player p2= new Player("test",new GeoPos(0.0,0.0));
-		Player p3= new Player("Lucky",new GeoPos(0.0,0.0));
-		Player p4= new Player("Jade",new GeoPos(0.0,0.0));
-
-
-		p1.goOnline();
-		//p2.goOnline();
-		p4.goOnline();
-		p4.updatePos(new GeoPos(38.63473,-90.29408));
-
-		world.registerPlayer(p1);
-		world.registerPlayer(p2);
-		world.registerPlayer(p3);
-		world.registerPlayer(p4);
-
-*/
-	}
 }

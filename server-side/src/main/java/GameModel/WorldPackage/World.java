@@ -3,7 +3,7 @@ package GameModel.WorldPackage;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
-import GameModel.ServerController.Server;
+import Mediator.ServerModelMediator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,25 +13,23 @@ import java.util.List;
  */
 public class World {
 
+
+	private ServerModelMediator mediator;
+
+
 	private List<Player> players;
 
-	private Server server;
-
-	public Server getServer(){
-		return server;
+	public void setMediator(ServerModelMediator mediator){
+		this.mediator= mediator;
 	}
 
-	public World(){
-		players=new ArrayList<Player>();
 
 
-		server= new Server();
-
-		server.startServer();
-
-		ServerEventListeners serverEventListeners= new ServerEventListeners(this, server.getServerSocket());
 
 
+	//Dependency is injected on constructor
+	public World() {
+		players = new ArrayList<Player>();
 
 	}
 
@@ -51,8 +49,8 @@ public class World {
 
 		attacker.attackOtherPlayer(attackee);
 
-		server.updateNearbyPlayers(attacker);
-		server.updatePlayer(attackee);
+		mediator.updateNearbyPlayers(attacker);
+		mediator.updatePlayer(attackee);
 	}
 
 	public Player getPlayerById(final String id){
@@ -82,13 +80,13 @@ public class World {
 			for (Player op:player.getPlayersNearby()){
 				op.getPlayersNearby().remove(player);
 				//update the other player's nearby list
-				server.updateNearbyPlayers(op);
+				mediator.updateNearbyPlayers(op);
 			}
 
 			//someone who's offline cannot see anyone
 			player.getPlayersNearby().clear();
 			//update the player's nearby list
-			server.updateNearbyPlayers(player);
+			mediator.updateNearbyPlayers(player);
 
 			//no need to do anything else
 			return;
@@ -150,10 +148,10 @@ public class World {
 					oPlayer.removeNearbyPlayer(player);
 				}
 			}
-			server.updateNearbyPlayers(oPlayer);
+			mediator.updateNearbyPlayers(oPlayer);
 		}
 
-		server.updateNearbyPlayers(player);
+		mediator.updateNearbyPlayers(player);
 	}
 
 

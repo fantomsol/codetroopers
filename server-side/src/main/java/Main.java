@@ -1,6 +1,8 @@
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
+import GameModel.ServerController.Server;
 import GameModel.WorldPackage.World;
+import Mediator.ServerModelMediator;
 
 /**
  * Created by latiif on 4/11/17.
@@ -8,6 +10,12 @@ import GameModel.WorldPackage.World;
 public class Main {
 	public static void main(String[] args) {
 		World world= new World();
+
+		Server server= new Server();
+		server.startServer();
+
+		ServerModelMediator modelMediator= new ServerModelMediator(server,world);
+
 
 		Player p1= new Player("llusx",new GeoPos(0.0,0.0));
 		Player p2=new Player("sara",new GeoPos(0.0,0.0));

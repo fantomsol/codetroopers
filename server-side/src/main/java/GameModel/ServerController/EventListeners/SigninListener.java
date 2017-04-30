@@ -3,6 +3,7 @@ package GameModel.ServerController.EventListeners;
 import GameModel.ServerController.EventObjects.SigninEvent;
 import GameModel.ServerController.Server;
 import GameModel.WorldPackage.World;
+import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;
@@ -10,17 +11,15 @@ import com.corundumstudio.socketio.listener.DataListener;
 /**
  * Created by latiif on 4/1/17.
  */
-public class SigninListener implements DataListener<SigninEvent> {
+public class SigninListener extends EventListener implements DataListener<SigninEvent> {
 
-	private World thisWorld;
 
-	public SigninListener(World world){
-		thisWorld= world;
+	public SigninListener(IMediator mediator) {
+		super(mediator);
 	}
-
 
 	public void onData(SocketIOClient socketIOClient, SigninEvent signinEvent, AckRequest ackRequest) throws Exception {
 
-		thisWorld.getServer().map.put(thisWorld.getPlayerById(signinEvent.getId()),socketIOClient);
+		mediator.playerSignin(mediator.getPlayerById(signinEvent.getId()),socketIOClient);
 	}
 }

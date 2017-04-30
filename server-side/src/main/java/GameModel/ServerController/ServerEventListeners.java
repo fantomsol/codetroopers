@@ -1,7 +1,9 @@
-package GameModel.WorldPackage;
+package GameModel.ServerController;
 
 import GameModel.ServerController.EventListeners.*;
 import GameModel.ServerController.EventObjects.*;
+import GameModel.WorldPackage.World;
+import Mediator.IMediator;
 import com.corundumstudio.socketio.SocketIOServer;
 
 /**
@@ -9,11 +11,11 @@ import com.corundumstudio.socketio.SocketIOServer;
  */
 class ServerEventListeners {
 
-	private World world;
+	private IMediator mediator;
 
-	ServerEventListeners (World world, SocketIOServer socketIOServer){
+	ServerEventListeners (IMediator mediator,SocketIOServer socketIOServer){
 
-		this.world=world;
+		this.mediator=mediator;
 		addServerEventListeners(socketIOServer);
 
 	}
@@ -22,33 +24,33 @@ class ServerEventListeners {
 		socketIOServer.addEventListener(
 				"attack",
 				AttackEvent.class,
-				new AttackEventListener(world)
+				new AttackEventListener(mediator)
 		);
 
 		socketIOServer.addEventListener(
 				"signin",
 				SigninEvent.class,
-				new SigninListener(world)
+				new SigninListener(mediator)
 		);
 
 
 		socketIOServer.addEventListener(
 				"position-changed",
 				PlayerChangePositionEvent.class,
-				new PlayerChangePositionListener(world)
+				new PlayerChangePositionListener(mediator)
 		);
 
 
 		socketIOServer.addEventListener(
 				"get-player-info",
 				GetPlayerInfoEvent.class,
-				new GetPlayerInfoListener(world)
+				new GetPlayerInfoListener(mediator)
 		);
 
 		socketIOServer.addEventListener(
 				"change-radar-status",
 				ChangeRadarStateEvent.class,
-				new ChangeRadarStateListener(world)
+				new ChangeRadarStateListener(mediator)
 		);
 	}
 
