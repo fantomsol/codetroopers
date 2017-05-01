@@ -43,10 +43,79 @@ public class Player {
 		this.gold+=amount;
 	}
 
+
+	private boolean hasItem(Item item){
+
+		for(Weapon weapon: weapons){
+			if (weapon.getName().equals(item.getName())){
+				return true;
+			}
+		}
+
+
+		for (Armour armour:armours){
+			if (armour.getName().equals(item.getName())){
+				return true;
+			}
+		}
+
+
+		return false;
+	}
+	public void sellItem(Item item, Integer refund){
+		if (!hasItem(item)){
+			return;
+		}
+
+		grantGold(refund);
+
+		if (item instanceof  Weapon){
+			removeFromWeapons((Weapon) item);
+		}
+		if (item instanceof Armour){
+			removeFromArmours((Armour) item);
+		}
+	}
+
+	private void removeFromArmours(Armour armour){
+		for (Armour a:armours){
+			if (a.getName().equals(armour.getName())){
+				armours.remove(a);
+				break;
+			}
+		}
+	}
+
+	private void removeFromWeapons(Weapon weapon){
+
+		boolean shouldSwitch=false;
+		if (weaponEquipped.getName().equals(weapon.getName())){
+			shouldSwitch=true;
+		}
+
+		for (Weapon w:weapons){
+			if (w.getName().equals(weapon.getName())){
+				weapons.remove(w);
+				break;
+			}
+		}
+
+
+		if (shouldSwitch && weapons.size()>0){
+			weaponEquipped=weapons.get(0);
+		}
+
+	}
+
 	public void buyItem(Item item){
 		if (item.getCost()>this.gold){
 			return;
 		}
+		if (hasItem(item)){
+			return;
+		}
+
+
 
 		this.gold-=item.getCost();
 		if (item instanceof Weapon){//We know its a weapon

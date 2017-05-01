@@ -36,4 +36,6 @@ public abstract class Weapon implements WeaponInterface {
 	public String getItemType() {
 		return this.getClass().getName();
 	}
+
+
 }

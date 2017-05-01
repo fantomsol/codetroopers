@@ -41,6 +41,39 @@ public class ShopTest {
 
         shop.buyItem(p1,new Sniper());
 
-      //  Assert.assertTrue(p1.getGold()==new Integer(0));
+       // Assert.assertTrue(p1.getGold()==new Integer(0));
+    }
+
+    @Test
+    public void itemSellTest(){
+        Player p1 =  new Player("hugo",new GeoPos(0.0,0.0));
+        IShop shop = new Shop();
+
+        Sniper sniper= new Sniper();
+
+        p1.grantGold(100);
+
+        shop.buyItem(p1, sniper);
+
+
+        p1.weaponEquipped=sniper;
+
+        Assert.assertTrue(p1.weaponEquipped.getId()==WeaponsDirectory.SNIPER);
+
+        shop.sellItem(p1,sniper);
+
+
+
+
+        Assert.assertTrue(p1.getGold()==100);
+
+
+
+        Assert.assertTrue(p1.weaponEquipped.getId()==WeaponsDirectory.PISTOL);
+
+
+
+
+
     }
 }

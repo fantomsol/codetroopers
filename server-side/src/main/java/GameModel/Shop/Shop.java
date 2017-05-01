@@ -35,6 +35,6 @@ public class Shop implements IShop {
     }
 
     public void sellItem(Player player, Item item) {
-
+        player.sellItem(item,new Double(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
     }
 }
