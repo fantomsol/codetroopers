@@ -7,6 +7,9 @@ public final class WeaponsDirectory {
 	private WeaponsDirectory(){
 	}
 
+	//Make sure to keep it up to date
+	public final static Integer NUMBER_OF_WEAPONS=3;
+
 	public final static Integer PISTOL = 1;
 
 	public final static Integer SNIPER = 2;

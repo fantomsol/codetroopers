@@ -38,7 +38,7 @@ public class Player {
 	private Boolean isAlive;
 
 
-	public WeaponInterface weaponInHand;
+	public WeaponInterface weaponEquipped;
 
 	private final String id;
 
@@ -72,7 +72,7 @@ public class Player {
 		updateArmourValue();
 
 		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.PISTOL));
-		weaponInHand=weapons.get(0);
+		weaponEquipped =weapons.get(0);
 
 
 	}
@@ -113,7 +113,7 @@ public class Player {
 		if (!otherPlayer.getIsAlive()){
 			return;
 		}
-		Integer damage= this.weaponInHand.fireWeapon();
+		Integer damage= this.weaponEquipped.fireWeapon();
 		if (damage==0){
 			return;
 		}

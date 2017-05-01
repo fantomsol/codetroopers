@@ -1,11 +1,18 @@
 package GameModel.Item.Armours;
 
+import java.util.List;
+
 /**
  * Created by latiif on 3/22/17.
  */
 public class ArmoursFactory {
 
-	private ArmoursFactory(){}
+
+	private ArmoursFactory(){
+
+	}
+
+
 
 
 

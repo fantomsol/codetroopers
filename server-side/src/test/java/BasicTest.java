@@ -58,9 +58,9 @@ public class BasicTest {
 
 		player.attackOtherPlayer(new Player("dummy"));
 
-		Thread.sleep(player.weaponInHand.getCooldown()*1000-100);
+		Thread.sleep(player.weaponEquipped.getCooldown()*1000-100);
 
-		Assert.assertTrue(player.weaponInHand.getIsOnCooldown());
+		Assert.assertTrue(player.weaponEquipped.getIsOnCooldown());
 
 	}
 
