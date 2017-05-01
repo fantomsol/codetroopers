@@ -1,6 +1,6 @@
 package GameModel.Player;
 
-import java.util.function.DoubleToLongFunction;
+
 
 /**
  * Created by latiif on 4/1/17.
@@ -8,7 +8,7 @@ import java.util.function.DoubleToLongFunction;
 public class PlayerConstants {
 
 	final static Double MAX_HEALTH = new Double(100);
-	final static Integer START_GOLD = new Integer(1000);
+	final static Integer START_GOLD = new Integer(100);
 
 	//Vision in meters
 	final static Integer START_VISION = new Integer(10);

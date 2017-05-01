@@ -31,7 +31,7 @@ public class Shop implements IShop {
     }
 
     public void buyItem(Player player, Item item) {
-
+        player.buyItem(item);
     }
 
     public void sellItem(Player player, Item item) {

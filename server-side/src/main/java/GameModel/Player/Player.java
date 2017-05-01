@@ -5,6 +5,7 @@ import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.Armour;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Armours.ArmoursFactory;
+import GameModel.Item.Item;
 import GameModel.Item.Weapons.Weapon;
 import GameModel.Item.Weapons.WeaponInterface;
 import GameModel.Item.Weapons.WeaponsDirectory;
@@ -38,6 +39,27 @@ public class Player {
 	private Boolean isAlive;
 
 
+	public void grantGold(Integer amount){
+		this.gold+=amount;
+	}
+
+	public void buyItem(Item item){
+		if (item.getCost()>this.gold){
+			return;
+		}
+
+		this.gold-=item.getCost();
+		if (item instanceof Weapon){//We know its a weapon
+			Weapon weaponBought = (Weapon)item;
+			weapons.add(weaponBought);
+		}
+		else if (item instanceof Armour){
+			Armour armourBought = (Armour) item;
+			armours.add(armourBought);
+			updateArmourValue();
+		}
+
+	}
 	public WeaponInterface weaponEquipped;
 
 	private final String id;
@@ -191,6 +213,10 @@ public class Player {
 
 	public Integer getVision(){
 		return this.vision;
+	}
+
+	public Integer getGold(){
+		return gold;
 	}
 
 	@JsonIgnore
