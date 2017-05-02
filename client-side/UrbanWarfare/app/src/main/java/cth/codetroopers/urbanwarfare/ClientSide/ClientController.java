@@ -301,6 +301,20 @@ public class ClientController {
 
     }
 
+    public static void changeWeapon(WeaponSkeleton weaponSkeleton){
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("weapon-id",weaponSkeleton.getId());
+
+            socket.emit("change-weapon",object);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     /**
      * Send an "attack" event to the server to handle it.
