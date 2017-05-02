@@ -11,6 +11,8 @@ import GameModel.Item.Weapons.WeaponInterface;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,9 @@ public class Player {
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
 	private Integer offlineCooldown=PlayerConstants.START_VISION;
-	private List<Weapon> weapons;
+
+	@JsonProperty
+	private List<Weapon> weapons = new ArrayList<Weapon>();
 	private List<Armour> armours;
 	private Boolean isAlive;
 
@@ -157,7 +161,7 @@ public class Player {
 
 
 		armours= new ArrayList<Armour>();
-		weapons= new ArrayList<Weapon>();
+		//weapons= new ArrayList<Weapon>();
 
 		armours.add(ArmoursFactory.createArmour(ArmoursDirectory.SHIELD_OF_VALOR));
 		updateArmourValue();
