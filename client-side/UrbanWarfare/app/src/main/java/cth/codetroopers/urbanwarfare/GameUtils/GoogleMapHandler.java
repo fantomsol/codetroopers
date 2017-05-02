@@ -90,7 +90,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
 
         //needs to be revised to decide the most visually appealing map type
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+       // map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
 
         //Are we gonna use dark theme?

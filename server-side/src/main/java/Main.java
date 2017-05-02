@@ -25,6 +25,6 @@ public class Main {
 
 		p2.goOnline();
 
-		p2.updatePos(new GeoPos(38.63473,-90.29408));
+			p2.updatePos(new GeoPos(38.63473,-90.29408));
 	}
 }

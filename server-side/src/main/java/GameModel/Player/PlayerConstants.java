@@ -11,7 +11,7 @@ public class PlayerConstants {
 	final static Integer START_GOLD = new Integer(100);
 
 	//Vision in meters
-	final static Integer START_VISION = new Integer(10);
+	final static Integer START_VISION = new Integer(250);
 
 
 	//Offline cooldown in seconds
