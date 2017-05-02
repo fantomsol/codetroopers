@@ -305,10 +305,11 @@ public class ClientController {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("weapon-id",weaponSkeleton.getId());
+            object.put("playerId",playerID);
+            object.put("weaponId",weaponSkeleton.getId());
 
             socket.emit("change-weapon",object);
-
+            Log.i("request","request to change weapon sent");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -15,5 +15,7 @@ public interface IMediator {
 	void playerChangePos(String id, GeoPos pos);
 	Player getPlayerById(String id);
 
+	void changeWeapon(String  playerId,Integer weaponID);
+
 	void playerSignin(Player p, SocketIOClient socketIOClient);
 }

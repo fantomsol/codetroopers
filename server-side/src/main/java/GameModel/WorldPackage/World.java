@@ -24,7 +24,11 @@ public class World {
 	}
 
 
-
+	public void changeWeapon(String playerId,Integer weaponID){
+		Player p=getPlayerById(playerId);
+		p.switchWeapon(weaponID);
+		mediator.updatePlayer(p);
+	}
 
 
 	//Dependency is injected on constructor

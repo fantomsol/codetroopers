@@ -43,6 +43,15 @@ public class Player {
 	private Boolean isAlive;
 
 
+	public void switchWeapon(Integer weaponID){
+		for (Weapon weapon:weapons){
+			if (weapon.getId()==weaponID){
+				weaponEquipped=weapon;
+				return;
+			}
+		}
+	}
+
 	public void grantGold(Integer amount){
 		this.gold+=amount;
 	}

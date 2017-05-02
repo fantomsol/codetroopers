@@ -55,7 +55,10 @@ public class ChooseWeapon extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 WeaponSkeleton weapon = (WeaponSkeleton) adapterView.getItemAtPosition(i);
 
+
                 ClientController.changeWeapon(weapon);
+                Log.i("click","request to change weapon is being requested");
+                finish();
 
             }
         });

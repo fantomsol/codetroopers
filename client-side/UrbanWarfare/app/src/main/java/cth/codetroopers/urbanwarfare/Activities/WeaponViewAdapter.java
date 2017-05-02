@@ -44,4 +44,6 @@ public class WeaponViewAdapter extends ArrayAdapter<WeaponSkeleton> {
         return customView;
 
     }
+
+
 }

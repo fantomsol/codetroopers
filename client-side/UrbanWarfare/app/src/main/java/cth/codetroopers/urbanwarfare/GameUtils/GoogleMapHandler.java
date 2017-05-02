@@ -74,8 +74,8 @@ public class GoogleMapHandler implements OnMapReadyCallback {
 
 
         //Set a fixed zoom value (Needs to be revised when we set the constants for the game)
-        map.setMinZoomPreference(22);
-        map.setMaxZoomPreference(22);
+        map.setMinZoomPreference(18);
+        map.setMaxZoomPreference(18);
 
         //We create the first instance of the playerMarker, a marker that will always exist throughout the lifetime of the app.
         playerMarker =

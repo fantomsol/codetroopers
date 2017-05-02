@@ -45,6 +45,10 @@ public class ServerModelMediator implements IMediator {
 		return world.getPlayerById(id);
 	}
 
+	public void changeWeapon(String playerId, Integer weaponID) {
+		world.changeWeapon(playerId,weaponID);
+	}
+
 	public void playerSignin(Player p, SocketIOClient socketIOClient) {
 		server.playerSignin(p,socketIOClient);
 	}

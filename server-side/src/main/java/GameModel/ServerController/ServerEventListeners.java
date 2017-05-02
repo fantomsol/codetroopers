@@ -52,6 +52,12 @@ class ServerEventListeners {
 				ChangeRadarStateEvent.class,
 				new ChangeRadarStateListener(mediator)
 		);
+
+		socketIOServer.addEventListener(
+				"change-weapon",
+				ChangeWeaponEvent.class,
+				new ChangeWeaponListener(mediator)
+		);
 	}
 
 }

@@ -1,3 +1,5 @@
+import GameModel.Item.Weapons.WeaponsDirectory;
+import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.Player.GeoPos;
 import GameModel.Player.Player;
 import GameModel.ServerController.Server;
@@ -24,6 +26,8 @@ public class Main {
 		world.registerPlayer(p2);
 
 		p2.goOnline();
+		p2.grantGold(2000);
+		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
 
 			p2.updatePos(new GeoPos(38.63473,-90.29408));
 	}
