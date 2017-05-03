@@ -271,7 +271,7 @@ public class ClientController {
             /*
             Fetches the updated data of the player from the server
              */
-            requestPlayerInformation(playerID);
+           // requestPlayerInformation(playerID);
 
         } catch (JSONException e) {
             e.printStackTrace();
