@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -87,11 +88,19 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     String name="NAME";
                     Integer hp= 0;
+
                     Boolean onlineStatus=false;
+
+                    Long secondsRemaining= new Long(0);
 
                     try {
                         name=ClientController.playerInfo.getString("id");
                         hp=ClientController.playerInfo.getInt("hp");
+
+
+                        secondsRemaining= System.currentTimeMillis()-
+                                ClientController.playerInfo.getLong("offlineCooldownStops");
+
                         onlineStatus=ClientController.playerInfo.getBoolean("online");
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -100,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
                     txtName.setText(name);
                     progressHp.setProgress(hp);
+                    Log.i("seconds",String.valueOf(secondsRemaining));
 
                     if (onlineStatus){
                         radarButton.setImageResource(R.drawable.visible);

@@ -28,6 +28,13 @@ public class Player {
 	private Boolean onlineStatus=false;
 	private Boolean canGoOffline=false;
 
+	@JsonProperty
+	private Long offlineCooldownStops=new Long(0);
+
+	public void setOfflineCooldownStops(Long time) {
+		this.offlineCooldownStops = time;
+	}
+
 	private GeoPos geoPos;
 	private Double hp;
 	private Integer armour;
