@@ -35,7 +35,7 @@ public class Player {
 	private Integer xp;
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
-	private Integer offlineCooldown=PlayerConstants.START_VISION;
+	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
 
 	@JsonProperty
 	private List<Weapon> weapons = new ArrayList<Weapon>();

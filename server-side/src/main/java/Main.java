@@ -29,6 +29,6 @@ public class Main {
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
 
-			p2.updatePos(new GeoPos(38.63473,-90.29408));
+		p2.updatePos(new GeoPos(38.63473,-90.29408));
 	}
 }
