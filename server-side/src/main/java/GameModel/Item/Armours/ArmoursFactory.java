@@ -31,6 +31,9 @@ public class ArmoursFactory {
 		if(id==ArmoursDirectory.KEVLAR){
 			return new Kevlar();
 		}
+		if(id==ArmoursDirectory.HELMET){
+			return new Helmet();
+		}
 
 
 		throw new IllegalArgumentException("Item with id:" + id+" cannot be found");
