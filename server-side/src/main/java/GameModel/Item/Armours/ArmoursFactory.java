@@ -15,7 +15,7 @@ public class ArmoursFactory {
 
 
 
-
+	//Make sure to keep up to date
 	public static Armour createArmour(Integer id){
 
 		if (id==ArmoursDirectory.SHIELD_OF_VALOR){
@@ -25,9 +25,15 @@ public class ArmoursFactory {
 		if(id==ArmoursDirectory.RIGHTEOUS_GLORY){
 			return new RighteousGlory();
 		}
+		if(id==ArmoursDirectory.BODY_ARMOUR){
+			return new BodyArmour();
+		}
+		if(id==ArmoursDirectory.KEVLAR){
+			return new Kevlar();
+		}
 
 
-		throw new IllegalArgumentException("Armours with id:" + id+" cannot be found");
+		throw new IllegalArgumentException("Item with id:" + id+" cannot be found");
 	}
 
 }
