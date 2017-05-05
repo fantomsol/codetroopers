@@ -20,7 +20,7 @@ import cth.codetroopers.urbanwarfare.Activities.MainActivity;
  *
  * This class does also send a change position request to the server when a change is detected.
  *
- * This class does NOT request the local Google Map to be updated. The icon of the player is changed as a result of the server updating the player's data including position.
+ * This class does NOT request the local Google Map to be updated. The icon of the oldplayer is changed as a result of the server updating the oldplayer's data including position.
  */
 
 /*

@@ -25,7 +25,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -86,7 +85,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
                         new MarkerOptions()
                                 .title("Player")
                                 .position(new LatLng(0, 0))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.oldplayer)));
 
         //needs to be revised to decide the most visually appealing map type
        // map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -125,7 +124,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
     }
 
     /**
-     * A list that contains the markers of all the other people/things that are not this player
+     * A list that contains the markers of all the other people/things that are not this oldplayer
      */
     private List<Marker> opponentsMarkers = new ArrayList<>();
 
@@ -219,7 +218,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
             }
         });
 
-        Log.i("player", "change location to " + lat + ":" + lng);
+        Log.i("oldplayer", "change location to " + lat + ":" + lng);
 
     }
 

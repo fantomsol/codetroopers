@@ -69,7 +69,7 @@ public class ClientController {
 
 
     /**
-     * This static function checks whether the player is online or offline. Keep in mind that online and offline here correspond the the player's ability to see and be seen and NOT to whether they're signed in to the server or not.
+     * This static function checks whether the oldplayer is online or offline. Keep in mind that online and offline here correspond the the oldplayer's ability to see and be seen and NOT to whether they're signed in to the server or not.
      *
      * @return <code>true</code> if player is online,and <code>false</code> otherwise
      */
@@ -110,7 +110,7 @@ public class ClientController {
     /**
      * A JSON object that encapsulates all the data needed about the player, this object's content is dynamically updated by the server and sent to the client.
      *
-     * Whenever this class get's a player-info event from the server and the sent data is that of the current player, this object is updated.
+     * Whenever this class get's a oldplayer-info event from the server and the sent data is that of the current oldplayer, this object is updated.
      * @see ClientController#addListeners()
      */
     public static JSONObject playerInfo;
@@ -322,7 +322,7 @@ public class ClientController {
      * NOTE: No logic is processed here, all is done on the server.
      * This event can be sent even if the weapon is on cooldown, it's up to the server to perform the suitable action.
      *
-     * @param otherPlayerId The id of the player that the current player is going to attack
+     * @param otherPlayerId The id of the oldplayer that the current oldplayer is going to attack
      */
     public static void attack(final String otherPlayerId){
 
@@ -341,7 +341,7 @@ public class ClientController {
     /**
      * Asks the server to fetch back a JSON object containing all the information about a specific player.
      *
-     * Usage: Can be used to either fetch information on the current player, or when viewing other player's profile
+     * Usage: Can be used to either fetch information on the current oldplayer, or when viewing other oldplayer's profile
      *
      * @param id
      */
