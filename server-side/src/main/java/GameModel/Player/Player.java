@@ -1,6 +1,7 @@
 package GameModel.Player;
 
 
+import GameModel.Experience.Exp;
 import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.Armour;
 import GameModel.Item.Armours.ArmoursDirectory;
@@ -10,6 +11,8 @@ import GameModel.Item.Weapons.Weapon;
 import GameModel.Item.Weapons.WeaponInterface;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
+import GameModel.Ranking.Rank;
+import GameModel.Ranking.Ranks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,10 +42,11 @@ public class Player {
 	private Double hp;
 	private Integer armour;
 	public Score score;
-	private Integer xp;
+	private Integer exp;
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
 	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
+	private Ranks rank = Ranks.PRIVATE;
 
 	@JsonProperty
 	private List<Weapon> weapons = new ArrayList<Weapon>();
@@ -213,7 +217,9 @@ public class Player {
 		if (hp<=0){
 			isAlive=false;
 			score.increaseDeaths();
+			this.rank=Rank.getRank(this);
 		}
+
 	}
 
 	public void attackOtherPlayer(final Player otherPlayer){
@@ -232,9 +238,11 @@ public class Player {
 		otherPlayer.getAttacked(damage);
 		if (!otherPlayer.isAlive){
 			score.increaseKills();
+			Exp.setExpOnKill(this, otherPlayer);
+			this.rank = Rank.getRank(this);
+			System.out.println(this.rank + "\n" + otherPlayer.rank);
 		}
 	}
-
 
 	@Override
 	public String toString(){
@@ -296,6 +304,10 @@ public class Player {
 		return this.id;
 	}
 
+	public Integer getExp() {
+		return exp;
+	}
+
 	public GeoPos getGeoPos(){
 		return this.geoPos;
 	}
@@ -306,6 +318,14 @@ public class Player {
 
 	public Integer getGold(){
 		return gold;
+	}
+
+	public void setHp(Double hp) {
+		this.hp = hp;
+	}
+
+	public void setExp(Integer exp) {
+		this.exp = exp;
 	}
 
 	@JsonIgnore

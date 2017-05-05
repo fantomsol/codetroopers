@@ -7,10 +7,10 @@ import static GameModel.Ranking.Ranks.*;
 /**
  * Created by lumo on 02/05/17.
  */
-public class Rank implements IRank {
+public abstract class Rank {
 
 
-    public Ranks getRank(int exp) {
+    public static Ranks getRank(int exp) {
         if (exp < 1000) {
             return PRIVATE;
         } else if (exp < 5000) {
@@ -22,8 +22,12 @@ public class Rank implements IRank {
         } else {
             return JOACHIMVONHACHT;
         }
-
     }
+
+    public static Ranks getRank(Player p) {
+        return getRank(p.getExp());
+    }
+
     public void onKill(Player killer, Player killed) {
 
     }
