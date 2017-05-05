@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -59,6 +60,8 @@ public class GoogleMapHandler implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
 
         mapFragment.getMapAsync(this);
+
+
 
     }
 
@@ -103,6 +106,8 @@ public class GoogleMapHandler implements OnMapReadyCallback {
         //Ask our class AttackOpponentListener to listen to all click events on markers
         map.setOnMarkerClickListener(new AttackOpponentListener());
 
+
+       ClientController.requestPlayerInformation(ClientController.playerID);
 
     }
 

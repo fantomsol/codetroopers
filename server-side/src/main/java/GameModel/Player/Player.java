@@ -28,6 +28,13 @@ public class Player {
 	private Boolean onlineStatus=false;
 	private Boolean canGoOffline=false;
 
+	@JsonProperty
+	private Long offlineCooldownStops=new Long(0);
+
+	public void setOfflineCooldownStops(Long time) {
+		this.offlineCooldownStops = time;
+	}
+
 	private GeoPos geoPos;
 	private Double hp;
 	private Integer armour;
@@ -35,7 +42,7 @@ public class Player {
 	private Integer xp;
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
-	private Integer offlineCooldown=PlayerConstants.START_VISION;
+	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
 
 	@JsonProperty
 	private List<Weapon> weapons = new ArrayList<Weapon>();

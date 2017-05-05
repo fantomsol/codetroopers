@@ -1,13 +1,13 @@
 package GameModel.Item.Armours;
 
 /**
- * Created by Hugo on 2017-04-25.
+ * Created by Hugo on 2017-05-04.
  */
-public class RighteousGlory implements Armour {
-    private final Integer id= 2;
-    private final String name="Righteous Glory";
-    private final Integer value = 45;
-    private final Integer cost = 250;
+public class BodyArmour implements Armour {
+    private final Integer id= 3;
+    private final String name="Body Armour";
+    private final Integer value = 100;
+    private final Integer cost = 400;
 
 
     public Integer getId() {

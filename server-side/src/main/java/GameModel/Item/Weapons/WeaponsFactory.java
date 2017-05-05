@@ -17,6 +17,9 @@ public class WeaponsFactory {
 		if (id==WeaponsDirectory.ASSAULT_RIFLE){
 			return new AssaultRifle();
 		}
+		if (id==WeaponsDirectory.SHOTGUN){
+			return new Shotgun();
+		}
 
 		throw new IllegalArgumentException("Weapons with id:" + id+" cannot be found");
 	}

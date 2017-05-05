@@ -19,12 +19,15 @@ public class RadarCooldown extends Thread implements Runnable {
 	@Override
 	public void run() {
 		player.setCanGoOffline(false);
+		player.setOfflineCooldownStops(System.currentTimeMillis()+cooldownDuration);
+
 		try {
 			Thread.sleep(cooldownDuration);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
+		player.setOfflineCooldownStops(new Long(0));
 		player.setCanGoOffline(true);
 	}
 }

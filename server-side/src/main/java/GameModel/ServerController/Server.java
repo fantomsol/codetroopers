@@ -112,6 +112,7 @@ public class Server implements IServer {
 
 	public void playerSignin(Player p, SocketIOClient socketIOClient) {
 		map.put(p,socketIOClient);
+		updatePlayer(p);
 	}
 
 	public <T> JsonArray list2JsonArray(List<T> list){
