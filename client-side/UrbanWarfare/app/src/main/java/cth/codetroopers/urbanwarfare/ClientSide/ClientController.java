@@ -268,6 +268,8 @@ public class ClientController {
              */
             socket.emit("position-changed",object);
 
+            Log.i("position-changed", String.valueOf(pos.latitude)+" "+pos.longitude);
+
             /*
             Fetches the updated data of the player from the server
              */

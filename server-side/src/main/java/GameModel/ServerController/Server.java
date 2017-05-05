@@ -94,12 +94,14 @@ public class Server implements IServer {
 
 			map.get(player).sendEvent("nearby-players-update",array);
 		}
+
 	}
 
 
 	public  void updatePlayer(Player player){
 		if (map.containsKey(player)){
 			map.get(player).sendEvent("player-info",player);
+			System.out.println("sending player info to "+player.getID());
 		}
 	}
 

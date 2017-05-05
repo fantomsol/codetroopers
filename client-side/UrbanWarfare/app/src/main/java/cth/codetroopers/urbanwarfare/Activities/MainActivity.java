@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         googleMapHandler = new GoogleMapHandler(this);
-        locationHandler = new LocationHandler(this.getApplicationContext());
+        locationHandler = new LocationHandler(this);
 
 
         initGUI();

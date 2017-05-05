@@ -6,7 +6,9 @@ import GameModel.Player.Player;
 import Mediator.ServerModelMediator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by latiif on 3/22/17.
@@ -17,7 +19,7 @@ public class World {
 	private ServerModelMediator mediator;
 
 
-	private List<Player> players;
+	private Map<String,Player> players;
 
 	public void setMediator(ServerModelMediator mediator){
 		this.mediator= mediator;
@@ -33,14 +35,14 @@ public class World {
 
 	//Dependency is injected on constructor
 	public World() {
-		players = new ArrayList<Player>();
+		players = new HashMap<String, Player>();
 
 	}
 
 
 	public Player getPlayer(Player p){
 		try {
-			return players.get(players.indexOf(p));
+			return players.get(p.getID());
 		}
 		catch (IndexOutOfBoundsException e){
 			return null;
@@ -58,18 +60,12 @@ public class World {
 	}
 
 	public Player getPlayerById(final String id){
-		for(Player player:players){
-			if (player.getID().equals(id)){
-				return player;
-			}
-		}
-
-		return null;
+		return players.get(id);
 	}
 
 
 	public void registerPlayer(Player player){
-		players.add(player);
+		players.put(player.getID(),player);
 	}
 
 	public void playerChangePos(final String id, final GeoPos newPos){
@@ -96,7 +92,7 @@ public class World {
 			return;
 		}
 
-		for (Player oPlayer:players){
+		for (Player oPlayer:players.values()){
 			if (!oPlayer.isOnline()){
 				continue;
 			}
@@ -155,6 +151,7 @@ public class World {
 			mediator.updateNearbyPlayers(oPlayer);
 		}
 
+		mediator.updatePlayer(player);
 		mediator.updateNearbyPlayers(player);
 	}
 

@@ -1,6 +1,7 @@
 package cth.codetroopers.urbanwarfare.GameUtils;
 
 import android.Manifest;
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
@@ -44,17 +46,17 @@ public class LocationHandler {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    private final Context context;
+    private final AppCompatActivity context;
+
 
     /**
      * The constructor takes a Context object as its parameter and initializes the LocationListener and LocationManager objects.
      *
      * @param context the activity that requests LOCATION_SERVICE service.
      */
-    public LocationHandler(final Context context) {
+    public LocationHandler(final AppCompatActivity context) {
         this.context = context;
-
-
+        
         /*
         Here we request the device's System Service named LOCATION_SERVICE
         To be granted access to this service we must add certains permissions to our app's manifest file.
@@ -106,12 +108,21 @@ public class LocationHandler {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+
+            ActivityCompat.requestPermissions(context, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+                   1 );
+
+        }else {
 
         /*
         After initializing our LocationListener interface implementation, we ask the system to send location updates to our locationManager, via the service gps, and every 500 ms, and when the change in location is <= .00001 meters
          */
-        locationManager.requestLocationUpdates("gps", 500, 0.0001f, locationListener);
+            Log.i("location-manager", "asking for requests");
+            locationManager.requestLocationUpdates("gps", 500, 0.0001f, locationListener);
+        }
+
+
     }
+
+
 }

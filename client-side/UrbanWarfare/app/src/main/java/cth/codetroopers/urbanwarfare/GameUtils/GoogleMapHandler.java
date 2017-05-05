@@ -85,7 +85,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
                         new MarkerOptions()
                                 .title("Player")
                                 .position(new LatLng(0, 0))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.oldplayer)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
 
         //needs to be revised to decide the most visually appealing map type
        // map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -218,7 +218,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
             }
         });
 
-        Log.i("oldplayer", "change location to " + lat + ":" + lng);
+        Log.i("player", "change location to " + lat + ":" + lng);
 
     }
 
