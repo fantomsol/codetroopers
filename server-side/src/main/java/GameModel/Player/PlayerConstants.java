@@ -9,6 +9,7 @@ public class PlayerConstants {
 
 	final static Double MAX_HEALTH = new Double(100);
 	final static Integer START_GOLD = new Integer(100);
+	final static Integer START_EXP = new Integer(200);
 
 	//Vision in meters
 	final static Integer START_VISION = new Integer(250);

@@ -41,6 +41,7 @@ public class Player implements IPlayer {
 	private Double hp;
 	private Integer armour;
 	public Score score;
+
 	private Integer exp;
 	private Integer gold;
 	private Integer vision=PlayerConstants.START_VISION;
@@ -173,6 +174,8 @@ public class Player implements IPlayer {
 		hp=PlayerConstants.MAX_HEALTH;
 
 		gold = PlayerConstants.START_GOLD;
+
+		exp=PlayerConstants.START_EXP;
 
 		this.isAlive=Boolean.TRUE;
 

@@ -14,6 +14,8 @@ import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
+import cth.codetroopers.urbanwarfare.Model.ClientModel;
+import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -158,6 +160,7 @@ public class ClientController {
                             loadingActivity.onDataFetched();
                         }
                         playerInfo= msg;
+                        ClientModel.player= new PlayerSkeleton(msg);
                         /**
                          * Asks the MainActivity of the game to update its content to reflect the new data of the player
                          */
