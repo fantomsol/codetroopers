@@ -70,15 +70,15 @@ public class PlayerSkeleton {
 
 
 
-    Double getHp(){
+    public Double getHp(){
         return this.hp;
     }
 
-    String getRank(){
+    public String getRank(){
         return this.rank;
     }
 
-    Boolean getIsAlive(){
+    public Boolean getIsAlive(){
         return this.isAlive;
     }
 
@@ -87,41 +87,41 @@ public class PlayerSkeleton {
 
 
 
-    Boolean isOnline(){
+    public Boolean isOnline(){
         return isOnline;
     }
 
-    Integer getOfflineCooldown(){
+    public Integer getOfflineCooldown(){
         return offlineCooldown;
     }
 
 
-    Boolean getCanGoOffline(){
+    public Boolean getCanGoOffline(){
         return canGoOffline;
     }
 
-    String getID(){
+    public String getID(){
         return id;
     }
 
-    Integer getExp(){
+    public Integer getExp(){
         return xp;
     }
 
-    LatLng getGeoPos(){
+    public LatLng getGeoPos(){
         return geoPos;
     }
 
-    Integer getVision(){
+    public Integer getVision(){
         return vision;
     }
 
-    Integer getGold(){
+    public Integer getGold(){
         return gold;
     }
 
 
-    List<PlayerSkeleton> getPlayersNearby(){
+    public List<PlayerSkeleton> getPlayersNearby(){
         return playersNearby;
     }
 

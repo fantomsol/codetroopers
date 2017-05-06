@@ -45,7 +45,7 @@ https://developers.google.com/maps/documentation/android-api/map
 
 DO READ THE WHOLE THING
  */
-public class GoogleMapHandler implements OnMapReadyCallback {
+public class GoogleMapHandler implements IGoogleMapHandler {
 
     private GoogleMap map;
     private FragmentActivity context;
@@ -131,6 +131,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
     /**
      * Here we take all the opponents in the ClientController class and place them as markers on the map
      */
+    @Override
     public void pinOpponents() {
 
 
@@ -193,6 +194,7 @@ public class GoogleMapHandler implements OnMapReadyCallback {
     /**
      * Same thing happens here as in pinOpponents() method, apart from the fact that we place a simple marker and not a one generated from OpponentIconGenerator.
      */
+    @Override
     public void pinPlayer() {
 
         Double lat = 0.0, lng = 0.0;

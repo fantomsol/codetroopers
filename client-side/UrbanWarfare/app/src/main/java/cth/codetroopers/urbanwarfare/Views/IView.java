@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Activities;
+package cth.codetroopers.urbanwarfare.Views;
 
 import android.view.View;
 
