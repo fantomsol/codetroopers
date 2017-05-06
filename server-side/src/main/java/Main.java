@@ -1,6 +1,7 @@
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.Player.GeoPos;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.ServerController.Server;
 import GameModel.WorldPackage.World;
@@ -19,8 +20,8 @@ public class Main {
 		ServerModelMediator modelMediator= new ServerModelMediator(server,world);
 
 
-		Player p1= new Player("llusx",new GeoPos(0.0,0.0));
-		Player p2=new Player("sara",new GeoPos(0.0,0.0));
+		IPlayer p1= new Player("llusx",new GeoPos(0.0,0.0));
+		IPlayer p2=new Player("sara",new GeoPos(0.0,0.0));
 
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);

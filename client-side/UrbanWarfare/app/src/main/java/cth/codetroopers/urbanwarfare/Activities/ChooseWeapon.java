@@ -10,13 +10,12 @@ import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
-import cth.codetroopers.urbanwarfare.ClientSide.WeaponSkeleton;
+import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 public class ChooseWeapon extends AppCompatActivity {

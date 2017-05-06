@@ -1,3 +1,4 @@
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import org.junit.Test;
 public class RadarTest {
 	@Test
 	public void goOnlineTest() throws InterruptedException {
-		Player p=new Player("p");
+		IPlayer p=new Player("p");
 		p.goOnline();
 
 		Assert.assertTrue(p.isOnline());
@@ -27,7 +28,7 @@ public class RadarTest {
 
 	@Test
 	public void goOfflineTest() throws InterruptedException {
-		Player p= new Player("p");
+		IPlayer p= new Player("p");
 
 		p.goOnline();
 		Thread.sleep(p.getOfflineCooldown()*1000+10);

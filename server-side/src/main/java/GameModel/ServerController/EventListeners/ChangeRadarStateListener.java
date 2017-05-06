@@ -1,8 +1,7 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.ChangeRadarStateEvent;
-import GameModel.WorldPackage.World;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;
@@ -19,7 +18,7 @@ public class ChangeRadarStateListener extends EventListener implements DataListe
 	}
 
 	public void onData(SocketIOClient socketIOClient, ChangeRadarStateEvent changeRadarStateEvent, AckRequest ackRequest) throws Exception {
-		Player p=mediator.getPlayerById(changeRadarStateEvent.getPlayerId());
+		IPlayer p=mediator.getPlayerById(changeRadarStateEvent.getPlayerId());
 
 		if (changeRadarStateEvent.wantToGoOnline) {
 			p.goOnline();

@@ -1,7 +1,7 @@
 package Mediator;
 
 import GameModel.Player.GeoPos;
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 import GameModel.ServerController.IServer;
 import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.SocketIOClient;
@@ -25,12 +25,12 @@ public class ServerModelMediator implements IMediator {
 	}
 
 
-	public void updateNearbyPlayers(Player player) {
-		server.updateNearbyPlayers(player);
+	public void updateNearbyPlayers(IPlayer IPlayer) {
+		server.updateNearbyPlayers(IPlayer);
 	}
 
-	public void updatePlayer(Player player) {
-		server.updatePlayer(player);
+	public void updatePlayer(IPlayer IPlayer) {
+		server.updatePlayer(IPlayer);
 	}
 
 	public void performAttack(String s1, String s2) {
@@ -41,7 +41,7 @@ public class ServerModelMediator implements IMediator {
 		world.playerChangePos(id,pos);
 	}
 
-	public Player getPlayerById(String id) {
+	public IPlayer getPlayerById(String id) {
 		return world.getPlayerById(id);
 	}
 
@@ -49,7 +49,7 @@ public class ServerModelMediator implements IMediator {
 		world.changeWeapon(playerId,weaponID);
 	}
 
-	public void playerSignin(Player p, SocketIOClient socketIOClient) {
+	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
 		server.playerSignin(p,socketIOClient);
 	}
 }

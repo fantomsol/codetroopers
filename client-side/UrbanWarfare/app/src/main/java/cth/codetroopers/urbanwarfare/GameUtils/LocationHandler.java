@@ -56,7 +56,7 @@ public class LocationHandler {
      */
     public LocationHandler(final AppCompatActivity context) {
         this.context = context;
-        
+
         /*
         Here we request the device's System Service named LOCATION_SERVICE
         To be granted access to this service we must add certains permissions to our app's manifest file.

@@ -1,5 +1,6 @@
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Player.GeoPos;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.WorldPackage.World;
 import org.junit.Test;
@@ -10,7 +11,7 @@ import org.junit.Test;
 public class WorldTest {
 	@Test
 	public void registerTest(){
-		Player p1,p2;
+		IPlayer p1,p2;
 
 		p1= new Player("player1",new GeoPos(0.0,0.0));
 		p2= new Player("player2",new GeoPos(50.0,9.0));

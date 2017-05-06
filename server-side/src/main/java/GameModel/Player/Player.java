@@ -14,7 +14,6 @@ import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.Ranking.Rank;
 import GameModel.Ranking.Ranks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ import java.util.List;
 /**
  * Created by latiif on 3/22/17.
  */
-public class Player {
+public class Player implements IPlayer {
 
 
 	private Boolean onlineStatus=false;
@@ -201,6 +200,10 @@ public class Player {
 		return new Double(this.hp);
 	}
 
+	public Ranks getRank() {
+		return this.rank;
+	}
+
 	public Boolean getIsAlive(){
 		return new Boolean(isAlive);
 	}
@@ -222,7 +225,7 @@ public class Player {
 
 	}
 
-	public void attackOtherPlayer(final Player otherPlayer){
+	public void attackOtherPlayer(final IPlayer otherPlayer){
 		if (!getIsAlive()){
 			return;
 		}
@@ -236,11 +239,11 @@ public class Player {
 		}
 
 		otherPlayer.getAttacked(damage);
-		if (!otherPlayer.isAlive){
+		if (!otherPlayer.getIsAlive()){
 			score.increaseKills();
 			Exp.setExpOnKill(this, otherPlayer);
 			this.rank = Rank.getRank(this);
-			System.out.println(this.rank + "\n" + otherPlayer.rank);
+			System.out.println(this.rank + "\n" + otherPlayer.getRank());
 		}
 	}
 
@@ -253,7 +256,7 @@ public class Player {
 
 		sb.append("sees: ");
 
-		for(Player p: playersNearby){
+		for(IPlayer p: playersNearby){
 			sb.append(p.getID()).append('\n');
 		}
 
@@ -329,18 +332,18 @@ public class Player {
 	}
 
 	@JsonIgnore
-	private transient List<Player> playersNearby= new ArrayList<Player>();
+	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
 
-	public List<Player> getPlayersNearby(){
+	public List<IPlayer> getPlayersNearby(){
 		return (this.playersNearby);
 	}
 
-	public void addNearbyPlayer(Player player){
-		this.playersNearby.add(player);
+	public void addNearbyPlayer(IPlayer IPlayer){
+		this.playersNearby.add(IPlayer);
 	}
 
-	public void removeNearbyPlayer(Player player){
-		this.playersNearby.remove(player);
+	public void removeNearbyPlayer(IPlayer IPlayer){
+		this.playersNearby.remove(IPlayer);
 	}
 
 	@Override

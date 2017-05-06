@@ -1,6 +1,6 @@
 package GameModel.GameUtils;
 
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 
 /**
  * Created by latiif on 3/29/17.
@@ -8,18 +8,18 @@ import GameModel.Player.Player;
 public class RadarCooldown extends Thread implements Runnable {
 
 	private final int cooldownDuration;
-	private Player player;
+	private IPlayer IPlayer;
 
-	public RadarCooldown(Player player) {
-		this.cooldownDuration = player.getOfflineCooldown()*1000;
-		this.player=player;
+	public RadarCooldown(IPlayer IPlayer) {
+		this.cooldownDuration = IPlayer.getOfflineCooldown()*1000;
+		this.IPlayer = IPlayer;
 	}
 
 
 	@Override
 	public void run() {
-		player.setCanGoOffline(false);
-		player.setOfflineCooldownStops(System.currentTimeMillis()+cooldownDuration);
+		IPlayer.setCanGoOffline(false);
+		IPlayer.setOfflineCooldownStops(System.currentTimeMillis()+cooldownDuration);
 
 		try {
 			Thread.sleep(cooldownDuration);
@@ -27,7 +27,7 @@ public class RadarCooldown extends Thread implements Runnable {
 			e.printStackTrace();
 		}
 
-		player.setOfflineCooldownStops(new Long(0));
-		player.setCanGoOffline(true);
+		IPlayer.setOfflineCooldownStops(new Long(0));
+		IPlayer.setCanGoOffline(true);
 	}
 }

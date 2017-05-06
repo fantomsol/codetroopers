@@ -1,5 +1,6 @@
 package GameModel.ServerController;
 
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 
 import Mediator.ServerModelMediator;
@@ -23,12 +24,12 @@ public class Server implements IServer {
 
 
 	public Server(){
-		map= new Hashtable<Player, SocketIOClient>();
+		map= new Hashtable<IPlayer, SocketIOClient>();
 
 
 	}
 
-	public  Map<Player,SocketIOClient> map;
+	public  Map<IPlayer,SocketIOClient> map;
 
 	 SocketIOServer socketIOServer;
 
@@ -55,7 +56,7 @@ public class Server implements IServer {
 			 public void onDisconnect(SocketIOClient socketIOClient) {
 
 
-				 for (Map.Entry<Player, SocketIOClient> entry : map.entrySet()) {
+				 for (Map.Entry<IPlayer, SocketIOClient> entry : map.entrySet()) {
 
 					 if (socketIOClient.equals(entry.getValue())){
 						 System.out.println("Removed data for player "+entry.getKey().getID());
@@ -82,26 +83,26 @@ public class Server implements IServer {
 	}
 
 	//Sends data back to the player
-	public  void updateNearbyPlayers(final Player player){
-		if (map.containsKey(player)) {
+	public  void updateNearbyPlayers(final IPlayer IPlayer){
+		if (map.containsKey(IPlayer)) {
 
 
-			Player[] array= new Player[player.getPlayersNearby().size()];
+			IPlayer[] array= new IPlayer[IPlayer.getPlayersNearby().size()];
 
 			for(int i=0;i<array.length;i++){
-				array[i]=player.getPlayersNearby().get(i);
+				array[i]= IPlayer.getPlayersNearby().get(i);
 			}
 
-			map.get(player).sendEvent("nearby-players-update",array);
+			map.get(IPlayer).sendEvent("nearby-players-update",array);
 		}
 
 	}
 
 
-	public  void updatePlayer(Player player){
-		if (map.containsKey(player)){
-			map.get(player).sendEvent("player-info",player);
-			System.out.println("sending player info to "+player.getID());
+	public  void updatePlayer(IPlayer IPlayer){
+		if (map.containsKey(IPlayer)){
+			map.get(IPlayer).sendEvent("player-info", IPlayer);
+			System.out.println("sending player info to "+ IPlayer.getID());
 		}
 	}
 
@@ -112,7 +113,7 @@ public class Server implements IServer {
 		new ServerEventListeners(mediator,getServerSocket());
 	}
 
-	public void playerSignin(Player p, SocketIOClient socketIOClient) {
+	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
 		map.put(p,socketIOClient);
 		updatePlayer(p);
 	}

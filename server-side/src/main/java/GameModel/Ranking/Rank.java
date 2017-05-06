@@ -1,6 +1,6 @@
 package GameModel.Ranking;
 
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 
 import static GameModel.Ranking.Ranks.*;
 
@@ -24,15 +24,15 @@ public abstract class Rank {
         }
     }
 
-    public static Ranks getRank(Player p) {
+    public static Ranks getRank(IPlayer p) {
         return getRank(p.getExp());
     }
 
-    public void onKill(Player killer, Player killed) {
+    public void onKill(IPlayer killer, IPlayer killed) {
 
     }
 
-    public void onBuy(Player p, int price) {
+    public void onBuy(IPlayer p, int price) {
 
     }
 }

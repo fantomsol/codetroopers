@@ -2,12 +2,11 @@ package GameModel.WorldPackage;
 
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Player.GeoPos;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import Mediator.ServerModelMediator;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,7 +18,7 @@ public class World {
 	private ServerModelMediator mediator;
 
 
-	private Map<String,Player> players;
+	private Map<String,IPlayer> players;
 
 	public void setMediator(ServerModelMediator mediator){
 		this.mediator= mediator;
@@ -27,7 +26,7 @@ public class World {
 
 
 	public void changeWeapon(String playerId,Integer weaponID){
-		Player p=getPlayerById(playerId);
+		IPlayer p=getPlayerById(playerId);
 		p.switchWeapon(weaponID);
 		mediator.updatePlayer(p);
 	}
@@ -35,12 +34,12 @@ public class World {
 
 	//Dependency is injected on constructor
 	public World() {
-		players = new HashMap<String, Player>();
+		players = new HashMap<String, IPlayer>();
 
 	}
 
 
-	public Player getPlayer(Player p){
+	public IPlayer getPlayer(IPlayer p){
 		try {
 			return players.get(p.getID());
 		}
@@ -50,8 +49,8 @@ public class World {
 	}
 
 	public void performAttack(String attackerId, String attackeeId){
-		Player attacker = getPlayerById(attackerId);
-		Player attackee= getPlayerById(attackeeId);
+		IPlayer attacker = getPlayerById(attackerId);
+		IPlayer attackee= getPlayerById(attackeeId);
 
 		attacker.attackOtherPlayer(attackee);
 
@@ -59,69 +58,69 @@ public class World {
 		mediator.updatePlayer(attackee);
 	}
 
-	public Player getPlayerById(final String id){
+	public IPlayer getPlayerById(final String id){
 		return players.get(id);
 	}
 
 
-	public void registerPlayer(Player player){
-		players.put(player.getID(),player);
+	public void registerPlayer(IPlayer IPlayer){
+		players.put(IPlayer.getID(), IPlayer);
 	}
 
 	public void playerChangePos(final String id, final GeoPos newPos){
-		Player player= getPlayerById(id);
-		player.updatePos(newPos);
+		IPlayer IPlayer = getPlayerById(id);
+		IPlayer.updatePos(newPos);
 
 		System.out.println(players.size());
 
-		if (!player.isOnline()){
+		if (!IPlayer.isOnline()){
 
 			//Remove the player from their nearby players' lists
-			for (Player op:player.getPlayersNearby()){
-				op.getPlayersNearby().remove(player);
+			for (IPlayer op: IPlayer.getPlayersNearby()){
+				op.getPlayersNearby().remove(IPlayer);
 				//update the other player's nearby list
 				mediator.updateNearbyPlayers(op);
 			}
 
 			//someone who's offline cannot see anyone
-			player.getPlayersNearby().clear();
+			IPlayer.getPlayersNearby().clear();
 			//update the player's nearby list
-			mediator.updateNearbyPlayers(player);
+			mediator.updateNearbyPlayers(IPlayer);
 
 			//no need to do anything else
 			return;
 		}
 
-		for (Player oPlayer:players.values()){
-			if (!oPlayer.isOnline()){
+		for (IPlayer oIPlayer :players.values()){
+			if (!oIPlayer.isOnline()){
 				continue;
 			}
-			if (player.equals(oPlayer)){
+			if (IPlayer.equals(oIPlayer)){
 				continue;
 			}
 
-			boolean pSeesOp = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<=player.getVision();
-			boolean opSeesP = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<=oPlayer.getVision();; 
+			boolean pSeesOp = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= IPlayer.getVision();
+			boolean opSeesP = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= oIPlayer.getVision();;
 
 
 			//Player sees the other player
 			if (pSeesOp){
 
 				//The other player was already in the vicinity of player
-				if (player.getPlayersNearby().contains(oPlayer)){
+				if (IPlayer.getPlayersNearby().contains(oIPlayer)){
 
 				}
 
 				//The other player has just entered player's vision range
-				if (!player.getPlayersNearby().contains(oPlayer)){
-					player.addNearbyPlayer(oPlayer);
+				if (!IPlayer.getPlayersNearby().contains(oIPlayer)){
+					IPlayer.addNearbyPlayer(oIPlayer);
 				}
 			}else {
 				//Player does not see oPlayer
 
 				//if other player is no longer in player's vision range
-				if (player.getPlayersNearby().contains(oPlayer)){
-					player.removeNearbyPlayer(oPlayer);
+				if (IPlayer.getPlayersNearby().contains(oIPlayer)){
+					IPlayer.removeNearbyPlayer(oIPlayer);
 				}
 			}
 
@@ -132,27 +131,27 @@ public class World {
 			if (opSeesP){
 
 				//The other player was already in the vicinity of player
-				if (oPlayer.getPlayersNearby().contains(player)){
+				if (oIPlayer.getPlayersNearby().contains(IPlayer)){
 
 				}
 
 				//The other player has just entered player's vision range
-				if (!oPlayer.getPlayersNearby().contains(player)){
-					oPlayer.addNearbyPlayer(player);
+				if (!oIPlayer.getPlayersNearby().contains(IPlayer)){
+					oIPlayer.addNearbyPlayer(IPlayer);
 				}
 			}else {
 				//Player does not see oPlayer
 
 				//if other player is no longer in player's vision range
-				if (oPlayer.getPlayersNearby().contains(player)){
-					oPlayer.removeNearbyPlayer(player);
+				if (oIPlayer.getPlayersNearby().contains(IPlayer)){
+					oIPlayer.removeNearbyPlayer(IPlayer);
 				}
 			}
-			mediator.updateNearbyPlayers(oPlayer);
+			mediator.updateNearbyPlayers(oIPlayer);
 		}
 
-		mediator.updatePlayer(player);
-		mediator.updateNearbyPlayers(player);
+		mediator.updatePlayer(IPlayer);
+		mediator.updateNearbyPlayers(IPlayer);
 	}
 
 

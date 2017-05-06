@@ -2,22 +2,19 @@ package cth.codetroopers.urbanwarfare.ClientSide;
 
 import android.location.Location;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
-import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
 import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
+import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;

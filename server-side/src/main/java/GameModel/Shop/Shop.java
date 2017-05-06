@@ -5,7 +5,7 @@ import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Item;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +30,11 @@ public class Shop implements IShop {
         return result;
     }
 
-    public void buyItem(Player player, Item item) {
-        player.buyItem(item);
+    public void buyItem(IPlayer IPlayer, Item item) {
+        IPlayer.buyItem(item);
     }
 
-    public void sellItem(Player player, Item item) {
-        player.sellItem(item,new Double(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
+    public void sellItem(IPlayer IPlayer, Item item) {
+        IPlayer.sellItem(item,new Double(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
     }
 }

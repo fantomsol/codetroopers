@@ -3,6 +3,7 @@ import GameModel.Item.Item;
 import GameModel.Item.Weapons.Sniper;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Player.GeoPos;
+import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.Shop.IShop;
 import GameModel.Shop.Shop;
@@ -27,7 +28,7 @@ public class ShopTest {
 
     @Test
     public void itemBuyTest(){
-        Player p1 =  new Player("hugo",new GeoPos(0.0,0.0));
+        IPlayer p1 =  new Player("hugo",new GeoPos(0.0,0.0));
         IShop shop = new Shop();
 
 

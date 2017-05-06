@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.ClientSide;
+package cth.codetroopers.urbanwarfare.Model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

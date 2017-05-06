@@ -1,7 +1,7 @@
 package GameModel.Shop;
 
 import GameModel.Item.Item;
-import GameModel.Player.Player;
+import GameModel.Player.IPlayer;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IShop {
     List<Item> getItems();
-    void buyItem(Player player, Item item);
-    void sellItem(Player player,Item item);
+    void buyItem(IPlayer IPlayer, Item item);
+    void sellItem(IPlayer IPlayer, Item item);
 
 }
