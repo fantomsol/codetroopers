@@ -1,8 +1,6 @@
 package cth.codetroopers.urbanwarfare.GameUtils;
 
-import android.app.Application;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +11,6 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.maps.android.ui.IconGenerator;
 
-import org.json.JSONObject;
-
-import java.util.zip.Inflater;
-
-import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -57,6 +50,11 @@ public class OpponentIconGenerator {
     private  IconGenerator iconGenerator;
     private static LayoutInflater inflater;
 
+    private static View mapFragment;
+
+    public static void setMapFragment(View view){
+        mapFragment=view;
+    }
 
 
     public static void setContext(final Context myContext){
@@ -84,7 +82,7 @@ public class OpponentIconGenerator {
         }
 
         //We inflate the xml file named opponent_info.xml into the map of MainActivity
-        View view= inflater.inflate(R.layout.opponent_info, (ViewGroup) MainActivity.mapFragment,false);
+        View view= inflater.inflate(R.layout.opponent_info, (ViewGroup) mapFragment,false);
 
         //Grab a handle of the elements in the xml file
         TextView txtName= (TextView)  view.findViewById(R.id.txtNameOpponent);

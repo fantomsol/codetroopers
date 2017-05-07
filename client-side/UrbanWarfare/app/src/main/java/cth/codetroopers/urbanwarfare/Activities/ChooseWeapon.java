@@ -14,7 +14,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -22,6 +22,7 @@ public class ChooseWeapon extends AppCompatActivity {
 
     List<WeaponSkeleton> weapons= new ArrayList<>();
 
+    /*
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,9 +30,10 @@ public class ChooseWeapon extends AppCompatActivity {
 
 
 
+
         JSONArray array= new JSONArray();
         try {
-            array =ClientController.playerInfo.getJSONArray("weapons");
+            array = ConnectivityLayer.playerInfo.getJSONArray("weapons");
 
             for (int i=0;i<array.length();i++){
                 weapons.add(new WeaponSkeleton(array.getJSONObject(i)));
@@ -55,7 +57,7 @@ public class ChooseWeapon extends AppCompatActivity {
                 WeaponSkeleton weapon = (WeaponSkeleton) adapterView.getItemAtPosition(i);
 
 
-                ClientController.changeWeapon(weapon);
+                ConnectivityLayer.changeWeapon(weapon);
                 Log.i("click","request to change weapon is being requested");
                 finish();
 
@@ -63,4 +65,5 @@ public class ChooseWeapon extends AppCompatActivity {
         });
 
     }
+    */
 }

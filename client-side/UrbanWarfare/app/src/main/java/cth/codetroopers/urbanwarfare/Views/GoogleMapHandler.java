@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,7 +24,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.GameUtils.AttackOpponentListener;
 import cth.codetroopers.urbanwarfare.GameUtils.OpponentIconGenerator;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
@@ -50,6 +51,7 @@ DO READ THE WHOLE THING
 public class GoogleMapHandler implements IMapHandler {
 
     private GoogleMap map;
+    private View mapFragment;
     private FragmentActivity context;
 
     private IMainView.MapListener mMapListener;
@@ -106,6 +108,7 @@ public class GoogleMapHandler implements IMapHandler {
         OpponentIconGenerator.setContext(this.context);
 
 
+
         //Ask our class AttackOpponentListener to listen to all click events on markers
         map.setOnMarkerClickListener(new AttackOpponentListener(mMapListener));
 
@@ -132,15 +135,21 @@ public class GoogleMapHandler implements IMapHandler {
      */
     private List<Marker> opponentsMarkers = new ArrayList<>();
 
+    @Override
+    public void setMapFragment(View view) {
+        mapFragment=view;
+        OpponentIconGenerator.setMapFragment(mapFragment);
+    }
+
     /**
-     * Here we take all the opponents in the ClientController class and place them as markers on the map
+     * Here we take all the opponents in the ConnectivityLayer class and place them as markers on the map
      */
     @Override
     public void pinOpponents(final List<PlayerSkeleton> nearbyPlayers) {
 
 
         /*
-        The following two lines are used to do all visual operations on the thread of the application UI thread and not on some other thread i.e. that of ClientController.
+        The following two lines are used to do all visual operations on the thread of the application UI thread and not on some other thread i.e. that of ConnectivityLayer.
          */
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -197,17 +206,7 @@ public class GoogleMapHandler implements IMapHandler {
      * Same thing happens here as in pinOpponents() method, apart from the fact that we place a simple marker and not a one generated from OpponentIconGenerator.
      */
     @Override
-    public void pinPlayer() {
-
-        Double lat = 0.0, lng = 0.0;
-        try {
-
-            lat = (Double) ClientController.playerInfo.getJSONObject("geoPos").get("latitude");
-            lng = (Double) ClientController.playerInfo.getJSONObject("geoPos").get("longitude");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void pinPlayer(PlayerSkeleton player) {
 
         final LatLng pos = ClientModel.mPlayer.getGeoPos();
 
@@ -222,7 +221,7 @@ public class GoogleMapHandler implements IMapHandler {
             }
         });
 
-        Log.i("player", "change location to " + lat + ":" + lng);
+
 
     }
 

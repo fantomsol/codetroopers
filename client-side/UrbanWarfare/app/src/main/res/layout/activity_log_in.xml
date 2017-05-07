@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/signin_background"
     android:visibility="visible"
-    tools:context="cth.codetroopers.urbanwarfare.Activities.LogInActivity">
+    tools:context="cth.codetroopers.urbanwarfare.Views.LoginViewImp">
 
     <EditText
         android:id="@+id/editTextId"

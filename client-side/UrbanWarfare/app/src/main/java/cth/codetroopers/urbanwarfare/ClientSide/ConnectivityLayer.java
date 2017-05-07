@@ -12,9 +12,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Activities.MainActivity;
-import cth.codetroopers.urbanwarfare.Controllers.MainController;
-import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
@@ -53,45 +50,26 @@ JSON is readable by humans, and supported by our Networking framework (SocketIO)
 
  */
 
-public class ClientController {
-
-    private static LoadingActivityInterface loadingActivity;
-    /**
-     * Registers the LoadingActivity of the application, so that it can be triggered on connection-related events that are generated within this class.
-     *
-     * This static function should be called upon at onCreate event of the app's sole activity that implements LoadingActivityInterface
-     *
-     * @param activity the loading activity that will be informed on various loading-related events
-     */
-    public static void subscribeLoadingActivity(LoadingActivityInterface activity){
-        loadingActivity=activity;
-    }
-
+public class ConnectivityLayer {
 
     /**
      * This static function checks whether the oldplayer is online or offline. Keep in mind that online and offline here correspond the the oldplayer's ability to see and be seen and NOT to whether they're signed in to the server or not.
      *
      * @return <code>true</code> if player is online,and <code>false</code> otherwise
      */
-    public static boolean getIsOnline(){
-        try {
-            return playerInfo.getBoolean("online");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return false;
+    public  boolean getIsOnline(){
+            return ClientModel.mPlayer.isOnline();
     }
 
     /**
      * This staic method is called whenever the user request a change in their online/offline radar status. Whether the request is granted or not is handled on the server and NOT here.
      */
 
-    public static void requestChangeRadarStatus(){
+    public  void requestChangeRadarStatus(){
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerId",playerID);
+            object.put("playerId",ClientModel.playerID);
             object.put("wantToGoOnline",!getIsOnline());
 
         } catch (JSONException e) {
@@ -105,45 +83,42 @@ public class ClientController {
      * The Id of player who's signed in to the server within the game
      * This variable is set when the sign-in process is successfully accomplished.
      */
-    public static String playerID;
+    public  String playerID;
 
     /**
      * A JSON object that encapsulates all the data needed about the player, this object's content is dynamically updated by the server and sent to the client.
      *
      * Whenever this class get's a oldplayer-info event from the server and the sent data is that of the current oldplayer, this object is updated.
-     * @see ClientController#addListeners()
+     * @see ConnectivityLayer#addListeners()
      */
-    public static JSONObject playerInfo;
+    public  JSONObject playerInfo;
 
     /**
      * An array of JSON objects that stores a list of the nearby opponents that can be seen by the player.
      *
      * This list is updated when the class gets an nearby-players-update event
-     * @see ClientController#addListeners()
-     */
-    public static List<JSONObject> opponents=new ArrayList<>();
-
+     * @see ConnectivityLayer#addListeners()
 
     /**
      * The client socket that is created for the sole purpose of sending and recieving events from/to the remote server.
      * This object is assigned on Init() method.
      *
-     * @see ClientController#Init()
+     * @see ConnectivityLayer#Init()
      */
-    private static Socket socket;
+    private  Socket socket;
 
 
     /**
      * One-time run method that registers all the events that the client can listen to, every event is added manually in this method, and is called once inside the Init method
      *
-     * @see  ClientController#Init()
+     * @see  ConnectivityLayer#Init()
      */
-    private static void addListeners(){
+    private  void addListeners(){
         /**
          * Reacts to a player-info event.
          * If the recieved data is that of the player, they are stored in the local variable playerInfo of the type JSONObject.
          *
-         * @see ClientController#playerInfo
+         * @see ConnectivityLayer#playerInfo
          */
         socket.on("player-info", new Emitter.Listener() {
             @Override
@@ -151,26 +126,8 @@ public class ClientController {
                 JSONObject msg= (JSONObject) args[0];
 
                 try {
-                    if (msg.get("id").equals(playerID)){
-
-                        if (playerInfo==null){
-                            /**
-                             * Prompts the loadingActivity to react to the newly fetched data of the player.
-                             * @see ClientController#loadingActivity
-                             */
-                            loadingActivity.onDataFetched();
-                        }
-                        playerInfo= msg;
-                       // ClientModel.player= new PlayerSkeleton(msg);
+                    if (msg.get("id").equals(ClientModel.playerID)){
                         ClientModel.onPlayerDataRecieved(new PlayerSkeleton(msg));
-                        /**
-                         * Asks the MainActivity of the game to update its content to reflect the new data of the player
-                         */
-                        MainActivity.updateGUI();
-                        if (MainActivity.googleMapHandler!=null) {
-                            MainActivity.googleMapHandler.pinPlayer();
-                        }
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -184,7 +141,7 @@ public class ClientController {
          *
          * The sent array is then converted into a list and stored in the opponents list
          *
-         * @see ClientController#opponents
+         * @see ConnectivityLayer#opponents
          */
         socket.on("nearby-players-update", new Emitter.Listener() {
             @Override
@@ -193,10 +150,10 @@ public class ClientController {
 
                 List<PlayerSkeleton> playersNearby= new ArrayList<PlayerSkeleton>();
 
-                ClientController.opponents.clear();
+
                 for (int i=0;i<args.length;i++){
 
-                    //ClientController.opponents.add();
+                    //ConnectivityLayer.opponents.add();
                     playersNearby.add(new PlayerSkeleton((JSONObject) args[i]));
                 }
 
@@ -211,11 +168,11 @@ public class ClientController {
      *
      * It does also add listeners for the events in the addListeners method.
      *
-     * @see ClientController#addListeners()
+     * @see ConnectivityLayer#addListeners()
      * @throws URISyntaxException
      *
      */
-    public static void Init() throws URISyntaxException {
+    public void Init() throws URISyntaxException {
         /*
         This address the one the emulator uses to connect to localhost on the hosting machine
         If connecting to a remote server online, this URI address needs to be changed
@@ -230,7 +187,7 @@ public class ClientController {
                 /*
                 Prompts the loadingActivity that connection is established
                  */
-                loadingActivity.onConnected();
+               // loadingActivity.onConnected();
             }
         });
 
@@ -250,7 +207,7 @@ public class ClientController {
      *
      * @see cth.codetroopers.urbanwarfare.GameUtils.LocationHandler#locationListener
      */
-    public static void changePosition(Location position){
+    public  void changePosition(Location position){
 
         JSONObject object= new JSONObject();
 
@@ -264,7 +221,7 @@ public class ClientController {
         Look at the specifications for this event in the code of the server
          */
         try {
-            object.put("id",playerID);
+            object.put("id",ClientModel.playerID);
             object.put("lat",pos.latitude);
             object.put("lang",pos.longitude);
 
@@ -290,7 +247,7 @@ public class ClientController {
      * This method send a sign-in request to the server from the player
      * @param id
      */
-    public static void signIn(final String id){
+    public  void signIn(final String id){
         JSONObject object= new JSONObject();
 
         try {
@@ -305,15 +262,15 @@ public class ClientController {
         /*
         Prompts loadingActivity that signing in is ongoing
          */
-        loadingActivity.onSignedin();
+       // loadingActivity.onSignedin();
 
     }
 
-    public static void changeWeapon(WeaponSkeleton weaponSkeleton){
+    public  void changeWeapon(WeaponSkeleton weaponSkeleton){
         JSONObject object = new JSONObject();
 
         try {
-            object.put("playerId",playerID);
+            object.put("playerId",ClientModel.playerID);
             object.put("weaponId",weaponSkeleton.getId());
 
             socket.emit("change-weapon",object);
@@ -332,12 +289,12 @@ public class ClientController {
      *
      * @param otherPlayerId The id of the oldplayer that the current oldplayer is going to attack
      */
-    public static void attack(final String otherPlayerId){
+    public  void attack(final String otherPlayerId){
 
         JSONObject object= new JSONObject();
 
         try {
-            object.put("id",playerID);
+            object.put("id",ClientModel.playerID);
             object.put("oId",otherPlayerId);
             socket.emit("attack",object);
         } catch (JSONException e) {
@@ -354,7 +311,7 @@ public class ClientController {
      * @param id
      */
 
-    public static void requestPlayerInformation(final String id){
+    public  void requestPlayerInformation(final String id){
         JSONObject object= new JSONObject();
         try {
             object.put("id",id);

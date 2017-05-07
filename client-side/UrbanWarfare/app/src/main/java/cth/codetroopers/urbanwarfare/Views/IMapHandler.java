@@ -1,5 +1,7 @@
 package cth.codetroopers.urbanwarfare.Views;
 
+import android.view.View;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
@@ -14,12 +16,12 @@ import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 //Consider swithcing to abstract super class
 
 public interface IMapHandler extends OnMapReadyCallback {
-    @Override
-    void onMapReady(GoogleMap googleMap);
+
+    void setMapFragment(View view);
 
     void pinOpponents(List<PlayerSkeleton> nearbyPlayers);
 
-    void pinPlayer();
+    void pinPlayer(PlayerSkeleton player);
 
     void setMapListener(IMainView.MapListener mapListener);
 }

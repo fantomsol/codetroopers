@@ -115,6 +115,8 @@ public class Server implements IServer {
 
 	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
 		map.put(p,socketIOClient);
+
+		updateNearbyPlayers(p);
 		updatePlayer(p);
 	}
 

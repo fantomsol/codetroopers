@@ -9,7 +9,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 
 /**
  * Created by latiif on 5/6/17.
@@ -37,7 +37,7 @@ public class PlayerSkeleton {
 
 
             JSONArray array;
-            array = ClientController.playerInfo.getJSONArray("weapons");
+            array = object.getJSONArray("weapons");
 
             for (int i=0;i<array.length();i++){
                 weapons.add(new WeaponSkeleton(array.getJSONObject(i)));

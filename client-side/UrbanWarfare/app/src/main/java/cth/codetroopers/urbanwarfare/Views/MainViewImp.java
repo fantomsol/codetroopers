@@ -1,12 +1,9 @@
 package cth.codetroopers.urbanwarfare.Views;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +13,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Activities.ChooseWeapon;
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -31,7 +26,7 @@ public class MainViewImp implements IMainView{
     private PanelControlInteractionListener mListener;
     private MapListener mMapListener;
 
-    public  View mapFragment;
+    private   View mapFragment;
 
     private IMapHandler mapHandler;
     private FloatingActionButton fab;
@@ -95,7 +90,7 @@ public class MainViewImp implements IMainView{
                 txtName.setText(player.getID());
                 progressHp.setProgress(player.getHp().intValue());
 
-                mapHandler.pinPlayer();
+                mapHandler.pinPlayer(player);
 
                 if (player.isOnline()) {
                     radarButton.setImageResource(R.drawable.visible);
@@ -134,5 +129,6 @@ public class MainViewImp implements IMainView{
     public void setContext(FragmentActivity context) {
         mContext=context;
         mapHandler=new GoogleMapHandler(context,mMapListener);
+        mapHandler.setMapFragment(mapFragment);
     }
 }

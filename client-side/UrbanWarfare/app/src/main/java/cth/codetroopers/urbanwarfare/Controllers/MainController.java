@@ -1,17 +1,14 @@
 package cth.codetroopers.urbanwarfare.Controllers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Views.IMainView;
@@ -48,8 +45,14 @@ public class MainController extends AppCompatActivity implements IMainController
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        ClientModel.requestUpdate();
+    }
+
+    @Override
     public void onRequestRadarStatusChange() {
-        ClientController.requestChangeRadarStatus();
+        ClientModel.requestRadarStatusChange();
     }
 
     @Override
@@ -59,7 +62,7 @@ public class MainController extends AppCompatActivity implements IMainController
 
     @Override
     public void onAttackPlayer(String oID) {
-        ClientController.attack(oID);
+        ClientModel.attack(oID);
     }
 
 

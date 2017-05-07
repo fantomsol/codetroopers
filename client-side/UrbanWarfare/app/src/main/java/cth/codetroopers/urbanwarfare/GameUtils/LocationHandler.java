@@ -2,7 +2,6 @@ package cth.codetroopers.urbanwarfare.GameUtils;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -10,11 +9,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
-import cth.codetroopers.urbanwarfare.Activities.MainActivity;
+import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Controllers.IMainController;
 
 
@@ -71,9 +68,9 @@ public class LocationHandler {
          */
         locationListener = new LocationListener() {
             /**
-             * Simple onLocationChanged event, it requests the ConnectionLayer on ClientController to inform the server of the player's new coordinates.
+             * Simple onLocationChanged event, it requests the ConnectionLayer on ConnectivityLayer to inform the server of the player's new coordinates.
              *
-             * @see ClientController#changePosition(Location)
+             * @see ConnectivityLayer#changePosition(Location)
              * @param location The Location parameter is passed by the LocationManager instance we have.
              */
             @Override
@@ -119,7 +116,7 @@ public class LocationHandler {
         After initializing our LocationListener interface implementation, we ask the system to send location updates to our locationManager, via the service gps, and every 500 ms, and when the change in location is <= .00001 meters
          */
             Log.i("location-manager", "asking for requests");
-            locationManager.requestLocationUpdates("gps", 500, 0.0001f, locationListener);
+            locationManager.requestLocationUpdates("gps", 500,0, locationListener);
         }
 
 
