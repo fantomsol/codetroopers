@@ -1,7 +1,5 @@
 package GameModel.Item.Armours;
 
-import java.util.List;
-
 /**
  * Created by latiif on 3/22/17.
  */
@@ -16,7 +14,7 @@ public class ArmoursFactory {
 
 
 	//Make sure to keep up to date
-	public static Armour createArmour(Integer id){
+	public static IArmour createArmour(Integer id){
 
 		if (id==ArmoursDirectory.SHIELD_OF_VALOR){
 			return new ShieldOfValor();

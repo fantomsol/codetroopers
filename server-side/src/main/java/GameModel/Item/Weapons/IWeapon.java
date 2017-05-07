@@ -5,7 +5,7 @@ import GameModel.Item.Item;
 /**
  * Created by latiif on 3/22/17.
  */
-public interface WeaponInterface extends Item {
+public interface IWeapon extends Item {
 
 
 	Integer fireWeapon();

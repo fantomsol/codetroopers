@@ -1,7 +1,7 @@
 package GameModel.GameUtils;
 
 import GameModel.Item.Weapons.Weapon;
-import GameModel.Item.Weapons.WeaponInterface;
+import GameModel.Item.Weapons.IWeapon;
 
 /**
  * Created by latiif on 3/29/17.
@@ -9,7 +9,7 @@ import GameModel.Item.Weapons.WeaponInterface;
 public class WeaponCooldown implements Runnable {
 
 	private final int cooldownDuration;
-	private WeaponInterface weapon;
+	private IWeapon weapon;
 
 	public WeaponCooldown(Weapon weapon) {
 		this.cooldownDuration = weapon.getCooldown()*1000;

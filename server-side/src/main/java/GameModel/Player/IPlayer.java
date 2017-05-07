@@ -1,6 +1,9 @@
 package GameModel.Player;
 
+import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
+import GameModel.Item.Weapons.IWeapon;
+import GameModel.Lootbox.ILootbox;
 import GameModel.Ranking.Ranks;
 
 import java.util.List;
@@ -39,6 +42,9 @@ public interface IPlayer {
 
 	Integer getOfflineCooldown();
 
+	void grantWeapon(IWeapon weapon);
+	void grantArmour(IArmour armour);
+
 	void setCanGoOffline(Boolean value);
 
 	Boolean getCanGoOffline();
@@ -60,6 +66,8 @@ public interface IPlayer {
 	List<IPlayer> getPlayersNearby();
 
 	void addNearbyPlayer(IPlayer IPlayer);
+
+	void consume(ILootbox lootbox);
 
 	void removeNearbyPlayer(IPlayer IPlayer);
 }

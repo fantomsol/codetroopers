@@ -3,7 +3,7 @@ package GameModel.Item.Armours;
 /**
  * Created by Hugo on 2017-05-04.
  */
-public class Kevlar implements Armour {
+public class Kevlar implements IArmour {
     private final Integer id= 4;
     private final String name="Kevlar";
     private final Integer value = 250;

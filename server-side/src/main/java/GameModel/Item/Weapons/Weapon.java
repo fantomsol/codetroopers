@@ -5,7 +5,7 @@ import GameModel.GameUtils.WeaponCooldown;
 /**
  * Created by latiif on 3/29/17.
  */
-public abstract class Weapon implements WeaponInterface {
+public abstract class Weapon implements IWeapon {
 
 	private Boolean isOnCooldown;
 

@@ -1,12 +1,14 @@
 package GameModel.WorldPackage;
 
 import GameModel.GameUtils.GeoDistance;
+import GameModel.Lootbox.ILootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import Mediator.ServerModelMediator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,6 +19,7 @@ public class World {
 
 	private ServerModelMediator mediator;
 
+	private List<ILootbox> lootboxes;
 
 	private Map<String,IPlayer> players;
 

@@ -3,7 +3,7 @@ package GameModel.Item.Armours;
 /**
  * Created by latiif on 3/22/17.
  */
- class ShieldOfValor implements Armour {
+ class ShieldOfValor implements IArmour {
 
  	private final Integer id= 1;
 	private final String name="Shield of Valor";

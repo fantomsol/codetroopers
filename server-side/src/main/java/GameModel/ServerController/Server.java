@@ -1,5 +1,6 @@
 package GameModel.ServerController;
 
+import GameModel.Lootbox.ILootbox;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 
@@ -99,10 +100,16 @@ public class Server implements IServer {
 	}
 
 
-	public  void updatePlayer(IPlayer IPlayer){
-		if (map.containsKey(IPlayer)){
-			map.get(IPlayer).sendEvent("player-info", IPlayer);
-			System.out.println("sending player info to "+ IPlayer.getID());
+	public void updateLootbox(IPlayer player, ILootbox lootbox){
+		if (map.containsKey(player)){
+			map.get(player).sendEvent("lootbox",lootbox);
+		}
+	}
+
+	public  void updatePlayer(IPlayer player){
+		if (map.containsKey(player)){
+			map.get(player).sendEvent("player-info", player);
+			System.out.println("sending player info to "+ player.getID());
 		}
 	}
 

@@ -3,7 +3,7 @@ package GameModel.Item.Armours;
 /**
  * Created by Hugo on 2017-05-04.
  */
-public class Helmet implements Armour {
+public class Helmet implements IArmour {
     private final Integer id= 5;
     private final String name="Kevlar";
     private final Integer value = 10;
