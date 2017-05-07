@@ -2,11 +2,13 @@ package GameModel.WorldPackage;
 
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Lootbox.ILootbox;
+import GameModel.Lootbox.Lootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import Mediator.ServerModelMediator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +37,16 @@ public class World {
 	}
 
 
-	//Dependency is injected on constructor
+
 	public World() {
 		players = new HashMap<String, IPlayer>();
+		lootboxes= new ArrayList<ILootbox>();
 
 	}
 
+	public void addLootbox(ILootbox lootbox){
+		lootboxes.add(lootbox);
+	}
 
 	public IPlayer getPlayer(IPlayer p){
 		try {
@@ -155,7 +161,32 @@ public class World {
 
 		mediator.updatePlayer(IPlayer);
 		mediator.updateNearbyPlayers(IPlayer);
+
+
+		///Check for lootboxes
+
+		updateLootboxes(IPlayer);
+
 	}
+
+
+	public void updateLootboxes(IPlayer player){
+		List<ILootbox> visibleLootboxes= new ArrayList<ILootbox>();
+
+		if (!player.isOnline() || !player.getIsAlive())
+		{
+			for (ILootbox lootbox: lootboxes){
+				if (GeoDistance.getDistance(lootbox.getGeoPos(),player.getGeoPos())<=player.getVision()){
+					visibleLootboxes.add(lootbox);
+				}
+			}
+
+			mediator.updateLootbox(player,visibleLootboxes);
+		}
+
+
+	}
+
 
 
 

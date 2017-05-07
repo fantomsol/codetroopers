@@ -100,9 +100,15 @@ public class Server implements IServer {
 	}
 
 
-	public void updateLootbox(IPlayer player, ILootbox lootbox){
+	public void updateLootbox(IPlayer player, List<ILootbox> lootboxes){
 		if (map.containsKey(player)){
-			map.get(player).sendEvent("lootbox",lootbox);
+
+			ILootbox[] array= new ILootbox[lootboxes.size()];
+
+			for(int i=0;i<array.length;i++){
+				array[i]= lootboxes.get(i);
+			}
+			map.get(player).sendEvent("lootbox",array);
 		}
 	}
 
