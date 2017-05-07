@@ -1,5 +1,6 @@
 package GameModel.ServerController.EventListeners;
 
+import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.SigninEvent;
 import GameModel.ServerController.Server;
 import GameModel.WorldPackage.World;
@@ -20,6 +21,10 @@ public class SigninListener extends EventListener implements DataListener<Signin
 
 	public void onData(SocketIOClient socketIOClient, SigninEvent signinEvent, AckRequest ackRequest) throws Exception {
 
-		mediator.playerSignin(mediator.getPlayerById(signinEvent.getId()),socketIOClient);
+		IPlayer p = mediator.getPlayerById(signinEvent.getId());
+
+		if (p!=null) {
+			mediator.playerSignin(p, socketIOClient);
+		}
 	}
 }

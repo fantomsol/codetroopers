@@ -125,8 +125,14 @@ public class ConnectivityLayer {
             public void call(Object... args) {
                 JSONObject msg= (JSONObject) args[0];
 
+                if (msg==null){
+                    return;
+                }
                 try {
                     if (msg.get("id").equals(ClientModel.playerID)){
+                        if (ClientModel.mPlayer==null){
+                            ClientModel.onDataFetched();
+                        }
                         ClientModel.onPlayerDataRecieved(new PlayerSkeleton(msg));
                     }
                 } catch (JSONException e) {
@@ -188,6 +194,7 @@ public class ConnectivityLayer {
                 Prompts the loadingActivity that connection is established
                  */
                // loadingActivity.onConnected();
+                ClientModel.onConnected();
             }
         });
 
@@ -268,15 +275,16 @@ public class ConnectivityLayer {
         Prompts loadingActivity that signing in is ongoing
          */
        // loadingActivity.onSignedin();
+        ClientModel.onSignedin();
 
     }
 
-    public  void changeWeapon(WeaponSkeleton weaponSkeleton){
+    public  void changeWeapon(int weaponID){
         JSONObject object = new JSONObject();
 
         try {
             object.put("playerId",ClientModel.playerID);
-            object.put("weaponId",weaponSkeleton.getId());
+            object.put("weaponId",weaponID);
 
             socket.emit("change-weapon",object);
             Log.i("request","request to change weapon sent");

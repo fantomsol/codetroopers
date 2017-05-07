@@ -1,6 +1,7 @@
 package cth.codetroopers.urbanwarfare.Controllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import cth.codetroopers.urbanwarfare.Activities.ChooseWeapon;
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
@@ -23,6 +25,7 @@ public class MainController extends AppCompatActivity implements IMainController
     private IMainView mainView;
     private LocationHandler locationHandler;
 
+    public static int CODE_CHANGEWEAPON=1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +59,18 @@ public class MainController extends AppCompatActivity implements IMainController
     }
 
     @Override
-    public void onChangeWeapon() {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==CODE_CHANGEWEAPON){
+            if (resultCode==RESULT_OK){
+                ClientModel.changeWeapon(data.getIntExtra("weapon-id",1));
+            }
+        }
+    }
 
+    @Override
+    public void onChangeWeapon() {
+        Intent i = new Intent(this, ChooseWeapon.class);
+        startActivityForResult(i,CODE_CHANGEWEAPON);
     }
 
     @Override

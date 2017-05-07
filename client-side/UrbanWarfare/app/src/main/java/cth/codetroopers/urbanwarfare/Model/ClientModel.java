@@ -24,6 +24,26 @@ public class ClientModel {
 
     public static String playerID;
 
+    public static void onConnected(){
+        loadingView.onSigningIn();
+        layer.signIn(playerID);
+    }
+
+    public static void onSignedin(){
+        loadingView.onFetchingData();
+        layer.requestPlayerInformation(playerID);
+
+    }
+
+    public static void changeWeapon(int weaponID){
+        layer.changeWeapon(weaponID);
+    }
+
+    public static void onDataFetched(){
+        loadingView.onLoadingCompleted();
+
+    }
+
     public static void commenceLogin(){
 
         loadingView.onConnecting();
@@ -33,13 +53,7 @@ public class ClientModel {
             e.printStackTrace();
         }
 
-        loadingView.onSigningIn();
-        layer.signIn(playerID);
 
-        loadingView.onFetchingData();
-        layer.requestPlayerInformation(playerID);
-
-        loadingView.onLoadingCompleted();
 
     }
 

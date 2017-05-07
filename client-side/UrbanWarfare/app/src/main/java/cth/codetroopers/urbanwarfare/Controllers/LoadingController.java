@@ -33,9 +33,14 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
 
 
         setContentView(loadingView.getRootView());
-        ClientModel.commenceLogin();
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ClientModel.commenceLogin();
+    }
 
     @Override
     public void onFinishedLoading() {

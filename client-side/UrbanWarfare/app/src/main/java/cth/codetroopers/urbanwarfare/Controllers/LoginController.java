@@ -35,9 +35,10 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
     public void onRequestLogin(String id) {
 
         ClientModel.playerID=id;
+        finish();
         startActivity(new Intent(this,LoadingController.class));
 
-        finish();
+
 
     }
 }
