@@ -48,10 +48,12 @@ public class ClientModel {
     }
     public static void requestRadarStatusChange(){
         layer.requestChangeRadarStatus();
+        layer.changePosition(mPlayer.getGeoPos());
     }
 
     public static void requestUpdate(){
         layer.requestPlayerInformation(playerID);
+        layer.changePosition(mPlayer.getGeoPos());
     }
     public static void onMovementDetected(Location coordinates){
         if (layer!=null) {
@@ -69,7 +71,9 @@ public class ClientModel {
 
 
     public static void onNearbyPlayersReceived(List<PlayerSkeleton> opponents){
-        mainView.updatePlayersNearby(opponents);
+        if (mainView!=null) {
+            mainView.updatePlayersNearby(opponents);
+        }
     }
 
    public static void onPlayerDataRecieved(PlayerSkeleton player){

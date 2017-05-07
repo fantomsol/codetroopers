@@ -199,6 +199,12 @@ public class ConnectivityLayer {
 
     }
 
+    public  void changePosition(Location position){
+        LatLng pos= new LatLng(position.getLatitude(),position.getLongitude());
+
+        changePosition(pos);
+
+    }
 
     /**
      * The method sends a "position-changed" event to the server to update the position of the player
@@ -207,14 +213,13 @@ public class ConnectivityLayer {
      *
      * @see cth.codetroopers.urbanwarfare.GameUtils.LocationHandler#locationListener
      */
-    public  void changePosition(Location position){
+    public  void changePosition(LatLng position){
 
         JSONObject object= new JSONObject();
 
         /*
         Converting the Location object to LatLng object
          */
-        LatLng pos= new LatLng(position.getLatitude(),position.getLongitude());
 
         /*
         Filling in the data required by the event.
@@ -222,8 +227,8 @@ public class ConnectivityLayer {
          */
         try {
             object.put("id",ClientModel.playerID);
-            object.put("lat",pos.latitude);
-            object.put("lang",pos.longitude);
+            object.put("lat",position.latitude);
+            object.put("lang",position.longitude);
 
 
             /*
@@ -231,7 +236,7 @@ public class ConnectivityLayer {
              */
             socket.emit("position-changed",object);
 
-            Log.i("position-changed", String.valueOf(pos.latitude)+" "+pos.longitude);
+            Log.i("position-changed", String.valueOf(position.latitude)+" "+position.longitude);
 
             /*
             Fetches the updated data of the player from the server
