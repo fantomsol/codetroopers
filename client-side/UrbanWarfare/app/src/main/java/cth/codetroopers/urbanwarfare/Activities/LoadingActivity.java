@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.net.URISyntaxException;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.Controllers.MainController;
 import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -77,7 +78,7 @@ public class LoadingActivity extends AppCompatActivity implements LoadingActivit
 
     @Override
     public void onDataFetched() {
-        Intent intent= new Intent(this,MainActivity.class);
+        Intent intent= new Intent(this,MainController.class);
         startActivity(intent);
         finish();
 

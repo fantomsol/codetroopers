@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.GameUtils;
+package cth.codetroopers.urbanwarfare.Views;
 
 
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -20,12 +19,15 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.GameUtils.AttackOpponentListener;
+import cth.codetroopers.urbanwarfare.GameUtils.OpponentIconGenerator;
+import cth.codetroopers.urbanwarfare.Model.ClientModel;
+import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -45,13 +47,14 @@ https://developers.google.com/maps/documentation/android-api/map
 
 DO READ THE WHOLE THING
  */
-public class GoogleMapHandler implements IGoogleMapHandler {
+public class GoogleMapHandler implements IMapHandler {
 
     private GoogleMap map;
     private FragmentActivity context;
 
+    private IMainView.MapListener mMapListener;
 
-    public GoogleMapHandler(FragmentActivity context) {
+    public GoogleMapHandler(FragmentActivity context, IMainView.MapListener mapListener) {
 
         this.context = context;
 
@@ -61,6 +64,7 @@ public class GoogleMapHandler implements IGoogleMapHandler {
         mapFragment.getMapAsync(this);
 
 
+        this.mMapListener=mapListener;
 
     }
 
@@ -103,12 +107,12 @@ public class GoogleMapHandler implements IGoogleMapHandler {
 
 
         //Ask our class AttackOpponentListener to listen to all click events on markers
-        map.setOnMarkerClickListener(new AttackOpponentListener());
+        map.setOnMarkerClickListener(new AttackOpponentListener(mMapListener));
 
-
-       ClientController.requestPlayerInformation(ClientController.playerID);
 
     }
+
+    private AttackOpponentListener attackListener;
 
     private void applyDarkStyle() {
         try {
@@ -132,7 +136,7 @@ public class GoogleMapHandler implements IGoogleMapHandler {
      * Here we take all the opponents in the ClientController class and place them as markers on the map
      */
     @Override
-    public void pinOpponents() {
+    public void pinOpponents(final List<PlayerSkeleton> nearbyPlayers) {
 
 
         /*
@@ -154,23 +158,21 @@ public class GoogleMapHandler implements IGoogleMapHandler {
                 /*
                 For every JSON object we extract the data we want and pass it to the OpponentIconGenerator and place them on the map, and in the list opponentsMarkers
                  */
-                for (JSONObject opponent : ClientController.opponents) {
+                for (PlayerSkeleton opponent : nearbyPlayers) {
                     Double lat = 0.0, lng = 0.0;
                     String op_id = "Secret";
                     Integer hp = 100;
                     BitmapDescriptor descriptor = BitmapDescriptorFactory.defaultMarker();
+
+
                     try {
-
-                        lat = (Double) opponent.getJSONObject("geoPos").get("latitude");
-                        lng = (Double) opponent.getJSONObject("geoPos").get("longitude");
-
                         descriptor = OpponentIconGenerator.getInstance().generateFromPlayer(opponent);
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    LatLng pos = new LatLng(lat, lng);
+
+                    LatLng pos =opponent.getGeoPos();
 
 
                     Marker marker = map.addMarker(new MarkerOptions().position(pos).title(op_id)
@@ -207,7 +209,7 @@ public class GoogleMapHandler implements IGoogleMapHandler {
             e.printStackTrace();
         }
 
-        final LatLng pos = new LatLng(lat, lng);
+        final LatLng pos = ClientModel.mPlayer.getGeoPos();
 
 
         Handler handler = new Handler(Looper.getMainLooper());
@@ -222,6 +224,11 @@ public class GoogleMapHandler implements IGoogleMapHandler {
 
         Log.i("player", "change location to " + lat + ":" + lng);
 
+    }
+
+    @Override
+    public void setMapListener(IMainView.MapListener mapListener) {
+        mMapListener=mapListener;
     }
 
 

@@ -1,6 +1,7 @@
 package cth.codetroopers.urbanwarfare.GameUtils;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import android.util.Log;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
+import cth.codetroopers.urbanwarfare.Controllers.IMainController;
 
 
 /**
@@ -46,7 +48,7 @@ public class LocationHandler {
     private LocationManager locationManager;
     private LocationListener locationListener;
 
-    private final AppCompatActivity context;
+
 
 
     /**
@@ -54,14 +56,13 @@ public class LocationHandler {
      *
      * @param context the activity that requests LOCATION_SERVICE service.
      */
-    public LocationHandler(final AppCompatActivity context) {
-        this.context = context;
+    public LocationHandler(final IMainController mainController) {
 
         /*
         Here we request the device's System Service named LOCATION_SERVICE
         To be granted access to this service we must add certains permissions to our app's manifest file.
          */
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) mainController.getContext().getSystemService(Context.LOCATION_SERVICE);
 
 
         /*
@@ -78,7 +79,7 @@ public class LocationHandler {
             @Override
             public void onLocationChanged(Location location) {
 
-                ClientController.changePosition(location);
+                mainController.onLocationChanged(location);
                 Log.i("gps","change in location detected");
 
             }
@@ -100,7 +101,7 @@ public class LocationHandler {
         };
 
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mainController.getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mainController.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -109,7 +110,7 @@ public class LocationHandler {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-            ActivityCompat.requestPermissions(context, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+            ActivityCompat.requestPermissions((Activity)mainController.getContext(), new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
                    1 );
 
         }else {

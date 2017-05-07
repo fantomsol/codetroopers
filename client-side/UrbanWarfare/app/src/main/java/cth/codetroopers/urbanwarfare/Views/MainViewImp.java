@@ -1,7 +1,11 @@
 package cth.codetroopers.urbanwarfare.Views;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Activities.ChooseWeapon;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
@@ -22,13 +28,20 @@ import cth.codetroopers.urbanwarfare.R;
 public class MainViewImp implements IMainView{
 
     private View rootView;
-    private PanelControlInteraction mListener;
+    private PanelControlInteractionListener mListener;
+    private MapListener mMapListener;
 
     public  View mapFragment;
+
+    private IMapHandler mapHandler;
     private FloatingActionButton fab;
     private TextView txtName;
     private ProgressBar progressHp;
     private ImageButton radarButton;
+
+    private FragmentActivity mContext;
+
+
 
 
 
@@ -53,6 +66,8 @@ public class MainViewImp implements IMainView{
             }
         });
 
+
+
     }
 
     private void initialize(){
@@ -70,16 +85,54 @@ public class MainViewImp implements IMainView{
     }
 
     @Override
-    public void updateGUI(PlayerSkeleton player) {
-        txtName.setText(player.getID());
-        progressHp.setProgress(player.getHp().intValue());
+    public void updateGUI(final PlayerSkeleton player) {
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+
+                txtName.setText(player.getID());
+                progressHp.setProgress(player.getHp().intValue());
+
+                mapHandler.pinPlayer();
+
+                if (player.isOnline()) {
+                    radarButton.setImageResource(R.drawable.visible);
+                } else {
+                    radarButton.setImageResource(R.drawable.invisible);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void updatePlayersNearby(final List<PlayerSkeleton> playersNearby) {
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mapHandler.pinOpponents(playersNearby);
+            }
+        });
+    }
+
+    @Override
+    public void setListener(PanelControlInteractionListener listener) {
+        mListener=listener;
+    }
+
+    @Override
+    public void setMapListener(MapListener listener) {
+        mMapListener=listener;
+        mapHandler.setMapListener(listener);
+    }
 
 
-        if (player.isOnline()){
-            radarButton.setImageResource(R.drawable.visible);
-        }
-        else {
-            radarButton.setImageResource(R.drawable.invisible);
-        }
+    @Override
+    public void setContext(FragmentActivity context) {
+        mContext=context;
+        mapHandler=new GoogleMapHandler(context,mMapListener);
     }
 }

@@ -26,10 +26,10 @@ public class Main {
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);
 
+		p1.goOnline();
 		p2.goOnline();
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
 
-		p2.updatePos(new GeoPos(38.63473,-90.29408));
 	}
 }

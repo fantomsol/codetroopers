@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
+import cth.codetroopers.urbanwarfare.Controllers.MainController;
 import cth.codetroopers.urbanwarfare.LoadingActivityInterface;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
@@ -160,7 +161,8 @@ public class ClientController {
                             loadingActivity.onDataFetched();
                         }
                         playerInfo= msg;
-                        ClientModel.player= new PlayerSkeleton(msg);
+                       // ClientModel.player= new PlayerSkeleton(msg);
+                        ClientModel.onPlayerDataRecieved(new PlayerSkeleton(msg));
                         /**
                          * Asks the MainActivity of the game to update its content to reflect the new data of the player
                          */
@@ -189,13 +191,17 @@ public class ClientController {
             public void call(Object... args) {
                 Log.i("nearby", String.valueOf( args.length));
 
+                List<PlayerSkeleton> playersNearby= new ArrayList<PlayerSkeleton>();
+
                 ClientController.opponents.clear();
                 for (int i=0;i<args.length;i++){
 
-                    ClientController.opponents.add((JSONObject) args[i]);
+                    //ClientController.opponents.add();
+                    playersNearby.add(new PlayerSkeleton((JSONObject) args[i]));
                 }
 
-                MainActivity.googleMapHandler.pinOpponents();
+
+                ClientModel.onNearbyPlayersReceived(playersNearby);
             }
         });
     }

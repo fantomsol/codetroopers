@@ -44,6 +44,8 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activities.LoadingActivity"></activity>
         <activity android:name=".Activities.ChooseWeapon"></activity>
+
+        <activity android:name=".Controllers.MainController"></activity>
     </application>
 
 </manifest>

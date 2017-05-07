@@ -1,13 +1,10 @@
 package cth.codetroopers.urbanwarfare.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,10 +15,8 @@ import android.widget.TextView;
 
 import org.json.JSONException;
 
-import java.net.URISyntaxException;
-
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
-import cth.codetroopers.urbanwarfare.GameUtils.GoogleMapHandler;
+import cth.codetroopers.urbanwarfare.Views.GoogleMapHandler;
 import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -53,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        googleMapHandler = new GoogleMapHandler(this);
-        locationHandler = new LocationHandler(this);
+        googleMapHandler = new GoogleMapHandler(this,null);
+        //locationHandler = new LocationHandler(this);
 
 
         initGUI();

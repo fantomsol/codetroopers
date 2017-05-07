@@ -10,6 +10,9 @@ import org.json.JSONObject;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
 import cth.codetroopers.urbanwarfare.ClientSide.ClientController;
+import cth.codetroopers.urbanwarfare.Model.ClientModel;
+import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Views.IMainView;
 
 /**
  * @author latiif
@@ -27,6 +30,13 @@ A click listener is not assigned for every marker on the map, but to the entire 
  */
 
 public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
+
+    private IMainView.MapListener mapListener;
+
+    public AttackOpponentListener(IMainView.MapListener mapListener){
+        this.mapListener=mapListener;
+    }
+
     /**
      *
      * @param marker the marker being clicked
@@ -42,19 +52,15 @@ public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
             //Another player is being attacked
 
             //We grab the tag assigned to the marker
-            JSONObject opponent = (JSONObject) marker.getTag();
-            String opponentID= null;
 
+            PlayerSkeleton opponent=(PlayerSkeleton) marker.getTag();
 
-            try {
                 //Then we go ahead and extrac the opponet's id from their JSON tag.
-                opponentID= opponent.getString("id");
+                String opponentID= opponent.getID();
 
                 //We proceed to inform the server that we are attacking the player with the id we just got
-                ClientController.attack(opponentID);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            mapListener.onAttackPlayer(opponentID);
+
         }
 
 

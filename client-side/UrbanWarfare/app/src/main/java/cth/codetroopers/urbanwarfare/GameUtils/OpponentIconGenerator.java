@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.util.zip.Inflater;
 
 import cth.codetroopers.urbanwarfare.Activities.MainActivity;
+import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -77,7 +78,7 @@ public class OpponentIconGenerator {
      * @return A BitMapDescriptor object that can be placed on the map directly.
      * @throws Exception If the context has not been set yet.
      */
-    public BitmapDescriptor generateFromPlayer(JSONObject player) throws Exception {
+    public BitmapDescriptor generateFromPlayer(PlayerSkeleton player) throws Exception {
         if (context==null){
             throw new Exception("No context set");
         }
@@ -91,8 +92,8 @@ public class OpponentIconGenerator {
 
 
         //Fill in the elements with the corresponding information from the player JSON object
-        txtName.setText(player.getString("id"));
-        prgHp.setProgress(player.getInt("hp"));
+        txtName.setText(player.getID());
+        prgHp.setProgress(player.getHp().intValue());
 
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);

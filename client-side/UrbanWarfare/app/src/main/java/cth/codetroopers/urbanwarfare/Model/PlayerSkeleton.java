@@ -40,7 +40,7 @@ public class PlayerSkeleton {
             array = ClientController.playerInfo.getJSONArray("weapons");
 
             for (int i=0;i<array.length();i++){
-                playersNearby.add(new PlayerSkeleton(array.getJSONObject(i)));
+                weapons.add(new WeaponSkeleton(array.getJSONObject(i)));
             }
 
 
@@ -61,7 +61,7 @@ public class PlayerSkeleton {
     private LatLng geoPos;
     private Integer vision;
     private Integer gold;
-    private List<PlayerSkeleton> playersNearby= new ArrayList<>();
+    private List<WeaponSkeleton> weapons = new ArrayList<>();
 
 
 
@@ -121,8 +121,8 @@ public class PlayerSkeleton {
     }
 
 
-    public List<PlayerSkeleton> getPlayersNearby(){
-        return playersNearby;
+    public List<WeaponSkeleton> getWeapons(){
+        return weapons;
     }
 
 
