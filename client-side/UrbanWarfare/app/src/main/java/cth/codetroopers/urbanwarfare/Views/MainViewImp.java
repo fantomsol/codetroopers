@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
@@ -122,6 +124,11 @@ public class MainViewImp implements IMainView{
     public void setMapListener(MapListener listener) {
         mMapListener=listener;
         mapHandler.setMapListener(listener);
+    }
+
+    @Override
+    public void updateLootboxes(List<LatLng> boxes) {
+        mapHandler.pinLootboxes(boxes);
     }
 
 

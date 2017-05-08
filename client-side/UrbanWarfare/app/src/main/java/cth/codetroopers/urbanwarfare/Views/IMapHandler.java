@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface IMapHandler extends OnMapReadyCallback {
     void pinOpponents(List<PlayerSkeleton> nearbyPlayers);
 
     void pinPlayer(PlayerSkeleton player);
+
+    void pinLootboxes(List<LatLng> lootboxes);
 
     void setMapListener(IMainView.MapListener mapListener);
 }

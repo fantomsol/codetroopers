@@ -3,6 +3,7 @@ package cth.codetroopers.urbanwarfare.GameUtils;
 import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
@@ -43,18 +44,24 @@ public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
         if (marker.getTag()==null){
             //A marker with no tag, is that of the player
         }else {
-            //Another player is being attacked
 
-            //We grab the tag assigned to the marker
+            if (marker.getTag() instanceof LatLng){
+                LatLng cratePos = (LatLng) marker.getTag();
+                mapListener.onConsumeLootbox(cratePos);
+            }
+            else {
+                //Another player is being attacked
 
-            PlayerSkeleton opponent=(PlayerSkeleton) marker.getTag();
+                //We grab the tag assigned to the marker
+
+                PlayerSkeleton opponent = (PlayerSkeleton) marker.getTag();
 
                 //Then we go ahead and extrac the opponet's id from their JSON tag.
-                String opponentID= opponent.getID();
+                String opponentID = opponent.getID();
 
                 //We proceed to inform the server that we are attacking the player with the id we just got
-            mapListener.onAttackPlayer(opponentID);
-
+                mapListener.onAttackPlayer(opponentID);
+            }
         }
 
 

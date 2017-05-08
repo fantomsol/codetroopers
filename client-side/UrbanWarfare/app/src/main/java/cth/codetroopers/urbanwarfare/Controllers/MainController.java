@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import cth.codetroopers.urbanwarfare.Activities.ChooseWeapon;
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
@@ -78,6 +80,10 @@ public class MainController extends AppCompatActivity implements IMainController
         ClientModel.attack(oID);
     }
 
+    @Override
+    public void onConsumeLootbox(LatLng coord) {
+        ClientModel.consumeLootbox(coord);
+    }
 
 
     @Override

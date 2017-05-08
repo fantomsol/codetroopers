@@ -2,6 +2,8 @@ package cth.codetroopers.urbanwarfare.Views;
 
 import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
@@ -19,6 +21,8 @@ public interface IMainView extends IView {
 
     void setMapListener(MapListener listener);
 
+    void updateLootboxes(List<LatLng> boxes);
+
 
     interface PanelControlInteractionListener {
         /**
@@ -30,6 +34,7 @@ public interface IMainView extends IView {
 
     interface MapListener{
         void onAttackPlayer(String oID);
+        void onConsumeLootbox(LatLng coord);
     }
 
 

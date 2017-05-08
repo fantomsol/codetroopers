@@ -2,6 +2,8 @@ package cth.codetroopers.urbanwarfare.Model;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -33,6 +35,14 @@ public class ClientModel {
         loadingView.onFetchingData();
         layer.requestPlayerInformation(playerID);
 
+    }
+
+    public static void consumeLootbox(LatLng coord){
+        layer.consumeLootboxRequest(coord);
+    }
+
+    public static void onLootboxesUpdate(List<LatLng> boxes){
+        mainView.updateLootboxes(boxes);
     }
 
     public static void changeWeapon(int weaponID){

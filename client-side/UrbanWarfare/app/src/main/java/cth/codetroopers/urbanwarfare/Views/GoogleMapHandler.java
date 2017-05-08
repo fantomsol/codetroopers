@@ -225,6 +225,30 @@ public class GoogleMapHandler implements IMapHandler {
 
     }
 
+    private List<Marker> lootboxesMarkers = new ArrayList<>();
+    @Override
+    public void pinLootboxes(final List<LatLng> lootboxes) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (Marker marker: lootboxesMarkers){
+                    marker.remove();
+                }
+
+                lootboxesMarkers.clear();
+
+                for (LatLng latLng:lootboxes){
+                    Marker marker = map.addMarker(new MarkerOptions().position(latLng)
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.wooden_crate)));
+
+                    lootboxesMarkers.add(marker);
+                    marker.setTag(latLng);
+                }
+            }
+        });
+    }
+
     @Override
     public void setMapListener(IMainView.MapListener mapListener) {
         mMapListener=mapListener;

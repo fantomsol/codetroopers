@@ -157,14 +157,33 @@ public class ConnectivityLayer {
                 List<PlayerSkeleton> playersNearby= new ArrayList<PlayerSkeleton>();
 
 
-                for (int i=0;i<args.length;i++){
+                for (Object arg : args) {
 
                     //ConnectivityLayer.opponents.add();
-                    playersNearby.add(new PlayerSkeleton((JSONObject) args[i]));
+                    playersNearby.add(new PlayerSkeleton((JSONObject) arg));
                 }
 
 
                 ClientModel.onNearbyPlayersReceived(playersNearby);
+            }
+        });
+
+
+        socket.on("lootbox-update", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                List<LatLng> lootboxes= new ArrayList<LatLng>();
+
+                for (Object arg: args){
+                    JSONObject object = (JSONObject) arg;
+                    try {
+                        lootboxes.add(new LatLng(object.getJSONObject("geoPos").getDouble("latitude"),object.getJSONObject("geoPos").getDouble("longitude")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                ClientModel.onLootboxesUpdate(lootboxes);
             }
         });
     }
@@ -333,5 +352,18 @@ public class ConnectivityLayer {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void consumeLootboxRequest(LatLng coord){
+        JSONObject object = new JSONObject();
+
+        try {
+            object.put("id",ClientModel.playerID);
+            object.put("geoPos",new JSONObject().put("latitude",coord.latitude).put("longitude",coord.longitude));
+            socket.emit("consume-lootbox",object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 }
