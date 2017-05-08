@@ -96,6 +96,8 @@ public class World {
 			//update the player's nearby list
 			mediator.updateNearbyPlayers(IPlayer);
 
+			updateLootboxes(IPlayer);
+
 			//no need to do anything else
 			return;
 		}
@@ -157,6 +159,7 @@ public class World {
 				}
 			}
 			mediator.updateNearbyPlayers(oIPlayer);
+			updateLootboxes(oIPlayer);
 		}
 
 		mediator.updatePlayer(IPlayer);
@@ -180,12 +183,10 @@ public class World {
 					visibleLootboxes.add(lootbox);
 				}
 			}
-
-			System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
-			mediator.updateLootbox(player,visibleLootboxes);
 		}
 
-
+		System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
+		mediator.updateLootbox(player,visibleLootboxes);
 	}
 
 
