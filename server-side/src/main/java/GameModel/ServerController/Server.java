@@ -108,7 +108,7 @@ public class Server implements IServer {
 			for(int i=0;i<array.length;i++){
 				array[i]= lootboxes.get(i);
 			}
-			map.get(player).sendEvent("lootbox",array);
+			map.get(player).sendEvent("lootbox-update",array);
 		}
 	}
 

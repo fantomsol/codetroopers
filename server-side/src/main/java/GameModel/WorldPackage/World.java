@@ -173,7 +173,7 @@ public class World {
 	public void updateLootboxes(IPlayer player){
 		List<ILootbox> visibleLootboxes= new ArrayList<ILootbox>();
 
-		if (!player.isOnline() || !player.getIsAlive())
+		if (player.isOnline() && player.getIsAlive())
 		{
 			for (ILootbox lootbox: lootboxes){
 				if (GeoDistance.getDistance(lootbox.getGeoPos(),player.getGeoPos())<=player.getVision()){
@@ -181,6 +181,7 @@ public class World {
 				}
 			}
 
+			System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
 			mediator.updateLootbox(player,visibleLootboxes);
 		}
 
@@ -188,6 +189,23 @@ public class World {
 	}
 
 
+	public void consumeLootboxByGeoPos(String playerId,GeoPos pos){
+
+		IPlayer player=getPlayerById(playerId);
+
+		for (ILootbox lootbox:lootboxes){
+			if (lootbox.getGeoPos().equals(pos)){
+				player.consume(lootbox);
+				lootboxes.remove(lootbox);
+
+				mediator.playerChangePos(playerId,player.getGeoPos());
+
+				return;
+			}
+		}
+
+
+	}
 
 
 }

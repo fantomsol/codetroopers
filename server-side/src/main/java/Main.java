@@ -1,5 +1,6 @@
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
+import GameModel.Lootbox.Lootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
@@ -16,6 +17,9 @@ public class Main {
 
 		Server server= new Server();
 		server.startServer();
+
+		world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,0,1));
+		world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,0,1));
 
 		ServerModelMediator modelMediator= new ServerModelMediator(server,world);
 

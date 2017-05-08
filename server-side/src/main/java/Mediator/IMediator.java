@@ -19,6 +19,9 @@ public interface IMediator {
 	IPlayer getPlayerById(String id);
 
 
+
+	void consumeLootbox(String  playerId, GeoPos geoPos);
+
 	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
 
 	void changeWeapon(String  playerId,Integer weaponID);

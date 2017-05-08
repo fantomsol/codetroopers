@@ -58,6 +58,12 @@ class ServerEventListeners {
 				ChangeWeaponEvent.class,
 				new ChangeWeaponListener(mediator)
 		);
+
+		socketIOServer.addEventListener(
+				"consume-lootbox",
+				ConsumeLootboxEvent.class,
+				new ConsumeLootboxListener(mediator)
+		);
 	}
 
 }
