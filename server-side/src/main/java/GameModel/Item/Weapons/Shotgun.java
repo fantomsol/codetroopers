@@ -17,7 +17,7 @@ public class Shotgun extends Weapon{
     }
 
     public Integer getRange() {
-        return 5;
+        return 50;
     }
 
     public Integer getCooldown() {

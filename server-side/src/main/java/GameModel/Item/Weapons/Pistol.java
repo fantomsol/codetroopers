@@ -21,7 +21,7 @@ class Pistol extends Weapon{
 	}
 
 	public Integer getRange() {
-		return 10;
+		return 75;
 	}
 
 	public Integer getCooldown() {

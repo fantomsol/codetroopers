@@ -18,7 +18,7 @@ public class Sniper extends Weapon{
     }
 
     public Integer getRange() {
-        return 20;
+        return 200;
     }
 
     public Integer getCooldown() {

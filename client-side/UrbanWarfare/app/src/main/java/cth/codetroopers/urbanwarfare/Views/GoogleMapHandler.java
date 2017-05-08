@@ -3,6 +3,7 @@ package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
@@ -14,6 +15,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -82,8 +85,8 @@ public class GoogleMapHandler implements IMapHandler {
 
 
         //Set a fixed zoom value (Needs to be revised when we set the constants for the game)
-        map.setMinZoomPreference(18);
-        map.setMaxZoomPreference(18);
+        map.setMinZoomPreference(16);
+        map.setMaxZoomPreference(16);
 
         //We create the first instance of the playerMarker, a marker that will always exist throughout the lifetime of the app.
         playerMarker =
@@ -95,6 +98,15 @@ public class GoogleMapHandler implements IMapHandler {
 
         //needs to be revised to decide the most visually appealing map type
        // map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
+
+        playerCircle=  map.addCircle(
+                new CircleOptions()
+                        .center(new LatLng(0,0))
+                        .radius(0)
+                        .clickable(false)
+                        .visible(true)
+                        .fillColor(Color.argb(75,255,0,0)));
 
 
         //Are we gonna use dark theme?
@@ -201,12 +213,13 @@ public class GoogleMapHandler implements IMapHandler {
     }
 
     private Marker playerMarker;
+    private Circle playerCircle;
 
     /**
      * Same thing happens here as in pinOpponents() method, apart from the fact that we place a simple marker and not a one generated from OpponentIconGenerator.
      */
     @Override
-    public void pinPlayer(PlayerSkeleton player) {
+    public void pinPlayer(final PlayerSkeleton player) {
 
         final LatLng pos = ClientModel.mPlayer.getGeoPos();
 
@@ -216,6 +229,10 @@ public class GoogleMapHandler implements IMapHandler {
             @Override
             public void run() {
                 playerMarker.setPosition(pos);
+
+                playerCircle.setCenter(player.getGeoPos());
+                playerCircle.setRadius(player.getWeaponEquipped().getRange());
+
                 map.moveCamera(CameraUpdateFactory.newLatLng(pos));
 
             }

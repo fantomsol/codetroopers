@@ -2,6 +2,7 @@ package GameModel.Player;
 
 
 import GameModel.Experience.Exp;
+import GameModel.GameUtils.GeoDistance;
 import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Armours.ArmoursDirectory;
@@ -238,10 +239,16 @@ public class Player implements IPlayer {
 		if (!otherPlayer.getIsAlive()){
 			return;
 		}
+
+		if (GeoDistance.getDistance(otherPlayer.getGeoPos(),this.geoPos)>this.weaponEquipped.getRange()){
+			return;
+		}
+
 		Integer damage= this.weaponEquipped.fireWeapon();
 		if (damage==0){
 			return;
 		}
+
 
 		otherPlayer.getAttacked(damage);
 		if (!otherPlayer.getIsAlive()){

@@ -10,9 +10,9 @@
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,13 +25,12 @@
         android:id="@+id/txtNameOpponent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:text="txtNamejjjjjj"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
         android:textColor="@color/colorPrimary"
         app:layout_constraintLeft_toRightOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="uhhuhhjhjh"/>
+        tools:text='"player"'/>
 
     <ImageView
         android:id="@+id/imageView6"
@@ -48,9 +47,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:text="TextView"
+        android:layout_marginTop="2dp"
+        android:text="100"
         android:textColor="?attr/colorAccent"
+        android:textSize="10sp"
         app:layout_constraintLeft_toRightOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/txtNameOpponent"/>
 
