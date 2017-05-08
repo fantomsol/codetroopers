@@ -44,6 +44,26 @@ public class GeoPos {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (obj==null){
+			return false;
+		}
+
+		if (obj==this){
+			return true;
+		}
+
+		if (obj instanceof GeoPos){
+			GeoPos oGeoPos= (GeoPos) obj;
+
+			return oGeoPos.getLatitude().equals(this.getLatitude()) && oGeoPos.getLongitude().equals(this.getLongitude());
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public String toString(){
 		StringBuilder stringBuilder= new StringBuilder();
 
