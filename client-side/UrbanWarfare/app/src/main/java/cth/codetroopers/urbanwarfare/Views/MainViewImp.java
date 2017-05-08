@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -35,6 +36,8 @@ public class MainViewImp implements IMainView{
     private TextView txtName;
     private ProgressBar progressHp;
     private ImageButton radarButton;
+
+    private TextView txtGold;
 
     private FragmentActivity mContext;
 
@@ -73,6 +76,7 @@ public class MainViewImp implements IMainView{
         radarButton= (ImageButton) rootView.findViewById(R.id.radarButton);
        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mapFragment = rootView.findViewById(R.id.map);
+        txtGold= (TextView)rootView.findViewById(R.id.txtGold);
 
     }
 
@@ -92,7 +96,11 @@ public class MainViewImp implements IMainView{
                 txtName.setText(player.getID());
                 progressHp.setProgress(player.getHp().intValue());
 
+                txtGold.setText(String.valueOf(player.getGold()));
+
+                fab.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
                 mapHandler.pinPlayer(player);
+
 
                 if (player.isOnline()) {
                     radarButton.setImageResource(R.drawable.visible);

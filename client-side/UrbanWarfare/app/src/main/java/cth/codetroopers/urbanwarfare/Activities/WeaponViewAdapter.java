@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
 import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -38,11 +39,22 @@ public class WeaponViewAdapter extends ArrayAdapter<WeaponSkeleton> {
         TextView textView = (TextView) customView.findViewById(R.id.weaponName);
         ImageView imageView = (ImageView) customView.findViewById(R.id.imageView);
 
+        TextView txtDamage = (TextView) customView.findViewById(R.id.txtDamage);
+        TextView txtRange = (TextView) customView.findViewById(R.id.txtRange);
+
+
         textView.setText(weapon.getName());
+        txtDamage.setText(String.valueOf(weapon.getDamage()));
+        txtRange.setText(String.valueOf(weapon.getRange()));
+
+
+        imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
 
         return customView;
 
     }
+
+
 
 
 }

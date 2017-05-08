@@ -86,12 +86,12 @@ public class OpponentIconGenerator {
 
         //Grab a handle of the elements in the xml file
         TextView txtName= (TextView)  view.findViewById(R.id.txtNameOpponent);
-        ProgressBar prgHp= (ProgressBar) view.findViewById(R.id.prgHp);
+        TextView textView= (TextView) view.findViewById(R.id.txtHp);
 
 
         //Fill in the elements with the corresponding information from the player JSON object
         txtName.setText(player.getID());
-        prgHp.setProgress(player.getHp().intValue());
+        textView.setText(String.valueOf(player.getHp()));
 
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);

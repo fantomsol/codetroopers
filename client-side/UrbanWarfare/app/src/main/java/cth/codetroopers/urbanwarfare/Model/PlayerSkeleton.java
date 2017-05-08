@@ -35,6 +35,7 @@ public class PlayerSkeleton {
             vision= object.getInt("vision");
             gold= object.getInt("gold");
 
+            weaponEquipped=new WeaponSkeleton(object.getJSONObject("weaponEquipped"));
 
             JSONArray array;
             array = object.getJSONArray("weapons");
@@ -61,6 +62,7 @@ public class PlayerSkeleton {
     private LatLng geoPos;
     private Integer vision;
     private Integer gold;
+    private WeaponSkeleton weaponEquipped;
     private List<WeaponSkeleton> weapons = new ArrayList<>();
 
 
@@ -120,6 +122,9 @@ public class PlayerSkeleton {
         return gold;
     }
 
+    public WeaponSkeleton getWeaponEquipped(){
+        return weaponEquipped;
+    }
 
     public List<WeaponSkeleton> getWeapons(){
         return weapons;
