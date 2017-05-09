@@ -25,6 +25,10 @@ public class World {
 
 	private Map<String,IPlayer> players;
 
+	public void createNewPlayer(String name){
+		players.put(name,new Player(name, new GeoPos(0.0,0.0)));
+	}
+
 	public void setMediator(ServerModelMediator mediator){
 		this.mediator= mediator;
 	}

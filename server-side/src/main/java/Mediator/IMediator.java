@@ -19,6 +19,7 @@ public interface IMediator {
 	IPlayer getPlayerById(String id);
 
 
+	void registerPlayer(String ID);
 
 	void consumeLootbox(String  playerId, GeoPos geoPos);
 

@@ -16,7 +16,11 @@ import cth.codetroopers.urbanwarfare.Views.IMainView;
  */
 
 public class ClientModel {
-   public static PlayerSkeleton mPlayer;
+
+
+    public static PlayerSkeleton mPlayer;
+
+    public static boolean signIn=true;
 
     private static IMainView mainView;
     private static ILoadingView loadingView;
@@ -27,8 +31,17 @@ public class ClientModel {
     public static String playerID;
 
     public static void onConnected(){
+        if (signIn){
         loadingView.onSigningIn();
         layer.signIn(playerID);
+        }
+        else {
+            layer.signUp(playerID);
+        }
+    }
+
+    public static void onSignedup(){
+        onSignedin();
     }
 
     public static void onSignedin(){
@@ -62,9 +75,6 @@ public class ClientModel {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     public static void attack(String oId){

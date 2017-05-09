@@ -64,6 +64,13 @@ class ServerEventListeners {
 				ConsumeLootboxEvent.class,
 				new ConsumeLootboxListener(mediator)
 		);
+
+		socketIOServer.addEventListener(
+				"signup",
+				SignupEvent.class,
+				new SignupListener(mediator)
+		);
+
 	}
 
 }

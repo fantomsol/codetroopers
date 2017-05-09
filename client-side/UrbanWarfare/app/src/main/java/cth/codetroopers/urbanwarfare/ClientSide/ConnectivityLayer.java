@@ -298,6 +298,27 @@ public class ConnectivityLayer {
 
     }
 
+
+    public  void signUp(final String id){
+        JSONObject object= new JSONObject();
+
+        try {
+            object.put("id",id);
+
+            socket.emit("signup",object);
+            requestPlayerInformation(id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        /*
+        Prompts loadingActivity that signing in is ongoing
+         */
+        // loadingActivity.onSignedin();
+        ClientModel.onSignedup();
+
+    }
+
     public  void changeWeapon(int weaponID){
         JSONObject object = new JSONObject();
 

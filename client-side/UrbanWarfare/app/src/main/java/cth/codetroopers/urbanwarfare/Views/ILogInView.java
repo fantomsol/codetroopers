@@ -8,6 +8,7 @@ public interface ILogInView extends IView{
 
     interface LoginViewListener{
         void onRequestLogin(String id);
+        void onRequestSignup(String id);
     }
 
     void setListener(LoginViewListener listener);

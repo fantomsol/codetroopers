@@ -3,6 +3,7 @@ import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.WorldPackage.World;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -31,6 +32,16 @@ public class WorldTest {
 
 	}
 
+
+	@Test
+	public void signUpTest(){
+		World world= new World();
+
+		world.createNewPlayer("Laila");
+
+		Assert.assertTrue(world.getPlayerById("Maila")==null);
+		Assert.assertTrue(world.getPlayerById("Laila")!=null);
+	}
 
 	@Test
 	public void getDistance(){
