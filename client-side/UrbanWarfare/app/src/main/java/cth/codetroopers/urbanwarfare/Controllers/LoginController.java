@@ -41,4 +41,12 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
 
 
     }
+
+    @Override
+    public void onRequestSignup(String id) {
+        ClientModel.playerID=id;
+        ClientModel.signIn=false;
+        finish();
+        startActivity(new Intent(this,LoadingController.class));
+    }
 }

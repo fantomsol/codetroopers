@@ -13,6 +13,8 @@ public class LoginViewImp implements ILogInView {
 
     private View rootView;
     private Button btnLogin;
+    private Button btnSignup;
+
     private EditText editText;
     private LoginViewListener mListener;
 
@@ -25,12 +27,21 @@ public class LoginViewImp implements ILogInView {
 
     private void initialize(){
         btnLogin= (Button) rootView.findViewById(R.id.buttonLogin);
+        btnSignup= (Button) rootView.findViewById(R.id.buttonSignup);
+
         editText = (EditText) rootView.findViewById(R.id.editTextId);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onRequestLogin(editText.getText().toString());
+            }
+        });
+
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.onRequestSignup(editText.getText().toString());
             }
         });
     }
