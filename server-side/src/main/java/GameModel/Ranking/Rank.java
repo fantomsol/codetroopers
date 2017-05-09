@@ -14,7 +14,7 @@ public abstract class Rank {
         if (exp < 1000) {
             return PRIVATE;
         } else if (exp < 5000) {
-            return SERJEANT;
+            return SERGEANT;
         } else if (exp < 10000) {
             return MAJOR;
         } else if (exp < 20000) {
