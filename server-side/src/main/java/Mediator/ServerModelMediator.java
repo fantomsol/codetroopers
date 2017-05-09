@@ -28,6 +28,10 @@ public class ServerModelMediator implements IMediator {
 	}
 
 
+	public void registerPlayer(String name){
+		world.createNewPlayer(name);
+	}
+
 	public void updateNearbyPlayers(IPlayer IPlayer) {
 		server.updateNearbyPlayers(IPlayer);
 	}
