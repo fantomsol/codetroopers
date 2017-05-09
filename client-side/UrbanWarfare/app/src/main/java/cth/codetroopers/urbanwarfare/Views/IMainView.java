@@ -30,6 +30,7 @@ public interface IMainView extends IView {
          */
         void onRequestRadarStatusChange();
         void onChangeWeapon();
+        void onStartShop();
     }
 
     interface MapListener{

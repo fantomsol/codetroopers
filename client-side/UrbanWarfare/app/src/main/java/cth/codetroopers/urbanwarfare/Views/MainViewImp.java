@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class MainViewImp implements IMainView{
     private TextView txtName;
     private ProgressBar progressHp;
     private ImageButton radarButton;
+    private ImageView shopImg;
 
     private TextView txtGold;
 
@@ -62,11 +64,21 @@ public class MainViewImp implements IMainView{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onChangeWeapon();
+                if (mListener!=null){
+                    mListener.onChangeWeapon();
+                }
             }
         });
 
 
+        shopImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mListener!=null){
+                    mListener.onStartShop();
+                }
+            }
+        });
 
     }
 
@@ -77,6 +89,8 @@ public class MainViewImp implements IMainView{
        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mapFragment = rootView.findViewById(R.id.map);
         txtGold= (TextView)rootView.findViewById(R.id.txtGold);
+
+        shopImg=(ImageView) rootView.findViewById(R.id.imageShop);
 
     }
 

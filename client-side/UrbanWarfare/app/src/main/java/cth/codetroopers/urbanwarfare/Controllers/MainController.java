@@ -76,6 +76,11 @@ public class MainController extends AppCompatActivity implements IMainController
     }
 
     @Override
+    public void onStartShop() {
+
+    }
+
+    @Override
     public void onAttackPlayer(String oID) {
         ClientModel.attack(oID);
     }
