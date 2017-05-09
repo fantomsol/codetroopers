@@ -45,6 +45,14 @@ public class PlayerSkeleton {
             }
 
 
+            array = object.getJSONArray("armours");
+
+            for (int i=0;i<array.length();i++){
+                armours.add(new ArmourSkeleton(array.getJSONObject(i)));
+            }
+
+
+            int x;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -64,6 +72,8 @@ public class PlayerSkeleton {
     private Integer gold;
     private WeaponSkeleton weaponEquipped;
     private List<WeaponSkeleton> weapons = new ArrayList<>();
+    private List<ArmourSkeleton> armours = new ArrayList<>();
+
 
 
 

@@ -14,9 +14,16 @@ public class WeaponSkeleton {
     private Integer id;
     private Integer range;
 
+    private Integer cost;
+
     public String getName() {
         return name;
     }
+
+    public Integer getCost() {
+        return cost;
+    }
+
 
     public Integer getDamage() {
         return damage;
@@ -37,6 +44,7 @@ public class WeaponSkeleton {
             damage=weapon.getInt("damage");
             range=weapon.getInt("range");
             id=weapon.getInt("id");
+            cost=weapon.getInt("cost");
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -52,7 +52,10 @@ public class Player implements IPlayer {
 
 	@JsonProperty
 	private List<IWeapon> weapons = new ArrayList<IWeapon>();
-	private List<IArmour> armours;
+
+	@JsonProperty
+	private List<IArmour> armours= new ArrayList<IArmour>();
+
 	private Boolean isAlive;
 
 
