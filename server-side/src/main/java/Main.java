@@ -31,8 +31,10 @@ public class Main {
 		world.registerPlayer(p2);
 
 
+		p1.setExp(5000);
+		p2.setExp(20000);
 
-		//p1.goOnline();
+		p1.goOnline();
 		p2.goOnline();
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));

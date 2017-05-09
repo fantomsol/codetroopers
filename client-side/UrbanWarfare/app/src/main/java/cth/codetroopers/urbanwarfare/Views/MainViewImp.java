@@ -38,6 +38,7 @@ public class MainViewImp implements IMainView{
     private ProgressBar progressHp;
     private ImageButton radarButton;
     private ImageView shopImg;
+    private ImageView rankImage;
 
     private TextView txtGold;
 
@@ -89,7 +90,7 @@ public class MainViewImp implements IMainView{
        fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         mapFragment = rootView.findViewById(R.id.map);
         txtGold= (TextView)rootView.findViewById(R.id.txtGold);
-
+        rankImage= (ImageView) rootView.findViewById(R.id.playerRank);
         shopImg=(ImageView) rootView.findViewById(R.id.imageShop);
 
     }
@@ -114,7 +115,7 @@ public class MainViewImp implements IMainView{
 
                 fab.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
                 mapHandler.pinPlayer(player);
-
+                rankImage.setImageResource(ItemsDirectory.getRank(player));
 
                 if (player.isOnline()) {
                     radarButton.setImageResource(R.drawable.visible);

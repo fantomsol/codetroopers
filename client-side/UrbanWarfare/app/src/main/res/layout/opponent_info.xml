@@ -50,7 +50,7 @@
         android:id="@+id/imgRank"
         android:layout_width="32px"
         android:layout_height="32px"
-        app:srcCompat="@drawable/sergeant"
+        app:srcCompat="@drawable/rank_sergeant"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.13"
