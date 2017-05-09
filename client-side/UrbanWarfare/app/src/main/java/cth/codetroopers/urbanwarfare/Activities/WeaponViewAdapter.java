@@ -36,8 +36,8 @@ public class WeaponViewAdapter extends ArrayAdapter<WeaponSkeleton> {
 
         WeaponSkeleton weapon = getItem(position);
 
-        TextView textView = (TextView) customView.findViewById(R.id.weaponName);
-        ImageView imageView = (ImageView) customView.findViewById(R.id.imageView);
+        TextView textView = (TextView) customView.findViewById(R.id.armorName);
+        ImageView imageView = (ImageView) customView.findViewById(R.id.imageArmor);
 
         TextView txtDamage = (TextView) customView.findViewById(R.id.txtDamage);
         TextView txtRange = (TextView) customView.findViewById(R.id.txtRange);
