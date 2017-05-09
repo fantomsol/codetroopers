@@ -13,4 +13,5 @@
     <string name="establish_connection">Establishing connection to server</string>
     <string name="signingin">Signing in to server</string>
     <string name="fetch_information">Fetching player information</string>
+    <string name="shop">Shop</string>
 </resources>
