@@ -10,9 +10,6 @@
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,8 +22,6 @@
         android:id="@+id/txtNameOpponent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
         android:textColor="@color/colorPrimary"
         app:layout_constraintLeft_toRightOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,8 +31,6 @@
         android:id="@+id/imageView6"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/txtNameOpponent"
         app:layout_constraintTop_toBottomOf="@+id/txtNameOpponent"
         app:srcCompat="@drawable/health"/>
@@ -46,12 +39,22 @@
         android:id="@+id/txtHp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
         android:layout_marginTop="2dp"
         android:text="100"
-        android:textColor="?attr/colorAccent"
+        android:textColor="@android:color/holo_red_dark"
         android:textSize="10sp"
         app:layout_constraintLeft_toRightOf="@+id/imageView6"
         app:layout_constraintTop_toBottomOf="@+id/txtNameOpponent"/>
+
+    <ImageView
+        android:id="@+id/imgRank"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        app:srcCompat="@drawable/sergeant"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.13"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

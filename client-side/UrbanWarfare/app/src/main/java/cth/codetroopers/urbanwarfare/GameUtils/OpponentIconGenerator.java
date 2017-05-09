@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.maps.android.ui.IconGenerator;
 
+import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -87,11 +89,14 @@ public class OpponentIconGenerator {
         //Grab a handle of the elements in the xml file
         TextView txtName= (TextView)  view.findViewById(R.id.txtNameOpponent);
         TextView textView= (TextView) view.findViewById(R.id.txtHp);
+        ImageView imgRank = (ImageView) view.findViewById(R.id.imgRank);
 
 
         //Fill in the elements with the corresponding information from the player JSON object
         txtName.setText(player.getID());
         textView.setText(String.valueOf(player.getHp()));
+
+        imgRank.setImageResource(ItemsDirectory.getRank(player));
 
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);

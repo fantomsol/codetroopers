@@ -8,6 +8,24 @@ import cth.codetroopers.urbanwarfare.R;
 
 public class ItemsDirectory {
 
+
+    public static int getRank(PlayerSkeleton player){
+        switch (player.getRank()){
+            case "PRIVATE":
+                return R.drawable.rank_private;
+            case "SERGEANT":
+                return R.drawable.rank_sergeant;
+            case "MAJOR":
+                return R.drawable.rank_major;
+            case "GENERAL":
+                return R.drawable.rank_general;
+            case "JOACHIMVONHACHT":
+                return R.drawable.ranl_joachimvonhacht;
+            default:
+                return 0;
+        }
+    }
+
     public static int getWeaponImage(WeaponSkeleton weapon){
         switch (weapon.getId()){
             case 1:
