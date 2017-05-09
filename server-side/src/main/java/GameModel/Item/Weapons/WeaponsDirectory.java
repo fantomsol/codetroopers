@@ -8,7 +8,7 @@ public final class WeaponsDirectory {
 	}
 
 	//Make sure to keep it up to date
-	public final static Integer NUMBER_OF_WEAPONS=4;
+	public final static Integer NUMBER_OF_WEAPONS=5;
 
 	public final static Integer PISTOL = 1;
 
