@@ -14,13 +14,13 @@ public class ItemsDirectory {
             case "PRIVATE":
                 return R.drawable.rank_private;
             case "SERGEANT":
-                return R.drawable.rank_sergeant;
+                return R.drawable.rank_serjeant;
             case "MAJOR":
                 return R.drawable.rank_major;
             case "GENERAL":
                 return R.drawable.rank_general;
             case "JOACHIMVONHACHT":
-                return R.drawable.ranl_joachimvonhacht;
+                return R.drawable.rank_joachimvonhacht;
             default:
                 return 0;
         }

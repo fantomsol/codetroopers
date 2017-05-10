@@ -63,7 +63,7 @@
         android:layout_height="36px"
         app:srcCompat="@drawable/whiteflag"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginLeft="12dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
