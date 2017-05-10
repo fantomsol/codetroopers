@@ -17,4 +17,6 @@ public final class WeaponsDirectory {
 	public final static Integer ASSAULT_RIFLE=3;
 
 	public final static Integer SHOTGUN=4;
+
+	public final static Integer WHITEFLAG=5;
 }

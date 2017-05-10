@@ -21,6 +21,10 @@ public class WeaponsFactory {
 			return new Shotgun();
 		}
 
+		if (id==WeaponsDirectory.WHITEFLAG){
+			return new WhiteFlag();
+		}
+
 		throw new IllegalArgumentException("Weapons with id:" + id+" cannot be found");
 	}
 

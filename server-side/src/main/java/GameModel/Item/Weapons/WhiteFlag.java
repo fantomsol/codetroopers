@@ -3,10 +3,10 @@ package GameModel.Item.Weapons;
 /**
  * Created by lumo on 09/05/17.
  */
-public class WhiteFlag implements IWeapon {
+public class WhiteFlag extends Weapon {
 
     public Integer getId() {
-        return null;
+        return 5;
     }
 
     public String getName() {
