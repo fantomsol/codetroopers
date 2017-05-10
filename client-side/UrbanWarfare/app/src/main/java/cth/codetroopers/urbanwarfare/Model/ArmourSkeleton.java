@@ -45,4 +45,23 @@ public class ArmourSkeleton {
     public Integer getCost() {
         return cost;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==null){
+            return false;
+        }
+
+        if (obj==this){
+            return true;
+        }
+
+        if (! (obj instanceof ArmourSkeleton)){
+            return false;
+        }
+
+        ArmourSkeleton oWeapon = (ArmourSkeleton) obj;
+
+        return (this.getId()==oWeapon.getId());
+    }
 }

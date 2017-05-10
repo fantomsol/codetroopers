@@ -51,13 +51,19 @@ public class PlayerSkeleton {
                 armours.add(new ArmourSkeleton(array.getJSONObject(i)));
             }
 
-
-            int x;
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
+
+    public boolean hasWeapon(WeaponSkeleton weapon){
+        return weapons.contains(weapon);
+    }
+
+    public boolean hasArmour(ArmourSkeleton armour){
+        return armours.contains(armour);
+    }
 
     private String id;
     private Double hp;

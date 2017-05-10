@@ -34,13 +34,7 @@ public class ShopSkeleton {
         }
     }
 
-    public boolean hasWeapon(WeaponSkeleton weapon){
-        return weapons.contains(weapon);
-    }
 
-    public boolean hasArmour(ArmourSkeleton armour){
-        return armours.contains(armour);
-    }
 
     public List<ArmourSkeleton> getArmours() {
         return armours;

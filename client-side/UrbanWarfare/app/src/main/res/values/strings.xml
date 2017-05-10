@@ -15,4 +15,6 @@
     <string name="fetch_information">Fetching player information</string>
     <string name="shop">Shop</string>
     <string name="sign_up">Sign up</string>
+    <string name="button_buy">Buy</string>
+    <string name="button_sell">Sell</string>
 </resources>

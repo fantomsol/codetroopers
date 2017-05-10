@@ -51,4 +51,23 @@ public class WeaponSkeleton {
         }
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==null){
+            return false;
+        }
+
+        if (obj==this){
+            return true;
+        }
+
+        if (! (obj instanceof WeaponSkeleton)){
+            return false;
+        }
+
+        WeaponSkeleton oWeapon = (WeaponSkeleton) obj;
+
+        return (this.getId()==oWeapon.getId());
+    }
 }

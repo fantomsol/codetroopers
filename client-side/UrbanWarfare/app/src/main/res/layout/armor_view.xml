@@ -38,6 +38,29 @@
         app:layout_constraintLeft_toRightOf="@+id/imageArmor"
         app:layout_constraintTop_toBottomOf="@+id/armorName"
         app:srcCompat="@drawable/armor" />
+    <Button
+        android:id="@+id/button_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/button_sell"/>
+
+    <Button
+        android:id="@+id/button_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/button_buy"/>
 
     <TextView
         android:id="@+id/txtDefense"
