@@ -30,11 +30,21 @@ public class Shop implements IShop {
         return result;
     }
 
+
     public void buyItem(IPlayer IPlayer, Item item) {
         IPlayer.buyItem(item);
     }
 
     public void sellItem(IPlayer IPlayer, Item item) {
         IPlayer.sellItem(item,new Double(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
+    }
+
+    public Item getItem(Integer itemID, String itemType) {
+        if (itemType.equals("armour")){
+            return ArmoursFactory.createArmour(itemID);
+        }
+        else {
+            return WeaponsFactory.createWeapon(itemID);
+        }
     }
 }

@@ -76,6 +76,18 @@ class ServerEventListeners {
 				GetShopItemsEvent.class,
 				new GetShopItemsListener(mediator)
 		);
+
+		socketIOServer.addEventListener(
+				"sell-item",
+				SellItemEvent.class,
+				new SellItemListener(mediator)
+		);
+
+		socketIOServer.addEventListener(
+				"buy-item",
+				BuyItemEvent.class,
+				new BuyItemListener(mediator)
+		);
 	}
 
 }

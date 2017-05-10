@@ -74,6 +74,21 @@ public class ServerModelMediator implements IMediator {
 		server.sendShopList(p,list);
 	}
 
+	public void buyItem(IPlayer player, Integer itemID, String itemType) {
+		if (player!=null){
+			player.buyItem(world.getShop().getItem(itemID,itemType));
+			server.updatePlayer(player);
+		}
+
+	}
+
+	public void sellItem(IPlayer player, Integer itemID, String itemType) {
+		if (player!=null){
+			world.getShop().getItem(itemID,itemType);
+			server.updatePlayer(player);
+		}
+	}
+
 	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
 		server.playerSignin(p,socketIOClient);
 	}

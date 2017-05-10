@@ -12,5 +12,5 @@ public interface IShop {
     List<Item> getItems();
     void buyItem(IPlayer IPlayer, Item item);
     void sellItem(IPlayer IPlayer, Item item);
-
+    Item getItem(Integer itemID, String itemType);
 }

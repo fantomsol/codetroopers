@@ -32,5 +32,8 @@ public interface IMediator {
 
 	void updatePlayerShopItems(IPlayer p,List<Item> list);
 
+	void buyItem(IPlayer player,Integer itemID,String itemType);
+	void sellItem(IPlayer player,Integer itemID, String itemType);
+
 	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
 }
