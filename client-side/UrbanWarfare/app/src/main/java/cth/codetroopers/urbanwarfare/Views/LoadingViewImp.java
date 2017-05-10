@@ -69,7 +69,7 @@ public class LoadingViewImp implements ILoadingView {
             @Override
             public void run() {
 
-                textView.setText("Wörking");
+                textView.setText(stringId);
             }
         });
     }
