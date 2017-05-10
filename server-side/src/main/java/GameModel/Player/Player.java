@@ -398,4 +398,6 @@ public class Player implements IPlayer {
 	public int hashCode() {
 		return id.hashCode();
 	}
+
+
 }
