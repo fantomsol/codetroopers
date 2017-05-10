@@ -1,5 +1,6 @@
 package GameModel.ServerController;
 
+import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.IPlayer;
 import Mediator.ServerModelMediator;
@@ -18,4 +19,6 @@ public interface IServer {
 
 	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
 	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
+
+	void sendShopList(IPlayer p, List<Item> list);
 }

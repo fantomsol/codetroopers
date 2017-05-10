@@ -1,5 +1,6 @@
 package GameModel.ServerController;
 
+import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
@@ -131,6 +132,18 @@ public class Server implements IServer {
 
 		updateNearbyPlayers(p);
 		updatePlayer(p);
+	}
+
+	public void sendShopList(IPlayer p, List<Item> list) {
+		if (map.containsKey(p)){
+
+			Item[] array= new Item[list.size()];
+
+			for(int i=0;i<array.length;i++){
+				array[i]= list.get(i);
+			}
+			map.get(p).sendEvent("shopitems-listed",array);
+		}
 	}
 
 	public <T> JsonArray list2JsonArray(List<T> list){

@@ -1,5 +1,6 @@
 package Mediator;
 
+import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
@@ -26,6 +27,10 @@ public interface IMediator {
 	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
 
 	void changeWeapon(String  playerId,Integer weaponID);
+
+	List<Item> getShopItems();
+
+	void updatePlayerShopItems(IPlayer p,List<Item> list);
 
 	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
 }
