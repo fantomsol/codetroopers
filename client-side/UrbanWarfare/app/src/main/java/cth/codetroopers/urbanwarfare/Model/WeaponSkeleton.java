@@ -13,6 +13,11 @@ public class WeaponSkeleton {
     private Integer damage;
     private Integer id;
     private Integer range;
+    private Integer cooldown;
+
+    public Integer getCooldown() {
+        return cooldown;
+    }
 
     private Integer cost;
 
@@ -45,6 +50,8 @@ public class WeaponSkeleton {
             range=weapon.getInt("range");
             id=weapon.getInt("id");
             cost=weapon.getInt("cost");
+            cooldown=weapon.getInt("cooldown");
+
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -89,6 +89,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             TextView txtDamage = (TextView) customView.findViewById(R.id.txtDamage);
             TextView txtRange = (TextView) customView.findViewById(R.id.txtRange);
             TextView txtPrice = (TextView) customView.findViewById(R.id.txt_price);
+            TextView txtCooldown = (TextView) customView.findViewById(R.id.txt_cooldown);
 
 
             imgPrice.setVisibility(View.VISIBLE);
@@ -98,6 +99,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             txtDamage.setText(String.valueOf(weapon.getDamage()));
             txtRange.setText(String.valueOf(weapon.getRange()));
             txtPrice.setText(String.valueOf(weapon.getCost()));
+            txtCooldown.setText(String.valueOf(weapon.getCooldown()));
 
 
             imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));

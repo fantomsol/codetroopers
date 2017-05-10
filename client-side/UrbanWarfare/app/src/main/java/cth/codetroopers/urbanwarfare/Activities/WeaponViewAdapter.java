@@ -41,11 +41,13 @@ public class WeaponViewAdapter extends ArrayAdapter<WeaponSkeleton> {
 
         TextView txtDamage = (TextView) customView.findViewById(R.id.txtDamage);
         TextView txtRange = (TextView) customView.findViewById(R.id.txtRange);
+        TextView txtCooldown = (TextView) customView.findViewById(R.id.txt_cooldown);
 
 
         textView.setText(weapon.getName());
         txtDamage.setText(String.valueOf(weapon.getDamage()));
         txtRange.setText(String.valueOf(weapon.getRange()));
+        txtCooldown.setText(String.valueOf(weapon.getCooldown()));
 
 
         imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
