@@ -11,7 +11,7 @@ import com.corundumstudio.socketio.listener.DataListener;
  * Created by latiif on 5/10/17.
  */
 public class GetShopItemsListener extends EventListener implements DataListener<GetShopItemsEvent> {
-	GetShopItemsListener(IMediator mediator) {
+	public GetShopItemsListener(IMediator mediator) {
 		super(mediator);
 	}
 
