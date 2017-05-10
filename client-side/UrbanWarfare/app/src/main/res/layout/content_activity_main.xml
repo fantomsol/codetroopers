@@ -87,7 +87,6 @@
 
         <ProgressBar
             android:id="@+id/progressHp"
-            style="@style/?android:attr/progressBarStyleHorizontal"
             android:layout_width="161dp"
             android:layout_height="15dp"
             android:layout_marginBottom="15dp"
@@ -96,7 +95,6 @@
             android:layout_marginTop="8dp"
             android:max="100"
             android:progress="100"
-            android:theme="09cdda"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/playerRank"
