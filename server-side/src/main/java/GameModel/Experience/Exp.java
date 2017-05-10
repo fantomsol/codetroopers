@@ -16,4 +16,8 @@ public abstract class Exp {
 
         killed.setExp((int)(killed.getExp()*0.9));
     }
+
+    public static void setExpOnAttackingUnarmed(IPlayer attacker){
+        attacker.setExp(attacker.getExp()-10);
+    }
 }

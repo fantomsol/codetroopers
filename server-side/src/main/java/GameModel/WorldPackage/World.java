@@ -1,6 +1,8 @@
 package GameModel.WorldPackage;
 
+import GameModel.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
+import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Lootbox.Lootbox;
 import GameModel.Player.GeoPos;
@@ -65,10 +67,16 @@ public class World {
 		IPlayer attacker = getPlayerById(attackerId);
 		IPlayer attackee= getPlayerById(attackeeId);
 
+		if (attackee.getWeaponEquipped().getId()== WeaponsDirectory.WHITEFLAG){
+			Exp.setExpOnAttackingUnarmed(attacker);
+		}
+
 		attacker.attackOtherPlayer(attackee);
 
-		mediator.updateNearbyPlayers(attacker);
-		mediator.updatePlayer(attackee);
+		if (mediator!=null) {
+			mediator.updateNearbyPlayers(attacker);
+			mediator.updatePlayer(attackee);
+		}
 	}
 
 	public IPlayer getPlayerById(final String id){

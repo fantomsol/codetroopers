@@ -256,8 +256,15 @@ public class Player implements IPlayer {
 		otherPlayer.getAttacked(damage);
 		if (!otherPlayer.getIsAlive()){
 			score.increaseKills();
-			Exp.setExpOnKill(this, otherPlayer);
-			this.rank = Rank.getRank(this);
+
+			if (otherPlayer.getWeaponEquipped().getId()==WeaponsDirectory.WHITEFLAG){
+
+			}
+			else {
+				Exp.setExpOnKill(this, otherPlayer);
+				this.rank = Rank.getRank(this);
+			}
+
 			System.out.println(this.rank + "\n" + otherPlayer.getRank());
 		}
 	}
@@ -321,6 +328,10 @@ public class Player implements IPlayer {
 
 	public void setCanGoOffline(Boolean value){
 		this.canGoOffline=value;
+	}
+
+	public IWeapon getWeaponEquipped() {
+		return weaponEquipped;
 	}
 
 	public Boolean getCanGoOffline(){

@@ -1,5 +1,9 @@
+import GameModel.Item.Weapons.WeaponsDirectory;
+import GameModel.Item.Weapons.WeaponsFactory;
+import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
+import GameModel.WorldPackage.World;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,6 +25,55 @@ public class RankTest {
         Assert.assertTrue(Nemo.getExp()==450);
         Assert.assertTrue(Fafne.getExp()==360);
     }
+
+    @Test
+    public void attackUnArmed(){
+        IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
+        IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
+
+        palle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
+        palle.switchWeapon(WeaponsDirectory.WHITEFLAG);
+
+        kalle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.SHOTGUN));
+        kalle.switchWeapon(WeaponsDirectory.SHOTGUN);
+
+        World world= new World();
+        world.registerPlayer(kalle);
+        world.registerPlayer(palle);
+
+        int exp=kalle.getExp();
+
+        world.performAttack("kalle","palle");
+
+        Assert.assertTrue(kalle.getExp()==(exp-10));
+
+    }
+
+    @Test
+    public void killUnArmed(){
+        IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
+        IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
+
+        palle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
+        palle.switchWeapon(WeaponsDirectory.WHITEFLAG);
+        palle.setHp(1.0);
+
+        kalle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.SHOTGUN));
+        kalle.switchWeapon(WeaponsDirectory.SHOTGUN);
+
+        World world= new World();
+        world.registerPlayer(kalle);
+        world.registerPlayer(palle);
+
+        int exp=kalle.getExp();
+
+        world.performAttack("kalle","palle");
+
+        Assert.assertTrue(palle.getIsAlive()==false);
+        Assert.assertTrue(kalle.getExp()==(exp-10));
+
+    }
+
 
     @Test
     public void killStrong(){

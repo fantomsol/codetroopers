@@ -18,8 +18,8 @@ public class Main {
 		Server server= new Server();
 		server.startServer();
 
-		world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
-		world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,4,0));
+		//world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
+		world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
 
 		ServerModelMediator modelMediator= new ServerModelMediator(server,world);
 
@@ -34,7 +34,7 @@ public class Main {
 		p1.setExp(5000);
 		p2.setExp(20000);
 
-		p1.goOnline();
+		//p1.goOnline();
 		p2.goOnline();
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));

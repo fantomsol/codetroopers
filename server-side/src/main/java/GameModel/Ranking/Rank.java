@@ -24,6 +24,8 @@ public abstract class Rank {
         }
     }
 
+
+
     public static Ranks getRank(IPlayer p) {
         return getRank(p.getExp());
     }

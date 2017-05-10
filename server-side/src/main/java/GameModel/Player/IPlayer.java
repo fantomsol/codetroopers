@@ -47,6 +47,7 @@ public interface IPlayer {
 
 	void setCanGoOffline(Boolean value);
 
+	IWeapon getWeaponEquipped();
 	Boolean getCanGoOffline();
 
 	String getID();
