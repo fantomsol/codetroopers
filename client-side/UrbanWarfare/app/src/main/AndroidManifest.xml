@@ -45,6 +45,9 @@
         <activity android:name=".Controllers.LoadingController"></activity>
 
         <activity android:name=".Controllers.MainController"></activity>
+
+        <activity android:name=".Controllers.ShopViewController"></activity>
+
     </application>
 
 </manifest>

@@ -35,6 +35,20 @@ public class ShopSkeleton {
     }
 
 
+    public List<Object> getAllItems(){
+        List<Object> res= new ArrayList<>();
+
+        for(ArmourSkeleton armour:armours){
+            res.add(armour);
+        }
+
+
+        for(WeaponSkeleton weapon:weapons){
+            res.add(weapon);
+        }
+
+        return res;
+    }
 
     public List<ArmourSkeleton> getArmours() {
         return armours;

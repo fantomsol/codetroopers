@@ -418,4 +418,36 @@ public class ConnectivityLayer {
         }
 
     }
+
+    public void requestItemBuy(Integer itemId, String itemType){
+        JSONObject object = new JSONObject();
+
+        try{
+
+            object.put("playerId",ClientModel.playerID);
+            object.put("itemId",itemId);
+            object.put("itemType",itemType);
+
+            socket.emit("buy-item",object);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void requestItemSell(Integer itemId, String itemType){
+        JSONObject object = new JSONObject();
+
+        try{
+
+            object.put("playerId",ClientModel.playerID);
+            object.put("itemId",itemId);
+            object.put("itemType",itemType);
+
+            socket.emit("sell-item",object);
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
 }

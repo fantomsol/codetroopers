@@ -1,6 +1,8 @@
 package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,18 +54,31 @@ public class ShopViewImp implements IShopView {
     }
 
     @Override
-    public void updateItemsList(List<Object> shopItems) {
+    public void updateItemsList(final List<Object> shopItems) {
         this.shopItems=shopItems;
 
-        ListAdapter listAdapter = new ShopItemsAdapter(context,shopItems,mListener);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
 
-        listView.setAdapter(listAdapter);
+                ListAdapter listAdapter = new ShopItemsAdapter(context, shopItems, mListener);
+
+                listView.setAdapter(listAdapter);
+            }
+        });
 
     }
 
     @Override
-    public void updateGUI(PlayerSkeleton player) {
-        txtGold.setText(String.valueOf(player.getGold()));
+    public void updateGUI(final PlayerSkeleton player) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                txtGold.setText(String.valueOf(player.getGold()));
+            }
+        });
     }
 
     @Override

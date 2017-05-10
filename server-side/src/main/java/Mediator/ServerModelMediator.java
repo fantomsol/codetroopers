@@ -84,7 +84,7 @@ public class ServerModelMediator implements IMediator {
 
 	public void sellItem(IPlayer player, Integer itemID, String itemType) {
 		if (player!=null){
-			world.getShop().getItem(itemID,itemType);
+			world.getShop().sellItem(player,world.getShop().getItem(itemID,itemType));
 			server.updatePlayer(player);
 		}
 	}

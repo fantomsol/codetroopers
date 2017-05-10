@@ -52,6 +52,9 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             Button btnSell =(Button) customView.findViewById(R.id.button_sell);
             Button btnBuy =(Button) customView.findViewById(R.id.button_buy);
 
+            btnSell.setText(R.string.button_sell);
+            btnBuy.setText(R.string.button_buy);
+
             btnSell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -70,8 +73,10 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
                 btnSell.setVisibility(View.VISIBLE);
                 btnBuy.setVisibility(View.GONE);
             }
-
-
+            else {
+                btnSell.setVisibility(View.GONE);
+                btnBuy.setVisibility(View.VISIBLE);
+            }
 
             TextView textView = (TextView) customView.findViewById(R.id.armorName);
             ImageView imageView = (ImageView) customView.findViewById(R.id.imageArmor);
@@ -99,6 +104,9 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             Button btnSell =(Button) customView.findViewById(R.id.button_sell);
             Button btnBuy =(Button) customView.findViewById(R.id.button_buy);
 
+            btnSell.setText(R.string.button_sell);
+            btnBuy.setText(R.string.button_buy);
+
             btnSell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -116,6 +124,10 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             if (ClientModel.mPlayer.hasArmour(armour)) {
                 btnSell.setVisibility(View.VISIBLE);
                 btnBuy.setVisibility(View.GONE);
+            }
+            else {
+                btnSell.setVisibility(View.GONE);
+                btnBuy.setVisibility(View.VISIBLE);
             }
 
             TextView textView = (TextView) customView.findViewById(R.id.armorName);

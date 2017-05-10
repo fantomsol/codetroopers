@@ -10,6 +10,7 @@ import java.util.List;
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Views.ILoadingView;
 import cth.codetroopers.urbanwarfare.Views.IMainView;
+import cth.codetroopers.urbanwarfare.Views.IShopView;
 
 /**
  * Created by latiif on 5/6/17.
@@ -24,6 +25,7 @@ public class ClientModel {
 
     private static IMainView mainView;
     private static ILoadingView loadingView;
+    private static IShopView shopView;
 
     private static ShopSkeleton shop;
 
@@ -110,6 +112,10 @@ public class ClientModel {
     public static void subscribeLoadingView(ILoadingView view){
         loadingView=view;
     }
+    public static void subscribeShopView(IShopView view){
+        shopView=view;
+    }
+
 
 
 
@@ -125,5 +131,17 @@ public class ClientModel {
        if (mainView!=null) {
            mainView.updateGUI(player);
        }
+       if (shopView!=null){
+           shopView.updateGUI(mPlayer);
+           shopView.updateItemsList(shop.getAllItems());
+       }
    }
+
+   public static void buyItem(Integer itemId, String itemType){
+       layer.requestItemBuy(itemId,itemType);
+   }
+
+    public static void sellItem(Integer itemId, String itemType){
+        layer.requestItemSell(itemId,itemType);
+    }
 }

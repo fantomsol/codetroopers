@@ -77,7 +77,8 @@ public class MainController extends AppCompatActivity implements IMainController
 
     @Override
     public void onStartShop() {
-
+        Intent i = new Intent(this, ShopViewController.class);
+        startActivity(i);
     }
 
     @Override

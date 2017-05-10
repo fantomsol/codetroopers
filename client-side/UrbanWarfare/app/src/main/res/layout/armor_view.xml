@@ -38,13 +38,14 @@
         app:layout_constraintLeft_toRightOf="@+id/imageArmor"
         app:layout_constraintTop_toBottomOf="@+id/armorName"
         app:srcCompat="@drawable/armor" />
+
     <Button
         android:id="@+id/button_sell"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
+        android:background="@android:color/holo_blue_dark"
         android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="Button"
+        android:background="@android:color/holo_green_dark"
         android:visibility="gone"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
