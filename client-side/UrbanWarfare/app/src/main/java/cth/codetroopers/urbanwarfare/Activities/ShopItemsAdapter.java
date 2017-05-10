@@ -52,8 +52,10 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             Button btnSell =(Button) customView.findViewById(R.id.button_sell);
             Button btnBuy =(Button) customView.findViewById(R.id.button_buy);
 
+
             btnSell.setText(R.string.button_sell);
             btnBuy.setText(R.string.button_buy);
+
 
             btnSell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,6 +73,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
             if (ClientModel.mPlayer.hasWeapon(weapon)) {
                 btnSell.setVisibility(View.VISIBLE);
+                btnSell.setText(btnSell.getText()+ " ("+String.valueOf(weapon.getCost()*0.5)+")");
                 btnBuy.setVisibility(View.GONE);
             }
             else {
@@ -80,14 +83,21 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
             TextView textView = (TextView) customView.findViewById(R.id.armorName);
             ImageView imageView = (ImageView) customView.findViewById(R.id.imageArmor);
+            ImageView imgPrice = (ImageView) customView.findViewById(R.id.img_price);
+
 
             TextView txtDamage = (TextView) customView.findViewById(R.id.txtDamage);
             TextView txtRange = (TextView) customView.findViewById(R.id.txtRange);
+            TextView txtPrice = (TextView) customView.findViewById(R.id.txt_price);
 
+
+            imgPrice.setVisibility(View.VISIBLE);
+            txtPrice.setVisibility(View.VISIBLE);
 
             textView.setText(weapon.getName());
             txtDamage.setText(String.valueOf(weapon.getDamage()));
             txtRange.setText(String.valueOf(weapon.getRange()));
+            txtPrice.setText(String.valueOf(weapon.getCost()));
 
 
             imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
@@ -104,8 +114,10 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             Button btnSell =(Button) customView.findViewById(R.id.button_sell);
             Button btnBuy =(Button) customView.findViewById(R.id.button_buy);
 
+
             btnSell.setText(R.string.button_sell);
             btnBuy.setText(R.string.button_buy);
+
 
             btnSell.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,6 +135,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
             if (ClientModel.mPlayer.hasArmour(armour)) {
                 btnSell.setVisibility(View.VISIBLE);
+                btnSell.setText(btnSell.getText()+ " ("+String.valueOf(armour.getCost()*0.5)+")");
                 btnBuy.setVisibility(View.GONE);
             }
             else {
@@ -135,6 +148,9 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
             TextView txtDefense = (TextView) customView.findViewById(R.id.txtDefense);
 
+            TextView txtPrice = (TextView) customView.findViewById(R.id.txt_price);
+
+            txtPrice.setText(String.valueOf(armour.getCost()));
             textView.setText(armour.getName());
             txtDefense.setText(String.valueOf(armour.getValue()));
 
