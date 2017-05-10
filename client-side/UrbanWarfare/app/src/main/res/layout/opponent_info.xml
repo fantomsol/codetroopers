@@ -48,13 +48,23 @@
 
     <ImageView
         android:id="@+id/imgRank"
-        android:layout_width="32px"
-        android:layout_height="32px"
+        android:layout_width="20px"
+        android:layout_height="20px"
         app:srcCompat="@drawable/rank_sergeant"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.13"
         android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imageWeaponequipped"
+        android:layout_width="36px"
+        android:layout_height="36px"
+        app:srcCompat="@drawable/whiteflag"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

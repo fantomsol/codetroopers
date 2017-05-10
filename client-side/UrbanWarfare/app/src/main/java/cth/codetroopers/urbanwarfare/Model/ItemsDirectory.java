@@ -36,6 +36,8 @@ public class ItemsDirectory {
                 return R.drawable.rifle;
             case 4:
                 return R.drawable.shotgun;
+            case 5:
+                return R.drawable.whiteflag;
             default:
                 return 0;
 
