@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
 import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -186,6 +188,20 @@ public class ConnectivityLayer {
                 ClientModel.onLootboxesUpdate(lootboxes);
             }
         });
+
+        socket.on("shopitems-listed", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+
+                JSONArray array= new JSONArray();
+
+                for (Object arg: args){
+                    array.put((JSONObject)arg);
+                }
+
+               ClientModel.updateShop(new ShopSkeleton(array));
+            }
+        });
     }
 
     /**
@@ -222,6 +238,21 @@ public class ConnectivityLayer {
         If all goes right, goes ahead and connects
          */
         socket.connect();
+
+    }
+
+
+    public void requestShopItems(){
+        JSONObject object= new JSONObject();
+
+        try {
+            object.put("playerId",ClientModel.playerID);
+
+            socket.emit("get-shopitems",object);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

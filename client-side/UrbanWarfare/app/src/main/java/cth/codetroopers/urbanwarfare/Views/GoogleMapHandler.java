@@ -87,6 +87,7 @@ public class GoogleMapHandler implements IMapHandler {
         //Set a fixed zoom value (Needs to be revised when we set the constants for the game)
         map.setMinZoomPreference(16);
         map.setMaxZoomPreference(16);
+        map.getUiSettings().setScrollGesturesEnabled(false);
 
         //We create the first instance of the playerMarker, a marker that will always exist throughout the lifetime of the app.
         playerMarker =

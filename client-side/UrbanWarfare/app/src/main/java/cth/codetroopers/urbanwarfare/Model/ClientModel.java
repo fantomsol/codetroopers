@@ -25,10 +25,14 @@ public class ClientModel {
     private static IMainView mainView;
     private static ILoadingView loadingView;
 
+    private static ShopSkeleton shop;
+
     private static ConnectivityLayer layer= new ConnectivityLayer();
 
 
     public static String playerID;
+
+
 
     public static void onConnected(){
         if (signIn){
@@ -38,6 +42,8 @@ public class ClientModel {
         else {
             layer.signUp(playerID);
         }
+
+        layer.requestShopItems();
     }
 
     public static void onSignedup(){
@@ -50,6 +56,9 @@ public class ClientModel {
 
     }
 
+    public static void updateShop(ShopSkeleton newShop){
+        shop=newShop;
+    }
     public static void consumeLootbox(LatLng coord){
         layer.consumeLootboxRequest(coord);
     }

@@ -28,14 +28,15 @@
         map:layout_constraintLeft_toLeftOf="parent"
         map:layout_constraintRight_toRightOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        map:layout_constraintVertical_bias="0.0"
+        map:layout_constraintVertical_bias="1.0"
         tools:context="cth.codetroopers.urbanwarfare.Activities.MainActivity"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        tools:layout_constraintLeft_creator="1"
+        map:layout_constraintHorizontal_bias="0.0" />
 
 
     <android.support.constraint.ConstraintLayout

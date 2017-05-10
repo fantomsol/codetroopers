@@ -1,5 +1,6 @@
 package Mediator;
 
+import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
@@ -63,6 +64,14 @@ public class ServerModelMediator implements IMediator {
 
 	public void changeWeapon(String playerId, Integer weaponID) {
 		world.changeWeapon(playerId,weaponID);
+	}
+
+	public List<Item> getShopItems() {
+		return world.getShop().getItems();
+	}
+
+	public void updatePlayerShopItems(IPlayer p, List<Item> list) {
+		server.sendShopList(p,list);
 	}
 
 	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {

@@ -8,6 +8,8 @@ import GameModel.Lootbox.Lootbox;
 import GameModel.Player.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
+import GameModel.Shop.IShop;
+import GameModel.Shop.Shop;
 import Mediator.ServerModelMediator;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class World {
 
 
 	private ServerModelMediator mediator;
+
+	private IShop shop;
 
 	private List<ILootbox> lootboxes;
 
@@ -43,10 +47,14 @@ public class World {
 	}
 
 
+	public IShop getShop(){
+		return shop;
+	}
 
 	public World() {
 		players = new HashMap<String, IPlayer>();
 		lootboxes= new ArrayList<ILootbox>();
+		shop= new Shop();
 
 	}
 
