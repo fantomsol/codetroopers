@@ -29,6 +29,7 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
 
         setContentView(logInView.getRootView());
 
+        //ClientModel.getInstance().subscribeLoginUpdate(logInView);
     }
 
     @Override
@@ -37,9 +38,6 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
         ClientModel.getInstance().playerID=id;
         finish();
         startActivity(new Intent(this,LoadingController.class));
-
-
-
     }
 
     @Override

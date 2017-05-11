@@ -127,7 +127,7 @@ public class MainViewImp implements IMainView{
     }
 
     @Override
-    public void updatePlayersNearby(final List<PlayerSkeleton> playersNearby) {
+    public void updateOpponents(final List<PlayerSkeleton> playersNearby) {
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {

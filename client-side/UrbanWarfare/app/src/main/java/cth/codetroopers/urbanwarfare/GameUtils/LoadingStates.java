@@ -6,5 +6,5 @@ package cth.codetroopers.urbanwarfare.GameUtils;
 
 public enum LoadingStates {
 
-    CONNECTING, SIGNINGIN, FETCHING
+    CONNECTING, SIGNINGIN, FETCHING, COMPLETE
 }

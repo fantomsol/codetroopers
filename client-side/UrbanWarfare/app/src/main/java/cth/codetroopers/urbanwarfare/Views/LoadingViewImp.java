@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import cth.codetroopers.urbanwarfare.GameUtils.LoadingStates;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -42,27 +43,6 @@ public class LoadingViewImp implements ILoadingView {
         this.mListener=listener;
     }
 
-    @Override
-    public void onConnecting() {
-        setText(R.string.establish_connection);
-    }
-
-    @Override
-    public void onSigningIn() {
-        setText(R.string.signingin);
-    }
-
-    @Override
-    public void onFetchingData() {
-        setText(R.string.fetch_information);
-    }
-
-    @Override
-    public void onLoadingCompleted() {
-        mListener.onFinishedLoading();
-    }
-
-
     private void setText(final int stringId){
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -77,5 +57,22 @@ public class LoadingViewImp implements ILoadingView {
     @Override
     public View getRootView() {
         return rootView;
+    }
+
+    @Override
+    public void updateLoadingStatus(LoadingStates state) {
+        switch (state){
+            case CONNECTING:
+                setText(R.string.establish_connection);
+                break;
+            case SIGNINGIN:
+                setText(R.string.signingin);
+                break;
+            case FETCHING:
+                setText(R.string.fetch_information);
+                break;
+            case COMPLETE:
+                mListener.onFinishedLoading();
+        }
     }
 }

@@ -24,9 +24,17 @@ public class ClientModel {
 
     public boolean signIn = true;
 
+    //TODO Remove these:
     private IMainView mainView;
     private ILoadingView loadingView;
     private IShopView shopView;
+    //End TODO
+
+    private List <IPlayerUpdateListener> playerListeners;
+    private List <ILoadUpdateListener> loadListeners;
+    private List <ILootboxUpdateListener> lootboxListeners;
+    private List <IOpponentsUpdateListener> opponentListeners;
+
 
     private ShopSkeleton shop;
 
@@ -125,6 +133,21 @@ public class ClientModel {
         shopView = view;
     }
 
+    public void subscribePlayerUpdate(IPlayerUpdateListener listener){
+        playerListeners.add(listener);
+    }
+
+    public void subscribeLoadUpdate(ILoadUpdateListener listener) {
+        loadListeners.add(listener);
+    }
+
+    public void subscribeLootboxUpdate(ILootboxUpdateListener listener) {
+        lootboxListeners.add(listener);
+    }
+
+    public void subscribeOpponentUpdate(IOpponentsUpdateListener listener) {
+        opponentListeners.add(listener);
+    }
 
     public void onNearbyPlayersReceived(List<PlayerSkeleton> opponents) {
         if (mainView != null) {

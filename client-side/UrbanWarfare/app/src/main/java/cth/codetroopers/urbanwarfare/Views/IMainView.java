@@ -6,6 +6,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.ILootboxUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.IOpponentsUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.IPlayerUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 
@@ -13,15 +15,11 @@ import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
  * Created by latiif on 5/6/17.
  */
 
-public interface IMainView extends IView, IPlayerUpdateListener {
-
-    void updatePlayersNearby(List<PlayerSkeleton> playersNearby);
+public interface IMainView extends IView, IPlayerUpdateListener, IOpponentsUpdateListener, ILootboxUpdateListener {
 
     void setListener(PanelControlInteractionListener listener);
 
     void setMapListener(MapListener listener);
-
-    void updateLootboxes(List<LatLng> boxes);
 
 
     interface PanelControlInteractionListener {
@@ -40,8 +38,6 @@ public interface IMainView extends IView, IPlayerUpdateListener {
 
 
     void setContext(FragmentActivity context);
-
-
 
 
 }
