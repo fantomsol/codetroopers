@@ -29,34 +29,34 @@ public class ShopViewController extends AppCompatActivity implements IShopView.S
         shopView.setListener(this);
         shopView.setContext(this);
 
-        ClientModel.subscribeShopView(shopView);
+        ClientModel.getInstance().subscribeShopView(shopView);
 
 
         setContentView(shopView.getRootView());
-        ClientModel.requestUpdate();
+        ClientModel.getInstance().requestUpdate();
     }
 
 
     @Override
     public void onArmourBuyListener(Integer armourID) {
-        ClientModel.buyItem(armourID,"armour");
+        ClientModel.getInstance().buyItem(armourID,"armour");
     }
 
     @Override
     public void onArmourSellListener(Integer armourID) {
-        ClientModel.sellItem(armourID,"armour");
+        ClientModel.getInstance().sellItem(armourID,"armour");
 
     }
 
     @Override
     public void onWeaponBuyListener(Integer weaponID) {
-        ClientModel.buyItem(weaponID,"weapon");
+        ClientModel.getInstance().buyItem(weaponID,"weapon");
 
     }
 
     @Override
     public void onWeaponSellListener(Integer weaponID) {
-        ClientModel.sellItem(weaponID,"weapon");
+        ClientModel.getInstance().sellItem(weaponID,"weapon");
 
     }
 }

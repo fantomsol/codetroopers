@@ -31,7 +31,7 @@ public class ChooseWeapon extends AppCompatActivity {
         setContentView(R.layout.activity_choose_weapon);
 
 
-        weapons= ClientModel.mPlayer.getWeapons();
+        weapons= ClientModel.getInstance().mPlayer.getWeapons();
 
         ListAdapter listAdapter = new WeaponViewAdapter(this,weapons);
 

@@ -19,66 +19,71 @@ import cth.codetroopers.urbanwarfare.Views.IShopView;
 public class ClientModel {
 
 
-    public static PlayerSkeleton mPlayer;
+    private static ClientModel clientModel = new ClientModel();
+    public PlayerSkeleton mPlayer;
 
-    public static boolean signIn=true;
+    public boolean signIn = true;
 
-    private static IMainView mainView;
-    private static ILoadingView loadingView;
-    private static IShopView shopView;
+    private IMainView mainView;
+    private ILoadingView loadingView;
+    private IShopView shopView;
 
-    private static ShopSkeleton shop;
+    private ShopSkeleton shop;
 
-    private static ConnectivityLayer layer= new ConnectivityLayer();
+    private ConnectivityLayer layer = new ConnectivityLayer();
 
-
-    public static String playerID;
-
+    public String playerID;
 
 
-    public static void onConnected(){
-        if (signIn){
-        loadingView.onSigningIn();
-        layer.signIn(playerID);
-        }
-        else {
+    private ClientModel(){}
+
+    public static ClientModel getInstance() {
+        return clientModel;
+    }
+
+    public void onConnected() {
+        if (signIn) {
+            loadingView.onSigningIn();
+            layer.signIn(playerID);
+        } else {
             layer.signUp(playerID);
         }
 
         layer.requestShopItems();
     }
 
-    public static void onSignedup(){
+    public void onSignedup() {
         onSignedin();
     }
 
-    public static void onSignedin(){
+    public void onSignedin() {
         loadingView.onFetchingData();
         layer.requestPlayerInformation(playerID);
 
     }
 
-    public static void updateShop(ShopSkeleton newShop){
-        shop=newShop;
+    public void updateShop(ShopSkeleton newShop) {
+        shop = newShop;
     }
-    public static void consumeLootbox(LatLng coord){
+
+    public void consumeLootbox(LatLng coord) {
         layer.consumeLootboxRequest(coord);
     }
 
-    public static void onLootboxesUpdate(List<LatLng> boxes){
+    public void onLootboxesUpdate(List<LatLng> boxes) {
         mainView.updateLootboxes(boxes);
     }
 
-    public static void changeWeapon(int weaponID){
+    public void changeWeapon(int weaponID) {
         layer.changeWeapon(weaponID);
     }
 
-    public static void onDataFetched(){
+    public void onDataFetched() {
         loadingView.onLoadingCompleted();
 
     }
 
-    public static void commenceLogin(){
+    public void commenceLogin() {
 
         loadingView.onConnecting();
         try {
@@ -88,60 +93,62 @@ public class ClientModel {
         }
     }
 
-    public static void attack(String oId){
+    public void attack(String oId) {
         layer.attack(oId);
     }
-    public static void requestRadarStatusChange(){
+
+    public void requestRadarStatusChange() {
         layer.requestChangeRadarStatus();
         layer.changePosition(mPlayer.getGeoPos());
     }
 
-    public static void requestUpdate(){
+    public void requestUpdate() {
         layer.requestPlayerInformation(playerID);
         layer.changePosition(mPlayer.getGeoPos());
     }
-    public static void onMovementDetected(Location coordinates){
-        if (layer!=null) {
+
+    public void onMovementDetected(Location coordinates) {
+        if (layer != null) {
             layer.changePosition(coordinates);
         }
     }
 
-    public static void subscribeMainView(IMainView view){
-        mainView=view;
-    }
-    public static void subscribeLoadingView(ILoadingView view){
-        loadingView=view;
-    }
-    public static void subscribeShopView(IShopView view){
-        shopView=view;
+    public void subscribeMainView(IMainView view) {
+        mainView = view;
     }
 
+    public void subscribeLoadingView(ILoadingView view) {
+        loadingView = view;
+    }
+
+    public void subscribeShopView(IShopView view) {
+        shopView = view;
+    }
 
 
-
-    public static void onNearbyPlayersReceived(List<PlayerSkeleton> opponents){
-        if (mainView!=null) {
+    public void onNearbyPlayersReceived(List<PlayerSkeleton> opponents) {
+        if (mainView != null) {
             mainView.updatePlayersNearby(opponents);
         }
     }
 
-   public static void onPlayerDataRecieved(PlayerSkeleton player){
-       mPlayer=player;
+    public void onPlayerDataRecieved(PlayerSkeleton player) {
+        mPlayer = player;
 
-       if (mainView!=null) {
-           mainView.updateGUI(player);
-       }
-       if (shopView!=null){
-           shopView.updateGUI(mPlayer);
-           shopView.updateItemsList(shop.getAllItems());
-       }
-   }
+        if (mainView != null) {
+            mainView.updateGUI(player);
+        }
+        if (shopView != null) {
+            shopView.updateGUI(mPlayer);
+            shopView.updateItemsList(shop.getAllItems());
+        }
+    }
 
-   public static void buyItem(Integer itemId, String itemType){
-       layer.requestItemBuy(itemId,itemType);
-   }
+    public void buyItem(Integer itemId, String itemType) {
+        layer.requestItemBuy(itemId, itemType);
+    }
 
-    public static void sellItem(Integer itemId, String itemType){
-        layer.requestItemSell(itemId,itemType);
+    public void sellItem(Integer itemId, String itemType) {
+        layer.requestItemSell(itemId, itemType);
     }
 }

@@ -60,7 +60,7 @@ public class ConnectivityLayer {
      * @return <code>true</code> if player is online,and <code>false</code> otherwise
      */
     public  boolean getIsOnline(){
-            return ClientModel.mPlayer.isOnline();
+            return ClientModel.getInstance().mPlayer.isOnline();
     }
 
     /**
@@ -71,7 +71,7 @@ public class ConnectivityLayer {
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.playerID);
+            object.put("playerId",ClientModel.getInstance().getInstance().playerID);
             object.put("wantToGoOnline",!getIsOnline());
 
         } catch (JSONException e) {
@@ -131,11 +131,11 @@ public class ConnectivityLayer {
                     return;
                 }
                 try {
-                    if (msg.get("id").equals(ClientModel.playerID)){
-                        if (ClientModel.mPlayer==null){
-                            ClientModel.onDataFetched();
+                    if (msg.get("id").equals(ClientModel.getInstance().playerID)){
+                        if (ClientModel.getInstance().mPlayer==null){
+                            ClientModel.getInstance().onDataFetched();
                         }
-                        ClientModel.onPlayerDataRecieved(new PlayerSkeleton(msg));
+                        ClientModel.getInstance().onPlayerDataRecieved(new PlayerSkeleton(msg));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -166,7 +166,7 @@ public class ConnectivityLayer {
                 }
 
 
-                ClientModel.onNearbyPlayersReceived(playersNearby);
+                ClientModel.getInstance().onNearbyPlayersReceived(playersNearby);
             }
         });
 
@@ -185,7 +185,7 @@ public class ConnectivityLayer {
                     }
                 }
 
-                ClientModel.onLootboxesUpdate(lootboxes);
+                ClientModel.getInstance().onLootboxesUpdate(lootboxes);
             }
         });
 
@@ -199,7 +199,7 @@ public class ConnectivityLayer {
                     array.put((JSONObject)arg);
                 }
 
-               ClientModel.updateShop(new ShopSkeleton(array));
+               ClientModel.getInstance().updateShop(new ShopSkeleton(array));
             }
         });
     }
@@ -229,7 +229,7 @@ public class ConnectivityLayer {
                 Prompts the loadingActivity that connection is established
                  */
                // loadingActivity.onConnected();
-                ClientModel.onConnected();
+                ClientModel.getInstance().onConnected();
             }
         });
 
@@ -246,7 +246,7 @@ public class ConnectivityLayer {
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.playerID);
+            object.put("playerId",ClientModel.getInstance().playerID);
 
             socket.emit("get-shopitems",object);
         } catch (JSONException e) {
@@ -283,7 +283,7 @@ public class ConnectivityLayer {
         Look at the specifications for this event in the code of the server
          */
         try {
-            object.put("id",ClientModel.playerID);
+            object.put("id",ClientModel.getInstance().playerID);
             object.put("lat",position.latitude);
             object.put("lang",position.longitude);
 
@@ -325,7 +325,7 @@ public class ConnectivityLayer {
         Prompts loadingActivity that signing in is ongoing
          */
        // loadingActivity.onSignedin();
-        ClientModel.onSignedin();
+        ClientModel.getInstance().onSignedin();
 
     }
 
@@ -346,7 +346,7 @@ public class ConnectivityLayer {
         Prompts loadingActivity that signing in is ongoing
          */
         // loadingActivity.onSignedin();
-        ClientModel.onSignedup();
+        ClientModel.getInstance().onSignedup();
 
     }
 
@@ -354,7 +354,7 @@ public class ConnectivityLayer {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.playerID);
+            object.put("playerId",ClientModel.getInstance().playerID);
             object.put("weaponId",weaponID);
 
             socket.emit("change-weapon",object);
@@ -378,7 +378,7 @@ public class ConnectivityLayer {
         JSONObject object= new JSONObject();
 
         try {
-            object.put("id",ClientModel.playerID);
+            object.put("id",ClientModel.getInstance().playerID);
             object.put("oId",otherPlayerId);
             socket.emit("attack",object);
         } catch (JSONException e) {
@@ -410,7 +410,7 @@ public class ConnectivityLayer {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",ClientModel.playerID);
+            object.put("id",ClientModel.getInstance().playerID);
             object.put("geoPos",new JSONObject().put("latitude",coord.latitude).put("longitude",coord.longitude));
             socket.emit("consume-lootbox",object);
         } catch (JSONException e) {
@@ -424,7 +424,7 @@ public class ConnectivityLayer {
 
         try{
 
-            object.put("playerId",ClientModel.playerID);
+            object.put("playerId",ClientModel.getInstance().playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 
@@ -440,7 +440,7 @@ public class ConnectivityLayer {
 
         try{
 
-            object.put("playerId",ClientModel.playerID);
+            object.put("playerId",ClientModel.getInstance().playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 

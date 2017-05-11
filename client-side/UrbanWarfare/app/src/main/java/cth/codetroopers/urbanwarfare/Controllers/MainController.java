@@ -41,7 +41,7 @@ public class MainController extends AppCompatActivity implements IMainController
         mainView.setListener(this);
 
 
-        ClientModel.subscribeMainView(mainView);
+        ClientModel.getInstance().subscribeMainView(mainView);
 
         setContentView(mainView.getRootView());
 
@@ -52,19 +52,19 @@ public class MainController extends AppCompatActivity implements IMainController
     @Override
     protected void onStart() {
         super.onStart();
-        ClientModel.requestUpdate();
+        ClientModel.getInstance().requestUpdate();
     }
 
     @Override
     public void onRequestRadarStatusChange() {
-        ClientModel.requestRadarStatusChange();
+        ClientModel.getInstance().requestRadarStatusChange();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==CODE_CHANGEWEAPON){
             if (resultCode==RESULT_OK){
-                ClientModel.changeWeapon(data.getIntExtra("weapon-id",1));
+                ClientModel.getInstance().changeWeapon(data.getIntExtra("weapon-id",1));
             }
         }
     }
@@ -83,18 +83,18 @@ public class MainController extends AppCompatActivity implements IMainController
 
     @Override
     public void onAttackPlayer(String oID) {
-        ClientModel.attack(oID);
+        ClientModel.getInstance().attack(oID);
     }
 
     @Override
     public void onConsumeLootbox(LatLng coord) {
-        ClientModel.consumeLootbox(coord);
+        ClientModel.getInstance().consumeLootbox(coord);
     }
 
 
     @Override
     public void onLocationChanged(Location location) {
-        ClientModel.onMovementDetected(location);
+        ClientModel.getInstance().onMovementDetected(location);
     }
 
     @Override

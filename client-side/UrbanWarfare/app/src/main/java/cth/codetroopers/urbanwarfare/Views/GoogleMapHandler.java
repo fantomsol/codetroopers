@@ -222,7 +222,7 @@ public class GoogleMapHandler implements IMapHandler {
     @Override
     public void pinPlayer(final PlayerSkeleton player) {
 
-        final LatLng pos = ClientModel.mPlayer.getGeoPos();
+        final LatLng pos = ClientModel.getInstance().mPlayer.getGeoPos();
 
 
         Handler handler = new Handler(Looper.getMainLooper());

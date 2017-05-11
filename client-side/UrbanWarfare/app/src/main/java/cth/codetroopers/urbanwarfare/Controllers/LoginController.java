@@ -34,7 +34,7 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
     @Override
     public void onRequestLogin(String id) {
 
-        ClientModel.playerID=id;
+        ClientModel.getInstance().playerID=id;
         finish();
         startActivity(new Intent(this,LoadingController.class));
 
@@ -44,8 +44,8 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
 
     @Override
     public void onRequestSignup(String id) {
-        ClientModel.playerID=id;
-        ClientModel.signIn=false;
+        ClientModel.getInstance().playerID=id;
+        ClientModel.getInstance().signIn=false;
         finish();
         startActivity(new Intent(this,LoadingController.class));
     }

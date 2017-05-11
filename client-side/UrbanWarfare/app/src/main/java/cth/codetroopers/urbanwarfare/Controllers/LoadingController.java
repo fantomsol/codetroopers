@@ -29,7 +29,7 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
 
         loadingView.setListener(this);
 
-        ClientModel.subscribeLoadingView(loadingView);
+        ClientModel.getInstance().subscribeLoadingView(loadingView);
 
 
         setContentView(loadingView.getRootView());
@@ -39,7 +39,7 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
     @Override
     protected void onStart() {
         super.onStart();
-        ClientModel.commenceLogin();
+        ClientModel.getInstance().commenceLogin();
     }
 
     @Override

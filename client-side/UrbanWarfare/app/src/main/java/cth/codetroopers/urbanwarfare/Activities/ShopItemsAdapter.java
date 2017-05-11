@@ -71,7 +71,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
                 }
             });
 
-            if (ClientModel.mPlayer.hasWeapon(weapon)) {
+            if (ClientModel.getInstance().mPlayer.hasWeapon(weapon)) {
                 btnSell.setVisibility(View.VISIBLE);
                 btnSell.setText(btnSell.getText()+ " ("+String.valueOf(weapon.getCost()*0.5)+")");
                 btnBuy.setVisibility(View.GONE);
@@ -135,7 +135,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
                 }
             });
 
-            if (ClientModel.mPlayer.hasArmour(armour)) {
+            if (ClientModel.getInstance().mPlayer.hasArmour(armour)) {
                 btnSell.setVisibility(View.VISIBLE);
                 btnSell.setText(btnSell.getText()+ " ("+String.valueOf(armour.getCost()*0.5)+")");
                 btnBuy.setVisibility(View.GONE);
