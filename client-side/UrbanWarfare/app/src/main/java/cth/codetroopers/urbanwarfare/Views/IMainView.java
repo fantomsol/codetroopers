@@ -6,14 +6,14 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.IPlayerUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 
 /**
  * Created by latiif on 5/6/17.
  */
 
-public interface IMainView extends IView {
-    void updateGUI(PlayerSkeleton player);
+public interface IMainView extends IView, IPlayerUpdateListener {
 
     void updatePlayersNearby(List<PlayerSkeleton> playersNearby);
 
