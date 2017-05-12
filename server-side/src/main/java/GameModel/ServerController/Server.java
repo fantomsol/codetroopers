@@ -3,8 +3,8 @@ package GameModel.ServerController;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 
+import Mediator.IServer;
 import Mediator.ServerModelMediator;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;

@@ -19,7 +19,7 @@ import java.util.Map;
 /**
  * Created by latiif on 3/22/17.
  */
-public class World {
+public class World implements Mediator.IWorld {
 
 
 	private ServerModelMediator mediator;
@@ -39,7 +39,7 @@ public class World {
 	}
 
 
-	public void changeWeapon(String playerId,Integer weaponID){
+	public void changeWeapon(String playerId, Integer weaponID){
 		IPlayer p=getPlayerById(playerId);
 		p.switchWeapon(weaponID);
 		mediator.updatePlayer(p);
@@ -210,7 +210,7 @@ public class World {
 	}
 
 
-	public void consumeLootboxByGeoPos(String playerId,GeoPos pos){
+	public void consumeLootboxByGeoPos(String playerId, GeoPos pos){
 
 		IPlayer player=getPlayerById(playerId);
 

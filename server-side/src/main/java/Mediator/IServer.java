@@ -1,4 +1,4 @@
-package GameModel.ServerController;
+package Mediator;
 
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;

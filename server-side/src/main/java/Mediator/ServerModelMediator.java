@@ -4,8 +4,6 @@ import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
-import GameModel.ServerController.IServer;
-import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.List;
@@ -16,9 +14,9 @@ import java.util.List;
 public class ServerModelMediator implements IMediator {
 
 	private IServer server;
-	private World world;
+	private IWorld world;
 
-	public ServerModelMediator(IServer server, World world)
+	public ServerModelMediator(IServer server, IWorld world)
 	{
 		setServer(server);
 		setWorld(world);
@@ -53,7 +51,7 @@ public class ServerModelMediator implements IMediator {
 		return world.getPlayerById(id);
 	}
 
-	public void setWorld(World world) {
+	public void setWorld(IWorld world) {
 		this.world=world;
 
 	}
