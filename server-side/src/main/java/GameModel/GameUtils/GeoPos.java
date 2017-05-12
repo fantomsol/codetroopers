@@ -1,4 +1,4 @@
-package GameModel.Player;
+package GameModel.GameUtils;
 
 
 import static java.lang.Math.abs;

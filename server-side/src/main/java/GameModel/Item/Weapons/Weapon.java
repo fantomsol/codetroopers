@@ -1,7 +1,5 @@
 package GameModel.Item.Weapons;
 
-import GameModel.GameUtils.WeaponCooldown;
-
 /**
  * Created by latiif on 3/29/17.
  */

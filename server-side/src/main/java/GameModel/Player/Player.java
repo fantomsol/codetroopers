@@ -1,9 +1,9 @@
 package GameModel.Player;
 
 
-import GameModel.Experience.Exp;
+import GameModel.GameUtils.GeoPos;
+import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
-import GameModel.GameUtils.RadarCooldown;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Armours.ArmoursFactory;
@@ -12,7 +12,6 @@ import GameModel.Item.Weapons.Weapon;
 import GameModel.Item.Weapons.IWeapon;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Lootbox.ILootbox;
 import GameModel.Ranking.Rank;
 import GameModel.Ranking.Ranks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -228,7 +227,7 @@ public class Player implements IPlayer {
 		if (hp<=0){
 			isAlive=false;
 			score.increaseDeaths();
-			this.rank=Rank.getRank(this);
+			this.rank=Rank.getRank(this.exp);
 		}
 	}
 
@@ -261,8 +260,10 @@ public class Player implements IPlayer {
 
 			}
 			else {
-				Exp.setExpOnKill(this, otherPlayer);
-				this.rank = Rank.getRank(this);
+				//Exp.setExpOnKill(this, otherPlayer);
+				this.setExp(Exp.getExpOnKill(this.getExp(),otherPlayer.getExp()));
+				otherPlayer.setExp(Exp.getExpOnKilled(otherPlayer.getExp()));
+				this.rank = Rank.getRank(this.exp);
 			}
 
 			System.out.println(this.rank + "\n" + otherPlayer.getRank());
@@ -377,9 +378,6 @@ public class Player implements IPlayer {
 		this.playersNearby.add(IPlayer);
 	}
 
-	public void consume(ILootbox lootbox) {
-		lootbox.consume(this);
-	}
 
 	public void removeNearbyPlayer(IPlayer IPlayer){
 		this.playersNearby.remove(IPlayer);

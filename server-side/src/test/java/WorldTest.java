@@ -1,5 +1,5 @@
 import GameModel.GameUtils.GeoDistance;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.WorldPackage.World;

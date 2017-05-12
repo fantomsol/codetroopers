@@ -1,6 +1,6 @@
 package GameModel.Lootbox;
 
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 
 /**

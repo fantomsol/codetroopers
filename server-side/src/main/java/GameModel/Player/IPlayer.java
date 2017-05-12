@@ -1,9 +1,9 @@
 package GameModel.Player;
 
+import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
 import GameModel.Item.Weapons.IWeapon;
-import GameModel.Lootbox.ILootbox;
 import GameModel.Ranking.Ranks;
 
 import java.util.List;
@@ -68,7 +68,6 @@ public interface IPlayer {
 
 	void addNearbyPlayer(IPlayer IPlayer);
 
-	void consume(ILootbox lootbox);
 
 	void removeNearbyPlayer(IPlayer IPlayer);
 }

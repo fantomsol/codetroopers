@@ -1,7 +1,5 @@
 package GameModel.GameUtils;
 
-import GameModel.Player.GeoPos;
-
 /**
  * Created by latiif on 3/30/17.
  */

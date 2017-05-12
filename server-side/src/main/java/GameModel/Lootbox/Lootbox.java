@@ -2,7 +2,7 @@ package GameModel.Lootbox;
 
 import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 
 /**

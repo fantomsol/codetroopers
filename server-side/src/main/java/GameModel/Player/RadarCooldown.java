@@ -1,4 +1,4 @@
-package GameModel.GameUtils;
+package GameModel.Player;
 
 import GameModel.Player.IPlayer;
 

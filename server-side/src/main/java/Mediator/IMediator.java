@@ -2,8 +2,10 @@ package Mediator;
 
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
+import GameModel.ServerController.IServer;
+import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public interface IMediator {
 	void playerChangePos(String id, GeoPos pos);
 	IPlayer getPlayerById(String id);
 
+	void setWorld(World world);
+	void setServer(IServer server);
 
 	void registerPlayer(String ID);
 

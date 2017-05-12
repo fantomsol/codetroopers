@@ -1,9 +1,7 @@
 import GameModel.GameUtils.GeoDistance;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Random;
 
 /**
  * Created by latiif on 3/30/17.

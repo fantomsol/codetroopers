@@ -1,4 +1,4 @@
-package GameModel.GameUtils;
+package GameModel.Item.Weapons;
 
 import GameModel.Item.Weapons.Weapon;
 import GameModel.Item.Weapons.IWeapon;

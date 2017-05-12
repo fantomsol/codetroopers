@@ -1,6 +1,6 @@
 package GameModel.ServerController.EventObjects;
 
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 
 /**
  * Created by latiif on 5/8/17.

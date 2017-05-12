@@ -1,12 +1,4 @@
-import GameModel.Player.GeoPos;
-import GameModel.Player.Player;
-import GameModel.ServerController.Server;
-import com.eclipsesource.json.JsonArray;
-import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by latiif on 4/1/17.

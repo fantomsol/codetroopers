@@ -2,7 +2,7 @@ package Mediator;
 
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.ServerController.IServer;
 import GameModel.WorldPackage.World;
@@ -20,11 +20,11 @@ public class ServerModelMediator implements IMediator {
 
 	public ServerModelMediator(IServer server, World world)
 	{
-		this.world=world;
-		this.server=server;
-
+		setServer(server);
+		setWorld(world);
 		world.setMediator(this);
 		server.setMediator(this);
+
 
 	}
 
@@ -51,6 +51,15 @@ public class ServerModelMediator implements IMediator {
 
 	public IPlayer getPlayerById(String id) {
 		return world.getPlayerById(id);
+	}
+
+	public void setWorld(World world) {
+		this.world=world;
+
+	}
+
+	public void setServer(IServer server) {
+		this.server=server;
 	}
 
 	public void consumeLootbox(String playerId, GeoPos geoPos) {

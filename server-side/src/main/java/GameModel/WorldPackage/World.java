@@ -1,11 +1,10 @@
 package GameModel.WorldPackage;
 
-import GameModel.Experience.Exp;
+import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Lootbox.ILootbox;
-import GameModel.Lootbox.Lootbox;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.Shop.IShop;
@@ -76,7 +75,8 @@ public class World {
 		IPlayer attackee= getPlayerById(attackeeId);
 
 		if (attackee.getWeaponEquipped().getId()== WeaponsDirectory.WHITEFLAG){
-			Exp.setExpOnAttackingUnarmed(attacker);
+			//Exp.getExpOnAttackingUnarmed(attacker);
+			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
 		}
 
 		attacker.attackOtherPlayer(attackee);
@@ -216,7 +216,8 @@ public class World {
 
 		for (ILootbox lootbox:lootboxes){
 			if (lootbox.getGeoPos().equals(pos)){
-				player.consume(lootbox);
+				//player.consume(lootbox);
+				lootbox.consume(player);
 				lootboxes.remove(lootbox);
 
 				mediator.playerChangePos(playerId,player.getGeoPos());

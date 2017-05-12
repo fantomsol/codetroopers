@@ -1,6 +1,6 @@
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.WorldPackage.World;

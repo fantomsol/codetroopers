@@ -2,7 +2,7 @@ import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Item;
 import GameModel.Item.Weapons.Sniper;
 import GameModel.Item.Weapons.WeaponsDirectory;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.Shop.IShop;

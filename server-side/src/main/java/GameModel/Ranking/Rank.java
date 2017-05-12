@@ -26,15 +26,8 @@ public abstract class Rank {
 
 
 
-    public static Ranks getRank(IPlayer p) {
-        return getRank(p.getExp());
+    public static Ranks getRank(Integer playerExp) {
+        return getRank(playerExp);
     }
 
-    public void onKill(IPlayer killer, IPlayer killed) {
-
-    }
-
-    public void onBuy(IPlayer p, int price) {
-
-    }
 }

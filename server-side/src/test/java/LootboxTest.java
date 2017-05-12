@@ -1,6 +1,6 @@
 import GameModel.Lootbox.ILootbox;
 import GameModel.Lootbox.Lootbox;
-import GameModel.Player.GeoPos;
+import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import org.junit.Assert;
@@ -19,7 +19,8 @@ public class LootboxTest {
 		int oldGold=player.getGold();
 
 
-		player.consume(lootbox);
+		//player.consume(lootbox);
+		lootbox.consume(player);
 
 		Assert.assertTrue(player.getGold()==oldGold+250);
 
