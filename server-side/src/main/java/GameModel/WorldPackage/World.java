@@ -74,7 +74,7 @@ public class World implements Mediator.IWorld {
 		IPlayer attacker = getPlayerById(attackerId);
 		IPlayer attackee= getPlayerById(attackeeId);
 
-		if (attackee.getWeaponEquipped().getId()== WeaponsDirectory.WHITEFLAG){
+		if (attackee.getWeaponEquipped().getId().intValue()== WeaponsDirectory.WHITEFLAG){
 			//Exp.getExpOnAttackingUnarmed(attacker);
 			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
 		}

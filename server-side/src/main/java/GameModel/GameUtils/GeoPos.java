@@ -44,6 +44,12 @@ public class GeoPos {
 	}
 
 	@Override
+	public int hashCode() {
+		assert false:"No hashcode for this";
+		return 7;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj==null){
 			return false;

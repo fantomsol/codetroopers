@@ -6,7 +6,7 @@ package GameModel.Item.Armours;
  class ShieldOfValor implements IArmour {
 
  	private final Integer id= 1;
-	private final String name="Shield of Valor";
+	private static String name="Shield of Valor";
 	private final Integer value = 25;
 	private final Integer cost = 100;
 

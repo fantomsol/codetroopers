@@ -5,7 +5,7 @@ package GameModel.Item.Armours;
  */
 public class RighteousGlory implements IArmour {
     private final Integer id= 2;
-    private final String name="Righteous Glory";
+    private static String name="Righteous Glory";
     private final Integer value = 45;
     private final Integer cost = 250;
 

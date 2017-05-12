@@ -6,22 +6,22 @@ package GameModel.Item.Weapons;
 public class WeaponsFactory {
 
 	public static Weapon createWeapon(Integer id){
-		if (id==WeaponsDirectory.PISTOL){
+		if (id.intValue()==WeaponsDirectory.PISTOL){
 			return new Pistol();
 		}
 
-		if (id==WeaponsDirectory.SNIPER){
+		if (id.intValue()==WeaponsDirectory.SNIPER){
 			return new Sniper();
 		}
 
-		if (id==WeaponsDirectory.ASSAULT_RIFLE){
+		if (id.intValue()==WeaponsDirectory.ASSAULT_RIFLE){
 			return new AssaultRifle();
 		}
-		if (id==WeaponsDirectory.SHOTGUN){
+		if (id.intValue()==WeaponsDirectory.SHOTGUN){
 			return new Shotgun();
 		}
 
-		if (id==WeaponsDirectory.WHITEFLAG){
+		if (id.intValue()==WeaponsDirectory.WHITEFLAG){
 			return new WhiteFlag();
 		}
 

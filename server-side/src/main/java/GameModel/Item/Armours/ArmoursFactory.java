@@ -16,20 +16,20 @@ public class ArmoursFactory {
 	//Make sure to keep up to date
 	public static IArmour createArmour(Integer id){
 
-		if (id==ArmoursDirectory.SHIELD_OF_VALOR){
+		if (id.intValue()==ArmoursDirectory.SHIELD_OF_VALOR){
 			return new ShieldOfValor();
 		}
 
-		if(id==ArmoursDirectory.RIGHTEOUS_GLORY){
+		if(id.intValue()==ArmoursDirectory.RIGHTEOUS_GLORY){
 			return new RighteousGlory();
 		}
-		if(id==ArmoursDirectory.BODY_ARMOUR){
+		if(id.intValue()==ArmoursDirectory.BODY_ARMOUR){
 			return new BodyArmour();
 		}
-		if(id==ArmoursDirectory.KEVLAR){
+		if(id.intValue()==ArmoursDirectory.KEVLAR){
 			return new Kevlar();
 		}
-		if(id==ArmoursDirectory.HELMET){
+		if(id.intValue()==ArmoursDirectory.HELMET){
 			return new Helmet();
 		}
 

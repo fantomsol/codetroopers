@@ -7,20 +7,20 @@ package GameModel.Player;
  */
 public class PlayerConstants {
 
-	final static Double MAX_HEALTH = new Double(100);
-	final static Integer START_GOLD = new Integer(100);
-	final static Integer START_EXP = new Integer(200);
+	final static Double MAX_HEALTH = 100.0;
+	final static Integer START_GOLD = 100;
+	final static Integer START_EXP = 200;
 
 	//Vision in meters
-	final static Integer START_VISION = new Integer(250);
+	final static Integer START_VISION = 250;
 
 
 	//Offline cooldown in seconds
-	final static Integer START_COOLDOWN = new Integer(2);
+	final static Integer START_COOLDOWN = 2;
 
 
 	final static Double damageCaluculation(final Integer damage, final Integer armour){
-		return new Double(damage*100)/(100+armour);
+		return (damage*100.0)/(100+armour);
 	}
 
 }

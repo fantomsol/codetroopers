@@ -26,7 +26,7 @@ public class PlayerChangePositionEvent {
 	}
 
 	public void setId(String id){
-		this.id=new String(id);
+		this.id=id;
 	}
 
 	double lat, lang;

@@ -24,7 +24,7 @@ public abstract class Weapon implements IWeapon {
 	}
 
 	public Boolean getIsOnCooldown() {
-		return new Boolean(isOnCooldown);
+		return isOnCooldown;
 	}
 
 	public void setIsOnCooldown(Boolean value) {

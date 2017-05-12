@@ -21,7 +21,7 @@ public class Main {
 		//world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
 		world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
 
-		ServerModelMediator modelMediator= new ServerModelMediator(server,world);
+		new ServerModelMediator(server,world);
 
 
 		IPlayer p1= new Player("llusx",new GeoPos(0.0,0.0));

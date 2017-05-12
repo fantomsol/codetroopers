@@ -27,7 +27,7 @@ public class RadarCooldown extends Thread implements Runnable {
 			e.printStackTrace();
 		}
 
-		IPlayer.setOfflineCooldownStops(new Long(0));
+		IPlayer.setOfflineCooldownStops(Long.valueOf(0));
 		IPlayer.setCanGoOffline(true);
 	}
 }

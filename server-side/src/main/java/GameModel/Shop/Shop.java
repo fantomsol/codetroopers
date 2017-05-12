@@ -36,7 +36,7 @@ public class Shop implements IShop {
     }
 
     public void sellItem(IPlayer IPlayer, Item item) {
-        IPlayer.sellItem(item,new Double(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
+        IPlayer.sellItem(item,Double.valueOf(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
     }
 
     public Item getItem(Integer itemID, String itemType) {

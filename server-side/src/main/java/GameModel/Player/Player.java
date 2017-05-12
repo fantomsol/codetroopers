@@ -32,7 +32,7 @@ public class Player implements IPlayer {
 	private Boolean canGoOffline=false;
 
 	@JsonProperty
-	private Long offlineCooldownStops=new Long(0);
+	private Long offlineCooldownStops=Long.valueOf(0);
 
 	public void setOfflineCooldownStops(Long time) {
 		this.offlineCooldownStops = time;
@@ -60,7 +60,7 @@ public class Player implements IPlayer {
 
 	public void switchWeapon(Integer weaponID){
 		for (IWeapon weapon:weapons){
-			if (weapon.getId()==weaponID){
+			if (weapon.getId().intValue()==weaponID.intValue()){
 				weaponEquipped=weapon;
 				return;
 			}
@@ -212,7 +212,7 @@ public class Player implements IPlayer {
 	}
 
 	public Boolean getIsAlive(){
-		return new Boolean(isAlive);
+		return isAlive;
 	}
 
 	public void updatePos(final GeoPos newPos){
@@ -256,7 +256,7 @@ public class Player implements IPlayer {
 		if (!otherPlayer.getIsAlive()){
 			score.increaseKills();
 
-			if (otherPlayer.getWeaponEquipped().getId()==WeaponsDirectory.WHITEFLAG){
+			if (otherPlayer.getWeaponEquipped().getId().intValue()==WeaponsDirectory.WHITEFLAG){
 
 			}
 			else {
@@ -311,7 +311,7 @@ public class Player implements IPlayer {
 	}
 
 	public Boolean isOnline(){
-		return new Boolean(onlineStatus);
+		return onlineStatus;
 	}
 
 	public Integer getOfflineCooldown(){
@@ -336,7 +336,7 @@ public class Player implements IPlayer {
 	}
 
 	public Boolean getCanGoOffline(){
-		return new Boolean(canGoOffline);
+		return canGoOffline;
 	}
 
 	public String getID(){

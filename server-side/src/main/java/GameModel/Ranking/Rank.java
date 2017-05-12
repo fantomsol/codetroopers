@@ -26,8 +26,6 @@ public abstract class Rank {
 
 
 
-    public static Ranks getRank(Integer playerExp) {
-        return getRank(playerExp);
-    }
+
 
 }
