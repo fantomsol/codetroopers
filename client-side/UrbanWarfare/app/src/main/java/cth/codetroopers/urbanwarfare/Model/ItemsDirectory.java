@@ -43,4 +43,26 @@ public class ItemsDirectory {
 
         }
     }
+
+    public static int getAvatarImage(String name) {
+        switch (name){
+            case "JIM":
+                return R.drawable.avatar_jim;
+            case "WILLOW":
+                return R.drawable.avatar_willow;
+            case "KARMA":
+                return R.drawable.avatar_karma;
+            case "SIBOAN":
+                return R.drawable.avatar_siboan;
+            case "KYLE":
+                return R.drawable.avatar_kyle;
+            case "TERRY":
+                return R.drawable.avatar_terry;
+            case "LOTUS":
+                return R.drawable.avatar_lotus;
+            default:
+                return 0;
+
+        }
+    }
 }

@@ -31,6 +31,7 @@ import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.GameUtils.AttackOpponentListener;
 import cth.codetroopers.urbanwarfare.GameUtils.OpponentIconGenerator;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
+import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
@@ -95,7 +96,7 @@ public class GoogleMapHandler implements IMapHandler {
                         new MarkerOptions()
                                 .title("Player")
                                 .position(new LatLng(0, 0))
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.player)));
+                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.avatar_jim)));
 
         //needs to be revised to decide the most visually appealing map type
        // map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -222,14 +223,15 @@ public class GoogleMapHandler implements IMapHandler {
     @Override
     public void pinPlayer(final PlayerSkeleton player) {
 
-        final LatLng pos = ClientModel.getInstance().mPlayer.getGeoPos();
-
+        //final LatLng pos = ClientModel.getInstance().mPlayer.getGeoPos();
+        final LatLng pos = player.getGeoPos();
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
                 playerMarker.setPosition(pos);
+                playerMarker.setIcon(BitmapDescriptorFactory.fromResource(ItemsDirectory.getAvatarImage(player.getAvatar())));
 
                 playerCircle.setCenter(player.getGeoPos());
                 playerCircle.setRadius(player.getWeaponEquipped().getRange());

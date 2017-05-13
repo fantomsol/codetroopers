@@ -23,6 +23,7 @@ public class PlayerSkeleton {
     private void fetchFromJson(JSONObject object){
         try {
             id=object.getString("id");
+            avatar=object.getString("avatar");
             hp=object.getDouble("hp");
             rank=object.getString("rank");
             isAlive=object.getBoolean("isAlive");
@@ -66,6 +67,7 @@ public class PlayerSkeleton {
     }
 
     private String id;
+    private String avatar;
     private Double hp;
     private String rank;
     private Boolean isAlive;
@@ -79,12 +81,6 @@ public class PlayerSkeleton {
     private WeaponSkeleton weaponEquipped;
     private List<WeaponSkeleton> weapons = new ArrayList<>();
     private List<ArmourSkeleton> armours = new ArrayList<>();
-
-
-
-
-
-
 
 
 
@@ -120,6 +116,10 @@ public class PlayerSkeleton {
 
     public String getID(){
         return id;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     public Integer getExp(){
