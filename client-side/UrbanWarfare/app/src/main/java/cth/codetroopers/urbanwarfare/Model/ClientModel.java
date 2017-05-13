@@ -207,8 +207,9 @@ public class ClientModel {
     }
 
     public void onPlayerDataRecieved(PlayerSkeleton player) {
-        /*mPlayer = player;
+        mPlayer = player;
 
+        /*
         if (mainView != null) {
             mainView.updateGUI(player);
         }
@@ -218,7 +219,10 @@ public class ClientModel {
         }*/
 
         updatePlayerlisteners(player);
-        updateShoplisteners(shop.getAllItems());
+
+        if (shop!=null) {
+            updateShoplisteners(shop.getAllItems());
+        }
     }
 
     public void buyItem(Integer itemId, String itemType) {
