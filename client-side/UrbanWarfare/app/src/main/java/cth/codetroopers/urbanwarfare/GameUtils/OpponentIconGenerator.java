@@ -91,6 +91,7 @@ public class OpponentIconGenerator {
         TextView textView= (TextView) view.findViewById(R.id.txtHp);
         ImageView imgRank = (ImageView) view.findViewById(R.id.imgRank);
         ImageView imgWeapon = (ImageView) view.findViewById(R.id.imageWeaponequipped);
+        ImageView imgAvatar = (ImageView) view.findViewById(R.id.image);
 
         //Fill in the elements with the corresponding information from the player JSON object
         txtName.setText(player.getID());
@@ -98,6 +99,8 @@ public class OpponentIconGenerator {
 
         imgRank.setImageResource(ItemsDirectory.getRank(player));
         imgWeapon.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
+
+        imgAvatar.setImageResource(ItemsDirectory.getAvatarImage(player.getAvatar()));
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);
 
