@@ -2,6 +2,7 @@ package GameModel.Player;
 
 
 import GameModel.GameUtils.GeoPos;
+import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Item.Armours.IArmour;
@@ -30,6 +31,8 @@ public class Player implements IPlayer {
 
 	private Boolean onlineStatus=false;
 	private Boolean canGoOffline=false;
+
+	private Avatar avatar = Avatar.JIM;
 
 	@JsonProperty
 	private Long offlineCooldownStops=Long.valueOf(0);
@@ -357,6 +360,15 @@ public class Player implements IPlayer {
 
 	public Integer getGold(){
 		return gold;
+	}
+
+
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar a) {
+		avatar = a;
 	}
 
 	public void setHp(Double hp) {

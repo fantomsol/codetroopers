@@ -4,6 +4,7 @@ import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
 import GameModel.Item.Weapons.IWeapon;
+import GameModel.Player.Avatar.Avatar;
 import GameModel.Ranking.Ranks;
 
 import java.util.List;
@@ -59,6 +60,10 @@ public interface IPlayer {
 	Integer getVision();
 
 	Integer getGold();
+
+	Avatar getAvatar();
+
+	void setAvatar(Avatar a);
 
 	void setHp(Double hp);
 

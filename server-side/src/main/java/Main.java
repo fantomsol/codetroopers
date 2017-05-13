@@ -2,6 +2,7 @@ import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.Lootbox.Lootbox;
 import GameModel.GameUtils.GeoPos;
+import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.ServerController.Server;
@@ -30,6 +31,7 @@ public class Main {
 		world.registerPlayer(p1);
 		world.registerPlayer(p2);
 
+		p2.setAvatar(Avatar.KARMA);
 
 		p1.setExp(5000);
 		p2.setExp(20000);

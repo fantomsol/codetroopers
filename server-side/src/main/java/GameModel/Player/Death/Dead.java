@@ -1,4 +1,4 @@
-package GameModel.Death;
+package GameModel.Player.Death;
 
 import GameModel.Player.Player;
 
