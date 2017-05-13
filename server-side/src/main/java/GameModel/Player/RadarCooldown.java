@@ -20,6 +20,8 @@ public class RadarCooldown extends Thread implements Runnable {
 		this.cooldownDuration = cooldownDuration*1000;
 	}
 
+
+
 	@Override
 	public void run() {
 		IPlayer.setCanGoOffline(false);
