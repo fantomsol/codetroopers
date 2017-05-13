@@ -5,7 +5,9 @@ import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import com.corundumstudio.socketio.SocketIOClient;
+import sun.swing.BakedArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,7 +80,13 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void updatePlayerShopItems(IPlayer p, List<Item> list) {
-		server.sendShopList(p,list);
+		Object player = p;
+		List<Object> items = new ArrayList();
+		for (Item item:list){
+			items.add(item);
+		}
+
+		server.sendShopList(player,items);
 	}
 
 	public void buyItem(IPlayer player, Integer itemID, String itemType) {

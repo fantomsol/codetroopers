@@ -20,5 +20,5 @@ public interface IServer {
 	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
 	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
 
-	void sendShopList(IPlayer p, List<Item> list);
+	void sendShopList(Object p, List<Object> list);
 }

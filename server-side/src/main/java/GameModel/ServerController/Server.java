@@ -12,6 +12,7 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -134,10 +135,10 @@ public class Server implements IServer {
 		updatePlayer(p);
 	}
 
-	public void sendShopList(IPlayer p, List<Item> list) {
+	public void sendShopList(Object p, List<Object> list) {
 		if (map.containsKey(p)){
 
-			Item[] array= new Item[list.size()];
+			Object[] array= new Item[list.size()];
 
 			for(int i=0;i<array.length;i++){
 				array[i]= list.get(i);
@@ -153,6 +154,8 @@ public class Server implements IServer {
 		for (T o: list){
 			res.add(o.toString());
 		}
+
+
 
 		return res;
 	}
