@@ -1,7 +1,6 @@
 package GameModel.ServerController.EventListeners;
 
 import GameModel.ServerController.EventObjects.AttackEvent;
-import GameModel.WorldPackage.World;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
 import com.corundumstudio.socketio.SocketIOClient;

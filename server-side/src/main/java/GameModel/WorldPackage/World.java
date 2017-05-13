@@ -9,6 +9,7 @@ import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
 import GameModel.Shop.IShop;
 import GameModel.Shop.Shop;
+import Mediator.IWorld;
 import Mediator.ServerModelMediator;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.Map;
 /**
  * Created by latiif on 3/22/17.
  */
-public class World implements Mediator.IWorld {
+public class World implements IWorld {
 
 
 	private ServerModelMediator mediator;

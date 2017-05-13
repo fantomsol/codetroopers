@@ -4,7 +4,6 @@ import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
-import GameModel.WorldPackage.World;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.List;

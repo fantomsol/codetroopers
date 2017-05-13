@@ -12,13 +12,13 @@ import java.util.List;
  * Created by latiif on 4/30/17.
  */
 public interface IServer {
-	void updateNearbyPlayers(IPlayer IPlayer);
-	void updatePlayer(IPlayer IPlayer);
+	void updateNearbyPlayers(Object player,List<Object> players);
+	void updatePlayer(Object playerObject);
 
 	void setMediator(ServerModelMediator serverModelMediator);
 
-	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
-	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
+	void updateLootbox(Object player, List<Object> lootboxes);
+	void playerSignin(Object p, SocketIOClient socketIOClient);
 
 	void sendShopList(Object p, List<Object> list);
 }

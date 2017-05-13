@@ -1,8 +1,6 @@
 package GameModel.ServerController;
 
-import GameModel.Item.Item;
-import GameModel.Lootbox.ILootbox;
-import GameModel.Player.IPlayer;
+
 
 import Mediator.IServer;
 import Mediator.ServerModelMediator;
@@ -12,7 +10,6 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -27,12 +24,12 @@ public class Server implements IServer {
 
 
 	public Server(){
-		map= new Hashtable<IPlayer, SocketIOClient>();
+		map= new Hashtable<Object, SocketIOClient>();
 
 
 	}
 
-	public  Map<IPlayer,SocketIOClient> map;
+	public  Map<Object,SocketIOClient> map;
 
 	 SocketIOServer socketIOServer;
 
@@ -59,10 +56,10 @@ public class Server implements IServer {
 			 public void onDisconnect(SocketIOClient socketIOClient) {
 
 
-				 for (Map.Entry<IPlayer, SocketIOClient> entry : map.entrySet()) {
+				 for (Map.Entry<Object, SocketIOClient> entry : map.entrySet()) {
 
 					 if (socketIOClient.equals(entry.getValue())){
-						 System.out.println("Removed data for player "+entry.getKey().getID());
+						 //System.out.println("Removed data for player "+entry.getKey().getID());
 						 map.remove(entry.getKey());
 						 break;
 					 }
@@ -86,26 +83,26 @@ public class Server implements IServer {
 	}
 
 	//Sends data back to the player
-	public  void updateNearbyPlayers(final IPlayer IPlayer){
-		if (map.containsKey(IPlayer)) {
+	public  void updateNearbyPlayers(final Object player, final List<Object> players){
+		if (map.containsKey(player)) {
 
 
-			IPlayer[] array= new IPlayer[IPlayer.getPlayersNearby().size()];
+			Object[] array= new Object[players.size()];
 
 			for(int i=0;i<array.length;i++){
-				array[i]= IPlayer.getPlayersNearby().get(i);
+				array[i]= players.get(i);
 			}
 
-			map.get(IPlayer).sendEvent("nearby-players-update",array);
+			map.get(player).sendEvent("nearby-players-update",array);
 		}
 
 	}
 
 
-	public void updateLootbox(IPlayer player, List<ILootbox> lootboxes){
+	public void updateLootbox(Object player, List<Object> lootboxes){
 		if (map.containsKey(player)){
 
-			ILootbox[] array= new ILootbox[lootboxes.size()];
+			Object[] array= new Object[lootboxes.size()];
 
 			for(int i=0;i<array.length;i++){
 				array[i]= lootboxes.get(i);
@@ -114,10 +111,10 @@ public class Server implements IServer {
 		}
 	}
 
-	public  void updatePlayer(IPlayer player){
+	public  void updatePlayer(Object player){
 		if (map.containsKey(player)){
 			map.get(player).sendEvent("player-info", player);
-			System.out.println("sending player info to "+ player.getID());
+			//System.out.println("sending player info to "+ player.getID());
 		}
 	}
 
@@ -128,17 +125,17 @@ public class Server implements IServer {
 		new ServerEventListeners(mediator,getServerSocket());
 	}
 
-	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
+	public void playerSignin(Object p, SocketIOClient socketIOClient) {
 		map.put(p,socketIOClient);
 
-		updateNearbyPlayers(p);
+		//updateNearbyPlayers(p);
 		updatePlayer(p);
 	}
 
 	public void sendShopList(Object p, List<Object> list) {
 		if (map.containsKey(p)){
 
-			Object[] array= new Item[list.size()];
+			Object[] array= new Object[list.size()];
 
 			for(int i=0;i<array.length;i++){
 				array[i]= list.get(i);

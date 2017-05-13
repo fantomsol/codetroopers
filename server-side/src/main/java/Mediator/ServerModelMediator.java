@@ -5,7 +5,6 @@ import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 import com.corundumstudio.socketio.SocketIOClient;
-import sun.swing.BakedArrayList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +32,13 @@ public class ServerModelMediator implements IMediator {
 		world.createNewPlayer(name);
 	}
 
-	public void updateNearbyPlayers(IPlayer IPlayer) {
-		server.updateNearbyPlayers(IPlayer);
+	public void updateNearbyPlayers(IPlayer player) {
+		List<Object> playersRaw= new ArrayList<Object>();
+		for (IPlayer p:player.getPlayersNearby()){
+			playersRaw.add(p);
+		}
+
+		server.updateNearbyPlayers(player,playersRaw);
 	}
 
 	public void updatePlayer(IPlayer IPlayer) {
@@ -68,7 +72,11 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void updateLootbox(IPlayer player, List<ILootbox> lootboxes) {
-		server.updateLootbox(player,lootboxes);
+		List<Object> lootboxesRaw= new ArrayList<Object>();
+		for (ILootbox lootbox:lootboxes){
+			lootboxesRaw.add(lootbox);
+		}
+		server.updateLootbox(player,lootboxesRaw);
 	}
 
 	public void changeWeapon(String playerId, Integer weaponID) {
