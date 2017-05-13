@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Activities.ShopItemsAdapter;
-import cth.codetroopers.urbanwarfare.Activities.WeaponViewAdapter;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 

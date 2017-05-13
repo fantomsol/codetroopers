@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Activities;
+package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;

@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,15 +21,9 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
-import cth.codetroopers.urbanwarfare.GameUtils.AttackOpponentListener;
-import cth.codetroopers.urbanwarfare.GameUtils.OpponentIconGenerator;
-import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;

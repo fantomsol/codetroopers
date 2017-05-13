@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.model.LatLng;
 
 import cth.codetroopers.urbanwarfare.Activities.ChooseWeapon;
-import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
-import cth.codetroopers.urbanwarfare.GameUtils.LocationHandler;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Views.IMainView;
 import cth.codetroopers.urbanwarfare.Views.MainViewImp;

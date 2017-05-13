@@ -13,10 +13,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.ClientModel;
+import cth.codetroopers.urbanwarfare.Controllers.LocationHandler;
+import cth.codetroopers.urbanwarfare.Model.IConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
-import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -52,27 +52,27 @@ JSON is readable by humans, and supported by our Networking framework (SocketIO)
 
  */
 
-public class ConnectivityLayer {
+public class ConnectivityLayer implements IConnectivityLayer {
 
-    /**
-     * This static function checks whether the oldplayer is online or offline. Keep in mind that online and offline here correspond the the oldplayer's ability to see and be seen and NOT to whether they're signed in to the server or not.
-     *
-     * @return <code>true</code> if player is online,and <code>false</code> otherwise
-     */
-    public  boolean getIsOnline(){
-            return ClientModel.getInstance().mPlayer.isOnline();
+  private String playerID;
+    private boolean firstFetch=true;
+
+    private IModel mListener;
+    public ConnectivityLayer(IModel listener){
+        mListener=listener;
     }
 
     /**
      * This staic method is called whenever the user request a change in their online/offline radar status. Whether the request is granted or not is handled on the server and NOT here.
      */
 
-    public  void requestChangeRadarStatus(){
+    @Override
+    public  void requestChangeRadarStatus(boolean currentStatus){
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.getInstance().getInstance().playerID);
-            object.put("wantToGoOnline",!getIsOnline());
+            object.put("playerID", playerID);
+            object.put("wantToGoOnline",!currentStatus);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -85,7 +85,6 @@ public class ConnectivityLayer {
      * The Id of player who's signed in to the server within the game
      * This variable is set when the sign-in process is successfully accomplished.
      */
-    public  String playerID;
 
     /**
      * A JSON object that encapsulates all the data needed about the player, this object's content is dynamically updated by the server and sent to the client.
@@ -131,11 +130,12 @@ public class ConnectivityLayer {
                     return;
                 }
                 try {
-                    if (msg.get("id").equals(ClientModel.getInstance().playerID)){
-                        if (ClientModel.getInstance().mPlayer==null){
-                            ClientModel.getInstance().onDataFetched();
+                    if (msg.get("id").equals(playerID)){
+                        if (firstFetch){
+                            firstFetch=false;
+                            mListener.onDataFetched();
                         }
-                        ClientModel.getInstance().onPlayerDataRecieved(new PlayerSkeleton(msg));
+                        mListener.onPlayerDataRecieved(new PlayerSkeleton(msg));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -166,7 +166,7 @@ public class ConnectivityLayer {
                 }
 
 
-                ClientModel.getInstance().onNearbyPlayersReceived(playersNearby);
+                mListener.onNearbyPlayersReceived(playersNearby);
             }
         });
 
@@ -185,7 +185,7 @@ public class ConnectivityLayer {
                     }
                 }
 
-                ClientModel.getInstance().onLootboxesUpdate(lootboxes);
+                mListener.onLootboxesUpdate(lootboxes);
             }
         });
 
@@ -199,7 +199,7 @@ public class ConnectivityLayer {
                     array.put((JSONObject)arg);
                 }
 
-               ClientModel.getInstance().updateShop(new ShopSkeleton(array));
+               mListener.updateShop(new ShopSkeleton(array));
             }
         });
     }
@@ -213,6 +213,7 @@ public class ConnectivityLayer {
      * @throws URISyntaxException
      *
      */
+    @Override
     public void Init() throws URISyntaxException {
         /*
         This address the one the emulator uses to connect to localhost on the hosting machine
@@ -229,7 +230,7 @@ public class ConnectivityLayer {
                 Prompts the loadingActivity that connection is established
                  */
                // loadingActivity.onConnected();
-                ClientModel.getInstance().onConnected();
+                mListener.onConnected();
             }
         });
 
@@ -242,11 +243,12 @@ public class ConnectivityLayer {
     }
 
 
+    @Override
     public void requestShopItems(){
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.getInstance().playerID);
+            object.put("playerID",playerID);
 
             socket.emit("get-shopitems",object);
         } catch (JSONException e) {
@@ -256,6 +258,7 @@ public class ConnectivityLayer {
 
     }
 
+    @Override
     public  void changePosition(Location position){
         LatLng pos= new LatLng(position.getLatitude(),position.getLongitude());
 
@@ -268,8 +271,9 @@ public class ConnectivityLayer {
      *
      * @param position The position object that contains the new geographical coordinates of the player. This object is passed directly from the LocationHandler class.
      *
-     * @see cth.codetroopers.urbanwarfare.GameUtils.LocationHandler#locationListener
+     * @see LocationHandler#locationListener
      */
+    @Override
     public  void changePosition(LatLng position){
 
         JSONObject object= new JSONObject();
@@ -283,7 +287,7 @@ public class ConnectivityLayer {
         Look at the specifications for this event in the code of the server
          */
         try {
-            object.put("id",ClientModel.getInstance().playerID);
+            object.put("id",playerID);
             object.put("lat",position.latitude);
             object.put("lang",position.longitude);
 
@@ -305,10 +309,15 @@ public class ConnectivityLayer {
         }
     }
 
+    public void setPlayerID(String id) {
+        playerID =id;
+    }
+
     /**
      * This method send a sign-in request to the server from the player
      * @param id
      */
+    @Override
     public  void signIn(final String id){
         JSONObject object= new JSONObject();
 
@@ -325,11 +334,12 @@ public class ConnectivityLayer {
         Prompts loadingActivity that signing in is ongoing
          */
        // loadingActivity.onSignedin();
-        ClientModel.getInstance().onSignedin();
+        mListener.onSignedin();
 
     }
 
 
+    @Override
     public  void signUp(final String id){
         JSONObject object= new JSONObject();
 
@@ -346,15 +356,16 @@ public class ConnectivityLayer {
         Prompts loadingActivity that signing in is ongoing
          */
         // loadingActivity.onSignedin();
-        ClientModel.getInstance().onSignedup();
+       mListener.onSignedup();
 
     }
 
+    @Override
     public  void changeWeapon(int weaponID){
         JSONObject object = new JSONObject();
 
         try {
-            object.put("playerId",ClientModel.getInstance().playerID);
+            object.put("playerID",playerID);
             object.put("weaponId",weaponID);
 
             socket.emit("change-weapon",object);
@@ -373,12 +384,13 @@ public class ConnectivityLayer {
      *
      * @param otherPlayerId The id of the oldplayer that the current oldplayer is going to attack
      */
+    @Override
     public  void attack(final String otherPlayerId){
 
         JSONObject object= new JSONObject();
 
         try {
-            object.put("id",ClientModel.getInstance().playerID);
+            object.put("id",playerID);
             object.put("oId",otherPlayerId);
             socket.emit("attack",object);
         } catch (JSONException e) {
@@ -395,6 +407,7 @@ public class ConnectivityLayer {
      * @param id
      */
 
+    @Override
     public  void requestPlayerInformation(final String id){
         JSONObject object= new JSONObject();
         try {
@@ -406,11 +419,12 @@ public class ConnectivityLayer {
         }
     }
 
+    @Override
     public void consumeLootboxRequest(LatLng coord){
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",ClientModel.getInstance().playerID);
+            object.put("id",playerID);
             object.put("geoPos",new JSONObject().put("latitude",coord.latitude).put("longitude",coord.longitude));
             socket.emit("consume-lootbox",object);
         } catch (JSONException e) {
@@ -419,12 +433,13 @@ public class ConnectivityLayer {
 
     }
 
+    @Override
     public void requestItemBuy(Integer itemId, String itemType){
         JSONObject object = new JSONObject();
 
         try{
 
-            object.put("playerId",ClientModel.getInstance().playerID);
+            object.put("playerID",playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 
@@ -435,12 +450,13 @@ public class ConnectivityLayer {
         }
     }
 
+    @Override
     public void requestItemSell(Integer itemId, String itemType){
         JSONObject object = new JSONObject();
 
         try{
 
-            object.put("playerId",ClientModel.getInstance().playerID);
+            object.put("playerID",playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 

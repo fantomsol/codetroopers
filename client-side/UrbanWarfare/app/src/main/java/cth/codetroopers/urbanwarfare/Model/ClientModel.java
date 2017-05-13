@@ -9,16 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
-import cth.codetroopers.urbanwarfare.GameUtils.LoadingStates;
-import cth.codetroopers.urbanwarfare.Views.ILoadingView;
-import cth.codetroopers.urbanwarfare.Views.IMainView;
-import cth.codetroopers.urbanwarfare.Views.IShopView;
+import cth.codetroopers.urbanwarfare.ClientSide.IModel;
 
 /**
  * Created by latiif on 5/6/17.
  */
 
-public class ClientModel {
+public class ClientModel implements IModel {
 
 
     private static ClientModel clientModel = new ClientModel();
@@ -38,11 +35,15 @@ public class ClientModel {
     private List <IOpponentsUpdateListener> opponentListeners;
     private List <IShopUpdateListener> shopListeners;
 
+    public void setPlayerId(String id){
+        layer.setPlayerID(id);
+        this.playerID=id;
+    }
     private ShopSkeleton shop;
 
-    private ConnectivityLayer layer = new ConnectivityLayer();
+    private IConnectivityLayer layer= new ConnectivityLayer(this);
 
-    public String playerID;
+    private String playerID;
 
     private ClientModel(){
         playerListeners = new ArrayList<>();
@@ -56,6 +57,7 @@ public class ClientModel {
         return clientModel;
     }
 
+    @Override
     public void onConnected() {
         if (signIn) {
             //loadingView.onSigningIn();
@@ -68,10 +70,12 @@ public class ClientModel {
         layer.requestShopItems();
     }
 
+    @Override
     public void onSignedup() {
         onSignedin();
     }
 
+    @Override
     public void onSignedin() {
         //loadingView.onFetchingData();
         updateLoadlisteners(LoadingStates.FETCHING);
@@ -87,6 +91,7 @@ public class ClientModel {
         layer.consumeLootboxRequest(coord);
     }
 
+    @Override
     public void onLootboxesUpdate(List<LatLng> boxes) {
         updateLootboxlisteners(boxes);
     }
@@ -95,6 +100,7 @@ public class ClientModel {
         layer.changeWeapon(weaponID);
     }
 
+    @Override
     public void onDataFetched() {
         //loadingView.onLoadingCompleted();
         updateLoadlisteners(LoadingStates.COMPLETE);
@@ -104,6 +110,8 @@ public class ClientModel {
     public void commenceLogin() {
 
         //loadingView.onConnecting();
+
+
         updateLoadlisteners(LoadingStates.CONNECTING);
         try {
             layer.Init();
@@ -117,7 +125,7 @@ public class ClientModel {
     }
 
     public void requestRadarStatusChange() {
-        layer.requestChangeRadarStatus();
+        layer.requestChangeRadarStatus(mPlayer.isOnline());
         layer.changePosition(mPlayer.getGeoPos());
     }
 
@@ -199,6 +207,7 @@ public class ClientModel {
         }
     }
 
+    @Override
     public void onNearbyPlayersReceived(List<PlayerSkeleton> opponents) {
         updateOpponentlisteners(opponents);
         /*if (mainView != null) {
@@ -206,6 +215,7 @@ public class ClientModel {
         }*/
     }
 
+    @Override
     public void onPlayerDataRecieved(PlayerSkeleton player) {
         mPlayer = player;
 

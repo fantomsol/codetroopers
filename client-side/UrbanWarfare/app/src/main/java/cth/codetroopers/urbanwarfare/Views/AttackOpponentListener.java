@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.GameUtils;
+package cth.codetroopers.urbanwarfare.Views;
 
 import android.util.Log;
 

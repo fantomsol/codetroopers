@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.GameUtils;
+package cth.codetroopers.urbanwarfare.Controllers;
 
 import android.Manifest;
 import android.app.Activity;
