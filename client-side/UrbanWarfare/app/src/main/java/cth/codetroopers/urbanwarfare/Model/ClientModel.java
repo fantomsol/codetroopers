@@ -5,6 +5,7 @@ import android.location.Location;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
@@ -43,8 +44,13 @@ public class ClientModel {
 
     public String playerID;
 
-
-    private ClientModel(){}
+    private ClientModel(){
+        playerListeners = new ArrayList<>();
+        loadListeners = new ArrayList<>();
+        lootboxListeners = new ArrayList<>();
+        opponentListeners = new ArrayList<>();
+        shopListeners = new ArrayList<>();
+    }
 
     public static ClientModel getInstance() {
         return clientModel;
