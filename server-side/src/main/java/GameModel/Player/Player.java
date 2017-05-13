@@ -227,10 +227,13 @@ public class Player implements IPlayer {
 		Double actualDamage= PlayerConstants.damageCaluculation(damage,this.armour);
 		hp-=actualDamage;
 
+//This is where death happens
 		if (hp<=0){
 			isAlive=false;
 			score.increaseDeaths();
 			this.rank=Rank.getRank(this.exp);
+			RadarCooldown cooldown = new RadarCooldown(this, 10);
+			cooldown.start();
 		}
 	}
 
@@ -393,6 +396,10 @@ public class Player implements IPlayer {
 
 	public void removeNearbyPlayer(IPlayer IPlayer){
 		this.playersNearby.remove(IPlayer);
+	}
+
+	public void setIsAlive (boolean life) {
+		this.isAlive = life;
 	}
 
 	@Override

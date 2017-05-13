@@ -69,6 +69,8 @@ public interface IPlayer {
 
 	void setExp(Integer exp);
 
+	void setIsAlive (boolean life);
+
 	List<IPlayer> getPlayersNearby();
 
 	void addNearbyPlayer(IPlayer IPlayer);
