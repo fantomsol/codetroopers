@@ -29,7 +29,6 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
 
         setContentView(logInView.getRootView());
 
-        //ClientModel.getInstance().subscribeLoginUpdate(logInView);
     }
 
     @Override

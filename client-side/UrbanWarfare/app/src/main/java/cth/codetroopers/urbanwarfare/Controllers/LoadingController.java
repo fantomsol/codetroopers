@@ -29,8 +29,7 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
 
         loadingView.setListener(this);
 
-        ClientModel.getInstance().subscribeLoadingView(loadingView);
-
+        ClientModel.getInstance().subscribeLoadUpdate(loadingView);
 
         setContentView(loadingView.getRootView());
 

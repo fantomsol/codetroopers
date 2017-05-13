@@ -6,6 +6,6 @@ package cth.codetroopers.urbanwarfare.Model;
 
 public interface IPlayerUpdateListener {
 
-    void updateGUI(PlayerSkeleton ps);
+    void updateGUI(PlayerSkeleton p);
 
 }

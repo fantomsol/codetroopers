@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
+import cth.codetroopers.urbanwarfare.GameUtils.LoadingStates;
 import cth.codetroopers.urbanwarfare.Views.ILoadingView;
 import cth.codetroopers.urbanwarfare.Views.IMainView;
 import cth.codetroopers.urbanwarfare.Views.IShopView;
@@ -24,17 +25,17 @@ public class ClientModel {
 
     public boolean signIn = true;
 
-    //TODO Remove these:
+    /*
     private IMainView mainView;
     private ILoadingView loadingView;
     private IShopView shopView;
-    //End TODO
+    */
 
     private List <IPlayerUpdateListener> playerListeners;
     private List <ILoadUpdateListener> loadListeners;
     private List <ILootboxUpdateListener> lootboxListeners;
     private List <IOpponentsUpdateListener> opponentListeners;
-
+    private List <IShopUpdateListener> shopListeners;
 
     private ShopSkeleton shop;
 
@@ -51,7 +52,8 @@ public class ClientModel {
 
     public void onConnected() {
         if (signIn) {
-            loadingView.onSigningIn();
+            //loadingView.onSigningIn();
+            updateLoadlisteners(LoadingStates.SIGNINGIN);
             layer.signIn(playerID);
         } else {
             layer.signUp(playerID);
@@ -65,7 +67,8 @@ public class ClientModel {
     }
 
     public void onSignedin() {
-        loadingView.onFetchingData();
+        //loadingView.onFetchingData();
+        updateLoadlisteners(LoadingStates.FETCHING);
         layer.requestPlayerInformation(playerID);
 
     }
@@ -79,7 +82,7 @@ public class ClientModel {
     }
 
     public void onLootboxesUpdate(List<LatLng> boxes) {
-        mainView.updateLootboxes(boxes);
+        updateLootboxlisteners(boxes);
     }
 
     public void changeWeapon(int weaponID) {
@@ -87,13 +90,15 @@ public class ClientModel {
     }
 
     public void onDataFetched() {
-        loadingView.onLoadingCompleted();
+        //loadingView.onLoadingCompleted();
+        updateLoadlisteners(LoadingStates.COMPLETE);
 
     }
 
     public void commenceLogin() {
 
-        loadingView.onConnecting();
+        //loadingView.onConnecting();
+        updateLoadlisteners(LoadingStates.CONNECTING);
         try {
             layer.Init();
         } catch (URISyntaxException e) {
@@ -121,7 +126,7 @@ public class ClientModel {
         }
     }
 
-    public void subscribeMainView(IMainView view) {
+    /*public void subscribeMainView(IMainView view) {
         mainView = view;
     }
 
@@ -131,7 +136,7 @@ public class ClientModel {
 
     public void subscribeShopView(IShopView view) {
         shopView = view;
-    }
+    }*/
 
     public void subscribePlayerUpdate(IPlayerUpdateListener listener){
         playerListeners.add(listener);
@@ -149,14 +154,54 @@ public class ClientModel {
         opponentListeners.add(listener);
     }
 
-    public void onNearbyPlayersReceived(List<PlayerSkeleton> opponents) {
-        if (mainView != null) {
-            mainView.updatePlayersNearby(opponents);
+    public void subscribeShopUpdate(IShopUpdateListener listener) {
+        shopListeners.add(listener);
+    }
+
+    private void updatePlayerlisteners(PlayerSkeleton p) {
+        for (IPlayerUpdateListener listener:playerListeners
+             ) {
+            listener.updateGUI(p);
         }
     }
 
+    private void updateLoadlisteners(LoadingStates l) {
+        for (ILoadUpdateListener listener:loadListeners
+                ) {
+            listener.updateLoadingStatus(l);
+        }
+    }
+
+    private void updateLootboxlisteners(List <LatLng> l) {
+        for (ILootboxUpdateListener listener:lootboxListeners
+                ) {
+            listener.updateLootboxes(l);
+        }
+    }
+
+    private void updateOpponentlisteners(List<PlayerSkeleton> p) {
+        for (IOpponentsUpdateListener listener:opponentListeners
+                ) {
+            listener.updateOpponents(p);
+        }
+    }
+
+    private void updateShoplisteners(List<Object> items) {
+        for (IShopUpdateListener listener:shopListeners
+                ) {
+            listener.updateItemsList(items);
+        }
+    }
+
+    public void onNearbyPlayersReceived(List<PlayerSkeleton> opponents) {
+        updateOpponentlisteners(opponents);
+        /*if (mainView != null) {
+            mainView.updatePlayersNearby(opponents);
+        }*/
+    }
+
     public void onPlayerDataRecieved(PlayerSkeleton player) {
-        mPlayer = player;
+        /*mPlayer = player;
 
         if (mainView != null) {
             mainView.updateGUI(player);
@@ -164,7 +209,10 @@ public class ClientModel {
         if (shopView != null) {
             shopView.updateGUI(mPlayer);
             shopView.updateItemsList(shop.getAllItems());
-        }
+        }*/
+
+        updatePlayerlisteners(player);
+        updateShoplisteners(shop.getAllItems());
     }
 
     public void buyItem(Integer itemId, String itemType) {

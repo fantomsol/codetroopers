@@ -32,7 +32,6 @@ public class MainController extends AppCompatActivity implements IMainController
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         ViewGroup view = (ViewGroup) findViewById(android.R.id.content);
 
         mainView = new MainViewImp((LayoutInflater) getSystemService( LAYOUT_INFLATER_SERVICE ),view);
@@ -40,8 +39,9 @@ public class MainController extends AppCompatActivity implements IMainController
         mainView.setMapListener(this);
         mainView.setListener(this);
 
-
-        ClientModel.getInstance().subscribeMainView(mainView);
+        ClientModel.getInstance().subscribePlayerUpdate(mainView);
+        ClientModel.getInstance().subscribeLootboxUpdate(mainView);
+        ClientModel.getInstance().subscribeOpponentUpdate(mainView);
 
         setContentView(mainView.getRootView());
 

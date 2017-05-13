@@ -29,13 +29,12 @@ public class ShopViewController extends AppCompatActivity implements IShopView.S
         shopView.setListener(this);
         shopView.setContext(this);
 
-        ClientModel.getInstance().subscribeShopView(shopView);
-
+        ClientModel.getInstance().subscribeShopUpdate(shopView);
+        ClientModel.getInstance().subscribePlayerUpdate(shopView);
 
         setContentView(shopView.getRootView());
         ClientModel.getInstance().requestUpdate();
     }
-
 
     @Override
     public void onArmourBuyListener(Integer armourID) {
@@ -45,18 +44,15 @@ public class ShopViewController extends AppCompatActivity implements IShopView.S
     @Override
     public void onArmourSellListener(Integer armourID) {
         ClientModel.getInstance().sellItem(armourID,"armour");
-
     }
 
     @Override
     public void onWeaponBuyListener(Integer weaponID) {
         ClientModel.getInstance().buyItem(weaponID,"weapon");
-
     }
 
     @Override
     public void onWeaponSellListener(Integer weaponID) {
         ClientModel.getInstance().sellItem(weaponID,"weapon");
-
     }
 }
