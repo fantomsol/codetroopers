@@ -9,25 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
-import cth.codetroopers.urbanwarfare.ClientSide.IModel;
+import cth.codetroopers.urbanwarfare.ClientSide.IConnectivityLayer;
 
 /**
  * Created by latiif on 5/6/17.
  */
 
-public class ClientModel implements IModel {
+public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
 
     private static ClientModel clientModel = new ClientModel();
     public PlayerSkeleton mPlayer;
 
     public boolean signIn = true;
-
-    /*
-    private IMainView mainView;
-    private ILoadingView loadingView;
-    private IShopView shopView;
-    */
 
     private List <IPlayerUpdateListener> playerListeners;
     private List <ILoadUpdateListener> loadListeners;
@@ -41,7 +35,7 @@ public class ClientModel implements IModel {
     }
     private ShopSkeleton shop;
 
-    private IConnectivityLayer layer= new ConnectivityLayer(this);
+    private IConnectivityLayer layer= new ConnectivityLayer();
 
     private String playerID;
 
@@ -51,6 +45,7 @@ public class ClientModel implements IModel {
         lootboxListeners = new ArrayList<>();
         opponentListeners = new ArrayList<>();
         shopListeners = new ArrayList<>();
+        layer.setListener(this);
     }
 
     public static ClientModel getInstance() {
@@ -131,7 +126,7 @@ public class ClientModel implements IModel {
 
     public void requestUpdate() {
         layer.requestPlayerInformation(playerID);
-        layer.changePosition(mPlayer.getGeoPos());
+        //layer.changePosition(mPlayer.getGeoPos());
     }
 
     public void onMovementDetected(Location coordinates) {

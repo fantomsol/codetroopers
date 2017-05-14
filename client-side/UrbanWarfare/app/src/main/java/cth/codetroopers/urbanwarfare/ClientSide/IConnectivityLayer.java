@@ -1,16 +1,41 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.ClientSide;
 
 import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import java.net.URISyntaxException;
+import java.util.List;
+
+import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
 
 /**
  * Created by latiif on 5/13/17.
  */
 
 public interface IConnectivityLayer {
+
+    interface ConnectivityListener {
+        void onConnected();
+
+        void onSignedup();
+
+        void onSignedin();
+
+        void onLootboxesUpdate(List<LatLng> boxes);
+
+        void onDataFetched();
+
+        void onNearbyPlayersReceived(List<PlayerSkeleton> opponents);
+
+        void onPlayerDataRecieved(PlayerSkeleton player);
+
+        void updateShop(ShopSkeleton skeleton);
+    }
+
+
+    void setListener(ConnectivityListener listener);
 
     void requestChangeRadarStatus(boolean currentStatus);
 

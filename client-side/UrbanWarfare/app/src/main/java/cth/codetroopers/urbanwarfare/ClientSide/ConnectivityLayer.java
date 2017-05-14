@@ -13,10 +13,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Controllers.LocationHandler;
-import cth.codetroopers.urbanwarfare.Model.IConnectivityLayer;
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
-import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
+
+import cth.codetroopers.urbanwarfare.GameUtils.SkeletonFactory;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -57,8 +55,10 @@ public class ConnectivityLayer implements IConnectivityLayer {
   private String playerID;
     private boolean firstFetch=true;
 
-    private IModel mListener;
-    public ConnectivityLayer(IModel listener){
+    private ConnectivityListener mListener;
+
+    @Override
+    public void setListener(ConnectivityListener listener) {
         mListener=listener;
     }
 
@@ -71,7 +71,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerID", playerID);
+            object.put("playerId", playerID);
             object.put("wantToGoOnline",!currentStatus);
 
         } catch (JSONException e) {
@@ -135,7 +135,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
                             firstFetch=false;
                             mListener.onDataFetched();
                         }
-                        mListener.onPlayerDataRecieved(new PlayerSkeleton(msg));
+                        mListener.onPlayerDataRecieved(SkeletonFactory.getPlayer(msg));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -156,17 +156,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
             public void call(Object... args) {
                 Log.i("nearby", String.valueOf( args.length));
 
-                List<PlayerSkeleton> playersNearby= new ArrayList<PlayerSkeleton>();
-
-
-                for (Object arg : args) {
-
-                    //ConnectivityLayer.opponents.add();
-                    playersNearby.add(new PlayerSkeleton((JSONObject) arg));
-                }
-
-
-                mListener.onNearbyPlayersReceived(playersNearby);
+                mListener.onNearbyPlayersReceived(SkeletonFactory.getPlayers(args));
             }
         });
 
@@ -193,13 +183,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
             @Override
             public void call(Object... args) {
 
-                JSONArray array= new JSONArray();
-
-                for (Object arg: args){
-                    array.put((JSONObject)arg);
-                }
-
-               mListener.updateShop(new ShopSkeleton(array));
+               mListener.updateShop(SkeletonFactory.getShop(args));
             }
         });
     }
@@ -248,7 +232,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         JSONObject object= new JSONObject();
 
         try {
-            object.put("playerID",playerID);
+            object.put("playerId",playerID);
 
             socket.emit("get-shopitems",object);
         } catch (JSONException e) {
@@ -266,13 +250,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
     }
 
-    /**
-     * The method sends a "position-changed" event to the server to update the position of the player
-     *
-     * @param position The position object that contains the new geographical coordinates of the player. This object is passed directly from the LocationHandler class.
-     *
-     * @see LocationHandler#locationListener
-     */
+
     @Override
     public  void changePosition(LatLng position){
 
@@ -365,7 +343,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("playerID",playerID);
+            object.put("playerId",playerID);
             object.put("weaponId",weaponID);
 
             socket.emit("change-weapon",object);
@@ -439,7 +417,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
         try{
 
-            object.put("playerID",playerID);
+            object.put("playerId",playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 
@@ -456,7 +434,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
         try{
 
-            object.put("playerID",playerID);
+            object.put("playerId",playerID);
             object.put("itemId",itemId);
             object.put("itemType",itemType);
 
