@@ -379,6 +379,7 @@ public class Player implements IPlayer {
 	}
 
 	public void setExp(Integer exp) {
+		getRank();
 		this.exp = exp;
 	}
 

@@ -34,6 +34,7 @@ public class RadarCooldown extends Thread implements Runnable {
 		}
 
 		IPlayer.setIsAlive(true);
+		IPlayer.setHp(PlayerConstants.MAX_HEALTH);
 		IPlayer.setOfflineCooldownStops(Long.valueOf(0));
 		IPlayer.setCanGoOffline(true);
 	}

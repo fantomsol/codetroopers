@@ -75,11 +75,15 @@ public class World implements IWorld {
 		IPlayer attacker = getPlayerById(attackerId);
 		IPlayer attackee= getPlayerById(attackeeId);
 
+		//cannot attack a ghost
+		if (!attackee.getIsAlive()){
+			return;
+		}
+
 		if (attackee.getWeaponEquipped().getId().intValue()== WeaponsDirectory.WHITEFLAG){
 			//Exp.getExpOnAttackingUnarmed(attacker);
 			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
 		}
-
 		attacker.attackOtherPlayer(attackee);
 
 		if (mediator!=null) {
