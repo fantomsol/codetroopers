@@ -20,7 +20,7 @@ public class Main {
 		server.startServer();
 
 		//world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
-		world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
+		//world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
 
 		new ServerModelMediator(server,world);
 
@@ -28,8 +28,6 @@ public class Main {
 		IPlayer p1= new Player("llusx",new GeoPos(0.0,0.0));
 		IPlayer p2=new Player("sara",new GeoPos(0.0,0.0));
 
-		world.registerPlayer(p1);
-		world.registerPlayer(p2);
 
 		p2.setAvatar(Avatar.KARMA);
 
@@ -43,6 +41,10 @@ public class Main {
 
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
+
+
+		world.registerPlayer(p1);
+		world.registerPlayer(p2);
 
 	}
 }

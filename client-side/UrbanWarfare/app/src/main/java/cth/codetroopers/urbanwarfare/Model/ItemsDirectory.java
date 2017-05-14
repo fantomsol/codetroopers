@@ -61,7 +61,7 @@ public class ItemsDirectory {
             case "LOTUS":
                 return R.drawable.avatar_lotus;
             default:
-                return 0;
+                return R.drawable.ghost;
 
         }
     }

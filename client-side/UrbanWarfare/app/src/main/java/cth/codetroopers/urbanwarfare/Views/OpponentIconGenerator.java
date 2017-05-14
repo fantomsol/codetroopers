@@ -1,6 +1,7 @@
 package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,15 +92,39 @@ public class OpponentIconGenerator {
         ImageView imgRank = (ImageView) view.findViewById(R.id.imgRank);
         ImageView imgWeapon = (ImageView) view.findViewById(R.id.imageWeaponequipped);
         ImageView imgAvatar = (ImageView) view.findViewById(R.id.image);
+        ImageView imgHealtCross = (ImageView) view.findViewById(R.id.imgHealthCross);
 
-        //Fill in the elements with the corresponding information from the player JSON object
-        txtName.setText(player.getID());
-        textView.setText(String.valueOf(player.getHp().intValue()));
+        if (player.getIsAlive()) {
 
-        imgRank.setImageResource(ItemsDirectory.getRank(player));
-        imgWeapon.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
+            textView.setVisibility(View.VISIBLE);
 
-        imgAvatar.setImageResource(ItemsDirectory.getAvatarImage(player.getAvatar()));
+            imgHealtCross.setVisibility(View.VISIBLE);
+
+            imgRank.setVisibility(View.VISIBLE);
+
+            imgWeapon.setVisibility(View.VISIBLE);
+
+            //Fill in the elements with the corresponding information from the player JSON object
+            txtName.setText(player.getID());
+            textView.setText(String.valueOf(player.getHp().intValue()));
+
+            imgRank.setImageResource(ItemsDirectory.getRank(player));
+            imgWeapon.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
+
+            imgAvatar.setImageResource(ItemsDirectory.getAvatarImage(player.getAvatar()));
+        }
+        else {
+            txtName.setText(player.getID()+"†");
+
+            imgHealtCross.setVisibility(View.GONE);
+            textView.setVisibility(View.GONE);
+
+            imgRank.setVisibility(View.GONE);
+
+            imgWeapon.setVisibility(View.GONE);
+
+            imgAvatar.setImageResource(ItemsDirectory.getAvatarImage("dead"));
+        }
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);
 
