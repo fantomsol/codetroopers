@@ -35,7 +35,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
     }
     private ShopSkeleton shop;
 
-    private IConnectivityLayer layer= new ConnectivityLayer();
+    private IConnectivityLayer layer;
 
     private String playerID;
 
@@ -45,11 +45,16 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         lootboxListeners = new ArrayList<>();
         opponentListeners = new ArrayList<>();
         shopListeners = new ArrayList<>();
-        layer.setListener(this);
+
     }
 
     public static ClientModel getInstance() {
         return clientModel;
+    }
+
+    public void setConnectionLayer(IConnectivityLayer layer){
+        this.layer=layer;
+        layer.setListener(this);
     }
 
     @Override
