@@ -94,7 +94,7 @@ public class OpponentIconGenerator {
 
         //Fill in the elements with the corresponding information from the player JSON object
         txtName.setText(player.getID());
-        textView.setText(String.valueOf(player.getHp()));
+        textView.setText(String.valueOf(player.getHp().intValue()));
 
         imgRank.setImageResource(ItemsDirectory.getRank(player));
         imgWeapon.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));

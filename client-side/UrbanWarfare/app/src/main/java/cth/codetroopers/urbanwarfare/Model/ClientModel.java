@@ -131,7 +131,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     public void requestUpdate() {
         layer.requestPlayerInformation(playerID);
-        //layer.changePosition(mPlayer.getGeoPos());
+        layer.changePosition(mPlayer.getGeoPos());
     }
 
     public void onMovementDetected(Location coordinates) {
@@ -214,6 +214,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
             mainView.updatePlayersNearby(opponents);
         }*/
     }
+
 
     @Override
     public void onPlayerDataRecieved(PlayerSkeleton player) {
