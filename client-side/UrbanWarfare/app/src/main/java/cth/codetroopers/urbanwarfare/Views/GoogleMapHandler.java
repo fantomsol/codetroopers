@@ -224,7 +224,9 @@ public class GoogleMapHandler implements IMapHandler {
             @Override
             public void run() {
                 playerMarker.setPosition(pos);
-                playerMarker.setIcon(BitmapDescriptorFactory.fromResource(ItemsDirectory.getAvatarImage(player.getAvatar())));
+                playerMarker.setIcon(BitmapDescriptorFactory.fromResource(ItemsDirectory.getAvatarImage(
+                        player.getIsAlive()?player.getAvatar():"dead")
+                ));
 
                 playerCircle.setCenter(player.getGeoPos());
                 playerCircle.setRadius(player.getWeaponEquipped().getRange());

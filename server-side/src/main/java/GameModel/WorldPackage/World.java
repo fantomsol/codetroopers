@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by latiif on 3/22/17.
@@ -95,10 +96,34 @@ public class World implements IWorld {
 
 		//after attacking, the attackee is dead
 		if (!attackee.getIsAlive()){
-
+			revivePlayer(attackee);
 		}
 	}
 
+
+	private void revivePlayer(final IPlayer p){
+		new Runnable() {
+			public void run() {
+				while (true){
+					try {
+						TimeUnit.SECONDS.sleep(1);
+						if (p.getIsAlive()){
+							break;
+						}
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
+				System.out.println("Just revived "+p);
+				playerChangePos(p.getID(),p.getGeoPos());
+				if (mediator!=null) {
+					mediator.updatePlayer(p);
+					mediator.updateNearbyPlayers(p);
+				}
+			}
+		}.run();
+	}
 
 
 	public IPlayer getPlayerById(final String id){
