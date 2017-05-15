@@ -114,7 +114,7 @@ public class OpponentIconGenerator {
             imgAvatar.setImageResource(ItemsDirectory.getAvatarImage(player.getAvatar()));
         }
         else {
-            txtName.setText(player.getID()+"†");
+            txtName.setText(player.getID()+" †");
 
             imgHealtCross.setVisibility(View.GONE);
             textView.setVisibility(View.GONE);

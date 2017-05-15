@@ -1,13 +1,13 @@
 package GameModel.Player;
 
+import GameModel.Player.Cooldown;
 import GameModel.Player.IPlayer;
 
 /**
- * Created by latiif on 3/29/17.
+ * Created by latiif on 5/15/17.
  */
-public class RadarCooldown extends Cooldown {
-
-	protected RadarCooldown(int cooldownDuration, IPlayer iPlayer) {
+public class RespawnCooldown extends Cooldown {
+	public RespawnCooldown(int cooldownDuration, IPlayer iPlayer) {
 		super(cooldownDuration, iPlayer);
 	}
 
@@ -21,6 +21,8 @@ public class RadarCooldown extends Cooldown {
 	protected void onCooldownFinishes() {
 		player.setOfflineCooldownStops(Long.valueOf(0));
 		player.setCanGoOffline(true);
+		player.setIsAlive(true);
+		player.setHp(PlayerConstants.MAX_HEALTH);
 	}
 
 }

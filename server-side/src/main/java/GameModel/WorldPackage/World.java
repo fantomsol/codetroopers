@@ -80,17 +80,26 @@ public class World implements IWorld {
 			return;
 		}
 
+
 		if (attackee.getWeaponEquipped().getId().intValue()== WeaponsDirectory.WHITEFLAG){
 			//Exp.getExpOnAttackingUnarmed(attacker);
 			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
 		}
+
 		attacker.attackOtherPlayer(attackee);
 
 		if (mediator!=null) {
 			mediator.updateNearbyPlayers(attacker);
 			mediator.updatePlayer(attackee);
 		}
+
+		//after attacking, the attackee is dead
+		if (!attackee.getIsAlive()){
+
+		}
 	}
+
+
 
 	public IPlayer getPlayerById(final String id){
 		return players.get(id);

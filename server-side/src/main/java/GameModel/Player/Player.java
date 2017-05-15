@@ -232,8 +232,8 @@ public class Player implements IPlayer {
 			isAlive=false;
 			score.increaseDeaths();
 			this.rank=Rank.getRank(this.exp);
-			RadarCooldown cooldown = new RadarCooldown(this, 10);
-			cooldown.start();
+
+			(new RespawnCooldown(10, this)).start();
 		}
 	}
 
@@ -299,7 +299,7 @@ public class Player implements IPlayer {
 			return;
 		}
 		onlineStatus=true;
-		new RadarCooldown(this).start();
+		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
 	}
 
 	public void goOffline(){
