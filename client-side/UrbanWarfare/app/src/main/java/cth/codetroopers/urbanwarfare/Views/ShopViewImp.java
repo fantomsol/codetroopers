@@ -33,6 +33,7 @@ public class ShopViewImp implements IShopView {
     private List<Object> shopItems;
 
     private TextView txtGold;
+    private TextView textShop;
 
 
     public ShopViewImp(LayoutInflater inflater, ViewGroup container) {
@@ -51,6 +52,10 @@ public class ShopViewImp implements IShopView {
 
         txtGold.setTypeface(myFont);
 
+        Typeface myTitleFont = Typeface.createFromAsset(getRootView().getContext().getAssets(),"fonts/PixelCombat.otf");
+
+        textShop=(TextView) rootView.findViewById(R.id.textShop);
+        textShop.setTypeface(myTitleFont);
 
 
     }
