@@ -32,6 +32,28 @@ public class ServerModelMediator implements IMediator {
 		world.createNewPlayer(name);
 	}
 
+	public void getShopItems(String id) {
+		IPlayer player= getPlayerById(id);
+		if (player!=null) {
+			updatePlayerShopItems(player,getShopItems());
+		}
+	}
+
+	public void changeRadarStatus(String id, boolean wantToGoOnline) {
+		IPlayer p=getPlayerById(id);
+
+		if (wantToGoOnline) {
+			p.goOnline();
+		}
+		else {
+			p.goOffline();
+		}
+
+		playerChangePos(p.getID(),p.getGeoPos());
+		updatePlayer(p);
+
+	}
+
 	public void updateNearbyPlayers(IPlayer player) {
 		List<Object> playersRaw= new ArrayList<Object>();
 		for (IPlayer p:player.getPlayersNearby()){
@@ -79,6 +101,12 @@ public class ServerModelMediator implements IMediator {
 		server.updateLootbox(player,lootboxesRaw);
 	}
 
+	public 	void sendPlayerInfo(String playerId){
+		IPlayer player= getPlayerById(playerId);
+		server.updatePlayer(player);
+
+	}
+
 	public void changeWeapon(String playerId, Integer weaponID) {
 		world.changeWeapon(playerId,weaponID);
 	}
@@ -97,7 +125,8 @@ public class ServerModelMediator implements IMediator {
 		server.sendShopList(player,items);
 	}
 
-	public void buyItem(IPlayer player, Integer itemID, String itemType) {
+	public void buyItem(String playerId, Integer itemID, String itemType) {
+		IPlayer player=getPlayerById(playerId);
 		if (player!=null){
 			player.buyItem(world.getShop().getItem(itemID,itemType));
 			server.updatePlayer(player);
@@ -105,14 +134,18 @@ public class ServerModelMediator implements IMediator {
 
 	}
 
-	public void sellItem(IPlayer player, Integer itemID, String itemType) {
+	public void sellItem(String playerId, Integer itemID, String itemType) {
+		IPlayer player=getPlayerById(playerId);
 		if (player!=null){
 			world.getShop().sellItem(player,world.getShop().getItem(itemID,itemType));
 			server.updatePlayer(player);
 		}
 	}
 
-	public void playerSignin(IPlayer p, SocketIOClient socketIOClient) {
-		server.playerSignin(p,socketIOClient);
+	public void playerSignin(String id, SocketIOClient socketIOClient) {
+		IPlayer p=getPlayerById(id);
+		if (p!=null) {
+			server.playerSignin(p, socketIOClient);
+		}
 	}
 }

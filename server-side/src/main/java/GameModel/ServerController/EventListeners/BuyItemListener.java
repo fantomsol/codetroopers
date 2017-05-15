@@ -15,6 +15,6 @@ public class BuyItemListener extends EventListener implements DataListener<BuyIt
 	}
 
 	public void onData(SocketIOClient socketIOClient, BuyItemEvent buyItemEvent, AckRequest ackRequest) throws Exception {
-		mediator.buyItem(mediator.getPlayerById(buyItemEvent.playerId),buyItemEvent.itemId,buyItemEvent.getItemType());
+		mediator.buyItem(buyItemEvent.getPlayerId(),buyItemEvent.itemId,buyItemEvent.getItemType());
 	}
 }

@@ -1,6 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.ServerController.EventObjects.ChangeRadarStateEvent;
 import GameModel.ServerController.EventObjects.ChangeWeaponEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;

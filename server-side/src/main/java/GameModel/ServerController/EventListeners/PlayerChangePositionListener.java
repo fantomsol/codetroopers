@@ -23,6 +23,5 @@ public class PlayerChangePositionListener extends EventListener implements DataL
 				new GeoPos(playerChangePositionEvent.getLat(),playerChangePositionEvent.getLang())
 		);
 
-		System.out.println(mediator.getPlayerById(playerChangePositionEvent.getId()));
 	}
 }

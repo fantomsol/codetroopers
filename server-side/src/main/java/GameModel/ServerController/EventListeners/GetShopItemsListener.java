@@ -1,6 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.GetShopItemsEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
@@ -16,9 +15,6 @@ public class GetShopItemsListener extends EventListener implements DataListener<
 	}
 
 	public void onData(SocketIOClient socketIOClient, GetShopItemsEvent getShopItemsEvent, AckRequest ackRequest) throws Exception {
-		IPlayer player= mediator.getPlayerById(getShopItemsEvent.getPlayerId());
-		if (player!=null) {
-			mediator.updatePlayerShopItems(player,mediator.getShopItems());
-		}
+		mediator.getShopItems(getShopItemsEvent.playerId);
 	}
 }

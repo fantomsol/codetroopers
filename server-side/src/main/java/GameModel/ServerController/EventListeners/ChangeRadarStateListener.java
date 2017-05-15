@@ -1,6 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.ChangeRadarStateEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
@@ -18,18 +17,7 @@ public class ChangeRadarStateListener extends EventListener implements DataListe
 	}
 
 	public void onData(SocketIOClient socketIOClient, ChangeRadarStateEvent changeRadarStateEvent, AckRequest ackRequest) throws Exception {
-		IPlayer p=mediator.getPlayerById(changeRadarStateEvent.getPlayerId());
-
-		if (changeRadarStateEvent.wantToGoOnline) {
-			p.goOnline();
-		}
-		else {
-			p.goOffline();
-		}
-
-		mediator.playerChangePos(p.getID(),p.getGeoPos());
-		mediator.updatePlayer(p);
-
+		mediator.changeRadarStatus(changeRadarStateEvent.getPlayerId(),changeRadarStateEvent.wantToGoOnline);
 
 		System.out.println("Radar Status Change requested");
 	}

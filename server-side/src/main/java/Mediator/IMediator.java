@@ -24,6 +24,12 @@ public interface IMediator {
 
 	void registerPlayer(String ID);
 
+	void sendPlayerInfo(String playerId);
+
+	void getShopItems(String id);
+
+	void changeRadarStatus(String id,boolean wantedStatus);
+
 	void consumeLootbox(String  playerId, GeoPos geoPos);
 
 	void updateLootbox(IPlayer player, List<ILootbox> lootboxes);
@@ -34,8 +40,8 @@ public interface IMediator {
 
 	void updatePlayerShopItems(IPlayer p,List<Item> list);
 
-	void buyItem(IPlayer player,Integer itemID,String itemType);
-	void sellItem(IPlayer player,Integer itemID, String itemType);
+	void buyItem(String id,Integer itemID,String itemType);
+	void sellItem(String id,Integer itemID, String itemType);
 
-	void playerSignin(IPlayer p, SocketIOClient socketIOClient);
+	void playerSignin(String id, SocketIOClient socketIOClient);
 }

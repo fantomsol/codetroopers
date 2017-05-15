@@ -1,6 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.GetPlayerInfoEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
@@ -18,9 +17,9 @@ public class GetPlayerInfoListener extends EventListener implements DataListener
 	}
 
 	public void onData(SocketIOClient socketIOClient, GetPlayerInfoEvent getPlayerInfoEvent, AckRequest ackRequest) throws Exception {
-		IPlayer p=mediator.getPlayerById(getPlayerInfoEvent.getId());
 
-		socketIOClient.sendEvent("player-info",p);
+		mediator.sendPlayerInfo(getPlayerInfoEvent.getId());
+
 
 
 	}

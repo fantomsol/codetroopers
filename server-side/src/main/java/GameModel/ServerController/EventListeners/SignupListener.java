@@ -1,6 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.Player.IPlayer;
 import GameModel.ServerController.EventObjects.SignupEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;
@@ -18,11 +17,7 @@ public class SignupListener extends EventListener implements DataListener<Signup
 	public void onData(SocketIOClient socketIOClient, SignupEvent signupEvent, AckRequest ackRequest) throws Exception {
 		mediator.registerPlayer(signupEvent.getId());
 
-		IPlayer p = mediator.getPlayerById(signupEvent.getId());
-
-		if (p!=null) {
-			mediator.playerSignin(p, socketIOClient);
-		}
+		mediator.playerSignin(signupEvent.getId(), socketIOClient);
 
 	}
 }
