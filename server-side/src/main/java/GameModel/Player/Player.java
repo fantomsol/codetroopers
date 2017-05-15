@@ -207,7 +207,7 @@ public class Player implements IPlayer {
 	}
 
 	public Double getHp(){
-		return new Double(this.hp);
+		return Double.valueOf(hp);
 	}
 
 	public Ranks getRank() {

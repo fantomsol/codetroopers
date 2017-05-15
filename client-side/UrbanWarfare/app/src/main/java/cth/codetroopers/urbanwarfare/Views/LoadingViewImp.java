@@ -1,5 +1,6 @@
 package cth.codetroopers.urbanwarfare.Views;
 
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -30,7 +31,12 @@ public class LoadingViewImp implements ILoadingView {
     }
 
     private void initialize(){
+
+
         textView=(TextView) rootView.findViewById(R.id.txtProcess);
+
+        Typeface myFont = Typeface.createFromAsset(getRootView().getContext().getAssets(),"fonts/SpecialElite.ttf");
+        textView.setTypeface(myFont);
     }
 
 

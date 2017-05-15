@@ -28,6 +28,7 @@ public class Main {
 		IPlayer p1= new Player("llusx",new GeoPos(0.0,0.0));
 		IPlayer p2=new Player("sara",new GeoPos(0.0,0.0));
 
+		p1.setHp(10.0);
 
 		p2.setAvatar(Avatar.KARMA);
 
@@ -37,7 +38,7 @@ public class Main {
 		p1.goOnline();
 		p2.goOnline();
 
-		p1.setHp(1.0);
+
 
 		p2.grantGold(2000);
 		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));

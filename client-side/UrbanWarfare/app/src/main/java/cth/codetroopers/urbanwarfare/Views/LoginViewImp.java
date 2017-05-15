@@ -1,5 +1,6 @@
 package cth.codetroopers.urbanwarfare.Views;
 
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,17 @@ public class LoginViewImp implements ILogInView {
                 mListener.onRequestSignup(editText.getText().toString());
             }
         });
+
+
+        Typeface myFont = Typeface.createFromAsset(rootView.getContext().getAssets(),"fonts/SpecialElite.ttf");
+
+
+        btnLogin.setTypeface(myFont);
+        btnSignup.setTypeface(myFont);
+
+        editText.setTypeface(myFont);
+
+
     }
 
 

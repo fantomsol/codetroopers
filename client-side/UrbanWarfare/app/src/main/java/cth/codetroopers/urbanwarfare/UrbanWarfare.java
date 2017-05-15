@@ -1,6 +1,8 @@
 package cth.codetroopers.urbanwarfare;
 
 import android.app.Application;
+import android.content.Context;
+import android.graphics.Typeface;
 
 import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
@@ -17,4 +19,5 @@ public class UrbanWarfare extends Application {
         ClientModel.getInstance().setConnectionLayer(new ConnectivityLayer());
 
     }
+
 }
