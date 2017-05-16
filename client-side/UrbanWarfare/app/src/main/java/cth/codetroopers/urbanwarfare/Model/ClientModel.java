@@ -8,9 +8,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
-import cth.codetroopers.urbanwarfare.ClientSide.IConnectivityLayer;
-
 /**
  * Created by latiif on 5/6/17.
  */

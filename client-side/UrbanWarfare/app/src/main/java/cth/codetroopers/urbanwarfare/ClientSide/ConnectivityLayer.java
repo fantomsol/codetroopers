@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +14,7 @@ import java.util.List;
 
 
 import cth.codetroopers.urbanwarfare.GameUtils.SkeletonFactory;
+import cth.codetroopers.urbanwarfare.Model.IConnectivityLayer;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
