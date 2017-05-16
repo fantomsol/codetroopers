@@ -4,6 +4,7 @@ import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
+import GameModel.Player.Player;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.List;
@@ -46,4 +47,7 @@ public interface IMediator {
 	void playerSignin(String id, SocketIOClient socketIOClient);
 
 	void changeAvatar(String playerId, String avatarId);
+
+	void sendPlayerSpecificException(Player p,Exception exception);
+	void sendException(Exception exception);
 }

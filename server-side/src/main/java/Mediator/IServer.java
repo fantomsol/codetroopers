@@ -21,4 +21,7 @@ public interface IServer {
 	void playerSignin(Object p, SocketIOClient socketIOClient);
 
 	void sendShopList(Object p, List<Object> list);
+
+	void sendException(Object exception);
+	void sendException(Object player,Object exception);
 }

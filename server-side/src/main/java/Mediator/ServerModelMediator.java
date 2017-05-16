@@ -4,6 +4,7 @@ import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
+import GameModel.Player.Player;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.ArrayList;
@@ -156,5 +157,13 @@ public class ServerModelMediator implements IMediator {
 			updatePlayer(p);
 			updateNearbyPlayers(p);
 		}
+	}
+
+	public void sendPlayerSpecificException(Player p, Exception exception) {
+		server.sendException(p,exception);
+	}
+
+	public void sendException(Exception exception) {
+		server.sendException(exception);
 	}
 }
