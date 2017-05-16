@@ -26,9 +26,6 @@ public class AvatarSelectionViewImp implements IAvatarSelectionView {
 
     public AvatarSelectionViewImp(LayoutInflater inflater, ViewGroup container) {
         rootView = inflater.inflate(R.layout.avatar_selection_view, container, false);
-
-        initialize();
-
     }
 
 
@@ -44,8 +41,10 @@ public class AvatarSelectionViewImp implements IAvatarSelectionView {
     }
 
     @Override
-    public void setListener(AvatarSelectionListener listener) {
+    public void setListener(AvatarSelectionListener listener)
+    {
         mListener=listener;
+        initialize();
     }
 
 

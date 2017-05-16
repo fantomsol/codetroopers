@@ -87,6 +87,12 @@ class ServerEventListeners {
 				BuyItemEvent.class,
 				new BuyItemListener(mediator)
 		);
+
+		socketIOServer.addEventListener(
+				"change-avatar",
+				ChangeAvatarEvent.class,
+				new ChangeAvatarListener(mediator)
+		);
 	}
 
 }

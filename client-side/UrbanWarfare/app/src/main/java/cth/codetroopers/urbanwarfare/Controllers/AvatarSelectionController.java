@@ -36,5 +36,6 @@ public class AvatarSelectionController extends AppCompatActivity implements IAva
     @Override
     public void onAvatarSelected(String avatar) {
         ClientModel.getInstance().changeAvatar(avatar);
+        finish();
     }
 }

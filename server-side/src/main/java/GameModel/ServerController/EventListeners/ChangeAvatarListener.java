@@ -10,7 +10,7 @@ import com.corundumstudio.socketio.listener.DataListener;
  * Created by latiif on 5/16/17.
  */
 public class ChangeAvatarListener extends EventListener implements DataListener<ChangeAvatarEvent> {
-	ChangeAvatarListener(IMediator mediator) {
+	public ChangeAvatarListener(IMediator mediator) {
 		super(mediator);
 	}
 

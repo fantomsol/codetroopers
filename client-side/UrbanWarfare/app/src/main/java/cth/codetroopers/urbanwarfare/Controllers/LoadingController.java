@@ -44,6 +44,9 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
     @Override
     public void onFinishedLoading() {
         startActivity(new Intent(this,MainController.class));
+        if (!ClientModel.getInstance().signIn){
+            startActivity(new Intent(this,AvatarSelectionController.class));
+        }
         finish();
     }
 }

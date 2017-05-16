@@ -64,7 +64,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         try{
             object.put("playerId",playerID);
             object.put("avatarId",newAvatar);
-            socket.emit("change-avatar");
+            socket.emit("change-avatar",object);
         }
         catch (JSONException e){
             e.printStackTrace();
