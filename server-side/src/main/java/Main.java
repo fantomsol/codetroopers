@@ -32,8 +32,8 @@ public class Main {
 
 		p2.setAvatar(Avatar.KARMA);
 
-		p1.setExp(5000);
-		p2.setExp(20000);
+		p1.setExp(5500);
+		p2.setExp(7500);
 
 		p1.goOnline();
 		p2.goOnline();

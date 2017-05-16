@@ -44,83 +44,95 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintHorizontal_bias="0.0">
+        tools:layout_constraintRight_creator="1">
 
         <ImageView
             android:id="@+id/imgParchment"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:layout_marginLeft="7dp"
+            android:layout_marginStart="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
-            app:srcCompat="@drawable/parchment" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/parchment"/>
 
         <ImageView
             android:id="@+id/playerRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgParchment"
             app:layout_constraintLeft_toLeftOf="@+id/imgParchment"
-            app:srcCompat="@drawable/rank_joachimvonhacht" />
+            app:srcCompat="@drawable/rank_joachimvonhacht"/>
 
         <TextView
             android:id="@+id/txtName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="9dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginStart="9dp"
             android:text="playerName"
             android:textColor="@android:color/black"
             app:layout_constraintLeft_toLeftOf="@+id/imgParchment"
-            app:layout_constraintTop_toTopOf="@+id/imgParchment" />
+            app:layout_constraintTop_toTopOf="@+id/imgParchment"/>
+
+        <TextView
+            android:id="@+id/txtHp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintLeft_toRightOf="@+id/progressHp"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ProgressBar
             android:id="@+id/progressHp"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="161dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_height="16dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:max="100"
             android:progress="100"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/playerRank"
-            app:layout_constraintRight_toRightOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            />
+
+        <TextView
+            android:id="@+id/txtExp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="8dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/progressExp"/>
 
         <ProgressBar
             android:id="@+id/progressExp"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="161dp"
-            android:layout_height="15dp"
-            android:layout_marginBottom="36dp"
+            android:layout_height="16dp"
+            android:layout_marginBottom="15dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
             android:max="100"
             android:progress="100"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toRightOf="@+id/playerRank"
-            app:layout_constraintRight_toRightOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.85" />
+            />
+
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -131,23 +143,23 @@
         android:layout_marginTop="4dp"
         android:text="Gold"
         app:layout_constraintRight_toLeftOf="@+id/imageShop"
-        app:layout_constraintTop_toTopOf="@+id/map" />
+        app:layout_constraintTop_toTopOf="@+id/map"
+        android:layout_marginEnd="8dp"/>
 
     <TextView
         android:id="@+id/txtGold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:layout_marginTop="0dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintRight_toLeftOf="@+id/imageShop"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <ImageButton
         android:id="@+id/radarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -163,6 +175,7 @@
         app:layout_constraintRight_toRightOf="@+id/map"
         app:srcCompat="@drawable/shopicon"
         app:layout_constraintTop_toTopOf="@+id/map"
-        android:layout_marginTop="4dp" />
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"/>
 
 </android.support.constraint.ConstraintLayout>

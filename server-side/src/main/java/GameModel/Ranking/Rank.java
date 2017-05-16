@@ -11,13 +11,13 @@ public abstract class Rank {
 
 
     public static Ranks getRank(int exp) {
-        if (exp < 1000) {
+        if (exp < 2500) {
             return PRIVATE;
         } else if (exp < 5000) {
             return SERGEANT;
-        } else if (exp < 10000) {
+        } else if (exp < 7500) {
             return MAJOR;
-        } else if (exp < 20000) {
+        } else if (exp < 10000) {
             return GENERAL;
         } else {
             return JOACHIMVONHACHT;
