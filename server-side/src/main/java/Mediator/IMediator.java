@@ -3,8 +3,8 @@ package Mediator;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
+import GameModel.GameUtils.Exception;
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface IMediator {
 	void updatePlayer(IPlayer IPlayer);
 
 	void performAttack(String s1,String s2);
-	void playerChangePos(String id, GeoPos pos);
+	void playerChangePos(String id, Double latitude,Double longitude);
 	IPlayer getPlayerById(String id);
 
 	void setWorld(IWorld world);
@@ -48,6 +48,6 @@ public interface IMediator {
 
 	void changeAvatar(String playerId, String avatarId);
 
-	void sendPlayerSpecificException(Player p,Exception exception);
+	void sendPlayerSpecificException(IPlayer p,Exception exception);
 	void sendException(Exception exception);
 }

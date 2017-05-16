@@ -1,5 +1,6 @@
 package GameModel.Lootbox;
 
+import GameModel.GameUtils.Exception;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 
@@ -10,7 +11,7 @@ public interface ILootbox {
 	GeoPos getGeoPos();
 
 
-	void consume(IPlayer player);
+	void consume(IPlayer player) throws Exception;
 
 	Integer getGold();
 

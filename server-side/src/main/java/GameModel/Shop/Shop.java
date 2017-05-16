@@ -1,5 +1,6 @@
 package GameModel.Shop;
 
+import GameModel.GameUtils.Exception;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Item;
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by hugo on 5/1/17.
  */
 public class Shop implements IShop {
-    public List<Item> getItems() {
+    public List<Item> getItems() throws Exception {
         List<Item> result =  new ArrayList<Item>();
 
 
@@ -35,11 +36,11 @@ public class Shop implements IShop {
         IPlayer.buyItem(item);
     }
 
-    public void sellItem(IPlayer IPlayer, Item item) {
+    public void sellItem(IPlayer IPlayer, Item item) throws Exception {
         IPlayer.sellItem(item,Double.valueOf(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
     }
 
-    public Item getItem(Integer itemID, String itemType) {
+    public Item getItem(Integer itemID, String itemType) throws Exception {
         if (itemType.equals("armour")){
             return ArmoursFactory.createArmour(itemID);
         }

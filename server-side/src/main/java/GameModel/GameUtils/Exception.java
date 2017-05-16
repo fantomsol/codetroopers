@@ -21,4 +21,13 @@ public class Exception extends Throwable {
 		return this.message;
 	}
 
+	@Override
+	public String toString(){
+		StringBuilder sb= new StringBuilder();
+
+		sb.append(getName()+": "+getMessage());
+
+		return sb.toString();
+	}
+
 }

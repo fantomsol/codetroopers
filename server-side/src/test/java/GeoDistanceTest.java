@@ -1,3 +1,4 @@
+import GameModel.GameUtils.Exception;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.GameUtils.GeoPos;
 import org.junit.Assert;
@@ -13,10 +14,15 @@ public class GeoDistanceTest {
 		GeoPos p2;
 
 		for (int i=0;i<50;i++){
-			p1=new GeoPos(Math.random() * 90 + -90,Math.random() * 180 + -180);
-			p2=new GeoPos(Math.random() * 90 + -90,Math.random() * 180 + -180);
+			try {
+				p1=new GeoPos(Math.random() * 90 + -90,Math.random() * 180 + -180);
+				p2=new GeoPos(Math.random() * 90 + -90,Math.random() * 180 + -180);
 
-			Assert.assertEquals(GeoDistance.getDistance(p2,p1), GeoDistance.getDistance(p1,p2));
+				Assert.assertEquals(GeoDistance.getDistance(p2,p1), GeoDistance.getDistance(p1,p2));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		}
 
 

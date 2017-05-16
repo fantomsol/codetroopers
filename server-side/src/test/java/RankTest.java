@@ -11,7 +11,7 @@ import org.junit.Test;
  * Created by lumo on 05/05/17.
  */
 public class RankTest {
-
+/*
     @Test
     public void killEqual(){
         IPlayer Nemo = new Player("Nemo");
@@ -88,5 +88,7 @@ public class RankTest {
         Assert.assertTrue(Nemo.getExp()==600);
         Assert.assertTrue(Fafne.getExp()==720);
     }
+
+    */
 
 }

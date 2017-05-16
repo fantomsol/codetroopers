@@ -16,7 +16,7 @@ public class GeoPos {
 		longitude=null;
 	}
 
-	public GeoPos(Double latitude, Double longitude){
+	public GeoPos(Double latitude, Double longitude) throws Exception {
 		setLatitude(latitude);
 		setLongitude(longitude);
 	}
@@ -29,16 +29,16 @@ public class GeoPos {
 		return this.longitude;
 	}
 
-	void setLatitude(Double newLatitude){
+	void setLatitude(Double newLatitude) throws Exception {
 		if (abs(newLatitude)>90){
-			throw new IllegalArgumentException("Latitude values is not correct: "+newLatitude);
+			throw new Exception("Invalid latitude value","Latitude values is not correct: "+newLatitude);
 		}
 		this.latitude=newLatitude;
 	}
 
-	void setLongitude(Double newLongitude){
+	void setLongitude(Double newLongitude) throws Exception {
 		if (abs(newLongitude)>180) {
-			throw new IllegalArgumentException("Longitude values is not correct: " + newLongitude);
+			throw new Exception("Invalid longitude value","Longitude values is not correct: " + newLongitude);
 		}
 			this.longitude=newLongitude;
 	}

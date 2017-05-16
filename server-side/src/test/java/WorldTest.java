@@ -10,6 +10,7 @@ import org.junit.Test;
  * Created by latiif on 4/1/17.
  */
 public class WorldTest {
+	/*
 	@Test
 	public void registerTest(){
 		IPlayer p1,p2;
@@ -50,4 +51,6 @@ public class WorldTest {
 
 		System.out.println(GeoDistance.getDistance(p1,p2));
 	}
+
+	*/
 }

@@ -1,5 +1,7 @@
 package GameModel.Item.Armours;
 
+import GameModel.GameUtils.Exception;
+
 /**
  * Created by latiif on 3/22/17.
  */
@@ -14,7 +16,7 @@ public class ArmoursFactory {
 
 
 	//Make sure to keep up to date
-	public static IArmour createArmour(Integer id){
+	public static IArmour createArmour(Integer id) throws Exception {
 
 		if (id.intValue()==ArmoursDirectory.SHIELD_OF_VALOR){
 			return new ShieldOfValor();
@@ -34,7 +36,7 @@ public class ArmoursFactory {
 		}
 
 
-		throw new IllegalArgumentException("Item with id:" + id+" cannot be found");
+		throw new Exception("Invalid ID for an armour","Item with id:" + id+" cannot be found");
 	}
 
 }

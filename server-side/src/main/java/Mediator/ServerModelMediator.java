@@ -1,10 +1,10 @@
 package Mediator;
 
+import GameModel.GameUtils.Exception;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import com.corundumstudio.socketio.SocketIOClient;
 
 import java.util.ArrayList;
@@ -30,7 +30,11 @@ public class ServerModelMediator implements IMediator {
 
 
 	public void registerPlayer(String name){
-		world.createNewPlayer(name);
+		try {
+			world.createNewPlayer(name);
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(name),e);
+		}
 	}
 
 	public void getShopItems(String id) {
@@ -69,15 +73,37 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void performAttack(String s1, String s2) {
-		world.performAttack(s1,s2);
+		try {
+			world.performAttack(s1,s2);
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(s1),e);
+		}
 	}
 
 	public void playerChangePos(String id, GeoPos pos) {
-		world.playerChangePos(id,pos);
+		try {
+			world.playerChangePos(id,pos);
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(id),e);
+		}
+	}
+	public void playerChangePos(String id, Double lat, Double longitude)
+	{
+		try {
+			world.playerChangePos(id,new GeoPos(lat,longitude));
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(id),e);
+		}
 	}
 
+
 	public IPlayer getPlayerById(String id) {
-		return world.getPlayerById(id);
+		try {
+			return world.getPlayerById(id);
+		} catch (Exception e) {
+			sendException(e);
+			return null;
+		}
 	}
 
 	public void setWorld(IWorld world) {
@@ -90,7 +116,11 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void consumeLootbox(String playerId, GeoPos geoPos) {
-		world.consumeLootboxByGeoPos(playerId,geoPos);
+		try {
+			world.consumeLootboxByGeoPos(playerId,geoPos);
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(playerId),e);
+		}
 
 	}
 
@@ -109,11 +139,20 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void changeWeapon(String playerId, Integer weaponID) {
-		world.changeWeapon(playerId,weaponID);
+		try {
+			world.changeWeapon(playerId,weaponID);
+		} catch (Exception e) {
+			sendPlayerSpecificException(getPlayerById(playerId),e);
+		}
 	}
 
 	public List<Item> getShopItems() {
-		return world.getShop().getItems();
+		try {
+			return world.getShop().getItems();
+		} catch (Exception e) {
+			sendException(e);
+			return null;
+		}
 	}
 
 	public void updatePlayerShopItems(IPlayer p, List<Item> list) {
@@ -129,7 +168,11 @@ public class ServerModelMediator implements IMediator {
 	public void buyItem(String playerId, Integer itemID, String itemType) {
 		IPlayer player=getPlayerById(playerId);
 		if (player!=null){
-			player.buyItem(world.getShop().getItem(itemID,itemType));
+			try {
+				player.buyItem(world.getShop().getItem(itemID,itemType));
+			} catch (Exception e) {
+				sendPlayerSpecificException(player,e);
+			}
 			server.updatePlayer(player);
 		}
 
@@ -138,7 +181,11 @@ public class ServerModelMediator implements IMediator {
 	public void sellItem(String playerId, Integer itemID, String itemType) {
 		IPlayer player=getPlayerById(playerId);
 		if (player!=null){
-			world.getShop().sellItem(player,world.getShop().getItem(itemID,itemType));
+			try {
+				world.getShop().sellItem(player,world.getShop().getItem(itemID,itemType));
+			} catch (Exception e) {
+				sendPlayerSpecificException(player,e);
+			}
 			server.updatePlayer(player);
 		}
 	}
@@ -159,7 +206,7 @@ public class ServerModelMediator implements IMediator {
 		}
 	}
 
-	public void sendPlayerSpecificException(Player p, Exception exception) {
+	public void sendPlayerSpecificException(IPlayer p, Exception exception) {
 		server.sendException(p,exception);
 	}
 

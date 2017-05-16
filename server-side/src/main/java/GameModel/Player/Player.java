@@ -1,6 +1,7 @@
 package GameModel.Player;
 
 
+import GameModel.GameUtils.Exception;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
@@ -93,9 +94,9 @@ public class Player implements IPlayer {
 
 		return false;
 	}
-	public void sellItem(Item item, Integer refund){
+	public void sellItem(Item item, Integer refund) throws Exception {
 		if (!hasItem(item)){
-			return;
+			throw new Exception("Item not found", "Cannot sell an item you don't have");
 		}
 
 		grantGold(refund);
@@ -130,7 +131,6 @@ public class Player implements IPlayer {
 				break;
 			}
 		}
-
 
 		if (shouldSwitch && weapons.size()>0){
 			weaponEquipped=weapons.get(0);
@@ -175,7 +175,7 @@ public class Player implements IPlayer {
 
 
 
-	public Player(final String id) {
+	public Player(final String id) throws Exception {
 		this.id=id;
 
 		hp=PlayerConstants.MAX_HEALTH;
@@ -201,7 +201,7 @@ public class Player implements IPlayer {
 
 	}
 
-	public Player(final String id, final GeoPos pos){
+	public Player(final String id, final GeoPos pos) throws Exception {
 		this(id);
 		this.geoPos= pos;
 	}
@@ -227,52 +227,48 @@ public class Player implements IPlayer {
 		Double actualDamage= PlayerConstants.damageCaluculation(damage,this.armour);
 		hp-=actualDamage;
 
-//This is where death happens
 		if (hp<=0){
 			isAlive=false;
 			score.increaseDeaths();
 			this.rank=Rank.getRank(this.exp);
-
 			(new RespawnCooldown(10, this)).start();
 		}
 	}
 
 
 
-	public void attackOtherPlayer(final IPlayer otherPlayer){
-		if (!getIsAlive()){
+	public void attackOtherPlayer(final IPlayer otherPlayer) {
+		if (!getIsAlive()) {
 			return;
 		}
 
-		if (!otherPlayer.getIsAlive()){
+		if (!otherPlayer.getIsAlive()) {
 			return;
 		}
 
-		if (GeoDistance.getDistance(otherPlayer.getGeoPos(),this.geoPos)>this.weaponEquipped.getRange()){
+		if (GeoDistance.getDistance(otherPlayer.getGeoPos(), this.geoPos) > this.weaponEquipped.getRange()) {
 			return;
 		}
 
-		Integer damage= this.weaponEquipped.fireWeapon();
-		if (damage==0){
+		Integer damage = this.weaponEquipped.fireWeapon();
+		if (damage == 0) {
 			return;
 		}
 
 
 		otherPlayer.getAttacked(damage);
-		if (!otherPlayer.getIsAlive()){
+		if (!otherPlayer.getIsAlive()) {
 			score.increaseKills();
 
-			if (otherPlayer.getWeaponEquipped().getId().intValue()==WeaponsDirectory.WHITEFLAG){
+			if (otherPlayer.getWeaponEquipped().getId().intValue() != WeaponsDirectory.WHITEFLAG) {
+				{
+					this.setExp(Exp.getExpOnKill(this.getExp(), otherPlayer.getExp()));
+					otherPlayer.setExp(Exp.getExpOnKilled(otherPlayer.getExp()));
+					this.rank = Rank.getRank(this.exp);
+				}
 
+				System.out.println(this.rank + "\n" + otherPlayer.getRank());
 			}
-			else {
-				//Exp.setExpOnKill(this, otherPlayer);
-				this.setExp(Exp.getExpOnKill(this.getExp(),otherPlayer.getExp()));
-				otherPlayer.setExp(Exp.getExpOnKilled(otherPlayer.getExp()));
-				this.rank = Rank.getRank(this.exp);
-			}
-
-			System.out.println(this.rank + "\n" + otherPlayer.getRank());
 		}
 	}
 

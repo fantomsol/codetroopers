@@ -1,5 +1,6 @@
 package GameModel.ServerController.EventListeners;
 
+import GameModel.GameUtils.Exception;
 import GameModel.GameUtils.GeoPos;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
 import Mediator.IMediator;
@@ -17,11 +18,13 @@ public class PlayerChangePositionListener extends EventListener implements DataL
 		super(mediator);
 	}
 
-	public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent playerChangePositionEvent, AckRequest ackRequest) throws Exception {
-		mediator.playerChangePos(
-				playerChangePositionEvent.getId(),
-				new GeoPos(playerChangePositionEvent.getLat(),playerChangePositionEvent.getLang())
-		);
+	public void onData(SocketIOClient socketIOClient, PlayerChangePositionEvent playerChangePositionEvent, AckRequest ackRequest)  {
+
+			mediator.playerChangePos(
+					playerChangePositionEvent.getId(),
+					playerChangePositionEvent.getLat(),
+					playerChangePositionEvent.getLang()
+			);
 
 	}
 }

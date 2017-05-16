@@ -1,5 +1,6 @@
 package GameModel.WorldPackage;
 
+import GameModel.GameUtils.Exception;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
@@ -33,8 +34,9 @@ public class World implements IWorld {
 
 	private Map<String,IPlayer> players;
 
-	public void createNewPlayer(String name){
-		players.put(name,new Player(name, new GeoPos(0.0,0.0)));
+	public void createNewPlayer(String name) throws Exception {
+			players.put(name,new Player(name, new GeoPos(0.0,0.0)));
+
 	}
 
 	public void setMediator(ServerModelMediator mediator){
@@ -42,7 +44,7 @@ public class World implements IWorld {
 	}
 
 
-	public void changeWeapon(String playerId, Integer weaponID){
+	public void changeWeapon(String playerId, Integer weaponID) throws Exception {
 		IPlayer p=getPlayerById(playerId);
 		p.switchWeapon(weaponID);
 		mediator.updatePlayer(p);
@@ -65,21 +67,16 @@ public class World implements IWorld {
 	}
 
 	public IPlayer getPlayer(IPlayer p){
-		try {
-			return players.get(p.getID());
-		}
-		catch (IndexOutOfBoundsException e){
-			return null;
-		}
+		return players.get(p.getID());
 	}
 
-	public void performAttack(String attackerId, String attackeeId){
+	public void performAttack(String attackerId, String attackeeId) throws Exception {
 		IPlayer attacker = getPlayerById(attackerId);
 		IPlayer attackee= getPlayerById(attackeeId);
 
 		//cannot attack a ghost
 		if (!attackee.getIsAlive()){
-			return;
+			throw new Exception("Invalid target",attackeeId +" is dead players cannot be attacked");
 		}
 
 
@@ -117,7 +114,11 @@ public class World implements IWorld {
 				}
 
 				System.out.println("Just revived "+p);
-				playerChangePos(p.getID(),p.getGeoPos());
+				try {
+					playerChangePos(p.getID(),p.getGeoPos());
+				} catch (Exception e) {
+
+				}
 				if (mediator!=null) {
 					mediator.updatePlayer(p);
 					mediator.updateNearbyPlayers(p);
@@ -127,8 +128,14 @@ public class World implements IWorld {
 	}
 
 
-	public IPlayer getPlayerById(final String id){
-		return players.get(id);
+	public IPlayer getPlayerById(final String id) throws Exception {
+		IPlayer res=players.get(id);
+		if (res!=null){
+			return res;
+		}
+		else {
+			throw new Exception("No such player",id + " is not registered");
+		}
 	}
 
 
@@ -136,29 +143,28 @@ public class World implements IWorld {
 		players.put(IPlayer.getID(), IPlayer);
 	}
 
-	public void playerChangePos(final String id, final GeoPos newPos){
+	private void goOffline(IPlayer player){
+		//Remove the player from their nearby players' lists
+		for (IPlayer op: player.getPlayersNearby()){
+			op.getPlayersNearby().remove(player);
+			//update the other player's nearby list
+			mediator.updateNearbyPlayers(op);
+		}
+
+		//someone who's offline cannot see anyone
+		player.getPlayersNearby().clear();
+		//update the player's nearby list
+		mediator.updateNearbyPlayers(player);
+
+		updateLootboxes(player);
+	}
+
+	public void playerChangePos(final String id, final GeoPos newPos) throws Exception {
 		IPlayer IPlayer = getPlayerById(id);
 		IPlayer.updatePos(newPos);
 
-		System.out.println(players.size());
-
 		if (!IPlayer.isOnline()){
-
-			//Remove the player from their nearby players' lists
-			for (IPlayer op: IPlayer.getPlayersNearby()){
-				op.getPlayersNearby().remove(IPlayer);
-				//update the other player's nearby list
-				mediator.updateNearbyPlayers(op);
-			}
-
-			//someone who's offline cannot see anyone
-			IPlayer.getPlayersNearby().clear();
-			//update the player's nearby list
-			mediator.updateNearbyPlayers(IPlayer);
-
-			updateLootboxes(IPlayer);
-
-			//no need to do anything else
+			goOffline(IPlayer);
 			return;
 		}
 
@@ -254,7 +260,7 @@ public class World implements IWorld {
 	}
 
 
-	public void consumeLootboxByGeoPos(String playerId, GeoPos pos){
+	public void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws Exception {
 
 		IPlayer player=getPlayerById(playerId);
 
@@ -262,11 +268,12 @@ public class World implements IWorld {
 			if (lootbox.getGeoPos().equals(pos)){
 				//player.consume(lootbox);
 				lootbox.consume(player);
+
 				lootboxes.remove(lootbox);
 
 				mediator.playerChangePos(playerId,player.getGeoPos());
 
-				return;
+				break;
 			}
 		}
 

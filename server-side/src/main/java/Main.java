@@ -1,3 +1,4 @@
+import GameModel.GameUtils.Exception;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.Lootbox.Lootbox;
@@ -25,27 +26,37 @@ public class Main {
 		new ServerModelMediator(server,world);
 
 
-		IPlayer p1= new Player("llusx",new GeoPos(0.0,0.0));
-		IPlayer p2=new Player("sara",new GeoPos(0.0,0.0));
+		IPlayer p2= null;
+		IPlayer p1=null;
+		try {
+			p1= new Player("llusx",new GeoPos(0.0,0.0));
 
-		p1.setHp(10.0);
+			p2 = new Player("sara",new GeoPos(0.0,0.0));
 
-		p2.setAvatar(Avatar.KARMA);
+			p1.setHp(10.0);
 
-		p1.setExp(5500);
-		p2.setExp(7500);
+			p2.setAvatar(Avatar.KARMA);
 
-		p1.goOnline();
-		p2.goOnline();
+			p1.setExp(5500);
+			p2.setExp(7500);
 
-
-
-		p2.grantGold(2000);
-		p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
+			p1.goOnline();
+			p2.goOnline();
 
 
-		world.registerPlayer(p1);
-		world.registerPlayer(p2);
+
+			p2.grantGold(2000);
+			p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
+
+
+			world.registerPlayer(p1);
+			world.registerPlayer(p2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
 
 	}
 }

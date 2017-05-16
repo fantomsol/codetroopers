@@ -1,5 +1,6 @@
 package GameModel.Lootbox;
 
+import GameModel.GameUtils.Exception;
 import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.GameUtils.GeoPos;
@@ -28,7 +29,7 @@ public class Lootbox implements ILootbox {
 		return mGeoPos;
 	}
 
-	public void consume(IPlayer player) {
+	public void consume(IPlayer player) throws Exception {
 		player.grantGold(getGold());
 		if (getWeapon()==null || getWeapon()==0){
 		}
