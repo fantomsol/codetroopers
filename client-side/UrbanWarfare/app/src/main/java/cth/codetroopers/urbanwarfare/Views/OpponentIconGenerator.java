@@ -1,7 +1,6 @@
 package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.maps.android.ui.IconGenerator;
 
-import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -108,10 +107,10 @@ public class OpponentIconGenerator {
             txtName.setText(player.getID());
             textView.setText(String.valueOf(player.getHp().intValue()));
 
-            imgRank.setImageResource(ItemsDirectory.getRank(player));
-            imgWeapon.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
+            imgRank.setImageResource(ResourceDirectory.getRank(player));
+            imgWeapon.setImageResource(ResourceDirectory.getWeaponImage(player.getWeaponEquipped()));
 
-            imgAvatar.setImageResource(ItemsDirectory.getAvatarImage(player.getAvatar()));
+            imgAvatar.setImageResource(ResourceDirectory.getAvatarImage(player.getAvatar()));
         }
         else {
             txtName.setText(player.getID()+" †");
@@ -123,7 +122,7 @@ public class OpponentIconGenerator {
 
             imgWeapon.setVisibility(View.GONE);
 
-            imgAvatar.setImageResource(ItemsDirectory.getAvatarImage("dead"));
+            imgAvatar.setImageResource(ResourceDirectory.getAvatarImage("dead"));
         }
         //Prompt the iconGenerator to take the view as its content
         iconGenerator.setContentView(view);

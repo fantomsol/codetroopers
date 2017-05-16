@@ -3,21 +3,16 @@ package cth.codetroopers.urbanwarfare.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
-import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 public class ChooseWeapon extends AppCompatActivity {

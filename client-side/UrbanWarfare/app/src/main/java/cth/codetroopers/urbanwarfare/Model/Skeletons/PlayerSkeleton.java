@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.Model.Skeletons;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -8,8 +8,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cth.codetroopers.urbanwarfare.ClientSide.ConnectivityLayer;
 
 /**
  * Created by latiif on 5/6/17.

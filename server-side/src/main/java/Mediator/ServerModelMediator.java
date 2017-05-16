@@ -148,4 +148,13 @@ public class ServerModelMediator implements IMediator {
 			server.playerSignin(p, socketIOClient);
 		}
 	}
+
+	public void changeAvatar(String playerId, String avatarId) {
+		IPlayer p=getPlayerById(playerId);
+		if (p!=null){
+			world.setPlayerAvatar(p,avatarId);
+			updatePlayer(p);
+			updateNearbyPlayers(p);
+		}
+	}
 }

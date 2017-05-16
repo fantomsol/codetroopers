@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.Model.EventChannels;
 
 import com.google.android.gms.maps.model.LatLng;
 

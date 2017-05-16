@@ -2,13 +2,12 @@ package cth.codetroopers.urbanwarfare.Views;
 
 import android.view.View;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 
 /**
  * Created by latiif on 5/6/17.

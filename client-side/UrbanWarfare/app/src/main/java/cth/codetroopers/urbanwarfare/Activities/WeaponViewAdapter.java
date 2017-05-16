@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
-import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
+import cth.codetroopers.urbanwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -50,7 +50,7 @@ public class WeaponViewAdapter extends ArrayAdapter<WeaponSkeleton> {
         txtCooldown.setText(String.valueOf(weapon.getCooldown()));
 
 
-        imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
+        imageView.setImageResource(ResourceDirectory.getWeaponImage(weapon));
 
         return customView;
 

@@ -44,4 +44,6 @@ public interface IMediator {
 	void sellItem(String id,Integer itemID, String itemType);
 
 	void playerSignin(String id, SocketIOClient socketIOClient);
+
+	void changeAvatar(String playerId, String avatarId);
 }

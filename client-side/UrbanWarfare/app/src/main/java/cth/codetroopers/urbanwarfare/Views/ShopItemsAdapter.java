@@ -1,7 +1,6 @@
 package cth.codetroopers.urbanwarfare.Views;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,12 +13,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.ArmourSkeleton;
+import cth.codetroopers.urbanwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.ArmourSkeleton;
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
-import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
-import cth.codetroopers.urbanwarfare.Model.WeaponSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
-import cth.codetroopers.urbanwarfare.Views.IShopView;
 
 /**
  * Created by latiif on 5/10/17.
@@ -102,7 +100,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
             txtCooldown.setText(String.valueOf(weapon.getCooldown()));
 
 
-            imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
+            imageView.setImageResource(ResourceDirectory.getWeaponImage(weapon));
 
             return customView;
         }
@@ -158,7 +156,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
 
             //TODO add pics for armours
-            //imageView.setImageResource(ItemsDirectory.getWeaponImage(weapon));
+            //imageView.setImageResource(ResourceDirectory.getWeaponImage(weapon));
 
             return customView;
         }

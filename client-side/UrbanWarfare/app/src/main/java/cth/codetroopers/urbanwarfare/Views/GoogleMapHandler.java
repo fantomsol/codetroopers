@@ -24,8 +24,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -224,7 +224,7 @@ public class GoogleMapHandler implements IMapHandler {
             @Override
             public void run() {
                 playerMarker.setPosition(pos);
-                playerMarker.setIcon(BitmapDescriptorFactory.fromResource(ItemsDirectory.getAvatarImage(
+                playerMarker.setIcon(BitmapDescriptorFactory.fromResource(ResourceDirectory.getAvatarImage(
                         player.getIsAlive()?player.getAvatar():"dead")
                 ));
 

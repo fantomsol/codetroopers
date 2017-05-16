@@ -1,5 +1,6 @@
 package GameModel.WorldPackage;
 
+import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.Item.Weapons.WeaponsDirectory;
@@ -246,6 +247,10 @@ public class World implements IWorld {
 
 		System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
 		mediator.updateLootbox(player,visibleLootboxes);
+	}
+
+	public void setPlayerAvatar(IPlayer player, String avatarId) {
+		player.setAvatar(Avatar.valueOf(avatarId));
 	}
 
 

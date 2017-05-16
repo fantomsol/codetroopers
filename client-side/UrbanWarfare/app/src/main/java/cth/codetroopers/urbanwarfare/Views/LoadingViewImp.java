@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import cth.codetroopers.urbanwarfare.Model.LoadingStates;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.LoadingStates;
 import cth.codetroopers.urbanwarfare.R;
 
 /**

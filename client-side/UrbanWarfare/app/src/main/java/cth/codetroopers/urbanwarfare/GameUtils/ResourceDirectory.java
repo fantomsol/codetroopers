@@ -1,12 +1,14 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.GameUtils;
 
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.WeaponSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
  * Created by latiif on 5/8/17.
  */
 
-public class ItemsDirectory {
+public class ResourceDirectory {
 
 
     public static int getRank(PlayerSkeleton player){

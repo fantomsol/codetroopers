@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.Model.EventChannels;
 
 import android.location.Location;
 
@@ -7,14 +7,16 @@ import com.google.android.gms.maps.model.LatLng;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
-import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
 
 /**
  * Created by latiif on 5/13/17.
  */
 
 public interface IConnectivityLayer {
+
+    void requestChangeAvatar(String newAvatar);
 
     interface ConnectivityListener {
         void onConnected();

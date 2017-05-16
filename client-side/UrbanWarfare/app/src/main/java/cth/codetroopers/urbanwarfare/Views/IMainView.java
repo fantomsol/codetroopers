@@ -4,12 +4,9 @@ import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.util.List;
-
-import cth.codetroopers.urbanwarfare.Model.ILootboxUpdateListener;
-import cth.codetroopers.urbanwarfare.Model.IOpponentsUpdateListener;
-import cth.codetroopers.urbanwarfare.Model.IPlayerUpdateListener;
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.ILootboxUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IOpponentsUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IPlayerUpdateListener;
 
 /**
  * Created by latiif on 5/6/17.

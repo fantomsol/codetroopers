@@ -1,6 +1,6 @@
 package cth.codetroopers.urbanwarfare.Views;
 
-import cth.codetroopers.urbanwarfare.Model.ILoadUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.ILoadUpdateListener;
 
 /**
  * Created by latiif on 5/7/17.

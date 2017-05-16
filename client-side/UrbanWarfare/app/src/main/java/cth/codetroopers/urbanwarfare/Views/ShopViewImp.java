@@ -1,6 +1,5 @@
 package cth.codetroopers.urbanwarfare.Views;
 
-import android.app.Application;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -14,9 +13,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
-import cth.codetroopers.urbanwarfare.UrbanWarfare;
 
 /**
  * Created by latiif on 5/10/17.

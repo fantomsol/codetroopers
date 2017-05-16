@@ -8,6 +8,16 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IConnectivityLayer;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.ILoadUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.ILootboxUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IOpponentsUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IPlayerUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IShopUpdateListener;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.LoadingStates;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
+
 /**
  * Created by latiif on 5/6/17.
  */
@@ -202,6 +212,11 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
                 ) {
             listener.updateItemsList(items);
         }
+    }
+
+
+    public void changeAvatar(String newAvatar){
+        layer.requestChangeAvatar(newAvatar);
     }
 
     @Override

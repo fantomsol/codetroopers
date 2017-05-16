@@ -1,6 +1,5 @@
 package cth.codetroopers.urbanwarfare.Views;
 
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -19,8 +18,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.ItemsDirectory;
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.R;
 
 /**
@@ -160,9 +159,9 @@ public class MainViewImp implements IMainView{
 
 
 
-                fab.setImageResource(ItemsDirectory.getWeaponImage(player.getWeaponEquipped()));
+                fab.setImageResource(ResourceDirectory.getWeaponImage(player.getWeaponEquipped()));
                 mapHandler.pinPlayer(player);
-                rankImage.setImageResource(ItemsDirectory.getRank(player));
+                rankImage.setImageResource(ResourceDirectory.getRank(player));
 
                 if (player.isOnline()) {
                     radarButton.setImageResource(R.drawable.visible);

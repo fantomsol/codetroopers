@@ -14,7 +14,7 @@ import java.util.List;
 
 
 import cth.codetroopers.urbanwarfare.GameUtils.SkeletonFactory;
-import cth.codetroopers.urbanwarfare.Model.IConnectivityLayer;
+import cth.codetroopers.urbanwarfare.Model.EventChannels.IConnectivityLayer;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -56,6 +56,20 @@ public class ConnectivityLayer implements IConnectivityLayer {
     private boolean firstFetch=true;
 
     private ConnectivityListener mListener;
+
+    @Override
+    public void requestChangeAvatar(String newAvatar) {
+        JSONObject object= new JSONObject();
+
+        try{
+            object.put("playerId",playerID);
+            object.put("avatarId",newAvatar);
+            socket.emit("change-avatar");
+        }
+        catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void setListener(ConnectivityListener listener) {

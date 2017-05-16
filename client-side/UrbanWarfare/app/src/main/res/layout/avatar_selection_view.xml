@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_vertical|center_horizontal"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/txt_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select your avatar"/>
+
+    <GridView
+        android:id="@+id/avatar_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="75dip"
+        android:gravity="center"
+        android:horizontalSpacing="5dip"
+
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dip"/>
+
+</LinearLayout>

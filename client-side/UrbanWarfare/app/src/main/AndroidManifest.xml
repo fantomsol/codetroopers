@@ -49,6 +49,9 @@
 
         <activity android:name=".Controllers.ShopViewController"></activity>
 
+        <activity android:name=".Controllers.AvatarSelectionController"></activity>
+
+
     </application>
 
 </manifest>

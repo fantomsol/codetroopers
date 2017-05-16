@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
-import cth.codetroopers.urbanwarfare.Model.ShopSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
 
 /**
  * Created by latiif on 5/14/17.

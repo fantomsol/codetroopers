@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Model;
+package cth.codetroopers.urbanwarfare.Model.Skeletons;
 
 import org.json.JSONArray;
 import org.json.JSONException;

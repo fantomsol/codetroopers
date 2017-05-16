@@ -44,6 +44,7 @@ public class LoginController extends AppCompatActivity implements ILogInView.Log
         ClientModel.getInstance().setPlayerId(id);
         ClientModel.getInstance().signIn=false;
         finish();
-        startActivity(new Intent(this,LoadingController.class));
+        startActivity(new Intent(this,MainController.class));
+        startActivity(new Intent(this,AvatarSelectionController.class));
     }
 }

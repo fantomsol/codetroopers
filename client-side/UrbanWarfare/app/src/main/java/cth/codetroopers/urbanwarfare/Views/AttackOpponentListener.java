@@ -6,8 +6,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-import cth.codetroopers.urbanwarfare.Model.PlayerSkeleton;
-import cth.codetroopers.urbanwarfare.Views.IMainView;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 
 /**
  * @author latiif

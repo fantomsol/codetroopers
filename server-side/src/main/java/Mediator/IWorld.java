@@ -32,5 +32,7 @@ public interface IWorld {
 
 	void updateLootboxes(IPlayer player);
 
+	void setPlayerAvatar(IPlayer player, String avatarId);
+
 	void consumeLootboxByGeoPos(String playerId, GeoPos pos);
 }
