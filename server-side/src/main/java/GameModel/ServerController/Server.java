@@ -151,11 +151,11 @@ public class Server implements IServer {
 	}
 
 	public void sendException(SocketIOClient socket, Object exception){
-
+		socket.sendEvent("server-side-exception",exception);
 	}
 
 	public void sendException(Object player, Object exception) {
-		map.get(player).sendEvent("server-side-exception",exception);
+		sendException(map.get(player),exception);
 	}
 
 	public <T> JsonArray list2JsonArray(List<T> list){
