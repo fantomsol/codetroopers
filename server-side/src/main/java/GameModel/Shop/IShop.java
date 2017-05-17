@@ -1,6 +1,6 @@
 package GameModel.Shop;
 
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Item;
 import GameModel.Player.IPlayer;
 

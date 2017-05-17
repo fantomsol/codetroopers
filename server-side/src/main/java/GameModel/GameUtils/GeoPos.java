@@ -1,6 +1,8 @@
 package GameModel.GameUtils;
 
 
+import GameModel.GameUtils.Exceptions.GameException;
+
 import static java.lang.Math.abs;
 
 /**

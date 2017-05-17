@@ -15,9 +15,9 @@ public class UrbanWarfare extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         ClientModel.getInstance().setConnectionLayer(new ConnectivityLayer());
-
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.GameUtils.GeoPos;

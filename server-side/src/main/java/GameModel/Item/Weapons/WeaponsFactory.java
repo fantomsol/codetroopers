@@ -1,5 +1,5 @@
 package GameModel.Item.Weapons;
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 
 /**
  * Created by latiif on 3/22/17.

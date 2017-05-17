@@ -1,6 +1,6 @@
 package Mediator;
 
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
@@ -134,7 +134,12 @@ public class ServerModelMediator implements IMediator {
 
 	public 	void sendPlayerInfo(String playerId){
 		IPlayer player= getPlayerById(playerId);
-		server.updatePlayer(player);
+		if (player!=null) {
+			server.updatePlayer(player);
+		}
+		else {
+
+		}
 
 	}
 

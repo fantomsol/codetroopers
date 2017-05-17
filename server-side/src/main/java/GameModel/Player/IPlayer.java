@@ -1,6 +1,6 @@
 package GameModel.Player;
 
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;

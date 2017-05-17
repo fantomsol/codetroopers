@@ -1,4 +1,4 @@
-package GameModel.GameUtils;
+package GameModel.GameUtils.Exceptions;
 
 /**
  * Created by latiif on 5/16/17.

@@ -200,6 +200,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
                mListener.updateShop(SkeletonFactory.getShop(args));
             }
         });
+
+        socket.on("server-side-exception", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Log.i("Exception from server",args.toString());
+            }
+        });
     }
 
     /**

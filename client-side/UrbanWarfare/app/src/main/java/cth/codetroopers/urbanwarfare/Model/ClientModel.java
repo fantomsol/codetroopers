@@ -17,6 +17,7 @@ import cth.codetroopers.urbanwarfare.Model.EventChannels.IShopUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.LoadingStates;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
+import cth.codetroopers.urbanwarfare.UrbanWarfare;
 
 /**
  * Created by latiif on 5/6/17.
@@ -66,6 +67,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     @Override
     public void onConnected() {
+
         if (signIn) {
             //loadingView.onSigningIn();
             updateLoadlisteners(LoadingStates.SIGNINGIN);
@@ -114,17 +116,11 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     }
 
-    public void commenceLogin() {
-
-        //loadingView.onConnecting();
-
+    public void commenceLogin() throws URISyntaxException {
 
         updateLoadlisteners(LoadingStates.CONNECTING);
-        try {
-            layer.Init();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        layer.Init();
+
     }
 
     public void attack(String oId) {

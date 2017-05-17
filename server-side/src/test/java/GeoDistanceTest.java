@@ -1,4 +1,4 @@
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.GameUtils.GeoPos;
 import org.junit.Assert;

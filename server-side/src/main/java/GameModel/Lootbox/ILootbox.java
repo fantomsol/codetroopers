@@ -1,6 +1,6 @@
 package GameModel.Lootbox;
 
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.IPlayer;
 

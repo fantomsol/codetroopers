@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.net.URISyntaxException;
+
 import cth.codetroopers.urbanwarfare.Model.ClientModel;
 import cth.codetroopers.urbanwarfare.Views.ILoadingView;
 import cth.codetroopers.urbanwarfare.Views.LoadingViewImp;
@@ -38,7 +40,11 @@ public class LoadingController extends AppCompatActivity implements ILoadingView
     @Override
     protected void onStart() {
         super.onStart();
-        ClientModel.getInstance().commenceLogin();
+        try {
+            ClientModel.getInstance().commenceLogin();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

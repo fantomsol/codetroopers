@@ -1,6 +1,6 @@
 package GameModel.Lootbox;
 
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.GameUtils.GeoPos;

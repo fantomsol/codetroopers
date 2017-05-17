@@ -3,7 +3,7 @@ package Mediator;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
-import GameModel.GameUtils.GameException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Player.IPlayer;
 import com.corundumstudio.socketio.SocketIOClient;
 
