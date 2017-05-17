@@ -24,4 +24,6 @@ public interface IServer {
 
 	void sendException(Object exception);
 	void sendException(Object player,Object exception);
+	void sendException(SocketIOClient socket, Object exception);
+
 }

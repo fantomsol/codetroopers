@@ -195,6 +195,9 @@ public class ServerModelMediator implements IMediator {
 		if (p!=null) {
 			server.playerSignin(p, socketIOClient);
 		}
+		else {
+			server.sendException(socketIOClient,new Exception("No such user","No such id "+id));
+		}
 	}
 
 	public void changeAvatar(String playerId, String avatarId) {
