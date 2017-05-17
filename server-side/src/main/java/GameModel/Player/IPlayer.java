@@ -1,6 +1,6 @@
 package GameModel.Player;
 
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
@@ -20,7 +20,7 @@ public interface IPlayer {
 
 	void grantGold(Integer amount);
 
-	void sellItem(Item item, Integer refund) throws Exception;
+	void sellItem(Item item, Integer refund) throws GameException;
 
 	void buyItem(Item item);
 

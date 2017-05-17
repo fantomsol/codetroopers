@@ -1,6 +1,6 @@
 package GameModel.WorldPackage;
 
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
 import GameModel.GameUtils.GeoDistance;
@@ -34,7 +34,7 @@ public class World implements IWorld {
 
 	private Map<String,IPlayer> players;
 
-	public void createNewPlayer(String name) throws Exception {
+	public void createNewPlayer(String name) throws GameException {
 			players.put(name,new Player(name, new GeoPos(0.0,0.0)));
 
 	}
@@ -44,7 +44,7 @@ public class World implements IWorld {
 	}
 
 
-	public void changeWeapon(String playerId, Integer weaponID) throws Exception {
+	public void changeWeapon(String playerId, Integer weaponID) throws GameException {
 		IPlayer p=getPlayerById(playerId);
 		p.switchWeapon(weaponID);
 		mediator.updatePlayer(p);
@@ -70,13 +70,13 @@ public class World implements IWorld {
 		return players.get(p.getID());
 	}
 
-	public void performAttack(String attackerId, String attackeeId) throws Exception {
+	public void performAttack(String attackerId, String attackeeId) throws GameException {
 		IPlayer attacker = getPlayerById(attackerId);
 		IPlayer attackee= getPlayerById(attackeeId);
 
 		//cannot attack a ghost
 		if (!attackee.getIsAlive()){
-			throw new Exception("Invalid target",attackeeId +" is dead players cannot be attacked");
+			throw new GameException("Invalid target",attackeeId +" is dead players cannot be attacked");
 		}
 
 
@@ -116,7 +116,7 @@ public class World implements IWorld {
 				System.out.println("Just revived "+p);
 				try {
 					playerChangePos(p.getID(),p.getGeoPos());
-				} catch (Exception e) {
+				} catch (GameException e) {
 
 				}
 				if (mediator!=null) {
@@ -128,13 +128,13 @@ public class World implements IWorld {
 	}
 
 
-	public IPlayer getPlayerById(final String id) throws Exception {
+	public IPlayer getPlayerById(final String id) throws GameException {
 		IPlayer res=players.get(id);
 		if (res!=null){
 			return res;
 		}
 		else {
-			throw new Exception("No such player",id + " is not registered");
+			throw new GameException("No such player",id + " is not registered");
 		}
 	}
 
@@ -159,7 +159,7 @@ public class World implements IWorld {
 		updateLootboxes(player);
 	}
 
-	public void playerChangePos(final String id, final GeoPos newPos) throws Exception {
+	public void playerChangePos(final String id, final GeoPos newPos) throws GameException {
 		IPlayer IPlayer = getPlayerById(id);
 		IPlayer.updatePos(newPos);
 
@@ -260,7 +260,7 @@ public class World implements IWorld {
 	}
 
 
-	public void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws Exception {
+	public void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws GameException {
 
 		IPlayer player=getPlayerById(playerId);
 

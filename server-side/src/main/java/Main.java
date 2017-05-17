@@ -1,7 +1,6 @@
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Lootbox.Lootbox;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.IPlayer;
@@ -52,7 +51,7 @@ public class Main {
 			world.registerPlayer(p1);
 			world.registerPlayer(p2);
 
-		} catch (Exception e) {
+		} catch (GameException e) {
 			e.printStackTrace();
 		}
 

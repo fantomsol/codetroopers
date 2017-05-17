@@ -1,12 +1,12 @@
 package GameModel.Item.Weapons;
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 
 /**
  * Created by latiif on 3/22/17.
  */
 public class WeaponsFactory {
 
-	public static Weapon createWeapon(Integer id) throws Exception {
+	public static Weapon createWeapon(Integer id) throws GameException {
 		if (id.intValue()==WeaponsDirectory.PISTOL){
 			return new Pistol();
 		}
@@ -26,7 +26,7 @@ public class WeaponsFactory {
 			return new WhiteFlag();
 		}
 
-		throw new Exception("Invalid ID for a weapon","Weapons with id:" + id+" cannot be found");
+		throw new GameException("Invalid ID for a weapon","Weapons with id:" + id+" cannot be found");
 	}
 
 }

@@ -1,11 +1,7 @@
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Item;
-import GameModel.Item.Weapons.Sniper;
 import GameModel.Item.Weapons.WeaponsDirectory;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
 import GameModel.Shop.IShop;
 import GameModel.Shop.Shop;
 import org.junit.Assert;
@@ -24,7 +20,7 @@ public class ShopTest {
         List<Item> items= null;
         try {
             items = shop.getItems();
-        } catch (Exception e) {
+        } catch (GameException e) {
             System.out.println(e);
         }
 

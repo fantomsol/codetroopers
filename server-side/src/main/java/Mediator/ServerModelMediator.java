@@ -1,6 +1,6 @@
 package Mediator;
 
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
@@ -32,7 +32,7 @@ public class ServerModelMediator implements IMediator {
 	public void registerPlayer(String name){
 		try {
 			world.createNewPlayer(name);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(name),e);
 		}
 	}
@@ -75,7 +75,7 @@ public class ServerModelMediator implements IMediator {
 	public void performAttack(String s1, String s2) {
 		try {
 			world.performAttack(s1,s2);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(s1),e);
 		}
 	}
@@ -83,7 +83,7 @@ public class ServerModelMediator implements IMediator {
 	public void playerChangePos(String id, GeoPos pos) {
 		try {
 			world.playerChangePos(id,pos);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(id),e);
 		}
 	}
@@ -91,7 +91,7 @@ public class ServerModelMediator implements IMediator {
 	{
 		try {
 			world.playerChangePos(id,new GeoPos(lat,longitude));
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(id),e);
 		}
 	}
@@ -100,7 +100,7 @@ public class ServerModelMediator implements IMediator {
 	public IPlayer getPlayerById(String id) {
 		try {
 			return world.getPlayerById(id);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendException(e);
 			return null;
 		}
@@ -118,7 +118,7 @@ public class ServerModelMediator implements IMediator {
 	public void consumeLootbox(String playerId, GeoPos geoPos) {
 		try {
 			world.consumeLootboxByGeoPos(playerId,geoPos);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(playerId),e);
 		}
 
@@ -141,7 +141,7 @@ public class ServerModelMediator implements IMediator {
 	public void changeWeapon(String playerId, Integer weaponID) {
 		try {
 			world.changeWeapon(playerId,weaponID);
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendPlayerSpecificException(getPlayerById(playerId),e);
 		}
 	}
@@ -149,7 +149,7 @@ public class ServerModelMediator implements IMediator {
 	public List<Item> getShopItems() {
 		try {
 			return world.getShop().getItems();
-		} catch (Exception e) {
+		} catch (GameException e) {
 			sendException(e);
 			return null;
 		}
@@ -170,7 +170,7 @@ public class ServerModelMediator implements IMediator {
 		if (player!=null){
 			try {
 				player.buyItem(world.getShop().getItem(itemID,itemType));
-			} catch (Exception e) {
+			} catch (GameException e) {
 				sendPlayerSpecificException(player,e);
 			}
 			server.updatePlayer(player);
@@ -183,7 +183,7 @@ public class ServerModelMediator implements IMediator {
 		if (player!=null){
 			try {
 				world.getShop().sellItem(player,world.getShop().getItem(itemID,itemType));
-			} catch (Exception e) {
+			} catch (GameException e) {
 				sendPlayerSpecificException(player,e);
 			}
 			server.updatePlayer(player);
@@ -196,7 +196,7 @@ public class ServerModelMediator implements IMediator {
 			server.playerSignin(p, socketIOClient);
 		}
 		else {
-			server.sendException(socketIOClient,new Exception("No such user","No such id "+id));
+			server.sendException(socketIOClient,new GameException("No such user","No such id "+id));
 		}
 	}
 
@@ -209,11 +209,11 @@ public class ServerModelMediator implements IMediator {
 		}
 	}
 
-	public void sendPlayerSpecificException(IPlayer p, Exception exception) {
-		server.sendException(p,exception);
+	public void sendPlayerSpecificException(IPlayer p, GameException gameException) {
+		server.sendException(p, gameException);
 	}
 
-	public void sendException(Exception exception) {
-		server.sendException(exception);
+	public void sendException(GameException gameException) {
+		server.sendException(gameException);
 	}
 }

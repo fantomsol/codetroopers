@@ -1,7 +1,5 @@
 package GameModel.ServerController.EventListeners;
 
-import GameModel.GameUtils.Exception;
-import GameModel.GameUtils.GeoPos;
 import GameModel.ServerController.EventObjects.PlayerChangePositionEvent;
 import Mediator.IMediator;
 import com.corundumstudio.socketio.AckRequest;

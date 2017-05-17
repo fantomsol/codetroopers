@@ -1,7 +1,7 @@
 package GameModel.Player;
 
 
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
@@ -94,9 +94,9 @@ public class Player implements IPlayer {
 
 		return false;
 	}
-	public void sellItem(Item item, Integer refund) throws Exception {
+	public void sellItem(Item item, Integer refund) throws GameException {
 		if (!hasItem(item)){
-			throw new Exception("Item not found", "Cannot sell an item you don't have");
+			throw new GameException("Item not found", "Cannot sell an item you don't have");
 		}
 
 		grantGold(refund);
@@ -175,7 +175,7 @@ public class Player implements IPlayer {
 
 
 
-	public Player(final String id) throws Exception {
+	public Player(final String id) throws GameException {
 		this.id=id;
 
 		hp=PlayerConstants.MAX_HEALTH;
@@ -201,7 +201,7 @@ public class Player implements IPlayer {
 
 	}
 
-	public Player(final String id, final GeoPos pos) throws Exception {
+	public Player(final String id, final GeoPos pos) throws GameException {
 		this(id);
 		this.geoPos= pos;
 	}

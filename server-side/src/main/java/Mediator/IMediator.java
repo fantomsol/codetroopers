@@ -3,7 +3,7 @@ package Mediator;
 import GameModel.Item.Item;
 import GameModel.Lootbox.ILootbox;
 import GameModel.GameUtils.GeoPos;
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.Player.IPlayer;
 import com.corundumstudio.socketio.SocketIOClient;
 
@@ -48,6 +48,6 @@ public interface IMediator {
 
 	void changeAvatar(String playerId, String avatarId);
 
-	void sendPlayerSpecificException(IPlayer p,Exception exception);
-	void sendException(Exception exception);
+	void sendPlayerSpecificException(IPlayer p,GameException gameException);
+	void sendException(GameException gameException);
 }

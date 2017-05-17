@@ -1,21 +1,20 @@
 package Mediator;
 
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Lootbox.ILootbox;
 import GameModel.Player.IPlayer;
 import GameModel.Shop.IShop;
-import Mediator.ServerModelMediator;
 
 /**
  * Created by latiif on 5/12/17.
  */
 public interface IWorld {
-	void createNewPlayer(String name) throws Exception;
+	void createNewPlayer(String name) throws GameException;
 
 	void setMediator(ServerModelMediator mediator);
 
-	void changeWeapon(String playerId, Integer weaponID) throws Exception;
+	void changeWeapon(String playerId, Integer weaponID) throws GameException;
 
 	IShop getShop();
 
@@ -23,17 +22,17 @@ public interface IWorld {
 
 	IPlayer getPlayer(IPlayer p);
 
-	void performAttack(String attackerId, String attackeeId) throws Exception;
+	void performAttack(String attackerId, String attackeeId) throws GameException;
 
-	IPlayer getPlayerById(String id) throws Exception;
+	IPlayer getPlayerById(String id) throws GameException;
 
 	void registerPlayer(IPlayer IPlayer);
 
-	void playerChangePos(String id, GeoPos newPos) throws Exception;
+	void playerChangePos(String id, GeoPos newPos) throws GameException;
 
 	void updateLootboxes(IPlayer player);
 
 	void setPlayerAvatar(IPlayer player, String avatarId);
 
-	void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws Exception;
+	void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws GameException;
 }

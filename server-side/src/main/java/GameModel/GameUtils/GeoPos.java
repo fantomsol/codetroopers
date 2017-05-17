@@ -16,7 +16,7 @@ public class GeoPos {
 		longitude=null;
 	}
 
-	public GeoPos(Double latitude, Double longitude) throws Exception {
+	public GeoPos(Double latitude, Double longitude) throws GameException {
 		setLatitude(latitude);
 		setLongitude(longitude);
 	}
@@ -29,16 +29,16 @@ public class GeoPos {
 		return this.longitude;
 	}
 
-	void setLatitude(Double newLatitude) throws Exception {
+	void setLatitude(Double newLatitude) throws GameException {
 		if (abs(newLatitude)>90){
-			throw new Exception("Invalid latitude value","Latitude values is not correct: "+newLatitude);
+			throw new GameException("Invalid latitude value","Latitude values is not correct: "+newLatitude);
 		}
 		this.latitude=newLatitude;
 	}
 
-	void setLongitude(Double newLongitude) throws Exception {
+	void setLongitude(Double newLongitude) throws GameException {
 		if (abs(newLongitude)>180) {
-			throw new Exception("Invalid longitude value","Longitude values is not correct: " + newLongitude);
+			throw new GameException("Invalid longitude value","Longitude values is not correct: " + newLongitude);
 		}
 			this.longitude=newLongitude;
 	}

@@ -1,4 +1,4 @@
-import GameModel.GameUtils.Exception;
+import GameModel.GameUtils.GameException;
 import GameModel.GameUtils.GeoDistance;
 import GameModel.GameUtils.GeoPos;
 import org.junit.Assert;
@@ -19,7 +19,7 @@ public class GeoDistanceTest {
 				p2=new GeoPos(Math.random() * 90 + -90,Math.random() * 180 + -180);
 
 				Assert.assertEquals(GeoDistance.getDistance(p2,p1), GeoDistance.getDistance(p1,p2));
-			} catch (Exception e) {
+			} catch (GameException e) {
 				e.printStackTrace();
 			}
 
