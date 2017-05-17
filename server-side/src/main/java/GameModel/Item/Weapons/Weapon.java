@@ -1,5 +1,7 @@
 package GameModel.Item.Weapons;
 
+import GameModel.GameUtils.Exceptions.GameException;
+
 /**
  * Created by latiif on 3/29/17.
  */
@@ -12,9 +14,9 @@ public abstract class Weapon implements IWeapon {
 		setIsOnCooldown(false);
 	}
 
-	public Integer fireWeapon() {
+	public Integer fireWeapon() throws GameException {
 		if (getIsOnCooldown()){
-			return 0;
+			throw new GameException("Weapon on cooldown","Wait untill the cooldown is finished");
 		}else {
 			new Thread(new WeaponCooldown(this)).start();
 

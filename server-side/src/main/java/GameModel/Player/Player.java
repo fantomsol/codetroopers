@@ -138,12 +138,12 @@ public class Player implements IPlayer {
 
 	}
 
-	public void buyItem(Item item){
+	public void buyItem(Item item) throws GameException {
 		if (item.getCost()>this.gold){
-			return;
+			throw new GameException("Insufficient funds","Life is hard, deal with it!");
 		}
 		if (hasItem(item)){
-			return;
+			throw new GameException("Item owned","You already have the item");
 		}
 
 
@@ -237,23 +237,20 @@ public class Player implements IPlayer {
 
 
 
-	public void attackOtherPlayer(final IPlayer otherPlayer) {
+	public void attackOtherPlayer(final IPlayer otherPlayer) throws GameException {
 		if (!getIsAlive()) {
-			return;
+			throw new GameException("Dead fighter!","You cannot attack when you're dead");
 		}
 
 		if (!otherPlayer.getIsAlive()) {
-			return;
+			throw new GameException("Ghost hunter","You cannot attack the dead");
 		}
 
 		if (GeoDistance.getDistance(otherPlayer.getGeoPos(), this.geoPos) > this.weaponEquipped.getRange()) {
-			return;
+			throw new GameException("Out of range","They are out of your reach");
 		}
 
 		Integer damage = this.weaponEquipped.fireWeapon();
-		if (damage == 0) {
-			return;
-		}
 
 
 		otherPlayer.getAttacked(damage);
@@ -298,7 +295,7 @@ public class Player implements IPlayer {
 		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
 	}
 
-	public void goOffline(){
+	public void goOffline() throws GameException {
 		if (!isOnline()){
 			return;
 		}
@@ -306,6 +303,9 @@ public class Player implements IPlayer {
 		if (getCanGoOffline()){
 			onlineStatus=false;
 			setCanGoOffline(false);
+		}
+		else {
+			throw new GameException("Invisibility cloak is on cooldown","You cannot go offline yet");
 		}
 
 

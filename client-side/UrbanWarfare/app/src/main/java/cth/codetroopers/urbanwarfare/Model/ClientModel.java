@@ -1,6 +1,7 @@
 package cth.codetroopers.urbanwarfare.Model;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -8,13 +9,13 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cth.codetroopers.urbanwarfare.Model.EventChannels.IConnectivityLayer;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.ILoadUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.ILootboxUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.IOpponentsUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.IPlayerUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.IShopUpdateListener;
 import cth.codetroopers.urbanwarfare.Model.EventChannels.LoadingStates;
+import cth.codetroopers.urbanwarfare.Model.Skeletons.GameException;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
 import cth.codetroopers.urbanwarfare.UrbanWarfare;
@@ -96,6 +97,13 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         shop = newShop;
     }
 
+    @Override
+    public void onExceptionReceived(GameException gameException) {
+        Log.i("EXCEPTION",gameException.getTitle()+" : "+gameException.getMsg());
+
+        UrbanWarfare.getInstance().showToast(gameException.getTitle()+" :"+gameException.getMsg());
+    }
+
     public void consumeLootbox(LatLng coord) {
         layer.consumeLootboxRequest(coord);
     }
@@ -111,7 +119,6 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     @Override
     public void onDataFetched() {
-        //loadingView.onLoadingCompleted();
         updateLoadlisteners(LoadingStates.COMPLETE);
 
     }

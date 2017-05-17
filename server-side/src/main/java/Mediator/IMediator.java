@@ -29,7 +29,7 @@ public interface IMediator {
 
 	void getShopItems(String id);
 
-	void changeRadarStatus(String id,boolean wantedStatus);
+	void changeRadarStatus(String id,boolean wantedStatus) throws GameException;
 
 	void consumeLootbox(String  playerId, GeoPos geoPos);
 

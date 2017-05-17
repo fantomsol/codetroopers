@@ -22,7 +22,7 @@ public interface IPlayer {
 
 	void sellItem(Item item, Integer refund) throws GameException;
 
-	void buyItem(Item item);
+	void buyItem(Item item) throws GameException;
 
 	Double getHp();
 
@@ -34,11 +34,11 @@ public interface IPlayer {
 
 	void getAttacked(Integer damage);
 
-	void attackOtherPlayer(IPlayer otherPlayer);
+	void attackOtherPlayer(IPlayer otherPlayer) throws GameException;
 
 	void goOnline();
 
-	void goOffline();
+	void goOffline() throws GameException;
 
 	Boolean isOnline();
 

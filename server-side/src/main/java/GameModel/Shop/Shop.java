@@ -32,7 +32,7 @@ public class Shop implements IShop {
     }
 
 
-    public void buyItem(IPlayer IPlayer, Item item) {
+    public void buyItem(IPlayer IPlayer, Item item) throws GameException {
         IPlayer.buyItem(item);
     }
 

@@ -14,7 +14,7 @@ import java.util.List;
 
 
 import cth.codetroopers.urbanwarfare.GameUtils.SkeletonFactory;
-import cth.codetroopers.urbanwarfare.Model.EventChannels.IConnectivityLayer;
+import cth.codetroopers.urbanwarfare.Model.IConnectivityLayer;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -204,7 +204,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         socket.on("server-side-exception", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.i("Exception from server",args.toString());
+                mListener.onExceptionReceived(SkeletonFactory.getGameException((JSONObject) args[0]));
             }
         });
     }

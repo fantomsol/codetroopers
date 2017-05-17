@@ -24,6 +24,9 @@ public abstract class Exp {
 
 
     public static Integer getExpOnAttackingUnarmed(Integer attackerXp){
-       return (attackerXp-10);
+        if (attackerXp>10) {
+            return (attackerXp - 10);
+        }
+        return 0;
     }
 }

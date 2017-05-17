@@ -1,4 +1,4 @@
-package cth.codetroopers.urbanwarfare.Model.EventChannels;
+package cth.codetroopers.urbanwarfare.Model;
 
 import android.location.Location;
 
@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.Skeletons.GameException;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
 
@@ -34,6 +35,8 @@ public interface IConnectivityLayer {
         void onPlayerDataRecieved(PlayerSkeleton player);
 
         void updateShop(ShopSkeleton skeleton);
+
+        void onExceptionReceived(GameException gameException);
     }
 
 

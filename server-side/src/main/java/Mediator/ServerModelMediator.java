@@ -44,7 +44,7 @@ public class ServerModelMediator implements IMediator {
 		}
 	}
 
-	public void changeRadarStatus(String id, boolean wantToGoOnline) {
+	public void changeRadarStatus(String id, boolean wantToGoOnline) throws GameException {
 		IPlayer p=getPlayerById(id);
 
 		if (wantToGoOnline) {

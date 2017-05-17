@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface IShop {
     List<Item> getItems() throws GameException;
-    void buyItem(IPlayer IPlayer, Item item);
+    void buyItem(IPlayer IPlayer, Item item) throws GameException;
     void sellItem(IPlayer IPlayer, Item item) throws GameException;
     Item getItem(Integer itemID, String itemType) throws GameException;
 }

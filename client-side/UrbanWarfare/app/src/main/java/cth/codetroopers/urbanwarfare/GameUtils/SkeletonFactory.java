@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import cth.codetroopers.urbanwarfare.Model.Skeletons.GameException;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.urbanwarfare.Model.Skeletons.ShopSkeleton;
 
@@ -40,6 +41,10 @@ public class SkeletonFactory {
 
 
         return new ShopSkeleton(array);
+    }
+
+    public static GameException getGameException(JSONObject object){
+        return new GameException(object);
     }
 
 }
