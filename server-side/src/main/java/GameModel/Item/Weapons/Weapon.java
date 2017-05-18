@@ -1,5 +1,6 @@
 package GameModel.Item.Weapons;
 
+import GameModel.GameUtils.Exceptions.CooldownException;
 import GameModel.GameUtils.Exceptions.GameException;
 
 /**
@@ -14,9 +15,9 @@ public abstract class Weapon implements IWeapon {
 		setIsOnCooldown(false);
 	}
 
-	public Integer fireWeapon() throws GameException {
+	public Integer fireWeapon() throws CooldownException {
 		if (getIsOnCooldown()){
-			throw new GameException("Weapon on cooldown","Wait untill the cooldown is finished");
+			throw new CooldownException("Wait untill the cooldown is finished");
 		}else {
 			new Thread(new WeaponCooldown(this)).start();
 

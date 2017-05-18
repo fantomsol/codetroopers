@@ -1,7 +1,7 @@
 package GameModel.Player;
 
 
-import GameModel.GameUtils.Exceptions.GameException;
+import GameModel.GameUtils.Exceptions.*;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Player.Avatar.Avatar;
 import GameModel.Player.Experience.Exp;
@@ -28,7 +28,9 @@ import java.util.List;
  * Created by latiif on 3/22/17.
  */
 public class Player implements IPlayer {
-
+	public Integer getArmour() {
+		return armour;
+	}
 
 	private Boolean onlineStatus=false;
 	private Boolean canGoOffline=false;
@@ -175,7 +177,7 @@ public class Player implements IPlayer {
 
 
 
-	public Player(final String id) throws GameException {
+	public Player(final String id) throws FactoryException {
 		this.id=id;
 
 		hp=PlayerConstants.MAX_HEALTH;
@@ -201,7 +203,7 @@ public class Player implements IPlayer {
 
 	}
 
-	public Player(final String id, final GeoPos pos) throws GameException {
+	public Player(final String id, final GeoPos pos) throws GeographicalException,FactoryException {
 		this(id);
 		this.geoPos= pos;
 	}
@@ -231,23 +233,23 @@ public class Player implements IPlayer {
 			isAlive=false;
 			score.increaseDeaths();
 			this.rank=Rank.getRank(this.exp);
-			(new RespawnCooldown(10, this)).start();
+			(new RespawnCooldown(PlayerConstants.RESPAWN_COOLDWON, this)).start();
 		}
 	}
 
 
 
-	public void attackOtherPlayer(final IPlayer otherPlayer) throws GameException {
+	public void attackOtherPlayer(final IPlayer otherPlayer) throws CombatException,CooldownException {
 		if (!getIsAlive()) {
-			throw new GameException("Dead fighter!","You cannot attack when you're dead");
+			throw new CombatException("You cannot attack when you're dead");
 		}
 
 		if (!otherPlayer.getIsAlive()) {
-			throw new GameException("Ghost hunter","You cannot attack the dead");
+			throw new CombatException("You cannot attack the dead");
 		}
 
 		if (GeoDistance.getDistance(otherPlayer.getGeoPos(), this.geoPos) > this.weaponEquipped.getRange()) {
-			throw new GameException("Out of range","They are out of your reach");
+			throw new CombatException("They are out of your reach");
 		}
 
 		Integer damage = this.weaponEquipped.fireWeapon();

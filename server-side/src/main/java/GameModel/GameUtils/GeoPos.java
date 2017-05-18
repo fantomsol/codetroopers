@@ -2,6 +2,7 @@ package GameModel.GameUtils;
 
 
 import GameModel.GameUtils.Exceptions.GameException;
+import GameModel.GameUtils.Exceptions.GeographicalException;
 
 import static java.lang.Math.abs;
 
@@ -18,7 +19,7 @@ public class GeoPos {
 		longitude=null;
 	}
 
-	public GeoPos(Double latitude, Double longitude) throws GameException {
+	public GeoPos(Double latitude, Double longitude) throws GeographicalException {
 		setLatitude(latitude);
 		setLongitude(longitude);
 	}
@@ -31,16 +32,16 @@ public class GeoPos {
 		return this.longitude;
 	}
 
-	void setLatitude(Double newLatitude) throws GameException {
+	void setLatitude(Double newLatitude) throws GeographicalException {
 		if (abs(newLatitude)>90){
-			throw new GameException("Invalid latitude value","Latitude values is not correct: "+newLatitude);
+			throw new GeographicalException("Latitude values is not correct: "+newLatitude);
 		}
 		this.latitude=newLatitude;
 	}
 
-	void setLongitude(Double newLongitude) throws GameException {
+	void setLongitude(Double newLongitude) throws GeographicalException {
 		if (abs(newLongitude)>180) {
-			throw new GameException("Invalid longitude value","Longitude values is not correct: " + newLongitude);
+			throw new GeographicalException("Longitude values is not correct: " + newLongitude);
 		}
 			this.longitude=newLongitude;
 	}

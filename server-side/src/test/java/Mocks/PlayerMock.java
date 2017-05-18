@@ -1,5 +1,7 @@
 package Mocks;
 
+import GameModel.GameUtils.Exceptions.CombatException;
+import GameModel.GameUtils.Exceptions.FactoryException;
 import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
@@ -48,6 +50,10 @@ public class PlayerMock implements IPlayer{
 		return null;
 	}
 
+	public Integer getArmour() {
+		return null;
+	}
+
 	public void updatePos(GeoPos newPos) {
 
 	}
@@ -56,7 +62,7 @@ public class PlayerMock implements IPlayer{
 
 	}
 
-	public void attackOtherPlayer(IPlayer otherPlayer) throws GameException {
+	public void attackOtherPlayer(IPlayer otherPlayer) throws CombatException {
 
 	}
 

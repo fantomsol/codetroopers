@@ -1,5 +1,7 @@
 package GameModel.Player;
 
+import GameModel.GameUtils.Exceptions.CombatException;
+import GameModel.GameUtils.Exceptions.CooldownException;
 import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
@@ -30,11 +32,14 @@ public interface IPlayer {
 
 	Boolean getIsAlive();
 
+	Integer getArmour();
+
+
 	void updatePos(GeoPos newPos);
 
 	void getAttacked(Integer damage);
 
-	void attackOtherPlayer(IPlayer otherPlayer) throws GameException;
+	void attackOtherPlayer(IPlayer otherPlayer) throws CooldownException,CombatException;
 
 	void goOnline();
 

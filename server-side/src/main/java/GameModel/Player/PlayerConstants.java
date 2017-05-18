@@ -7,7 +7,7 @@ package GameModel.Player;
  */
 public class PlayerConstants {
 
-	final static Double MAX_HEALTH = 100.0;
+	public final static Double MAX_HEALTH = 100.0;
 	final static Integer START_GOLD = 100;
 	final static Integer START_EXP = 200;
 
@@ -16,10 +16,12 @@ public class PlayerConstants {
 
 
 	//Offline cooldown in seconds
-	final static Integer START_COOLDOWN = 2;
+	public final static Integer START_COOLDOWN = 2;
 
+	//Respawn cooldown
+	public final static Integer RESPAWN_COOLDWON=5;
 
-	final static Double damageCaluculation(final Integer damage, final Integer armour){
+	public final static Double damageCaluculation(final Integer damage, final Integer armour){
 		return (damage*100.0)/(100+armour);
 	}
 

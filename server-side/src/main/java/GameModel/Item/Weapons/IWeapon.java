@@ -1,5 +1,6 @@
 package GameModel.Item.Weapons;
 
+import GameModel.GameUtils.Exceptions.CooldownException;
 import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Item;
 
@@ -9,7 +10,7 @@ import GameModel.Item.Item;
 public interface IWeapon extends Item {
 
 
-	Integer fireWeapon() throws GameException;
+	Integer fireWeapon() throws CooldownException;
 
 	//Damage is a percentage
 	Integer getDamage();
