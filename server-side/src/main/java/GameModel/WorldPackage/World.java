@@ -100,7 +100,7 @@ public class World implements IWorld {
 
 
 	private void revivePlayer(final IPlayer p){
-		new Runnable() {
+		Thread thread=new Thread(new Runnable() {
 			public void run() {
 				while (true){
 					try {
@@ -124,7 +124,9 @@ public class World implements IWorld {
 					mediator.updateNearbyPlayers(p);
 				}
 			}
-		}.run();
+		});
+
+		thread.start();
 	}
 
 
@@ -154,7 +156,9 @@ public class World implements IWorld {
 		//someone who's offline cannot see anyone
 		player.getPlayersNearby().clear();
 		//update the player's nearby list
-		mediator.updateNearbyPlayers(player);
+		if (mediator!=null) {
+			mediator.updateNearbyPlayers(player);
+		}
 
 		updateLootboxes(player);
 	}
@@ -252,7 +256,9 @@ public class World implements IWorld {
 		}
 
 		System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
-		mediator.updateLootbox(player,visibleLootboxes);
+		if (mediator!=null) {
+			mediator.updateLootbox(player, visibleLootboxes);
+		}
 	}
 
 	public void setPlayerAvatar(IPlayer player, String avatarId) {
