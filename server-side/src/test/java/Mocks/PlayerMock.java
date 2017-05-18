@@ -1,6 +1,7 @@
 package Mocks;
 
 import GameModel.GameUtils.Exceptions.CombatException;
+import GameModel.GameUtils.Exceptions.CooldownException;
 import GameModel.GameUtils.Exceptions.FactoryException;
 import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.GameUtils.GeoPos;
@@ -70,7 +71,7 @@ public class PlayerMock implements IPlayer{
 
 	}
 
-	public void goOffline() throws GameException {
+	public void goOffline() throws CooldownException {
 
 	}
 

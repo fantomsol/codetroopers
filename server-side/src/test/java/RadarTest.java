@@ -1,7 +1,13 @@
+import GameModel.GameUtils.Exceptions.CooldownException;
+import GameModel.GameUtils.Exceptions.FactoryException;
+import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Player.IPlayer;
 import GameModel.Player.Player;
+import GameModel.Player.PlayerConstants;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -9,37 +15,31 @@ import org.junit.Test;
  */
 public class RadarTest {
 	@Test
-	public void goOnlineTest() throws InterruptedException {
-		/*
+	public void goOnlineTest() throws InterruptedException, FactoryException {
+
 		IPlayer p=new Player("p");
 		p.goOnline();
 
 		Assert.assertTrue(p.isOnline());
 		Assert.assertTrue(!p.getCanGoOffline());
 
-		p.goOffline();
+		//Add one second margin to make sure
+		TimeUnit.SECONDS.sleep(PlayerConstants.START_COOLDOWN+1);
 
-		Assert.assertTrue(p.isOnline());
 
-		Thread.sleep(p.getOfflineCooldown()*1000);
+		try {
+			p.goOffline();
+		} catch (CooldownException e) {
+			//Should be able to go offline
+			Assert.assertTrue(1==2);
+		}
 
-		Assert.assertTrue(p.isOnline());
-*/
-	}
-
-	@Test
-	public void goOfflineTest() throws InterruptedException {
-		/*
-		IPlayer p= new Player("p");
-
-		p.goOnline();
-		Thread.sleep(p.getOfflineCooldown()*1000+10);
-
-		Assert.assertTrue(p.getCanGoOffline());
-		p.goOffline();
 		Assert.assertTrue(!p.isOnline());
 
-*/
+		p.goOnline();
+
+		Assert.assertTrue(p.isOnline());
+
 	}
 
 }

@@ -297,7 +297,7 @@ public class Player implements IPlayer {
 		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
 	}
 
-	public void goOffline() throws GameException {
+	public void goOffline() throws CooldownException {
 		if (!isOnline()){
 			return;
 		}
@@ -307,7 +307,7 @@ public class Player implements IPlayer {
 			setCanGoOffline(false);
 		}
 		else {
-			throw new GameException("Invisibility cloak is on cooldown","You cannot go offline yet");
+			throw new CooldownException("You cannot go offline yet");
 		}
 
 

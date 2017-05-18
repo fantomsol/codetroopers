@@ -43,7 +43,7 @@ public interface IPlayer {
 
 	void goOnline();
 
-	void goOffline() throws GameException;
+	void goOffline() throws CooldownException;
 
 	Boolean isOnline();
 
