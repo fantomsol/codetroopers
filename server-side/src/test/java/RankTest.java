@@ -1,3 +1,4 @@
+import GameModel.GameUtils.Exceptions.*;
 import GameModel.Item.Weapons.WeaponsDirectory;
 import GameModel.Item.Weapons.WeaponsFactory;
 import GameModel.GameUtils.GeoPos;
@@ -11,13 +12,13 @@ import org.junit.Test;
  * Created by lumo on 05/05/17.
  */
 public class RankTest {
-/*
+
     @Test
-    public void killEqual(){
-        IPlayer Nemo = new Player("Nemo");
+    public void killEqual() throws FactoryException, CooldownException, CombatException, GeographicalException {
+        IPlayer Nemo = new Player("Nemo", new GeoPos(0.0,0.0));
         Nemo.setHp(1.0);
         Nemo.setExp(400);
-        Player Fafne = new Player("Fafne");
+        Player Fafne = new Player("Fafne", new GeoPos(0.0,0.0));
         Fafne.setHp(1.0);
         Fafne.setExp(400);
 
@@ -27,7 +28,7 @@ public class RankTest {
     }
 
     @Test
-    public void attackUnArmed(){
+    public void attackUnArmed() throws GameException {
         IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
         IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
 
@@ -50,7 +51,7 @@ public class RankTest {
     }
 
     @Test
-    public void killUnArmed(){
+    public void killUnArmed() throws GameException {
         IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
         IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
 
@@ -69,18 +70,18 @@ public class RankTest {
 
         world.performAttack("kalle","palle");
 
-        Assert.assertTrue(palle.getIsAlive()==false);
-        Assert.assertTrue(kalle.getExp()==(exp-10));
+        Assert.assertTrue(!palle.getIsAlive());
+        Assert.assertTrue(kalle.getExp().equals(exp-10));
 
     }
 
 
     @Test
-    public void killStrong(){
-        IPlayer Nemo = new Player("Nemo");
+    public void killStrong() throws FactoryException, CooldownException, CombatException, GeographicalException {
+        IPlayer Nemo = new Player("Nemo", new GeoPos(0.0,0.0));
         Nemo.setHp(1.0);
         Nemo.setExp(400);
-        Player Fafne = new Player("Fafne");
+        Player Fafne = new Player("Fafne", new GeoPos(0.0,0.0));
         Fafne.setHp(1.0);
         Fafne.setExp(800);
 
@@ -89,6 +90,6 @@ public class RankTest {
         Assert.assertTrue(Fafne.getExp()==720);
     }
 
-    */
+
 
 }
