@@ -20,9 +20,27 @@ public class GeoDistanceTest {
 
 				Assert.assertEquals(GeoDistance.getDistance(p2,p1), GeoDistance.getDistance(p1,p2));
 			} catch (GameException e) {
-				e.printStackTrace();
+				//Should not get here
+				Assert.assertTrue(1==2);
 			}
 
+		}
+	}
+
+	@Test
+	public void invalidGeoPosVariableTest(){
+		try {
+			GeoPos point = new GeoPos(888.0,75.0);
+		} catch (GameException e) {
+			//Should throw and exception here
+			Assert.assertTrue(true);
+		}
+
+		try {
+			GeoPos point = new GeoPos(-88.0,125.0);
+		} catch (GameException e) {
+			//Should throw and exception here
+			Assert.assertTrue(true);
 		}
 
 

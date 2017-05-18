@@ -1,5 +1,7 @@
 package GameModel.Lootbox;
 
+import GameModel.GameUtils.Exceptions.EmptyLootbox;
+import GameModel.GameUtils.Exceptions.FactoryException;
 import GameModel.GameUtils.Exceptions.GameException;
 import GameModel.Item.Armours.ArmoursFactory;
 import GameModel.Item.Weapons.WeaponsFactory;
@@ -25,13 +27,15 @@ public class Lootbox implements ILootbox {
 		this.mArmour=armour;
 	}
 
+
 	public GeoPos getGeoPos() {
 		return mGeoPos;
 	}
 
-	public void consume(IPlayer player) throws GameException {
+	public void consume(IPlayer player) throws EmptyLootbox,FactoryException {
 		player.grantGold(getGold());
 		if (getWeapon()==null || getWeapon()==0){
+			throw new EmptyLootbox("This lootbox has no weapons");
 		}
 		else {
 			player.grantWeapon(WeaponsFactory.createWeapon(getWeapon()));
@@ -39,6 +43,7 @@ public class Lootbox implements ILootbox {
 
 
 		if (getArmour()==null || getArmour()==0){
+			throw new EmptyLootbox("This lootbox has no armours");
 		}
 		else {
 			player.grantArmour(ArmoursFactory.createArmour(getArmour()));
