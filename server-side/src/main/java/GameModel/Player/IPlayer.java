@@ -1,8 +1,6 @@
 package GameModel.Player;
 
-import GameModel.GameUtils.Exceptions.CombatException;
-import GameModel.GameUtils.Exceptions.CooldownException;
-import GameModel.GameUtils.Exceptions.GameException;
+import GameModel.GameUtils.Exceptions.*;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
@@ -22,9 +20,9 @@ public interface IPlayer {
 
 	void grantGold(Integer amount);
 
-	void sellItem(Item item, Integer refund) throws GameException;
+	void sellItem(Item item, Integer refund) throws NoItemException;
 
-	void buyItem(Item item) throws GameException;
+	void buyItem(Item item) throws InsufficientException, DuplicateItemException;
 
 	Double getHp();
 

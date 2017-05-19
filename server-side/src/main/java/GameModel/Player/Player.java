@@ -96,9 +96,9 @@ public class Player implements IPlayer {
 
 		return false;
 	}
-	public void sellItem(Item item, Integer refund) throws GameException {
+	public void sellItem(Item item, Integer refund) throws NoItemException {
 		if (!hasItem(item)){
-			throw new GameException("Item not found", "Cannot sell an item you don't have");
+			throw new NoItemException("Cannot sell an item you don't have");
 		}
 
 		grantGold(refund);
@@ -140,12 +140,12 @@ public class Player implements IPlayer {
 
 	}
 
-	public void buyItem(Item item) throws GameException {
+	public void buyItem(Item item) throws InsufficientException, DuplicateItemException {
 		if (item.getCost()>this.gold){
-			throw new GameException("Insufficient funds","Life is hard, deal with it!");
+			throw new InsufficientException("Life is hard, deal with it!");
 		}
 		if (hasItem(item)){
-			throw new GameException("Item owned","You already have the item");
+			throw new DuplicateItemException("You already have the item");
 		}
 
 

@@ -1,9 +1,6 @@
 package Mocks;
 
-import GameModel.GameUtils.Exceptions.CombatException;
-import GameModel.GameUtils.Exceptions.CooldownException;
-import GameModel.GameUtils.Exceptions.FactoryException;
-import GameModel.GameUtils.Exceptions.GameException;
+import GameModel.GameUtils.Exceptions.*;
 import GameModel.GameUtils.GeoPos;
 import GameModel.Item.Armours.IArmour;
 import GameModel.Item.Item;
@@ -31,12 +28,17 @@ public class PlayerMock implements IPlayer{
 		gold+=amount;
 	}
 
-	public void sellItem(Item item, Integer refund) throws GameException {
-
+	public void sellItem(Item item, Integer refund) throws NoItemException {
+		gold+=refund;
 	}
 
-	public void buyItem(Item item) throws GameException {
+	public void buyItem(Item item) throws InsufficientException, DuplicateItemException {
+		if (gold-item.getCost()<0){
+			throw new InsufficientException("NOT ENOUGH");
+		}
 
+
+		gold-=item.getCost();
 	}
 
 	public Double getHp() {
