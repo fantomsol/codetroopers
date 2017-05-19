@@ -1,9 +1,18 @@
+import GameModel.GameUtils.Exceptions.DuplicateItemException;
+import GameModel.GameUtils.Exceptions.FactoryException;
 import GameModel.GameUtils.Exceptions.GameException;
+import GameModel.GameUtils.Exceptions.InsufficientException;
 import GameModel.Item.Armours.ArmoursDirectory;
 import GameModel.Item.Item;
+import GameModel.Item.Weapons.IWeapon;
+import GameModel.Item.Weapons.Sniper;
 import GameModel.Item.Weapons.WeaponsDirectory;
+import GameModel.Player.IPlayer;
 import GameModel.Shop.IShop;
 import GameModel.Shop.Shop;
+import GameModel.Shop.ShopConstants;
+import Mocks.WeaponMock;
+import Mocks.PlayerMock;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,8 +29,8 @@ public class ShopTest {
         List<Item> items= null;
         try {
             items = shop.getItems();
-        } catch (GameException e) {
-            System.out.println(e);
+        } catch (FactoryException e) {
+            Assert.assertTrue(1==2);
         }
 
         Assert.assertEquals(WeaponsDirectory.NUMBER_OF_WEAPONS+ ArmoursDirectory.NUMBER_OF_ARMOURS,items.size());
@@ -29,57 +38,62 @@ public class ShopTest {
     }
 
     @Test
-    public void itemBuyTest(){
-        /*
-        IPlayer p1 =  new Player("hugo",new GeoPos(0.0,0.0));
+    public void itemBuyTest() throws FactoryException {
+
+        IPlayer p1 =  new PlayerMock();
+        IWeapon weapon = new WeaponMock();
         IShop shop = new Shop();
 
 
+        p1.grantGold(weapon.getCost()-100);
         int goldF=p1.getGold();
 
-        shop.buyItem(p1,new Sniper());
+        try {
+            shop.buyItem(p1, weapon);
+        } catch (DuplicateItemException e) {
+            Assert.assertTrue(1==2);
+        } catch (InsufficientException e) {
+           Assert.assertTrue(true);
+        }
 
         Assert.assertTrue(p1.getGold()== goldF);
 
         p1.grantGold(100);
 
-        shop.buyItem(p1,new Sniper());
+        try {
+            shop.buyItem(p1,weapon);
+        } catch (DuplicateItemException e) {
+            Assert.assertTrue(1==2);
+        } catch (InsufficientException e) {
+            Assert.assertTrue(1==2);
+        }
 
-       // Assert.assertTrue(p1.getGold()==new Integer(0));
-       */
+
     }
 
     @Test
-    public void itemSellTest(){
-        /*
-        Player p1 =  new Player("hugo",new GeoPos(0.0,0.0));
+    public void itemSellTest() throws InsufficientException, DuplicateItemException {
+
+        IPlayer p1 =  new PlayerMock();
         IShop shop = new Shop();
 
-        Sniper sniper= new Sniper();
+        IWeapon weapon= new WeaponMock();
 
-        p1.grantGold(100);
+        p1.grantGold(weapon.getCost());
 
-        shop.buyItem(p1, sniper);
-
-
-        p1.weaponEquipped=sniper;
-
-        Assert.assertTrue(p1.weaponEquipped.getId()==WeaponsDirectory.SNIPER);
-
-        shop.sellItem(p1,sniper);
+        shop.buyItem(p1, weapon);
 
 
+        try {
+            shop.sellItem(p1,weapon);
+        } catch (GameException e) {
+            Assert.assertTrue(1==2);
+        }
 
 
-        Assert.assertTrue(p1.getGold()==100);
+        Assert.assertTrue(p1.getGold()==weapon.getCost()* ShopConstants.REFUND_PERCENTAGE);
 
 
 
-        Assert.assertTrue(p1.weaponEquipped.getId()==WeaponsDirectory.PISTOL);
-
-
-
-
-*/
     }
 }
