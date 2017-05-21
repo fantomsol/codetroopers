@@ -1,7 +1,6 @@
 package com.cth.codetroopers.pixelwars.serverside.ServerController;
 
-import GameModel.ServerController.EventListeners.*;
-import GameModel.ServerController.EventObjects.*;
+
 import Mediator.IMediator;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.cth.codetroopers.pixelwars.serverside.ServerController.EventListeners.*;

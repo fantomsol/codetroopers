@@ -1,6 +1,6 @@
 package com.cth.codetroopers.pixelwars.serverside.Player;
 
-import GameModel.GameUtils.Exceptions.*;
+
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
