@@ -1,6 +1,6 @@
 package Mocks;
 
-import GameModel.Item.Weapons.Weapon;
+import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.Weapon;
 
 /**
  * Created by latiif on 5/19/17.

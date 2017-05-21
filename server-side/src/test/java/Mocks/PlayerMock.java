@@ -1,13 +1,13 @@
 package Mocks;
 
-import GameModel.GameUtils.Exceptions.*;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Item.Armours.IArmour;
-import GameModel.Item.Item;
-import GameModel.Item.Weapons.IWeapon;
-import GameModel.Player.Avatar.Avatar;
-import GameModel.Player.IPlayer;
-import GameModel.Ranking.Ranks;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
+import com.cth.codetroopers.pixelwars.serverside.Item.Item;
+import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
+import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
-import GameModel.GameUtils.Exceptions.*;
-import GameModel.Item.Weapons.WeaponsDirectory;
-import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
-import GameModel.WorldPackage.World;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
+import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
+import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.World;
 import org.junit.Assert;
 import org.junit.Test;
 

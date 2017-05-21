@@ -1,11 +1,8 @@
-import GameModel.GameUtils.Exceptions.EmptyLootbox;
-import GameModel.GameUtils.Exceptions.FactoryException;
-import GameModel.GameUtils.Exceptions.GameException;
-import GameModel.Lootbox.ILootbox;
-import GameModel.Lootbox.Lootbox;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.EmptyLootbox;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
+import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
+import com.cth.codetroopers.pixelwars.serverside.Lootbox.Lootbox;
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import Mocks.PlayerMock;
 import org.junit.Assert;
 import org.junit.Test;

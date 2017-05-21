@@ -1,13 +1,11 @@
-import GameModel.GameUtils.Exceptions.CombatException;
-import GameModel.GameUtils.Exceptions.CooldownException;
-import GameModel.GameUtils.Exceptions.FactoryException;
-import GameModel.GameUtils.Exceptions.GeographicalException;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Item.Weapons.WeaponsDirectory;
-import GameModel.Item.Weapons.WeaponsFactory;
-import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
-import GameModel.Player.PlayerConstants;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CombatException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CooldownException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GeographicalException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerConstants;
 import org.junit.Assert;
 import org.junit.Test;
 

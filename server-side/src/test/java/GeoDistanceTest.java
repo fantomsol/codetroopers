@@ -1,6 +1,6 @@
-import GameModel.GameUtils.Exceptions.GameException;
-import GameModel.GameUtils.GeoDistance;
-import GameModel.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import org.junit.Assert;
 import org.junit.Test;
 

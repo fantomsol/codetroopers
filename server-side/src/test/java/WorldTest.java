@@ -1,11 +1,3 @@
-import GameModel.GameUtils.GeoDistance;
-import GameModel.GameUtils.GeoPos;
-import GameModel.Player.IPlayer;
-import GameModel.Player.Player;
-import GameModel.WorldPackage.World;
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
  * Created by latiif on 4/1/17.
  */
