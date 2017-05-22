@@ -276,7 +276,9 @@ public class World implements IWorld {
 
 				lootboxes.remove(lootbox);
 
-				mediator.playerChangePos(playerId,player.getGeoPos());
+				if (mediator!=null) {
+					mediator.playerChangePos(playerId, player.getGeoPos());
+				}
 
 				break;
 			}

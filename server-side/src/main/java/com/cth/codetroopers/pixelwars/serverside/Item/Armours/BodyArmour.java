@@ -3,7 +3,7 @@ package com.cth.codetroopers.pixelwars.serverside.Item.Armours;
 /**
  * Created by Hugo on 2017-05-04.
  */
-public class BodyArmour implements IArmour {
+ class BodyArmour implements IArmour {
     private final Integer id= 3;
     private static String name="Body IArmour";
     private final Integer value = 100;

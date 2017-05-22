@@ -3,7 +3,7 @@ package com.cth.codetroopers.pixelwars.serverside.Item.Armours;
 /**
  * Created by Hugo on 2017-04-25.
  */
-public class RighteousGlory implements IArmour {
+ class RighteousGlory implements IArmour {
     private final Integer id= 2;
     private static String name="Righteous Glory";
     private final Integer value = 45;
