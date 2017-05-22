@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hugo on 5/1/17.
+ * Created by Hugo on 5/1/17.
  */
 public class Shop implements IShop {
     public List<Item> getItems() throws FactoryException {
