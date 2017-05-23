@@ -7,12 +7,12 @@ import com.cth.codetroopers.pixelwars.serverside.Item.Item;
  */
 public interface IArmour extends Item {
 
-	public Integer getId();
+	Integer getId();
 
-	public String getName();
+	String getName();
 
 	//The value of the Armours
-	public Integer getValue();
+	Integer getValue();
 
 
 

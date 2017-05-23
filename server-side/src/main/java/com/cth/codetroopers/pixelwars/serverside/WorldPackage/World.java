@@ -180,7 +180,7 @@ public class World implements IWorld {
 			}
 
 			boolean pSeesOp = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= IPlayer.getVision();
-			boolean opSeesP = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= oIPlayer.getVision();;
+			boolean opSeesP = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= oIPlayer.getVision();
 
 
 			//Player sees the other player

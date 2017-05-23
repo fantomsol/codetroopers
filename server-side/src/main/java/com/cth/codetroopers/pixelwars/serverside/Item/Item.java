@@ -4,11 +4,11 @@ package com.cth.codetroopers.pixelwars.serverside.Item;
  * Created by latiif on 3/28/17.
  */
 public interface Item {
-	public Integer getId();
+	Integer getId();
 
-	public String getName();
+	String getName();
 
-	public Integer getCost();
+	Integer getCost();
 
 	String getItemType();
 }
