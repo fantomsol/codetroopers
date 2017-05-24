@@ -17,7 +17,7 @@ public class Main {
 		World world= new World();
 
 		Server server= new Server();
-		server.startServer();
+	    server.startServer();
 
 		//world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
 		//world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
