@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">PixelTroopers</string>
+    <string name="app_name">PixelWarfare</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_main">PixelTroopers</string>
+    <string name="title_activity_main">PixelWarfare</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_in">Log in</string>
-    <string name="title_activity_testmainact">TESTMAINACT</string>
     <string name="enter_your_id_here">Enter your id here</string>
 
 

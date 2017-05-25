@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cth.codetroopers.urbanwarfare">
+    package="cth.codetroopers.pixelwarfare">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".UrbanWarfare"
+        android:name="cth.codetroopers.pixelwarfare.PixelWarfare"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,7 +32,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Controllers.LoginController"
+            android:name="cth.codetroopers.pixelwarfare.Controllers.LoginController"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,15 +41,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.ChooseWeapon"></activity>
+        <activity android:name="cth.codetroopers.pixelwarfare.Activities.ChooseWeapon"></activity>
 
-        <activity android:name=".Controllers.LoadingController"></activity>
+        <activity android:name="cth.codetroopers.pixelwarfare.Controllers.LoadingController"></activity>
 
-        <activity android:name=".Controllers.MainController"></activity>
+        <activity android:name="cth.codetroopers.pixelwarfare.Controllers.MainController"></activity>
 
-        <activity android:name=".Controllers.ShopViewController"></activity>
+        <activity android:name="cth.codetroopers.pixelwarfare.Controllers.ShopViewController"></activity>
 
-        <activity android:name=".Controllers.AvatarSelectionController"></activity>
+        <activity android:name="cth.codetroopers.pixelwarfare.Controllers.AvatarSelectionController"></activity>
 
 
     </application>
