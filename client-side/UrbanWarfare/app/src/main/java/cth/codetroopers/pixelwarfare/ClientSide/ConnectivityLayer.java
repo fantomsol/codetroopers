@@ -23,8 +23,6 @@ import io.socket.emitter.Emitter;
  * This class serves as a two-way gate that takes care of communication between the android
  * implementation of the game and it's classes, and the remote server
  *
- * This class membder methods and variables are all static, because there is no point in instantiating a single-purpose connection layer.
- *
  * All communication with the server is performed via and by this class
  *
  * @author latiif
@@ -52,7 +50,12 @@ JSON is readable by humans, and supported by our Networking framework (SocketIO)
 
 public class ConnectivityLayer implements IConnectivityLayer {
 
-  private String playerID;
+    /**
+     * The Id of player who's signed in to the server within the game
+     * This variable is set when the sign-in process is successfully accomplished.
+     */
+    private String playerID;
+
     private boolean firstFetch=true;
 
     private ConnectivityListener mListener;
@@ -77,9 +80,8 @@ public class ConnectivityLayer implements IConnectivityLayer {
     }
 
     /**
-     * This staic method is called whenever the user request a change in their online/offline radar status. Whether the request is granted or not is handled on the server and NOT here.
+     * This method is called whenever the user request a change in their online/offline radar status. Whether the request is granted or not is handled on the server and NOT here.
      */
-
     @Override
     public  void requestChangeRadarStatus(boolean currentStatus){
         JSONObject object= new JSONObject();
@@ -95,27 +97,10 @@ public class ConnectivityLayer implements IConnectivityLayer {
         socket.emit("change-radar-status",object);
     }
 
-    /**
-     * The Id of player who's signed in to the server within the game
-     * This variable is set when the sign-in process is successfully accomplished.
-     */
+
 
     /**
-     * A JSON object that encapsulates all the data needed about the player, this object's content is dynamically updated by the server and sent to the client.
-     *
-     * Whenever this class get's a oldplayer-info event from the server and the sent data is that of the current oldplayer, this object is updated.
-     * @see ConnectivityLayer#addListeners()
-     */
-    public  JSONObject playerInfo;
-
-    /**
-     * An array of JSON objects that stores a list of the nearby opponents that can be seen by the player.
-     *
-     * This list is updated when the class gets an nearby-players-update event
-     * @see ConnectivityLayer#addListeners()
-
-    /**
-     * The client socket that is created for the sole purpose of sending and recieving events from/to the remote server.
+     * The client socket that is created for the sole purpose of sending and receiving events from/to the remote server.
      * This object is assigned on Init() method.
      *
      * @see ConnectivityLayer#Init()
@@ -159,7 +144,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
 
         /**
-         * When the list of the neaby players gets updated on the server this event is sent and it contains a list of the new players that can be seen by this player.
+         * When the list of the nearby players gets updated on the server this event is sent and it contains a list of the new players that can be seen by this player.
          *
          * The sent array is then converted into a list and stored in the opponents list
          *
@@ -234,7 +219,6 @@ public class ConnectivityLayer implements IConnectivityLayer {
                 /*
                 Prompts the loadingActivity that connection is established
                  */
-               // loadingActivity.onConnected();
                 mListener.onConnected();
             }
         });
@@ -278,10 +262,6 @@ public class ConnectivityLayer implements IConnectivityLayer {
         JSONObject object= new JSONObject();
 
         /*
-        Converting the Location object to LatLng object
-         */
-
-        /*
         Filling in the data required by the event.
         Look at the specifications for this event in the code of the server
          */
@@ -297,11 +277,6 @@ public class ConnectivityLayer implements IConnectivityLayer {
             socket.emit("position-changed",object);
 
             Log.i("position-changed", String.valueOf(position.latitude)+" "+position.longitude);
-
-            /*
-            Fetches the updated data of the player from the server
-             */
-           // requestPlayerInformation(playerID);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -332,7 +307,6 @@ public class ConnectivityLayer implements IConnectivityLayer {
         /*
         Prompts loadingActivity that signing in is ongoing
          */
-       // loadingActivity.onSignedin();
         mListener.onSignedin();
 
     }
@@ -354,7 +328,6 @@ public class ConnectivityLayer implements IConnectivityLayer {
         /*
         Prompts loadingActivity that signing in is ongoing
          */
-        // loadingActivity.onSignedin();
        mListener.onSignedup();
 
     }
@@ -381,7 +354,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
      * NOTE: No logic is processed here, all is done on the server.
      * This event can be sent even if the weapon is on cooldown, it's up to the server to perform the suitable action.
      *
-     * @param otherPlayerId The id of the oldplayer that the current oldplayer is going to attack
+     * @param otherPlayerId The id of the other player that the current player is going to attack
      */
     @Override
     public  void attack(final String otherPlayerId){
@@ -401,7 +374,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
     /**
      * Asks the server to fetch back a JSON object containing all the information about a specific player.
      *
-     * Usage: Can be used to either fetch information on the current oldplayer, or when viewing other oldplayer's profile
+     * Usage: Can be used to either fetch information on the current player, or when viewing other player's profile
      *
      * @param id
      */
