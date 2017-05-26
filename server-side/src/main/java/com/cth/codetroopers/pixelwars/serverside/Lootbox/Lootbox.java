@@ -33,8 +33,10 @@ public class Lootbox implements ILootbox {
 
 	public void consume(IPlayer player) throws EmptyLootbox,FactoryException {
 		player.grantGold(getGold());
+		boolean noWeapon=false,noArmour=false;
+
 		if (getWeapon()==null || getWeapon()==0){
-			throw new EmptyLootbox("This lootbox has no weapons");
+			noWeapon=true;
 		}
 		else {
 			player.grantWeapon(WeaponsFactory.createWeapon(getWeapon()));
@@ -42,12 +44,15 @@ public class Lootbox implements ILootbox {
 
 
 		if (getArmour()==null || getArmour()==0){
-			throw new EmptyLootbox("This lootbox has no armours");
+			noArmour=true;
 		}
 		else {
 			player.grantArmour(ArmoursFactory.createArmour(getArmour()));
 		}
 
+		if (noArmour && noWeapon){
+			throw new EmptyLootbox("No items to be looted in here");
+		}
 
 	}
 
