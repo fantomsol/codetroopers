@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import cth.codetroopers.pixelwarfare.ClientSide.ConnectivityLayer;
@@ -50,7 +51,7 @@ public class LocationHandler {
     /**
      * The constructor takes a Context object as its parameter and initializes the LocationListener and LocationManager objects.
      *
-     * @param context the activity that requests LOCATION_SERVICE service.
+     * @param mainController the activity that requests LOCATION_SERVICE service.
      */
     public LocationHandler(final IMainController mainController) {
 
@@ -106,7 +107,7 @@ public class LocationHandler {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-            ActivityCompat.requestPermissions((Activity)mainController.getContext(), new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
+            ActivityCompat.requestPermissions(mainController.getContext(), new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
                    1 );
 
         }else {
@@ -119,7 +120,10 @@ public class LocationHandler {
         }
 
 
+
+
     }
+
 
 
 }

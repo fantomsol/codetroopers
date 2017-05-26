@@ -2,6 +2,7 @@ package cth.codetroopers.pixelwarfare.Controllers;
 
 import android.content.Context;
 import android.location.Location;
+import android.support.v7.app.AppCompatActivity;
 
 import cth.codetroopers.pixelwarfare.Views.IMainView;
 
@@ -13,6 +14,6 @@ public interface IMainController extends IMainView.MapListener,IMainView.PanelCo
 
     void onLocationChanged(Location location);
 
-    Context getContext();
+    AppCompatActivity getContext();
 
 }

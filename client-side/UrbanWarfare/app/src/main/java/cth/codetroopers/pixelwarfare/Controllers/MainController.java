@@ -1,15 +1,22 @@
 package cth.codetroopers.pixelwarfare.Controllers;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.model.LatLng;
+
+import java.security.Permission;
+import java.security.Permissions;
 
 import cth.codetroopers.pixelwarfare.Activities.ChooseWeapon;
 import cth.codetroopers.pixelwarfare.Model.ClientModel;
@@ -43,10 +50,20 @@ public class MainController extends AppCompatActivity implements IMainController
 
         setContentView(mainView.getRootView());
 
-        locationHandler= new LocationHandler(this);
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getContext(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }else {
+            attachLocationHandler();
+        }
+
 
     }
 
+    private void attachLocationHandler(){
+        locationHandler= new LocationHandler(this);
+    }
     @Override
     protected void onStart() {
         super.onStart();
@@ -96,9 +113,17 @@ public class MainController extends AppCompatActivity implements IMainController
     }
 
     @Override
-    public Context getContext() {
-        return this.getApplicationContext();
+    public AppCompatActivity getContext() {
+        return this;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode==1){
+            if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                attachLocationHandler();
 
+            }
+        }
+    }
 }
