@@ -81,7 +81,7 @@ public class PlayerTest {
 		p1.getAttacked(9001);
 
 		Assert.assertTrue(!p1.getIsAlive());
-		TimeUnit.SECONDS.sleep(PlayerConstants.RESPAWN_COOLDWON);
+		TimeUnit.SECONDS.sleep(PlayerConstants.RESPAWN_COOLDWON+1);
 
 		Assert.assertTrue(p1.getIsAlive());
 		Assert.assertTrue(p1.getHp().equals(PlayerConstants.MAX_HEALTH));

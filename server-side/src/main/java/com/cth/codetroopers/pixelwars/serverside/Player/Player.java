@@ -265,8 +265,6 @@ public class Player implements IPlayer {
 					otherPlayer.setExp(Exp.getExpOnKilled(otherPlayer.getExp()));
 					this.rank = Rank.getRank(this.exp);
 				}
-
-				System.out.println(this.rank + "\n" + otherPlayer.getRank());
 			}
 		}
 	}
