@@ -26,30 +26,35 @@ public class Main {
 
 
 		IPlayer p2= null;
+		IPlayer p3=null;
+		IPlayer p4= null;
 		IPlayer p1=null;
 		try {
-			p1= new Player("llusx",new GeoPos(0.0,0.0));
+			p1= new Player("Siboan",new GeoPos(57.689459,11.976648));
 
-			p2 = new Player("sara",new GeoPos(0.0,0.0));
+			p2 = new Player("Karma",new GeoPos(57.688656,11.977313));
 
-			p1.setHp(10.0);
+			p3 = new Player("Kyle",new GeoPos(57.689442, 11.979899));
 
+
+			p4= new Player("Jim",new GeoPos(57.689235, 11.978043));
+
+
+			p1.setAvatar(Avatar.SIBOAN);
 			p2.setAvatar(Avatar.KARMA);
+			p3.setAvatar(Avatar.KYLE);
+			p4.setAvatar(Avatar.JIM);
 
-			p1.setExp(5500);
-			p2.setExp(7500);
 
 			p1.goOnline();
 			p2.goOnline();
-
-
-
-			p2.grantGold(2000);
-			p2.buyItem(WeaponsFactory.createWeapon(WeaponsDirectory.SNIPER));
+			p3.goOnline();
 
 
 			world.registerPlayer(p1);
 			world.registerPlayer(p2);
+			world.registerPlayer(p3);
+			world.registerPlayer(p4);
 
 		} catch (GameException e) {
 			e.printStackTrace();
