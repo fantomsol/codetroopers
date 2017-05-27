@@ -16,16 +16,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/opponent"/>
+        app:srcCompat="@drawable/avatar_jim"/>
 
     <TextView
         android:id="@+id/txtNameOpponent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
-        app:layout_constraintLeft_toRightOf="@+id/image"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text='"player"'/>
+        tools:text='"player"'
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <ImageView
         android:id="@+id/imgHealthCross"
@@ -48,23 +50,23 @@
 
     <ImageView
         android:id="@+id/imgRank"
-        android:layout_width="20px"
-        android:layout_height="20px"
-        app:srcCompat="@drawable/rank_serjeant"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.13"
+        android:layout_width="36px"
+        android:layout_height="36px"
         android:layout_marginLeft="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.13"
+        app:srcCompat="@drawable/rank_serjeant"/>
 
     <ImageView
         android:id="@+id/imageWeaponequipped"
-        android:layout_width="36px"
-        android:layout_height="36px"
-        app:srcCompat="@drawable/whiteflag"
+        android:layout_width="42px"
+        android:layout_height="42px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="12dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:srcCompat="@drawable/whiteflag"/>
 
 </android.support.constraint.ConstraintLayout>
