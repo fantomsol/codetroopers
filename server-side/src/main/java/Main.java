@@ -2,6 +2,7 @@ import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameExcept
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.Lootbox.Lootbox;
 import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.Player.Player;
@@ -19,8 +20,7 @@ public class Main {
 		Server server= new Server();
 	    server.startServer();
 
-		//world.addLootbox(new Lootbox(new GeoPos(0.00001,0.0001),250,3,1));
-		//world.addLootbox(new Lootbox(new GeoPos(-0.00001,-0.0001),250,5,0));
+
 
 		new ServerModelMediator(server,world);
 
@@ -29,8 +29,11 @@ public class Main {
 		IPlayer p3=null;
 		IPlayer p4= null;
 		IPlayer p1=null;
+		IPlayer tester=null;
 		try {
-			p1= new Player("Siboan",new GeoPos(57.689459,11.976648));
+
+
+			p1= new Player("Siboan",new GeoPos(57.689288, 11.972061));
 
 			p2 = new Player("Karma",new GeoPos(57.688656,11.977313));
 
@@ -40,27 +43,39 @@ public class Main {
 			p4= new Player("Jim",new GeoPos(57.689235, 11.978043));
 
 
-			p1.setAvatar(Avatar.SIBOAN);
-			p2.setAvatar(Avatar.KARMA);
-			p3.setAvatar(Avatar.KYLE);
-			p4.setAvatar(Avatar.JIM);
+			world.addLootbox(new Lootbox(new GeoPos(57.692545, 11.981632),250,3,1));
+			world.addLootbox(new Lootbox(new GeoPos(57.687028, 11.978112),250,5,0));
 
-
-			p1.goOnline();
-			p2.goOnline();
-			p3.goOnline();
-
-
-			world.registerPlayer(p1);
-			world.registerPlayer(p2);
-			world.registerPlayer(p3);
-			world.registerPlayer(p4);
+			tester=new Player("Pixel",new GeoPos(57.690148, 11.973070));
 
 		} catch (GameException e) {
 			e.printStackTrace();
 		}
 
 
+			p1.setAvatar(Avatar.SIBOAN);
+			p2.setAvatar(Avatar.KARMA);
+			p3.setAvatar(Avatar.KYLE);
+			p4.setAvatar(Avatar.JIM);
 
+			tester.setAvatar(Avatar.LOTUS);
+
+			tester.grantGold(1000);
+
+			p1.setExp(500);
+			p2.setExp(3000);
+			p3.setExp(6000);
+			p4.setExp(9500);
+
+			p1.goOnline();
+			p2.goOnline();
+			p3.goOnline();
+			p4.goOnline();
+
+			world.registerPlayer(tester);
+			world.registerPlayer(p1);
+			world.registerPlayer(p2);
+			world.registerPlayer(p3);
+			world.registerPlayer(p4);
 	}
 }
