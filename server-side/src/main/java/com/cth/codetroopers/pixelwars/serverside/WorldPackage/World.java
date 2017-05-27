@@ -163,44 +163,45 @@ public class World implements IWorld {
 	}
 
 	public void playerChangePos(final String id, final GeoPos newPos) throws GameException {
-		IPlayer IPlayer = getPlayerById(id);
-		IPlayer.updatePos(newPos);
+		IPlayer player = getPlayerById(id);
+		player.updatePos(newPos);
 
-		if (!IPlayer.isOnline()){
-			goOffline(IPlayer);
+		if (!player.isOnline()){
+			goOffline(player);
+			mediator.updatePlayer(player);
 			return;
 		}
 
-		for (IPlayer oIPlayer :players.values()){
-			if (!oIPlayer.isOnline()){
+		for (IPlayer oPlayer :players.values()){
+			if (!oPlayer.isOnline()){
 				continue;
 			}
-			if (IPlayer.equals(oIPlayer)){
+			if (player.equals(oPlayer)){
 				continue;
 			}
 
-			boolean pSeesOp = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= IPlayer.getVision();
-			boolean opSeesP = GeoDistance.getDistance(IPlayer.getGeoPos(), oIPlayer.getGeoPos())<= oIPlayer.getVision();
+			boolean pSeesOp = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<= player.getVision();
+			boolean opSeesP = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<= oPlayer.getVision();
 
 
 			//Player sees the other player
 			if (pSeesOp){
 
 				//The other player was already in the vicinity of player
-				if (IPlayer.getPlayersNearby().contains(oIPlayer)){
+				if (player.getPlayersNearby().contains(oPlayer)){
 
 				}
 
 				//The other player has just entered player's vision range
-				if (!IPlayer.getPlayersNearby().contains(oIPlayer)){
-					IPlayer.addNearbyPlayer(oIPlayer);
+				if (!player.getPlayersNearby().contains(oPlayer)){
+					player.addNearbyPlayer(oPlayer);
 				}
 			}else {
 				//Player does not see oPlayer
 
 				//if other player is no longer in player's vision range
-				if (IPlayer.getPlayersNearby().contains(oIPlayer)){
-					IPlayer.removeNearbyPlayer(oIPlayer);
+				if (player.getPlayersNearby().contains(oPlayer)){
+					player.removeNearbyPlayer(oPlayer);
 				}
 			}
 
@@ -211,33 +212,33 @@ public class World implements IWorld {
 			if (opSeesP){
 
 				//The other player was already in the vicinity of player
-				if (oIPlayer.getPlayersNearby().contains(IPlayer)){
+				if (oPlayer.getPlayersNearby().contains(player)){
 
 				}
 
 				//The other player has just entered player's vision range
-				if (!oIPlayer.getPlayersNearby().contains(IPlayer)){
-					oIPlayer.addNearbyPlayer(IPlayer);
+				if (!oPlayer.getPlayersNearby().contains(player)){
+					oPlayer.addNearbyPlayer(player);
 				}
 			}else {
 				//Player does not see oPlayer
 
 				//if other player is no longer in player's vision range
-				if (oIPlayer.getPlayersNearby().contains(IPlayer)){
-					oIPlayer.removeNearbyPlayer(IPlayer);
+				if (oPlayer.getPlayersNearby().contains(player)){
+					oPlayer.removeNearbyPlayer(player);
 				}
 			}
-			mediator.updateNearbyPlayers(oIPlayer);
-			updateLootboxes(oIPlayer);
+			mediator.updateNearbyPlayers(oPlayer);
+			updateLootboxes(oPlayer);
 		}
 
-		mediator.updatePlayer(IPlayer);
-		mediator.updateNearbyPlayers(IPlayer);
+		mediator.updatePlayer(player);
+		mediator.updateNearbyPlayers(player);
 
 
 		///Check for lootboxes
 
-		updateLootboxes(IPlayer);
+		updateLootboxes(player);
 
 	}
 
