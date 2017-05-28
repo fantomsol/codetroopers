@@ -18,7 +18,7 @@ To run the server, you can just use the commands
 
 `mvn package`
 
-And then head to the folder *target* and then run
+ Then head to the folder *target* and run
 
 `java -jar PixelWarfare-Server-1.0.jar`
 
@@ -35,11 +35,16 @@ This project, starts the server on localhost listenting to port `3000`, to facil
 As of the date of this file, Android Studio's Emulator uses the address ```10.0.2.2``` to access the host's localhost address.
 
 ##
+If you want to login, use the the existing id "Pixel", or just create your own. 
+
+**Note** that you'll first be spawned on coordinates  (0,0), since the emulator has no predefined coordinates.
+
 To simulate the movement in the eumlator we use the built in controller for the emulator:
 ![Extended controls for Android Emulator](http://i.imgur.com/MZW7jpY.png)
 
-One can simulate moving to a specific coordinate and then clicking on send to simulate the location change for the emulator.
+One can simulate moving to a specific coordinate to simulate the location change for the emulator.
 
 Other option is loading a GPX file with predefined coordinates to simulate walking on a path.
 
-
+A precompiled list of GPX files with coordinates around Johannaberg campus is available in the folder GPX-files
+## 
