@@ -5,7 +5,7 @@ package com.cth.codetroopers.pixelwars.serverside.Item.Armours;
  */
  class BodyArmour implements IArmour {
     private final Integer id= 3;
-    private static String name="Body IArmour";
+    private static String name="Body Armour";
     private final Integer value = 100;
     private final Integer cost = 400;
 
