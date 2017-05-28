@@ -46,6 +46,24 @@ public class ResourceDirectory {
         }
     }
 
+    public static int getArmourImage(WeaponSkeleton weapon){
+        switch (weapon.getId()){
+            case 1:
+                return R.drawable.shield_of_valor;
+            case 2:
+                return R.drawable.sniper;
+            case 3:
+                return R.drawable.rifle;
+            case 4:
+                return R.drawable.kevlar;
+            case 5:
+                return R.drawable.helmet;
+            default:
+                return 0;
+
+        }
+    }
+
     public static int getAvatarImage(String name) {
         switch (name){
             case "JIM":

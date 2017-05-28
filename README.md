@@ -8,7 +8,7 @@ Abdullatif alShriaf (latiif) [llusx](https://github.com/llusx)
 
 Hugo Ekelund [hugormen](https://github.com/Hugormen)
 
-Lovisa Landgren [lumoIt](https://github.com/LumoIT)
+Lovisa Landgren [lumoIT](https://github.com/LumoIT)
 
  
 ## Getting started
