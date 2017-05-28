@@ -58,6 +58,10 @@ public class Main {
 			p3.setAvatar(Avatar.KYLE);
 			p4.setAvatar(Avatar.JIM);
 
+			p1.setHp(50.0);
+			p2.setHp(30.0);
+			p3.setHp(10.0);
+
 			tester.setAvatar(Avatar.LOTUS);
 
 			tester.grantGold(1000);
