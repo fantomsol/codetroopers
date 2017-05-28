@@ -4,7 +4,7 @@ import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CooldownEx
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 
 /**
- * Created by latiif on 3/22/17.
+ * Created by latiif and Hugo on 3/22/17.
  */
 public interface IWeapon extends Item {
 

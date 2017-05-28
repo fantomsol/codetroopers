@@ -2,7 +2,7 @@ package com.cth.codetroopers.pixelwars.serverside.Item.Armours;
 
 
 /**
- * Created by latiif on 3/22/17.
+ * Created by latiif and Hugo on 3/22/17.
  */
 public final class ArmoursDirectory {
 
