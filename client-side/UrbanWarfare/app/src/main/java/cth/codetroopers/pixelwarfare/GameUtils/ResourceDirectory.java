@@ -53,7 +53,7 @@ public class ResourceDirectory {
             case 2:
                 return R.drawable.sniper;
             case 3:
-                return R.drawable.rifle;
+                return R.drawable.body_armour;
             case 4:
                 return R.drawable.kevlar;
             case 5:
