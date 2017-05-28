@@ -1,5 +1,6 @@
 package cth.codetroopers.pixelwarfare.GameUtils;
 
+import cth.codetroopers.pixelwarfare.Model.Skeletons.ArmourSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.WeaponSkeleton;
 import cth.codetroopers.pixelwarfare.R;
@@ -46,7 +47,7 @@ public class ResourceDirectory {
         }
     }
 
-    public static int getArmourImage(WeaponSkeleton weapon){
+    public static int getArmourImage(ArmourSkeleton weapon){
         switch (weapon.getId()){
             case 1:
                 return R.drawable.shield_of_valor;

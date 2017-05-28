@@ -156,7 +156,7 @@ public class ShopItemsAdapter extends ArrayAdapter<Object> {
 
 
             //TODO add pics for armours
-            //imageView.setImageResource(ResourceDirectory.getWeaponImage(weapon));
+            imageView.setImageResource(ResourceDirectory.getArmourImage(armour));
 
             return customView;
         }
