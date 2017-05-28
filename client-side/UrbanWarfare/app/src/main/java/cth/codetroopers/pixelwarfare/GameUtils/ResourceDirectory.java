@@ -52,7 +52,7 @@ public class ResourceDirectory {
             case 1:
                 return R.drawable.shield_of_valor;
             case 2:
-                return R.drawable.sniper;
+                return R.drawable.righteous_glory;
             case 3:
                 return R.drawable.body_armour;
             case 4:
