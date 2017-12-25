@@ -22,7 +22,7 @@ public class RankTest {
         Fafne.setHp(1.0);
         Fafne.setExp(400);
 
-        Nemo.attackOtherPlayer(Fafne);
+        Nemo.attackPlayer(Fafne);
         Assert.assertTrue(Nemo.getExp()==450);
         Assert.assertTrue(Fafne.getExp()==360);
     }
@@ -85,7 +85,7 @@ public class RankTest {
         Fafne.setHp(1.0);
         Fafne.setExp(800);
 
-        Nemo.attackOtherPlayer(Fafne);
+        Nemo.attackPlayer(Fafne);
         Assert.assertTrue(Nemo.getExp()==600);
         Assert.assertTrue(Fafne.getExp()==720);
     }

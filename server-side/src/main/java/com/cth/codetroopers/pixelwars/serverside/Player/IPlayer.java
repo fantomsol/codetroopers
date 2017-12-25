@@ -38,7 +38,7 @@ public interface IPlayer {
 
 	void getAttacked(Integer damage);
 
-	void attackOtherPlayer(IPlayer otherPlayer) throws CooldownException,CombatException;
+	void attackPlayer(IPlayer otherPlayer) throws CooldownException, CombatException;
 
 	void goOnline();
 
@@ -62,8 +62,6 @@ public interface IPlayer {
 
 	Integer getExp();
 
-	GeoPos getGeoPos();
-
 	Integer getVision();
 
 	Integer getGold();
@@ -83,7 +81,6 @@ public interface IPlayer {
 	List<IPlayer> getPlayersNearby();
 
 	void addNearbyPlayer(IPlayer IPlayer);
-
 
 	void removeNearbyPlayer(IPlayer IPlayer);
 }

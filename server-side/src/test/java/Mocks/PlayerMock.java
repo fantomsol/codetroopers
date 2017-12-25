@@ -65,7 +65,7 @@ public class PlayerMock implements IPlayer{
 
 	}
 
-	public void attackOtherPlayer(IPlayer otherPlayer) throws CombatException {
+	public void attackPlayer(IPlayer otherPlayer) throws CombatException {
 
 	}
 

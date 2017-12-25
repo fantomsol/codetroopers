@@ -38,7 +38,7 @@ public class PlayerTest {
 		Assert.assertTrue(p1!=null && p2!=null);
 
 		try {
-			p1.attackOtherPlayer(p2);
+			p1.attackPlayer(p2);
 		} catch (CooldownException e) {
 			Assert.assertTrue(1==2);
 		} catch (CombatException e) {
@@ -61,7 +61,7 @@ public class PlayerTest {
 		p2.setHp(2.0);
 
 		while (p2.getIsAlive()){
-			p1.attackOtherPlayer(p2);
+			p1.attackPlayer(p2);
 		}
 
 

@@ -84,7 +84,7 @@ public class World implements IWorld {
 			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
 		}
 
-		attacker.attackOtherPlayer(attackee);
+		attacker.attackPlayer(attackee);
 
 		if (mediator!=null) {
 			mediator.updateNearbyPlayers(attacker);

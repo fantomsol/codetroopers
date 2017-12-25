@@ -100,6 +100,7 @@ public class Player implements IPlayer {
 
 		return false;
 	}
+
 	public void sellItem(Item item, Integer refund) throws NoItemException {
 		if (!hasItem(item)){
 			throw new NoItemException("Cannot sell an item you don't have");
@@ -166,10 +167,6 @@ public class Player implements IPlayer {
 		}
 
 	}
-	public IWeapon weaponEquipped;
-
-	private final String id;
-
 
 
 	private void updateArmourValue(){
@@ -178,7 +175,6 @@ public class Player implements IPlayer {
 			armour+=a.getValue();
 		}
 	}
-
 
 
 	public Player(final String id) throws FactoryException {
@@ -203,26 +199,12 @@ public class Player implements IPlayer {
 
 		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.PISTOL));
 		weaponEquipped =weapons.get(0);
-
-
 	}
 
 
 	public Player(final String id, final GeoPos pos) throws GeographicalException,FactoryException {
 		this(id);
 		this.geoPos= pos;
-	}
-
-	public Double getHp(){
-		return Double.valueOf(hp);
-	}
-
-	public Ranks getRank() {
-		return this.rank;
-	}
-
-	public Boolean getIsAlive(){
-		return isAlive;
 	}
 
 	public void updatePos(final GeoPos newPos){
@@ -244,7 +226,7 @@ public class Player implements IPlayer {
 
 
 
-	public void attackOtherPlayer(final IPlayer otherPlayer) throws CombatException,CooldownException {
+	public void attackPlayer(final IPlayer otherPlayer) throws CombatException,CooldownException {
 		if (!getIsAlive()) {
 			throw new CombatException("You cannot attack when you're dead");
 		}
@@ -273,6 +255,7 @@ public class Player implements IPlayer {
 			}
 		}
 	}
+
 
 	@Override
 	public String toString(){
@@ -318,7 +301,39 @@ public class Player implements IPlayer {
 
 	}
 
-	public Boolean isOnline(){
+
+	@JsonIgnore
+	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
+
+	public List<IPlayer> getPlayersNearby(){
+		return (this.playersNearby);
+	}
+
+	public void addNearbyPlayer(IPlayer IPlayer){
+		this.playersNearby.add(IPlayer);
+	}
+
+
+	public void removeNearbyPlayer(IPlayer IPlayer) {
+		this.playersNearby.remove(IPlayer);
+	}
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Player)) {
+			return false;
+		}
+		Player other = (Player) o;
+		return this.id.equals(other.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	public Boolean isOnline() {
 		return onlineStatus;
 	}
 
@@ -385,7 +400,6 @@ public class Player implements IPlayer {
 		return gold;
 	}
 
-
 	public Avatar getAvatar() {
 		return avatar;
 	}
@@ -402,39 +416,8 @@ public class Player implements IPlayer {
 		return isAlive;
 	}
 
-	@JsonIgnore
-	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
-
 	public Integer getOfflineCooldown() {
 		return this.offlineCooldown;
 	}
-
-	public void addNearbyPlayer(IPlayer IPlayer){
-		this.playersNearby.add(IPlayer);
-	}
-
-
-	public void removeNearbyPlayer(IPlayer IPlayer){
-		this.playersNearby.remove(IPlayer);
-	}
-
-	public void setIsAlive (boolean life) {
-		this.isAlive = life;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Player)) {
-			return false;
-		}
-		Player other = (Player) o;
-		return this.id.equals(other.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return id.hashCode();
-	}
-
 
 }
