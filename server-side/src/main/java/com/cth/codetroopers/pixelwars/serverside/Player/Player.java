@@ -55,6 +55,10 @@ public class Player implements IPlayer {
 	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
 	private Ranks rank = Ranks.PRIVATE;
 
+	public IWeapon weaponEquipped;
+
+	private final String id;
+
 	@JsonProperty
 	private List<IWeapon> weapons = new ArrayList<IWeapon>();
 
@@ -203,6 +207,7 @@ public class Player implements IPlayer {
 
 	}
 
+
 	public Player(final String id, final GeoPos pos) throws GeographicalException,FactoryException {
 		this(id);
 		this.geoPos= pos;
@@ -295,6 +300,7 @@ public class Player implements IPlayer {
 		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
 	}
 
+
 	public void goOffline() throws CooldownException {
 		if (!isOnline()){
 			return;
@@ -316,9 +322,7 @@ public class Player implements IPlayer {
 		return onlineStatus;
 	}
 
-	public Integer getOfflineCooldown(){
-		return this.offlineCooldown;
-	}
+	// SETTERS
 
 	public void grantWeapon(IWeapon weapon) {
 		weapons.add(weapon);
@@ -329,45 +333,16 @@ public class Player implements IPlayer {
 		updateArmourValue();
 	}
 
-	public void setCanGoOffline(Boolean value){
-		this.canGoOffline=value;
-	}
-
-	public IWeapon getWeaponEquipped() {
-		return weaponEquipped;
-	}
-
-	public Boolean getCanGoOffline(){
-		return canGoOffline;
-	}
-
-	public String getID(){
-		return this.id;
-	}
-
-	public Integer getExp() {
-		return exp;
-	}
-
-	public GeoPos getGeoPos(){
-		return this.geoPos;
-	}
-
-	public Integer getVision(){
-		return this.vision;
-	}
-
-	public Integer getGold(){
-		return gold;
-	}
-
-
-	public Avatar getAvatar() {
-		return avatar;
-	}
-
 	public void setAvatar(Avatar a) {
 		avatar = a;
+	}
+
+	public void setCanGoOffline(Boolean value) {
+		this.canGoOffline = value;
+	}
+
+	public void setIsAlive(boolean life) {
+		this.isAlive = life;
 	}
 
 	public void setHp(Double hp) {
@@ -376,14 +351,62 @@ public class Player implements IPlayer {
 
 	public void setExp(Integer exp) {
 		this.exp = exp;
-		this.rank=Rank.getRank(this.exp);
+		this.rank = Rank.getRank(this.exp);
+	}
+
+
+	// GETTERS
+
+	public IWeapon getWeaponEquipped() {
+		return weaponEquipped;
+	}
+
+	public Boolean getCanGoOffline() {
+		return canGoOffline;
+	}
+
+	public String getID() {
+		return this.id;
+	}
+
+	public Integer getExp() {
+		return exp;
+	}
+
+	public GeoPos getGeoPos() {
+		return this.geoPos;
+	}
+
+	public Integer getVision() {
+		return this.vision;
+	}
+
+	public Integer getGold() {
+		return gold;
+	}
+
+
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public Double getHp() {
+		return Double.valueOf(hp);
+	}
+
+	public Ranks getRank() {
+		return this.rank;
+	}
+
+	public Boolean getIsAlive() {
+		return isAlive;
 	}
 
 	@JsonIgnore
 	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
 
-	public List<IPlayer> getPlayersNearby(){
-		return (this.playersNearby);
+	public Integer getOfflineCooldown() {
+		return this.offlineCooldown;
 	}
 
 	public void addNearbyPlayer(IPlayer IPlayer){

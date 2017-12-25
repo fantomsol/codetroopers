@@ -49,11 +49,13 @@ public interface IPlayer {
 	Integer getOfflineCooldown();
 
 	void grantWeapon(IWeapon weapon);
+
 	void grantArmour(IArmour armour);
 
 	void setCanGoOffline(Boolean value);
 
 	IWeapon getWeaponEquipped();
+
 	Boolean getCanGoOffline();
 
 	String getID();
@@ -68,13 +70,15 @@ public interface IPlayer {
 
 	Avatar getAvatar();
 
+	GeoPos getGeoPos();
+
 	void setAvatar(Avatar a);
 
 	void setHp(Double hp);
 
 	void setExp(Integer exp);
 
-	void setIsAlive (boolean life);
+	void setIsAlive(boolean life);
 
 	List<IPlayer> getPlayersNearby();
 
