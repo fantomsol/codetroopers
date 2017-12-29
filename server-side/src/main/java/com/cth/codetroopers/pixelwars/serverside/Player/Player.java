@@ -3,6 +3,9 @@ package com.cth.codetroopers.pixelwars.serverside.Player;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
+import com.cth.codetroopers.pixelwars.serverside.NPC.INPC;
+import com.cth.codetroopers.pixelwars.serverside.NPC.Monster;
+import com.cth.codetroopers.pixelwars.serverside.NPC.NPC;
 import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.Player.Experience.Exp;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
@@ -207,8 +210,8 @@ public class Player implements IPlayer {
 		this.geoPos= pos;
 	}
 
-	public void updatePos(final GeoPos newPos){
-		geoPos=newPos;
+	public void updatePos(final GeoPos newPos) {
+		geoPos = newPos;
 	}
 
 
@@ -223,7 +226,6 @@ public class Player implements IPlayer {
 			(new RespawnCooldown(PlayerConstants.RESPAWN_COOLDWON, this)).start();
 		}
 	}
-
 
 
 	public void attackPlayer(final IPlayer otherPlayer) throws CombatException,CooldownException {
@@ -256,6 +258,19 @@ public class Player implements IPlayer {
 		}
 	}
 
+	public void attackMonster(final Monster monster) throws CombatException, CooldownException {
+		if (!getIsAlive()) {
+			throw new CombatException("You cannot attack when you're dead");
+		}
+
+		if (!monster.getIsAlive()) {
+			throw new CombatException("You cannot attack the dead");
+		}
+
+		if (GeoDistance.getDistance(monster.getGeoPos(), this.geoPos) > this.weaponEquipped.getRange()) {
+			throw new CombatException("They are out of your reach");
+		}
+	}
 
 	@Override
 	public String toString(){
@@ -274,7 +289,6 @@ public class Player implements IPlayer {
 		return sb.toString();
 	}
 
-
 	public void goOnline(){
 		if (isOnline()){
 			return;
@@ -282,7 +296,6 @@ public class Player implements IPlayer {
 		onlineStatus=true;
 		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
 	}
-
 
 	public void goOffline() throws CooldownException {
 		if (!isOnline()){
@@ -301,7 +314,6 @@ public class Player implements IPlayer {
 
 	}
 
-
 	@JsonIgnore
 	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
 
@@ -313,11 +325,9 @@ public class Player implements IPlayer {
 		this.playersNearby.add(IPlayer);
 	}
 
-
 	public void removeNearbyPlayer(IPlayer IPlayer) {
 		this.playersNearby.remove(IPlayer);
 	}
-
 
 	@Override
 	public boolean equals(Object o) {
