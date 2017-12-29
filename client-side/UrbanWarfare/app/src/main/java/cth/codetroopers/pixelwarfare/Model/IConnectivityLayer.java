@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.GameException;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.ShopSkeleton;
@@ -32,7 +33,7 @@ public interface IConnectivityLayer {
 
         void onNearbyPlayersReceived(List<PlayerSkeleton> opponents);
 
-        void onNearbyNPCsReceived(List<PlayerSkeleton> npcs);
+        void onNearbyNPCsReceived(List<CharacterSkeleton> npcs);
 
         void onPlayerDataRecieved(PlayerSkeleton player);
 

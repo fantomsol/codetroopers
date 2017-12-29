@@ -52,15 +52,12 @@ public class MainController extends AppCompatActivity implements IMainController
 
         setContentView(mainView.getRootView());
 
-
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getContext(), new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         }else {
             attachLocationHandler();
         }
-
-
     }
 
     private void attachLocationHandler(){

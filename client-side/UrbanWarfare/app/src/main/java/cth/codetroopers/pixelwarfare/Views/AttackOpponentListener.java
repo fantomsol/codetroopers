@@ -6,6 +6,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
+import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 
 /**
@@ -42,27 +43,25 @@ public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
 
         if (marker.getTag()==null){
             //A marker with no tag, is that of the player
-        }else {
+        }else if (marker.getTag() instanceof LatLng) {
+            LatLng cratePos = (LatLng) marker.getTag();
 
-            if (marker.getTag() instanceof LatLng){
-                LatLng cratePos = (LatLng) marker.getTag();
-                mapListener.onConsumeLootbox(cratePos);
-            }
-            else {
-                //Another player is being attacked
+            mapListener.onConsumeLootbox(cratePos);
 
-                //We grab the tag assigned to the marker
+        } else {
+            //Another player is being attacked
 
-                PlayerSkeleton opponent = (PlayerSkeleton) marker.getTag();
+            //We grab the tag assigned to the marker
 
-                //Then we go ahead and extrac the opponet's id from their JSON tag.
-                String opponentID = opponent.getID();
+            //TODO: See if this can work for monsters too or if separate method needs to be made
+            CharacterSkeleton opponent = (CharacterSkeleton) marker.getTag();
 
-                //We proceed to inform the server that we are attacking the player with the id we just got
-                mapListener.onAttackPlayer(opponentID);
-            }
+            //Then we go ahead and extrac the opponet's id from their JSON tag.
+            String opponentID = opponent.getID();
+
+            //We proceed to inform the server that we are attacking the player with the id we just got
+            mapListener.onAttackPlayer(opponentID);
         }
-
 
         //As said, we don't wish Google Maps to handle the click event after us
         return true;

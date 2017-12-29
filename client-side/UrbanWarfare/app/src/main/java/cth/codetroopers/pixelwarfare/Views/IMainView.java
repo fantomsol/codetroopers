@@ -31,7 +31,8 @@ public interface IMainView extends IView, IPlayerUpdateListener, IOpponentsUpdat
 
     interface MapListener{
         void onAttackPlayer(String oID);
-        void onAttackMonster();
+        //TODO: Is this needed?
+        //void onAttackMonster();
         void onConsumeLootbox(LatLng coord);
     }
 

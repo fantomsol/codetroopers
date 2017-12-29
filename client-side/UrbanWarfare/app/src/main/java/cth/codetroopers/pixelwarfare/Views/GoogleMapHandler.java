@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.pixelwarfare.GameUtils.ResourceDirectory;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.R;
 
@@ -52,6 +53,18 @@ public class GoogleMapHandler implements IMapHandler {
     private FragmentActivity context;
 
     private IMainView.MapListener mMapListener;
+    private AttackOpponentListener attackListener;
+
+    private Marker playerMarker;
+    private Circle playerCircle;
+    private List<Marker> lootboxesMarkers = new ArrayList<>();
+
+    /**
+     * A list that contains the markers of all the other people/things that are not this oldplayer
+     */
+    private List<Marker> opponentsMarkers = new ArrayList<>();
+    private List<Marker> NPCsMarkers = new ArrayList<>();
+
 
     public GoogleMapHandler(FragmentActivity context, IMainView.MapListener mapListener) {
 
@@ -104,9 +117,8 @@ public class GoogleMapHandler implements IMapHandler {
                         .fillColor(Color.argb(75,255,0,0)));
 
 
-        //Are we gonna use dark theme?
+        //Are we gonna use dark theme? Yes.
         applyDarkStyle();
-
 
         /**
          * Here we set the context for the generator
@@ -114,15 +126,11 @@ public class GoogleMapHandler implements IMapHandler {
          */
         OpponentIconGenerator.setContext(this.context);
 
-
-
         //Ask our class AttackOpponentListener to listen to all click events on markers
         map.setOnMarkerClickListener(new AttackOpponentListener(mMapListener));
 
-
+        //TODO: Implement attack monster listener too
     }
-
-    private AttackOpponentListener attackListener;
 
     private void applyDarkStyle() {
         try {
@@ -137,11 +145,6 @@ public class GoogleMapHandler implements IMapHandler {
         }
     }
 
-    /**
-     * A list that contains the markers of all the other people/things that are not this oldplayer
-     */
-    private List<Marker> opponentsMarkers = new ArrayList<>();
-
     @Override
     public void setMapFragment(View view) {
         mapFragment=view;
@@ -153,10 +156,9 @@ public class GoogleMapHandler implements IMapHandler {
      */
     @Override
     public void pinOpponents(final List<PlayerSkeleton> nearbyPlayers) {
-
-
         /*
-        The following two lines are used to do all visual operations on the thread of the application UI thread and not on some other thread i.e. that of ConnectivityLayer.
+        The following two lines are used to do all visual operations on the thread of the
+        application UI thread and not on some other thread i.e. that of ConnectivityLayer.
          */
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -172,7 +174,8 @@ public class GoogleMapHandler implements IMapHandler {
                 opponentsMarkers.clear();
 
                 /*
-                For every JSON object we extract the data we want and pass it to the OpponentIconGenerator and place them on the map, and in the list opponentsMarkers
+                For every JSON object we extract the data we want and pass it to the
+                OpponentIconGenerator and place them on the map, and in the list opponentsMarkers
                  */
                 for (PlayerSkeleton opponent : nearbyPlayers) {
                     Double lat = 0.0, lng = 0.0;
@@ -180,9 +183,9 @@ public class GoogleMapHandler implements IMapHandler {
                     Integer hp = 100;
                     BitmapDescriptor descriptor = BitmapDescriptorFactory.defaultMarker();
 
-
                     try {
-                        descriptor = OpponentIconGenerator.getInstance().generateFromPlayer(opponent);
+                        descriptor = OpponentIconGenerator.getInstance().generateFromPlayer(
+                                opponent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -194,7 +197,8 @@ public class GoogleMapHandler implements IMapHandler {
                     Marker marker = map.addMarker(new MarkerOptions().position(pos).title(op_id)
                             .icon(descriptor));
 
-                    //Since this marker is that of an opponent, it's assigned a JSON-object tag, that would be useful in AttackOpponentListener.
+                    //Since this marker is that of an opponent, it's assigned a JSON-object tag,
+                    // that would be useful in AttackOpponentListener.
                     marker.setTag(opponent);
 
                     //We go ahead and place the marker on the map
@@ -206,9 +210,6 @@ public class GoogleMapHandler implements IMapHandler {
 
 
     }
-
-    private Marker playerMarker;
-    private Circle playerCircle;
 
     /**
      * Same thing happens here as in pinOpponents() method, apart from the fact that we place a simple marker and not a one generated from OpponentIconGenerator.
@@ -235,12 +236,37 @@ public class GoogleMapHandler implements IMapHandler {
 
             }
         });
-
-
-
     }
 
-    private List<Marker> lootboxesMarkers = new ArrayList<>();
+    //TODO: Make sure this functionality works for npcs as well as monsters
+    @Override
+    public void pinNPCs(final List<CharacterSkeleton> nearbyNPCs) {
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                for (Marker marker: NPCsMarkers){
+                    marker.remove();
+                }
+
+                NPCsMarkers.clear();
+
+                for (CharacterSkeleton characterSkeleton:nearbyNPCs){
+                    final LatLng pos = characterSkeleton.getGeoPos();
+
+                    Marker marker = map.addMarker(new MarkerOptions().position(pos).icon(
+                            BitmapDescriptorFactory.fromResource(ResourceDirectory.getAvatarImage(
+                                    characterSkeleton.getAvatar()))));
+
+                    NPCsMarkers.add(marker);
+                    marker.setTag(pos);
+                }
+            }
+        });
+    }
+
+
     @Override
     public void pinLootboxes(final List<LatLng> lootboxes) {
         Handler handler = new Handler(Looper.getMainLooper());
@@ -268,6 +294,5 @@ public class GoogleMapHandler implements IMapHandler {
     public void setMapListener(IMainView.MapListener mapListener) {
         mMapListener=mapListener;
     }
-
 
 }
