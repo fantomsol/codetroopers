@@ -16,6 +16,7 @@ import cth.codetroopers.pixelwarfare.Model.EventChannels.IOpponentsUpdateListene
 import cth.codetroopers.pixelwarfare.Model.EventChannels.IPlayerUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.IShopUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.LoadingStates;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.GameException;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.ShopSkeleton;
@@ -195,9 +196,8 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
             listener.updateGUI(p);
         }
     }
-    private void updateNPClisteners(List<LatLng> n) {
-        for (INPCUpdateListener listener:npcListeners
-             ) {
+    private void updateNPClisteners(List<CharacterSkeleton> n) {
+        for (INPCUpdateListener listener:npcListeners) {
             listener.updateNPCs(n);
         }
     }
@@ -239,6 +239,11 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         /*if (mainView != null) {
             mainView.updatePlayersNearby(opponents);
         }*/
+    }
+
+    @Override
+    public void onNearbyNPCsReceived(List<CharacterSkeleton> npcs) {
+        updateNPClisteners(npcs);
     }
 
 
