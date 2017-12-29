@@ -11,6 +11,7 @@ import java.util.List;
 
 import cth.codetroopers.pixelwarfare.Model.EventChannels.ILoadUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.ILootboxUpdateListener;
+import cth.codetroopers.pixelwarfare.Model.EventChannels.INPCUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.IOpponentsUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.IPlayerUpdateListener;
 import cth.codetroopers.pixelwarfare.Model.EventChannels.IShopUpdateListener;
@@ -33,6 +34,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
     public boolean signIn = true;
 
     private List <IPlayerUpdateListener> playerListeners;
+    private List <INPCUpdateListener> npcListeners;
     private List <ILoadUpdateListener> loadListeners;
     private List <ILootboxUpdateListener> lootboxListeners;
     private List <IOpponentsUpdateListener> opponentListeners;
@@ -50,6 +52,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     private ClientModel(){
         playerListeners = new ArrayList<>();
+        npcListeners = new ArrayList<>();
         loadListeners = new ArrayList<>();
         lootboxListeners = new ArrayList<>();
         opponentListeners = new ArrayList<>();
@@ -166,6 +169,10 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         playerListeners.add(listener);
     }
 
+    public void subscribeNPCUpdate(INPCUpdateListener listener){
+        npcListeners.add(listener);
+    }
+
     public void subscribeLoadUpdate(ILoadUpdateListener listener) {
         loadListeners.add(listener);
     }
@@ -188,6 +195,12 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
             listener.updateGUI(p);
         }
     }
+    private void updateNPClisteners(List<LatLng> n) {
+        for (INPCUpdateListener listener:npcListeners
+             ) {
+            listener.updateNPCs(n);
+        }
+    }
 
     private void updateLoadlisteners(LoadingStates l) {
         for (ILoadUpdateListener listener:loadListeners
@@ -197,8 +210,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
     }
 
     private void updateLootboxlisteners(List <LatLng> l) {
-        for (ILootboxUpdateListener listener:lootboxListeners
-                ) {
+        for (ILootboxUpdateListener listener:lootboxListeners) {
             listener.updateLootboxes(l);
         }
     }
@@ -216,7 +228,6 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
             listener.updateItemsList(items);
         }
     }
-
 
     public void changeAvatar(String newAvatar){
         layer.requestChangeAvatar(newAvatar);

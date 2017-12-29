@@ -32,6 +32,8 @@ public interface IConnectivityLayer {
 
         void onNearbyPlayersReceived(List<PlayerSkeleton> opponents);
 
+        void onNearbyNPCsReceived(List<PlayerSkeleton> npcs);
+
         void onPlayerDataRecieved(PlayerSkeleton player);
 
         void updateShop(ShopSkeleton skeleton);
@@ -51,6 +53,7 @@ public interface IConnectivityLayer {
     void changePosition(Location position);
 
     void changePosition(LatLng position);
+
     void setPlayerID(String id);
 
     void signIn(String id);

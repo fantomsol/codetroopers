@@ -7,6 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 
 /**
@@ -20,6 +21,8 @@ public interface IMapHandler extends OnMapReadyCallback {
     void setMapFragment(View view);
 
     void pinOpponents(List<PlayerSkeleton> nearbyPlayers);
+
+    void pinNPCs(List<CharacterSkeleton> nearbyNPCs);
 
     void pinPlayer(PlayerSkeleton player);
 

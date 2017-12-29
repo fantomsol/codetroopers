@@ -20,6 +20,7 @@ import java.security.Permissions;
 
 import cth.codetroopers.pixelwarfare.Activities.ChooseWeapon;
 import cth.codetroopers.pixelwarfare.Model.ClientModel;
+import cth.codetroopers.pixelwarfare.Model.EventChannels.INPCUpdateListener;
 import cth.codetroopers.pixelwarfare.Views.IMainView;
 import cth.codetroopers.pixelwarfare.Views.MainViewImp;
 
@@ -47,6 +48,7 @@ public class MainController extends AppCompatActivity implements IMainController
         ClientModel.getInstance().subscribePlayerUpdate(mainView);
         ClientModel.getInstance().subscribeLootboxUpdate(mainView);
         ClientModel.getInstance().subscribeOpponentUpdate(mainView);
+        ClientModel.getInstance().subscribeNPCUpdate(mainView);
 
         setContentView(mainView.getRootView());
 
