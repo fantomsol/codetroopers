@@ -13,15 +13,13 @@ import java.util.List;
  * Created by latiif on 5/6/17.
  */
 
-public class PlayerSkeleton {
+public class PlayerSkeleton extends CharacterSkeleton {
     public PlayerSkeleton(JSONObject object){
-        fetchFromJson(object);
+        super(object);
     }
 
     private void fetchFromJson(JSONObject object){
         try {
-            id=object.getString("id");
-            avatar=object.getString("avatar");
             hp=object.getDouble("hp");
             rank=object.getString("rank");
             isAlive=object.getBoolean("isAlive");
@@ -29,9 +27,6 @@ public class PlayerSkeleton {
             offlineCooldown=object.getInt("offlineCooldown");
             canGoOffline=object.getBoolean("canGoOffline");
             xp=object.getInt("exp");
-            geoPos= new LatLng(object.getJSONObject("geoPos").getDouble("latitude"),
-                    object.getJSONObject("geoPos").getDouble("longitude"));
-            vision= object.getInt("vision");
             gold= object.getInt("gold");
 
             weaponEquipped=new WeaponSkeleton(object.getJSONObject("weaponEquipped"));
@@ -64,8 +59,6 @@ public class PlayerSkeleton {
         return armours.contains(armour);
     }
 
-    private String id;
-    private String avatar;
     private Double hp;
     private String rank;
     private Boolean isAlive;
@@ -73,8 +66,6 @@ public class PlayerSkeleton {
     private Integer offlineCooldown;
     private Boolean canGoOffline;
     private Integer xp;
-    private LatLng geoPos;
-    private Integer vision;
     private Integer gold;
     private WeaponSkeleton weaponEquipped;
     private List<WeaponSkeleton> weapons = new ArrayList<>();
@@ -94,11 +85,6 @@ public class PlayerSkeleton {
         return this.isAlive;
     }
 
-
-
-
-
-
     public Boolean isOnline(){
         return isOnline;
     }
@@ -107,29 +93,12 @@ public class PlayerSkeleton {
         return offlineCooldown;
     }
 
-
     public Boolean getCanGoOffline(){
         return canGoOffline;
     }
 
-    public String getID(){
-        return id;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
     public Integer getExp(){
         return xp;
-    }
-
-    public LatLng getGeoPos(){
-        return geoPos;
-    }
-
-    public Integer getVision(){
-        return vision;
     }
 
     public Integer getGold(){
