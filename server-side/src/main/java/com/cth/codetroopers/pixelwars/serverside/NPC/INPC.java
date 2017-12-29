@@ -7,10 +7,16 @@ public interface INPC {
 
 	void updatePos(GeoPos newPos);
 
-	Avatar getAvatar();
-
 	void setAvatar(Avatar a);
 
+	void setIsAlive(boolean life);
+
+	Avatar getAvatar();
+
 	GeoPos getGeoPos();
+
+	String getID();
+
+	Boolean getIsAlive();
 
 }
