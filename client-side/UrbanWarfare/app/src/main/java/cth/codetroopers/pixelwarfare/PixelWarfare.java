@@ -20,17 +20,13 @@ public class PixelWarfare extends Application {
         instance=this;
     }
 
-
-
     private static PixelWarfare instance;
 
-
-    public static PixelWarfare getInstance(){
-      return instance;
+    public static PixelWarfare getInstance() {
+        return instance;
     }
 
-
-    public void showToast(final String  data) {
+    public void showToast(final String data) {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
@@ -38,7 +34,8 @@ public class PixelWarfare extends Application {
 
                 Toast.makeText(getApplicationContext(), data,
                         Toast.LENGTH_LONG).show();
-            }});
+            }
+        });
     }
 
 }

@@ -14,7 +14,7 @@ import cth.codetroopers.pixelwarfare.Model.Skeletons.ShopSkeleton;
  * Created by latiif on 5/14/17.
  */
 
-public class SkeletonFactory {
+public class  SkeletonFactory {
     public static PlayerSkeleton getPlayer(JSONObject object){
         return new PlayerSkeleton(object);
     }
