@@ -1,11 +1,11 @@
 package com.cth.codetroopers.pixelwars.serverside.Lootbox;
 
+import com.cth.codetroopers.pixelwars.serverside.Beings.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.EmptyLootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.ArmoursFactory;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 
 /**
  * Created by latiif on 5/7/17.
