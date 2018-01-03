@@ -1,12 +1,12 @@
 package com.cth.codetroopers.pixelwars.serverside.WorldPackage;
 
-import com.cth.codetroopers.pixelwars.serverside.Character.Being;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Being;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
-import com.cth.codetroopers.pixelwars.serverside.Character.Experience.Exp;
-import com.cth.codetroopers.pixelwars.serverside.Character.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Experience.Exp;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 
 
 // This is a world with live opponents

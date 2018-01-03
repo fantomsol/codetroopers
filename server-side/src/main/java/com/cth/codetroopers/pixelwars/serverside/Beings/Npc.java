@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Character;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
 public class Npc extends Being {
 

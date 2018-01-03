@@ -1,12 +1,10 @@
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
-import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
-import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Lootbox.Lootbox;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.cth.codetroopers.pixelwars.serverside.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 import com.cth.codetroopers.pixelwars.serverside.ServerController.Server;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.MultiplayerWorld;
 import com.cth.codetroopers.pixelwars.serverside.WorldPackage.World;
 import Mediator.ServerModelMediator;
 
@@ -15,7 +13,7 @@ import Mediator.ServerModelMediator;
  */
 public class Main {
 	public static void main(String[] args) {
-		World world= new World();
+		World world= new MultiplayerWorld();
 
 		Server server= new Server();
 	    server.startServer();
@@ -25,11 +23,11 @@ public class Main {
 		new ServerModelMediator(server,world);
 
 
-		IPlayer p2= null;
-		IPlayer p3=null;
-		IPlayer p4= null;
-		IPlayer p1=null;
-		IPlayer tester=null;
+		Player p2= null;
+		Player p3=null;
+		Player p4= null;
+		Player p1=null;
+		Player tester=null;
 		try {
 
 

@@ -21,7 +21,7 @@ public class ChangeRadarStateListener extends EventListener implements DataListe
 		try {
 			mediator.changeRadarStatus(changeRadarStateEvent.getPlayerId(),changeRadarStateEvent.wantToGoOnline);
 		} catch (GameException e) {
-			mediator.sendPlayerSpecificException(mediator.getPlayerById(changeRadarStateEvent.getPlayerId()),e);
+			mediator.sendPlayerSpecificException(mediator.getCharacterById(changeRadarStateEvent.getPlayerId()),e);
 		}
 
 		System.out.println("Radar Status Change requested");

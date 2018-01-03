@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Character;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CombatException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;

@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import cth.codetroopers.pixelwarfare.GameUtils.ResourceDirectory;
-import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.BeingSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.R;
 
@@ -185,7 +185,7 @@ public class MainViewImp implements IMainView{
         });
     }
 
-    public void updateNPCs(final List<CharacterSkeleton> NPCsNearby) {
+    public void updateNPCs(final List<BeingSkeleton> NPCsNearby) {
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {

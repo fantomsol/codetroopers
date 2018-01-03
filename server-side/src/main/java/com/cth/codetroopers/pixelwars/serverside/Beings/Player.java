@@ -1,13 +1,9 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.NPC.INPC;
-import com.cth.codetroopers.pixelwars.serverside.NPC.Monster;
-import com.cth.codetroopers.pixelwars.serverside.NPC.NPC;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.Experience.Exp;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Experience.Exp;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.ArmoursDirectory;
@@ -17,6 +13,8 @@ import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.Weapon;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
+import com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools.PlayerConstants;
+import com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools.Score;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Rank;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,46 +28,34 @@ import java.util.List;
 /**
  * Created by latiif and Hugo on 3/22/17.
  */
-public class Player implements IPlayer {
-	public Integer getArmour() {
-		return armour;
-	}
+public class Player extends Being implements IPlayer {
 
-	private Boolean onlineStatus=false;
-	private Boolean canGoOffline=false;
-
-	private Avatar avatar = Avatar.JIM;
+	private Boolean onlineStatus = false;
+	private Boolean canGoOffline = false;
 
 	@JsonProperty
-	private Long offlineCooldownStops=Long.valueOf(0);
+	private Long offlineCooldownStops = Long.valueOf(0);
 
 	public void setOfflineCooldownStops(Long time) {
 		this.offlineCooldownStops = time;
 	}
 
-	private GeoPos geoPos;
 	private Double hp;
 	private Integer armour;
 	public Score score;
 
 	private Integer exp;
 	private Integer gold;
-	private Integer vision=PlayerConstants.START_VISION;
-	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
+	private Integer vision = PlayerConstants.getStartVision();
+	private Integer offlineCooldown = PlayerConstants.START_COOLDOWN;
 	private Ranks rank = Ranks.PRIVATE;
-
 	public IWeapon weaponEquipped;
-
-	private final String id;
 
 	@JsonProperty
 	private List<IWeapon> weapons = new ArrayList<IWeapon>();
 
 	@JsonProperty
 	private List<IArmour> armours= new ArrayList<IArmour>();
-
-	private Boolean isAlive;
-
 
 	public void switchWeapon(Integer weaponID){
 		for (IWeapon weapon:weapons){
@@ -93,14 +79,11 @@ public class Player implements IPlayer {
 			}
 		}
 
-
 		for (IArmour armour:armours){
 			if (armour.getName().equals(item.getName())){
 				return true;
 			}
 		}
-
-
 		return false;
 	}
 
@@ -171,37 +154,35 @@ public class Player implements IPlayer {
 
 	}
 
-
-	private void updateArmourValue(){
-		armour=0;
-		for (IArmour a:armours){
-			armour+=a.getValue();
+	private void updateArmourValue() {
+		armour = 0;
+		for (IArmour a : armours) {
+			armour += a.getValue();
 		}
 	}
 
-
 	public Player(final String id) throws FactoryException {
-		this.id=id;
+		super(id);
 
-		hp=PlayerConstants.MAX_HEALTH;
+		hp = PlayerConstants.MAX_HEALTH;
 
-		gold = PlayerConstants.START_GOLD;
+		gold = PlayerConstants.getStartGold();
 
-		exp=PlayerConstants.START_EXP;
+		exp = PlayerConstants.getStartExp();
 
-		this.isAlive=Boolean.TRUE;
+		this.isAlive = Boolean.TRUE;
 
-		score= new Score(0,0);
+		score = new Score(0, 0);
 
 
-		armours= new ArrayList<IArmour>();
+		armours = new ArrayList<IArmour>();
 		//weapons= new ArrayList<Weapon>();
 
 		armours.add(ArmoursFactory.createArmour(ArmoursDirectory.SHIELD_OF_VALOR));
 		updateArmourValue();
 
 		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.PISTOL));
-		weaponEquipped =weapons.get(0);
+		weaponEquipped = weapons.get(0);
 	}
 
 
@@ -209,11 +190,6 @@ public class Player implements IPlayer {
 		this(id);
 		this.geoPos= pos;
 	}
-
-	public void updatePos(final GeoPos newPos) {
-		geoPos = newPos;
-	}
-
 
 	public void getAttacked(final Integer damage){
 		Double actualDamage= PlayerConstants.damageCaluculation(damage,this.armour);
@@ -281,12 +257,26 @@ public class Player implements IPlayer {
 
 		sb.append("sees: ");
 
-		for(IPlayer p: playersNearby){
+		for(Being p: playersNearby){
 			sb.append(p.getID()).append('\n');
 		}
-
-
 		return sb.toString();
+	}
+
+	public void addNearbyPlayer(Player IPlayer){
+		this.playersNearby.add(IPlayer);
+	}
+
+	public void removeNearbyPlayer(Player IPlayer) {
+		this.playersNearby.remove(IPlayer);
+	}
+
+
+	@JsonIgnore
+	protected transient List<Player> playersNearby= new ArrayList<Player>();
+
+	public List<Player> getPlayersNearby(){
+		return (this.playersNearby);
 	}
 
 	public void goOnline(){
@@ -314,30 +304,6 @@ public class Player implements IPlayer {
 
 	}
 
-	@JsonIgnore
-	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
-
-	public List<IPlayer> getPlayersNearby(){
-		return (this.playersNearby);
-	}
-
-	public void addNearbyPlayer(IPlayer IPlayer){
-		this.playersNearby.add(IPlayer);
-	}
-
-	public void removeNearbyPlayer(IPlayer IPlayer) {
-		this.playersNearby.remove(IPlayer);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Player)) {
-			return false;
-		}
-		Player other = (Player) o;
-		return this.id.equals(other.id);
-	}
-
 	@Override
 	public int hashCode() {
 		return id.hashCode();
@@ -346,6 +312,7 @@ public class Player implements IPlayer {
 	public Boolean isOnline() {
 		return onlineStatus;
 	}
+
 
 	// SETTERS
 
@@ -358,16 +325,8 @@ public class Player implements IPlayer {
 		updateArmourValue();
 	}
 
-	public void setAvatar(Avatar a) {
-		avatar = a;
-	}
-
 	public void setCanGoOffline(Boolean value) {
 		this.canGoOffline = value;
-	}
-
-	public void setIsAlive(boolean life) {
-		this.isAlive = life;
 	}
 
 	public void setHp(Double hp) {
@@ -382,6 +341,10 @@ public class Player implements IPlayer {
 
 	// GETTERS
 
+	public Integer getArmour() {
+		return armour;
+	}
+
 	public IWeapon getWeaponEquipped() {
 		return weaponEquipped;
 	}
@@ -390,16 +353,8 @@ public class Player implements IPlayer {
 		return canGoOffline;
 	}
 
-	public String getID() {
-		return this.id;
-	}
-
 	public Integer getExp() {
 		return exp;
-	}
-
-	public GeoPos getGeoPos() {
-		return this.geoPos;
 	}
 
 	public Integer getVision() {
@@ -410,20 +365,12 @@ public class Player implements IPlayer {
 		return gold;
 	}
 
-	public Avatar getAvatar() {
-		return avatar;
-	}
-
 	public Double getHp() {
 		return Double.valueOf(hp);
 	}
 
 	public Ranks getRank() {
 		return this.rank;
-	}
-
-	public Boolean getIsAlive() {
-		return isAlive;
 	}
 
 	public Integer getOfflineCooldown() {

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cth.codetroopers.pixelwarfare.GameUtils.ResourceDirectory;
-import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.BeingSkeleton;
 import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
 import cth.codetroopers.pixelwarfare.R;
 
@@ -240,7 +240,7 @@ public class GoogleMapHandler implements IMapHandler {
 
     //TODO: Make sure this functionality works for npcs as well as monsters
     @Override
-    public void pinNPCs(final List<CharacterSkeleton> nearbyNPCs) {
+    public void pinNPCs(final List<BeingSkeleton> nearbyNPCs) {
 
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
@@ -252,7 +252,7 @@ public class GoogleMapHandler implements IMapHandler {
 
                 NPCsMarkers.clear();
 
-                for (CharacterSkeleton characterSkeleton:nearbyNPCs){
+                for (BeingSkeleton characterSkeleton:nearbyNPCs){
                     final LatLng pos = characterSkeleton.getGeoPos();
 
                     Marker marker = map.addMarker(new MarkerOptions().position(pos).icon(
