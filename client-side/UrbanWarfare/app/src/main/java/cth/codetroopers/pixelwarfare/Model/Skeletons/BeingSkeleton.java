@@ -13,9 +13,9 @@ import java.util.List;
  * Created by lumo on 29/12/17.
  */
 
-public abstract class CharacterSkeleton {
+public abstract class BeingSkeleton {
 
-        public CharacterSkeleton(JSONObject object){
+        public BeingSkeleton(JSONObject object){
             fetchFromJson(object);
         }
 

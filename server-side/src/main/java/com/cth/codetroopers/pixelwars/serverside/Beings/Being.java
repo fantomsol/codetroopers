@@ -1,7 +1,7 @@
-package com.cth.codetroopers.pixelwars.serverside.Character;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Character.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Avatar.Avatar;
 
 // Replaces past interface IPlayer
 public abstract class Being {
