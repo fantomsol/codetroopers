@@ -1,11 +1,11 @@
+import com.cth.codetroopers.pixelwars.serverside.Beings.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CombatException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CooldownException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GeographicalException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.cth.codetroopers.pixelwars.serverside.Player.Player;
-import com.cth.codetroopers.pixelwars.serverside.Player.PlayerConstants;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools.PlayerConstants;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -72,7 +72,7 @@ public class PlayerTest {
 
 	@Test
 	public void respawnTest() throws FactoryException, InterruptedException {
-		IPlayer p1;
+		Player p1;
 
 		p1=new Player("p1");
 

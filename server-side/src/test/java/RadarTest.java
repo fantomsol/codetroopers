@@ -1,8 +1,7 @@
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CooldownException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.cth.codetroopers.pixelwars.serverside.Player.Player;
-import com.cth.codetroopers.pixelwars.serverside.Player.PlayerConstants;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools.PlayerConstants;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +15,7 @@ public class RadarTest {
 	@Test
 	public void goOnlineTest() throws InterruptedException, FactoryException {
 
-		IPlayer p=new Player("p");
+		Player p=new Player("p");
 		p.goOnline();
 
 		Assert.assertTrue(p.isOnline());

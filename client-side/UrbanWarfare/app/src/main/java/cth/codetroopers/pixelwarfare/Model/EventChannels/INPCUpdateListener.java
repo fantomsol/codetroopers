@@ -2,7 +2,7 @@ package cth.codetroopers.pixelwarfare.Model.EventChannels;
 
 import java.util.List;
 
-import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.BeingSkeleton;
 
 /**
  * Created by lumo on 29/12/17.
@@ -11,5 +11,5 @@ import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
 // use for both monsters and talking npcs?
 
 public interface INPCUpdateListener {
-    void updateNPCs(List<CharacterSkeleton> npcs);
+    void updateNPCs(List<BeingSkeleton> npcs);
 }

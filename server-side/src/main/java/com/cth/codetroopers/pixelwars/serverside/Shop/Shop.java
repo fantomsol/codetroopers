@@ -1,5 +1,6 @@
 package com.cth.codetroopers.pixelwars.serverside.Shop;
 
+import com.cth.codetroopers.pixelwars.serverside.Beings.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.DuplicateItemException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
@@ -9,7 +10,6 @@ import com.cth.codetroopers.pixelwars.serverside.Item.Armours.ArmoursFactory;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +35,12 @@ public class Shop implements IShop {
     }
 
 
-    public void buyItem(IPlayer IPlayer, Item item) throws InsufficientException,DuplicateItemException {
-        IPlayer.buyItem(item);
+    public void buyItem(IPlayer player, Item item) throws InsufficientException,DuplicateItemException {
+        player.buyItem(item);
     }
 
-    public void sellItem(IPlayer IPlayer, Item item) throws GameException {
-        IPlayer.sellItem(item,Double.valueOf(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
+    public void sellItem(IPlayer player, Item item) throws GameException {
+        player.sellItem(item,Double.valueOf(item.getCost()*ShopConstants.REFUND_PERCENTAGE).intValue());
     }
 
     public Item getItem(Integer itemID, String itemType) throws FactoryException {
