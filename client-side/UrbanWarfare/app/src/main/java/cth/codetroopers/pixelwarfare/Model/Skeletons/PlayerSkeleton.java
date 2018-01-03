@@ -1,7 +1,5 @@
 package cth.codetroopers.pixelwarfare.Model.Skeletons;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +11,7 @@ import java.util.List;
  * Created by latiif on 5/6/17.
  */
 
-public class PlayerSkeleton extends CharacterSkeleton {
+public class PlayerSkeleton extends BeingSkeleton {
     public PlayerSkeleton(JSONObject object){
         super(object);
     }
