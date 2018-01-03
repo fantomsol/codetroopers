@@ -1,13 +1,14 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
 /**
  * Created by latiif on 5/15/17.
  */
 public abstract class Cooldown extends Thread implements Runnable {
-	protected final int cooldownDuration;
-	protected final IPlayer player;
 
-	public Cooldown(int cooldownDuration, IPlayer iPlayer) {
+	protected final int cooldownDuration;
+	protected final Player player;
+
+	public Cooldown(int cooldownDuration, Player iPlayer) {
 		this.cooldownDuration = cooldownDuration*1000;
 		player = iPlayer;
 	}

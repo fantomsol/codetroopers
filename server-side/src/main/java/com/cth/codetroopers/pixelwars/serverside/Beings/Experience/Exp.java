@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Player.Experience;
+package com.cth.codetroopers.pixelwars.serverside.Beings.Experience;
 
 /**
  * Created by lumo on 05/05/17.
