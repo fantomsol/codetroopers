@@ -2,9 +2,9 @@ package com.cth.codetroopers.pixelwars.serverside.WorldPackage;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CombatException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
-import com.cth.codetroopers.pixelwars.serverside.Character.Monster;
-import com.cth.codetroopers.pixelwars.serverside.Character.Being;
-import com.cth.codetroopers.pixelwars.serverside.Character.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Monster;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Being;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 
 // This is a world where monsters are generated

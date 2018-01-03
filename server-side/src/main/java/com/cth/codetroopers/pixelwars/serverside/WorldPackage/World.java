@@ -1,12 +1,12 @@
 package com.cth.codetroopers.pixelwars.serverside.WorldPackage;
 
-import com.cth.codetroopers.pixelwars.serverside.Character.Being;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Being;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
-import com.cth.codetroopers.pixelwars.serverside.Character.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
 import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Character.Player;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 import com.cth.codetroopers.pixelwars.serverside.Shop.IShop;
 import com.cth.codetroopers.pixelwars.serverside.Shop.Shop;
 import Mediator.ServerModelMediator;

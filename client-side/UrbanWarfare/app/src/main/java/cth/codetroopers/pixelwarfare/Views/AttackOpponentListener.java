@@ -6,8 +6,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
-import cth.codetroopers.pixelwarfare.Model.Skeletons.CharacterSkeleton;
-import cth.codetroopers.pixelwarfare.Model.Skeletons.PlayerSkeleton;
+import cth.codetroopers.pixelwarfare.Model.Skeletons.BeingSkeleton;
 
 /**
  * @author latiif
@@ -54,7 +53,7 @@ public class AttackOpponentListener implements GoogleMap.OnMarkerClickListener {
             //We grab the tag assigned to the marker
 
             //TODO: See if this can work for monsters too or if separate method needs to be made
-            CharacterSkeleton opponent = (CharacterSkeleton) marker.getTag();
+            BeingSkeleton opponent = (BeingSkeleton) marker.getTag();
 
             //Then we go ahead and extrac the opponet's id from their JSON tag.
             String opponentID = opponent.getID();
