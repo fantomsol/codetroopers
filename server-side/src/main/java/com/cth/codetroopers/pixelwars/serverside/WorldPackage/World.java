@@ -1,14 +1,12 @@
 package com.cth.codetroopers.pixelwars.serverside.WorldPackage;
 
+import com.cth.codetroopers.pixelwars.serverside.Character.Being;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.Experience.Exp;
+import com.cth.codetroopers.pixelwars.serverside.Character.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
-import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
 import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.cth.codetroopers.pixelwars.serverside.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.Character.Player;
 import com.cth.codetroopers.pixelwars.serverside.Shop.IShop;
 import com.cth.codetroopers.pixelwars.serverside.Shop.Shop;
 import Mediator.ServerModelMediator;
@@ -22,89 +20,58 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by latiif on 3/22/17.
  */
-public class World implements IWorld {
+public abstract class World {
 
 
-	private ServerModelMediator mediator;
-
+	protected ServerModelMediator mediator;
 	private IShop shop;
-
 	private List<ILootbox> lootboxes;
+	protected Map<String, Player> players;
+	protected Map<String, Being> characters;
 
-	private Map<String,IPlayer> players;
+	public World() {
+		players = new HashMap<String, Player>();
+		characters = new HashMap<String, Being>();
+		lootboxes = new ArrayList<ILootbox>();
+		shop = new Shop();
+	}
 
 	public void createNewPlayer(String name) throws GameException {
-			players.put(name,new Player(name, new GeoPos(0.0,0.0)));
-
+		players.put(name, new Player(name, new GeoPos(0.0, 0.0)));
 	}
 
-	public void setMediator(ServerModelMediator mediator){
-		this.mediator= mediator;
+	public void setMediator(ServerModelMediator mediator) {
+		this.mediator = mediator;
 	}
-
 
 	public void changeWeapon(String playerId, Integer weaponID) throws GameException {
-		IPlayer p=getPlayerById(playerId);
+		Player p = (Player) getCharacterById(playerId);
 		p.switchWeapon(weaponID);
 		mediator.updatePlayer(p);
 	}
 
 
-	public IShop getShop(){
+	public IShop getShop() {
 		return shop;
 	}
 
-	public World() {
-		players = new HashMap<String, IPlayer>();
-		lootboxes= new ArrayList<ILootbox>();
-		shop= new Shop();
-
-	}
-
-	public void addLootbox(ILootbox lootbox){
+	public void addLootbox(ILootbox lootbox) {
 		lootboxes.add(lootbox);
 	}
 
-	public IPlayer getPlayer(IPlayer p){
+	public Being getCharacter(Being p) {
 		return players.get(p.getID());
 	}
 
-	public void performAttack(String attackerId, String attackeeId) throws GameException {
-		IPlayer attacker = getPlayerById(attackerId);
-		IPlayer attackee= getPlayerById(attackeeId);
+	public abstract void performAttack(String attackerID, String victimID) throws GameException;
 
-		//cannot attack a ghost
-		if (!attackee.getIsAlive()){
-			throw new GameException("Invalid target",attackeeId +" is dead players cannot be attacked");
-		}
-
-
-		if (attackee.getWeaponEquipped().getId().intValue()== WeaponsDirectory.WHITEFLAG){
-			//Exp.getExpOnAttackingUnarmed(attacker);
-			attacker.setExp(Exp.getExpOnAttackingUnarmed(attacker.getExp()));
-		}
-
-		attacker.attackPlayer(attackee);
-
-		if (mediator!=null) {
-			mediator.updateNearbyPlayers(attacker);
-			mediator.updatePlayer(attackee);
-		}
-
-		//after attacking, the attackee is dead
-		if (!attackee.getIsAlive()){
-			revivePlayer(attackee);
-		}
-	}
-
-
-	private void revivePlayer(final IPlayer p){
-		Thread thread=new Thread(new Runnable() {
+	protected void revivePlayer(final Player p) {
+		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				while (true){
+				while (true) {
 					try {
 						TimeUnit.SECONDS.sleep(1);
-						if (p.getIsAlive()){
+						if (p.getIsAlive()) {
 							break;
 						}
 					} catch (InterruptedException e) {
@@ -112,13 +79,13 @@ public class World implements IWorld {
 					}
 				}
 
-				System.out.println("Just revived "+p);
+				System.out.println("Just revived " + p);
 				try {
-					playerChangePos(p.getID(),p.getGeoPos());
+					playerChangePos(p.getID(), p.getGeoPos());
 				} catch (GameException e) {
 
 				}
-				if (mediator!=null) {
+				if (mediator != null) {
 					mediator.updatePlayer(p);
 					mediator.updateNearbyPlayers(p);
 				}
@@ -129,164 +96,99 @@ public class World implements IWorld {
 	}
 
 
-	public IPlayer getPlayerById(final String id) throws GameException {
-		IPlayer res=players.get(id);
-		if (res!=null){
+	public Being getCharacterById(final String id) throws GameException {
+		Being res = characters.get(id);
+		if (res != null) {
 			return res;
-		}
-		else {
-			throw new GameException("No such player",id + " is not registered");
+		} else {
+			throw new GameException("No such player", id + " is not registered");
 		}
 	}
 
 
-	public void registerPlayer(IPlayer IPlayer){
-		players.put(IPlayer.getID(), IPlayer);
+	public void registerPlayer(Player player) {
+		players.put(player.getID(), player);
 	}
 
-	private void goOffline(IPlayer player){
-		//Remove the player from their nearby players' lists
-		for (IPlayer op: player.getPlayersNearby()){
-			op.getPlayersNearby().remove(player);
-			//update the other player's nearby list
-			mediator.updateNearbyPlayers(op);
-		}
+	protected abstract void goOffline(Player player);
 
-		//someone who's offline cannot see anyone
-		player.getPlayersNearby().clear();
-		//update the player's nearby list
-		if (mediator!=null) {
-			mediator.updateNearbyPlayers(player);
-		}
-
-		updateLootboxes(player);
-	}
-
-	public void playerChangePos(final String id, final GeoPos newPos) throws GameException {
-		IPlayer player = getPlayerById(id);
-		player.updatePos(newPos);
-
-		if (!player.isOnline()){
-			goOffline(player);
-			mediator.updatePlayer(player);
-			return;
-		}
-
-		for (IPlayer oPlayer :players.values()){
-			if (!oPlayer.isOnline()){
-				continue;
-			}
-			if (player.equals(oPlayer)){
-				continue;
-			}
-
-			boolean pSeesOp = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<= player.getVision();
-			boolean opSeesP = GeoDistance.getDistance(player.getGeoPos(), oPlayer.getGeoPos())<= oPlayer.getVision();
+	public abstract void playerChangePos(final String id, final GeoPos newPos) throws GameException;
 
 
-			//Player sees the other player
-			if (pSeesOp){
+	public void updateLootboxes(Player player) {
+		List<ILootbox> visibleLootboxes = new ArrayList<ILootbox>();
 
-				//The other player was already in the vicinity of player
-				if (player.getPlayersNearby().contains(oPlayer)){
-
-				}
-
-				//The other player has just entered player's vision range
-				if (!player.getPlayersNearby().contains(oPlayer)){
-					player.addNearbyPlayer(oPlayer);
-				}
-			}else {
-				//Player does not see oPlayer
-
-				//if other player is no longer in player's vision range
-				if (player.getPlayersNearby().contains(oPlayer)){
-					player.removeNearbyPlayer(oPlayer);
-				}
-			}
-
-
-			//Exact reverse logic
-
-			//Player sees the other player
-			if (opSeesP){
-
-				//The other player was already in the vicinity of player
-				if (oPlayer.getPlayersNearby().contains(player)){
-
-				}
-
-				//The other player has just entered player's vision range
-				if (!oPlayer.getPlayersNearby().contains(player)){
-					oPlayer.addNearbyPlayer(player);
-				}
-			}else {
-				//Player does not see oPlayer
-
-				//if other player is no longer in player's vision range
-				if (oPlayer.getPlayersNearby().contains(player)){
-					oPlayer.removeNearbyPlayer(player);
-				}
-			}
-			mediator.updateNearbyPlayers(oPlayer);
-			updateLootboxes(oPlayer);
-		}
-
-		mediator.updatePlayer(player);
-		mediator.updateNearbyPlayers(player);
-
-
-		///Check for lootboxes
-
-		updateLootboxes(player);
-
-	}
-
-
-	public void updateLootboxes(IPlayer player){
-		List<ILootbox> visibleLootboxes= new ArrayList<ILootbox>();
-
-		if (player.isOnline() && player.getIsAlive())
-		{
-			for (ILootbox lootbox: lootboxes){
-				if (GeoDistance.getDistance(lootbox.getGeoPos(),player.getGeoPos())<=player.getVision()){
+		if (player.isOnline() && player.getIsAlive()) {
+			for (ILootbox lootbox : lootboxes) {
+				if (GeoDistance.getDistance(lootbox.getGeoPos(), player.getGeoPos()) <= player.getVision()) {
 					visibleLootboxes.add(lootbox);
 				}
 			}
 		}
 
-		System.out.println(player.getID()+" sees a total of "+visibleLootboxes.size()+" lootboxes");
-		if (mediator!=null) {
+		System.out.println(player.getID() + " sees a total of " + visibleLootboxes.size() + " lootboxes");
+		if (mediator != null) {
 			mediator.updateLootbox(player, visibleLootboxes);
 		}
 	}
 
-	public void setPlayerAvatar(IPlayer player, String avatarId) {
+	public void setPlayerAvatar(Being player, String avatarId) {
 		player.setAvatar(Avatar.valueOf(avatarId));
 	}
 
 
 	public void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws GameException {
 
-		IPlayer player=getPlayerById(playerId);
+		Being character = getCharacterById(playerId);
+		if (character instanceof Player){
+			Player player = (Player) character;
 
-		for (ILootbox lootbox:lootboxes){
-			if (lootbox.getGeoPos().equals(pos)){
-				//player.consume(lootbox);
-				lootbox.consume(player);
+			for (ILootbox lootbox : lootboxes) {
+				if (lootbox.getGeoPos().equals(pos)) {
+					//player.consume(lootbox);
+					lootbox.consume(player);
 
-				lootboxes.remove(lootbox);
+					lootboxes.remove(lootbox);
 
-				if (mediator!=null) {
-					mediator.playerChangePos(playerId, player.getGeoPos());
+					if (mediator != null) {
+						mediator.playerChangePos(playerId, player.getGeoPos());
+					}
+					break;
 				}
-
-				break;
 			}
-		}
-
-
+		} else throw new GameException("Lootbox can't be consumed by npc", "");
 	}
-
-
 }
+
+/*
+ * Saving the IWorld interface here in case I'll need it for reference, otherwise I plan to use World as an abstract
+ * class instead as a better template for worlds.
+
+ public interface IWorld {
+	void createNewPlayer(String name) throws GameException;
+
+	void setMediator(ServerModelMediator mediator);
+
+	void changeWeapon(String playerId, Integer weaponID) throws GameException;
+
+	IShop getShop();
+
+	void addLootbox(ILootbox lootbox);
+
+	Being getCharacter(Being p);
+
+	void performAttack(String attackerId, String attackeeId) throws GameException;
+
+	Being getCharacterById(String id) throws GameException;
+
+	void registerPlayer(Being Being);
+
+	void playerChangePos(String id, GeoPos newPos) throws GameException;
+
+	void updateLootboxes(Being player);
+
+	void setPlayerAvatar(Being player, String avatarId);
+
+	void consumeLootboxByGeoPos(String playerId, GeoPos pos) throws GameException;
+ }
+*/
