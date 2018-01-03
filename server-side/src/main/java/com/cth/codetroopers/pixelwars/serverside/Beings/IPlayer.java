@@ -1,20 +1,17 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
 
-
+import com.cth.codetroopers.pixelwars.serverside.Beings.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 
 import java.util.List;
 
-/**
- * Created by latiif on 5/6/17.
- */
 public interface IPlayer {
+
 	void setOfflineCooldownStops(Long time);
 
 	void switchWeapon(Integer weaponID);
@@ -33,12 +30,13 @@ public interface IPlayer {
 
 	Integer getArmour();
 
-
 	void updatePos(GeoPos newPos);
 
 	void getAttacked(Integer damage);
 
 	void attackPlayer(IPlayer otherPlayer) throws CooldownException, CombatException;
+
+	void attackMonster(Monster monster) throws CooldownException, CombatException;
 
 	void goOnline();
 
@@ -78,9 +76,5 @@ public interface IPlayer {
 
 	void setIsAlive(boolean life);
 
-	List<IPlayer> getPlayersNearby();
-
-	void addNearbyPlayer(IPlayer IPlayer);
-
-	void removeNearbyPlayer(IPlayer IPlayer);
+	List<Player> getPlayersNearby();
 }

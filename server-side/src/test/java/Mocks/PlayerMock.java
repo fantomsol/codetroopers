@@ -1,12 +1,15 @@
 package Mocks;
 
+import com.cth.codetroopers.pixelwars.serverside.Beings.Being;
+import com.cth.codetroopers.pixelwars.serverside.Beings.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Monster;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Avatar.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
 /**
  * Created by latiif on 5/18/17.
  */
-public class PlayerMock implements IPlayer{
+public class PlayerMock implements IPlayer {
 	public void setOfflineCooldownStops(Long time) {
 
 	}
@@ -65,7 +68,11 @@ public class PlayerMock implements IPlayer{
 
 	}
 
-	public void attackPlayer(IPlayer otherPlayer) throws CombatException {
+	public void attackPlayer(IPlayer otherPlayer) throws CooldownException, CombatException {
+
+	}
+
+	public void attackMonster(Monster monster) throws CooldownException, CombatException {
 
 	}
 
@@ -145,15 +152,15 @@ public class PlayerMock implements IPlayer{
 
 	}
 
-	public List<IPlayer> getPlayersNearby() {
+	public List<Player> getPlayersNearby() {
 		return null;
 	}
 
-	public void addNearbyPlayer(IPlayer IPlayer) {
+	public void addNearbyPlayer(Being IPlayer) {
 
 	}
 
-	public void removeNearbyPlayer(IPlayer IPlayer) {
+	public void removeNearbyPlayer(Being IPlayer) {
 
 	}
 }
