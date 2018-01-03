@@ -1,13 +1,15 @@
 package Mediator;
 
 import com.corundumstudio.socketio.SocketIOClient;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Being;
+import com.cth.codetroopers.pixelwars.serverside.Beings.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Beings.Player;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.ServerController.IServer;
-import com.cth.codetroopers.pixelwars.serverside.WorldPackage.IWorld;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +20,9 @@ import java.util.List;
 public class ServerModelMediator implements IMediator {
 
 	private IServer server;
-	private IWorld world;
+	private World world;
 
-	public ServerModelMediator(IServer server, IWorld world) {
+	public ServerModelMediator(IServer server, World world) {
 		setServer(server);
 		setWorld(world);
 		world.setMediator(this);
@@ -32,49 +34,54 @@ public class ServerModelMediator implements IMediator {
 		try {
 			world.createNewPlayer(name);
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(name), e);
+			sendPlayerSpecificException(getCharacterById(name), e);
 		}
 	}
 
 	public void getShopItems(String id) {
-		IPlayer player = getPlayerById(id);
+		Being player = getCharacterById(id);
 		if (player != null) {
 			updatePlayerShopItems(player, getShopItems());
 		}
 	}
 
 	public void changeRadarStatus(String id, boolean wantToGoOnline) throws GameException {
-		IPlayer p = getPlayerById(id);
+		Being c = getCharacterById(id);
+		if (c instanceof Player) {
+			Player p = (Player) c;
 
-		if (wantToGoOnline) {
-			p.goOnline();
+			if (wantToGoOnline) {
+				p.goOnline();
+			} else {
+				p.goOffline();
+			}
+
+			playerChangePos(p.getID(), p.getGeoPos());
+			updatePlayer(p);
 		} else {
-			p.goOffline();
+			throw new GameException("Only players can change radarstatus", "");
 		}
-
-		playerChangePos(p.getID(), p.getGeoPos());
-		updatePlayer(p);
 	}
 
 	public void updateNearbyPlayers(IPlayer player) {
 		List<Object> playersRaw = new ArrayList<Object>();
 
-		for (IPlayer p : player.getPlayersNearby()) {
+		for (Player p : player.getPlayersNearby()) {
 			playersRaw.add(p);
 		}
 
 		server.updateNearbyPlayers(player, playersRaw);
 	}
 
-	public void updatePlayer(IPlayer IPlayer) {
-		server.updatePlayer(IPlayer);
+	public void updatePlayer(Being being) {
+		server.updatePlayer(being);
 	}
 
 	public void performAttack(String s1, String s2) {
 		try {
 			world.performAttack(s1, s2);
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(s1), e);
+
 		}
 	}
 
@@ -83,7 +90,7 @@ public class ServerModelMediator implements IMediator {
 		try {
 			world.playerChangePos(id, pos);
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(id), e);
+			sendPlayerSpecificException(getCharacterById(id), e);
 		}
 	}
 
@@ -91,21 +98,21 @@ public class ServerModelMediator implements IMediator {
 		try {
 			world.playerChangePos(id, new GeoPos(lat, longitude));
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(id), e);
+			sendPlayerSpecificException(getCharacterById(id), e);
 		}
 	}
 
 
-	public IPlayer getPlayerById(String id) {
+	public Being getCharacterById(String id) {
 		try {
-			return world.getPlayerById(id);
+			return world.getCharacterById(id);
 		} catch (GameException e) {
-			sendException(e);
+			sendGameException(e);
 			return null;
 		}
 	}
 
-	public void setWorld(IWorld world) {
+	public void setWorld(World world) {
 		this.world = world;
 
 	}
@@ -118,12 +125,12 @@ public class ServerModelMediator implements IMediator {
 		try {
 			world.consumeLootboxByGeoPos(playerId, geoPos);
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(playerId), e);
+			sendPlayerSpecificException(getCharacterById(playerId), e);
 		}
 
 	}
 
-	public void updateLootbox(IPlayer player, List<ILootbox> lootboxes) {
+	public void updateLootbox(Being player, List<ILootbox> lootboxes) {
 		List<Object> lootboxesRaw = new ArrayList<Object>();
 		for (ILootbox lootbox : lootboxes) {
 			lootboxesRaw.add(lootbox);
@@ -132,7 +139,7 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void sendPlayerInfo(String playerId) {
-		IPlayer player = getPlayerById(playerId);
+		Being player = getCharacterById(playerId);
 		if (player != null) {
 			server.updatePlayer(player);
 		} else {
@@ -145,7 +152,7 @@ public class ServerModelMediator implements IMediator {
 		try {
 			world.changeWeapon(playerId, weaponID);
 		} catch (GameException e) {
-			sendPlayerSpecificException(getPlayerById(playerId), e);
+			sendPlayerSpecificException(getCharacterById(playerId), e);
 		}
 	}
 
@@ -153,12 +160,12 @@ public class ServerModelMediator implements IMediator {
 		try {
 			return world.getShop().getItems();
 		} catch (GameException e) {
-			sendException(e);
+			sendGameException(e);
 			return null;
 		}
 	}
 
-	public void updatePlayerShopItems(IPlayer p, List<Item> list) {
+	public void updatePlayerShopItems(Being p, List<Item> list) {
 		Object player = p;
 		List<Object> items = new ArrayList();
 		for (Item item : list) {
@@ -169,31 +176,36 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void buyItem(String playerId, Integer itemID, String itemType) {
-		IPlayer player = getPlayerById(playerId);
-		if (player != null) {
-			try {
-				player.buyItem(world.getShop().getItem(itemID, itemType));
-			} catch (GameException e) {
-				sendPlayerSpecificException(player, e);
-			}
+		Being c = getCharacterById(playerId);
+		if (c instanceof Player) {
+			Player player = (Player) c;
+				try {
+					player.buyItem(world.getShop().getItem(itemID, itemType));
+				} catch (GameException e) {
+					sendPlayerSpecificException(player, e);
+				}
 			server.updatePlayer(player);
 		}
 	}
 
 	public void sellItem(String playerId, Integer itemID, String itemType) {
-		IPlayer player = getPlayerById(playerId);
-		if (player != null) {
-			try {
-				world.getShop().sellItem(player, world.getShop().getItem(itemID, itemType));
-			} catch (GameException e) {
-				sendPlayerSpecificException(player, e);
+		Being c = getCharacterById(playerId);
+		if (c instanceof Player) {
+			Player player = (Player) c;
+
+			if (player != null) {
+				try {
+					world.getShop().sellItem(player, world.getShop().getItem(itemID, itemType));
+				} catch (GameException e) {
+					sendPlayerSpecificException(player, e);
+				}
+				server.updatePlayer(player);
 			}
-			server.updatePlayer(player);
 		}
 	}
 
 	public void playerSignin(String id, SocketIOClient socketIOClient) {
-		IPlayer p = getPlayerById(id);
+		Being p = getCharacterById(id);
 		if (p != null) {
 			server.playerSignin(p, socketIOClient);
 		} else {
@@ -202,19 +214,20 @@ public class ServerModelMediator implements IMediator {
 	}
 
 	public void changeAvatar(String playerId, String avatarId) {
-		IPlayer p = getPlayerById(playerId);
-		if (p != null) {
+		Being c = getCharacterById(playerId);
+		if (c instanceof Player) {
+			Player p = (Player) c;
 			world.setPlayerAvatar(p, avatarId);
 			updatePlayer(p);
 			updateNearbyPlayers(p);
 		}
 	}
 
-	public void sendPlayerSpecificException(IPlayer p, GameException gameException) {
+	public void sendPlayerSpecificException(Being p, GameException gameException) {
 		server.sendException(p, gameException);
 	}
 
-	public void sendException(GameException gameException) {
+	public void sendGameException(GameException gameException) {
 		server.sendException(gameException);
 	}
 }
