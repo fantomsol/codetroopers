@@ -5,10 +5,10 @@ public class WorldTest {
 	/*
 	@Test
 	public void registerTest(){
-		IPlayer p1,p2;
+		Being p1,p2;
 
-		p1= new Player("player1",new GeoPos(0.0,0.0));
-		p2= new Player("player2",new GeoPos(50.0,9.0));
+		p1= new Being("player1",new GeoPos(0.0,0.0));
+		p2= new Being("player2",new GeoPos(50.0,9.0));
 
 		p1.goOnline();
 		p2.goOnline();
@@ -32,8 +32,8 @@ public class WorldTest {
 
 		world.createNewPlayer("Laila");
 
-		Assert.assertTrue(world.getPlayerById("Maila")==null);
-		Assert.assertTrue(world.getPlayerById("Laila")!=null);
+		Assert.assertTrue(world.getCharacterById("Maila")==null);
+		Assert.assertTrue(world.getCharacterById("Laila")!=null);
 	}
 
 	@Test
