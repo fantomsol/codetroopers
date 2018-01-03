@@ -1,25 +1,18 @@
-package com.cth.codetroopers.pixelwars.serverside.NPC;
+package com.cth.codetroopers.pixelwars.serverside.Character;
 
-import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.CombatException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Monster implements INPC {
+public class Monster extends Being {
 
-	private Avatar avatar;
-	private GeoPos geoPos;
 	private int hp;
 	private int damage;
 	private int range;
 	private Boolean isAlive;
-	private String id;
 
 	public Monster(String id, int hp, int damage, int range){
-		this.id = id;
+		super(id);
 
 		this.hp = hp;
 
@@ -30,7 +23,7 @@ public class Monster implements INPC {
 		this.isAlive = true;
 	}
 
-	public void attackPlayer(IPlayer player) throws CombatException {
+	public void attackPlayer(Player player) throws CombatException {
 		if (!getIsAlive()) {
 			throw new CombatException("");
 		}
@@ -54,28 +47,8 @@ public class Monster implements INPC {
 		}
 	}
 
-	public void updatePos(GeoPos newPos) {
-		geoPos = newPos;
-	}
-
-	public void setAvatar(Avatar a) {
-		avatar = a;
-	}
-
-	public void setIsAlive(boolean life) {
-		isAlive = life;
-	}
-
-	public Avatar getAvatar() {
-		return this.avatar;
-	}
-
 	public GeoPos getGeoPos() {
 		return geoPos;
-	}
-
-	public String getID() {
-		return id;
 	}
 
 	public Boolean getIsAlive() {
