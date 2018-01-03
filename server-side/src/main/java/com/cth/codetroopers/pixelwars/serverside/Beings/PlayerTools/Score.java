@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools;
 
 /**
  * Created by latiif on 4/9/17.

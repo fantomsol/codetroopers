@@ -1,11 +1,14 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Beings;
+
+import com.cth.codetroopers.pixelwars.serverside.Beings.PlayerTools.PlayerConstants;
 
 /**
  * Created by latiif on 5/15/17.
  */
 public class RespawnCooldown extends Cooldown {
-	public RespawnCooldown(int cooldownDuration, IPlayer iPlayer) {
-		super(cooldownDuration, iPlayer);
+
+	public RespawnCooldown(int cooldownDuration, Player player) {
+		super(cooldownDuration, player);
 	}
 
 	@Override
