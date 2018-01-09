@@ -60,10 +60,16 @@ public class Server implements IServer {
 		socketIOServer.start();
 	}
 
+	//LOCAL:
+	/*
 	public void startServer() {
 		startServer("127.0.0.1", 3000);
 	}
-
+*/
+	//MOBILE NETWORK:
+	public void startServer() {
+		startServer("192.168.43.98", 3000);
+	}
 	public void shutdown() {
 		socketIOServer.stop();
 	}
