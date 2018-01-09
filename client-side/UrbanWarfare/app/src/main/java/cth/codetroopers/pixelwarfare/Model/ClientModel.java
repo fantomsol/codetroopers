@@ -34,24 +34,25 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     public boolean signIn = true;
 
-    private List <IPlayerUpdateListener> playerListeners;
-    private List <INPCUpdateListener> npcListeners;
-    private List <ILoadUpdateListener> loadListeners;
-    private List <ILootboxUpdateListener> lootboxListeners;
-    private List <IOpponentsUpdateListener> opponentListeners;
-    private List <IShopUpdateListener> shopListeners;
+    private List<IPlayerUpdateListener> playerListeners;
+    private List<INPCUpdateListener> npcListeners;
+    private List<ILoadUpdateListener> loadListeners;
+    private List<ILootboxUpdateListener> lootboxListeners;
+    private List<IOpponentsUpdateListener> opponentListeners;
+    private List<IShopUpdateListener> shopListeners;
 
-    public void setPlayerId(String id){
+    public void setPlayerId(String id) {
         layer.setPlayerID(id);
-        this.playerID=id;
+        this.playerID = id;
     }
+
     private ShopSkeleton shop;
 
     private IConnectivityLayer layer;
 
     private String playerID;
 
-    private ClientModel(){
+    private ClientModel() {
         playerListeners = new ArrayList<>();
         npcListeners = new ArrayList<>();
         loadListeners = new ArrayList<>();
@@ -65,8 +66,8 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         return clientModel;
     }
 
-    public void setConnectionLayer(IConnectivityLayer layer){
-        this.layer=layer;
+    public void setConnectionLayer(IConnectivityLayer layer) {
+        this.layer = layer;
         layer.setListener(this);
     }
 
@@ -103,9 +104,9 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
     @Override
     public void onExceptionReceived(GameException gameException) {
-        Log.i("EXCEPTION",gameException.getTitle()+" : "+gameException.getMsg());
+        Log.i("EXCEPTION", gameException.getTitle() + " : " + gameException.getMsg());
 
-        PixelWarfare.getInstance().showToast(gameException.getTitle()+" :"+gameException.getMsg());
+        PixelWarfare.getInstance().showToast(gameException.getTitle() + " :" + gameException.getMsg());
     }
 
     public void consumeLootbox(LatLng coord) {
@@ -166,11 +167,11 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
         shopView = view;
     }*/
 
-    public void subscribePlayerUpdate(IPlayerUpdateListener listener){
+    public void subscribePlayerUpdate(IPlayerUpdateListener listener) {
         playerListeners.add(listener);
     }
 
-    public void subscribeNPCUpdate(INPCUpdateListener listener){
+    public void subscribeNPCUpdate(INPCUpdateListener listener) {
         npcListeners.add(listener);
     }
 
@@ -191,45 +192,46 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
     }
 
     private void updatePlayerlisteners(PlayerSkeleton p) {
-        for (IPlayerUpdateListener listener:playerListeners
-             ) {
+        for (IPlayerUpdateListener listener : playerListeners
+                ) {
             listener.updateGUI(p);
         }
     }
+
     private void updateNPClisteners(List<BeingSkeleton> n) {
-        for (INPCUpdateListener listener:npcListeners) {
+        for (INPCUpdateListener listener : npcListeners) {
             listener.updateNPCs(n);
         }
     }
 
     private void updateLoadlisteners(LoadingStates l) {
-        for (ILoadUpdateListener listener:loadListeners
+        for (ILoadUpdateListener listener : loadListeners
                 ) {
             listener.updateLoadingStatus(l);
         }
     }
 
-    private void updateLootboxlisteners(List <LatLng> l) {
-        for (ILootboxUpdateListener listener:lootboxListeners) {
+    private void updateLootboxlisteners(List<LatLng> l) {
+        for (ILootboxUpdateListener listener : lootboxListeners) {
             listener.updateLootboxes(l);
         }
     }
 
     private void updateOpponentlisteners(List<PlayerSkeleton> p) {
-        for (IOpponentsUpdateListener listener:opponentListeners
+        for (IOpponentsUpdateListener listener : opponentListeners
                 ) {
             listener.updateOpponents(p);
         }
     }
 
     private void updateShoplisteners(List<Object> items) {
-        for (IShopUpdateListener listener:shopListeners
+        for (IShopUpdateListener listener : shopListeners
                 ) {
             listener.updateItemsList(items);
         }
     }
 
-    public void changeAvatar(String newAvatar){
+    public void changeAvatar(String newAvatar) {
         layer.requestChangeAvatar(newAvatar);
     }
 
@@ -262,7 +264,7 @@ public class ClientModel implements IConnectivityLayer.ConnectivityListener {
 
         updatePlayerlisteners(player);
 
-        if (shop!=null) {
+        if (shop != null) {
             updateShoplisteners(shop.getAllItems());
         }
     }
