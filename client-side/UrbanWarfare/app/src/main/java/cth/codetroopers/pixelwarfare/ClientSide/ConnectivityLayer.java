@@ -22,11 +22,10 @@ import io.socket.emitter.Emitter;
 /**
  * This class serves as a two-way gate that takes care of communication between the android
  * implementation of the game and it's classes, and the remote server
- *
+ * <p>
  * All communication with the server is performed via and by this class
  *
  * @author latiif
- *
  */
 
 /*
@@ -56,64 +55,65 @@ public class ConnectivityLayer implements IConnectivityLayer {
      */
     private String playerID;
 
-    private boolean firstFetch=true;
+    private boolean firstFetch = true;
 
     private ConnectivityListener mListener;
 
     @Override
     public void requestChangeAvatar(String newAvatar) {
-        JSONObject object= new JSONObject();
+        JSONObject object = new JSONObject();
 
-        try{
-            object.put("playerId",playerID);
-            object.put("avatarId",newAvatar);
-            socket.emit("change-avatar",object);
-        }
-        catch (JSONException e){
+        try {
+            object.put("playerId", playerID);
+            object.put("avatarId", newAvatar);
+            socket.emit("change-avatar", object);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public void setListener(ConnectivityListener listener) {
-        mListener=listener;
+        mListener = listener;
     }
 
     /**
-     * This method is called whenever the user request a change in their online/offline radar status. Whether the request is granted or not is handled on the server and NOT here.
+     * This method is called whenever the user request a change in their online/offline radar
+       status. Whether the request is granted or not is handled on the server and NOT here.
      */
     @Override
-    public  void requestChangeRadarStatus(boolean currentStatus){
-        JSONObject object= new JSONObject();
+    public void requestChangeRadarStatus(boolean currentStatus) {
+        JSONObject object = new JSONObject();
 
         try {
             object.put("playerId", playerID);
-            object.put("wantToGoOnline",!currentStatus);
+            object.put("wantToGoOnline", !currentStatus);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        socket.emit("change-radar-status",object);
+        socket.emit("change-radar-status", object);
     }
 
 
-
     /**
-     * The client socket that is created for the sole purpose of sending and receiving events from/to the remote server.
+     * The client socket that is created for the sole purpose of sending and receiving events
+        from/to the remote server.
      * This object is assigned on Init() method.
      *
      * @see ConnectivityLayer#Init()
      */
-    private  Socket socket;
+    private Socket socket;
 
 
     /**
-     * One-time run method that registers all the events that the client can listen to, every event is added manually in this method, and is called once inside the Init method
+     * One-time run method that registers all the events that the client can listen to, every event
+        is added manually in this method, and is called once inside the Init method
      *
-     * @see  ConnectivityLayer#Init()
+     * @see ConnectivityLayer#Init()
      */
-    private  void addListeners(){
+    private void addListeners() {
         /**
          * Reacts to a player-info event.
          * If the recieved data is that of the player, they are stored in the local variable playerInfo of the type JSONObject.
@@ -123,15 +123,15 @@ public class ConnectivityLayer implements IConnectivityLayer {
         socket.on("player-info", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                JSONObject msg= (JSONObject) args[0];
+                JSONObject msg = (JSONObject) args[0];
 
-                if (msg==null){
+                if (msg == null) {
                     return;
                 }
                 try {
-                    if (msg.get("id").equals(playerID)){
-                        if (firstFetch){
-                            firstFetch=false;
+                    if (msg.get("id").equals(playerID)) {
+                        if (firstFetch) {
+                            firstFetch = false;
                             mListener.onDataFetched();
                         }
                         mListener.onPlayerDataRecieved(SkeletonFactory.getPlayer(msg));
@@ -153,7 +153,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
         socket.on("nearby-players-update", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.i("nearby", String.valueOf( args.length));
+                Log.i("nearby", String.valueOf(args.length));
 
                 mListener.onNearbyPlayersReceived(SkeletonFactory.getPlayers(args));
             }
@@ -163,12 +163,12 @@ public class ConnectivityLayer implements IConnectivityLayer {
         socket.on("lootbox-update", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                List<LatLng> lootboxes= new ArrayList<LatLng>();
+                List<LatLng> lootboxes = new ArrayList<LatLng>();
 
-                for (Object arg: args){
+                for (Object arg : args) {
                     JSONObject object = (JSONObject) arg;
                     try {
-                        lootboxes.add(new LatLng(object.getJSONObject("geoPos").getDouble("latitude"),object.getJSONObject("geoPos").getDouble("longitude")));
+                        lootboxes.add(new LatLng(object.getJSONObject("geoPos").getDouble("latitude"), object.getJSONObject("geoPos").getDouble("longitude")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -182,7 +182,7 @@ public class ConnectivityLayer implements IConnectivityLayer {
             @Override
             public void call(Object... args) {
 
-               mListener.updateShop(SkeletonFactory.getShop(args));
+                mListener.updateShop(SkeletonFactory.getShop(args));
             }
         });
 
@@ -196,12 +196,11 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
     /**
      * Creates a client socket and connects to the remote server.
-     *
+     * <p>
      * It does also add listeners for the events in the addListeners method.
      *
-     * @see ConnectivityLayer#addListeners()
      * @throws URISyntaxException
-     *
+     * @see ConnectivityLayer#addListeners()
      */
     @Override
     public void Init() throws URISyntaxException {
@@ -209,13 +208,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
         This address the one the emulator uses to connect to localhost on the hosting machine
         If connecting to a remote server online, this URI address needs to be changed
          */
-        socket = IO.socket("http://10.0.2.2:3000");
+        socket = IO.socket("http://192.168.43.98:3000");
 
 
         socket.on(Socket.EVENT_CONNECT, new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Log.i("information","CONNECTED");
+                Log.i("information", "CONNECTED");
                 /*
                 Prompts the loadingActivity that connection is established
                  */
@@ -233,13 +232,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
 
     @Override
-    public void requestShopItems(){
-        JSONObject object= new JSONObject();
+    public void requestShopItems() {
+        JSONObject object = new JSONObject();
 
         try {
-            object.put("playerId",playerID);
+            object.put("playerId", playerID);
 
-            socket.emit("get-shopitems",object);
+            socket.emit("get-shopitems", object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -248,35 +247,34 @@ public class ConnectivityLayer implements IConnectivityLayer {
     }
 
     @Override
-    public  void changePosition(Location position){
-        LatLng pos= new LatLng(position.getLatitude(),position.getLongitude());
+    public void changePosition(Location position) {
+        LatLng pos = new LatLng(position.getLatitude(), position.getLongitude());
 
         changePosition(pos);
-
     }
 
 
     @Override
-    public  void changePosition(LatLng position){
+    public void changePosition(LatLng position) {
 
-        JSONObject object= new JSONObject();
+        JSONObject object = new JSONObject();
 
         /*
         Filling in the data required by the event.
         Look at the specifications for this event in the code of the server
          */
         try {
-            object.put("id",playerID);
-            object.put("lat",position.latitude);
-            object.put("lang",position.longitude);
+            object.put("id", playerID);
+            object.put("lat", position.latitude);
+            object.put("lang", position.longitude);
 
 
             /*
             Sends the actual request as a JSON object
              */
-            socket.emit("position-changed",object);
+            socket.emit("position-changed", object);
 
-            Log.i("position-changed", String.valueOf(position.latitude)+" "+position.longitude);
+            Log.i("position-changed", String.valueOf(position.latitude) + " " + position.longitude);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -284,21 +282,22 @@ public class ConnectivityLayer implements IConnectivityLayer {
     }
 
     public void setPlayerID(String id) {
-        playerID =id;
+        playerID = id;
     }
 
     /**
      * This method send a sign-in request to the server from the player
+     *
      * @param id
      */
     @Override
-    public  void signIn(final String id){
-        JSONObject object= new JSONObject();
+    public void signIn(final String id) {
+        JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
+            object.put("id", id);
 
-            socket.emit("signin",object);
+            socket.emit("signin", object);
             requestPlayerInformation(id);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -313,13 +312,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
 
     @Override
-    public  void signUp(final String id){
-        JSONObject object= new JSONObject();
+    public void signUp(final String id) {
+        JSONObject object = new JSONObject();
 
         try {
-            object.put("id",id);
+            object.put("id", id);
 
-            socket.emit("signup",object);
+            socket.emit("signup", object);
             requestPlayerInformation(id);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -328,20 +327,20 @@ public class ConnectivityLayer implements IConnectivityLayer {
         /*
         Prompts loadingActivity that signing in is ongoing
          */
-       mListener.onSignedup();
+        mListener.onSignedup();
 
     }
 
     @Override
-    public  void changeWeapon(int weaponID){
+    public void changeWeapon(int weaponID) {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("playerId",playerID);
-            object.put("weaponId",weaponID);
+            object.put("playerId", playerID);
+            object.put("weaponId", weaponID);
 
-            socket.emit("change-weapon",object);
-            Log.i("request","request to change weapon sent");
+            socket.emit("change-weapon", object);
+            Log.i("request", "request to change weapon sent");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -357,14 +356,14 @@ public class ConnectivityLayer implements IConnectivityLayer {
      * @param otherPlayerId The id of the other player that the current player is going to attack
      */
     @Override
-    public  void attack(final String otherPlayerId){
+    public void attack(final String otherPlayerId) {
 
-        JSONObject object= new JSONObject();
+        JSONObject object = new JSONObject();
 
         try {
-            object.put("id",playerID);
-            object.put("oId",otherPlayerId);
-            socket.emit("attack",object);
+            object.put("id", playerID);
+            object.put("oId", otherPlayerId);
+            socket.emit("attack", object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -373,18 +372,18 @@ public class ConnectivityLayer implements IConnectivityLayer {
 
     /**
      * Asks the server to fetch back a JSON object containing all the information about a specific player.
-     *
+     * <p>
      * Usage: Can be used to either fetch information on the current player, or when viewing other player's profile
      *
      * @param id
      */
 
     @Override
-    public  void requestPlayerInformation(final String id){
-        JSONObject object= new JSONObject();
+    public void requestPlayerInformation(final String id) {
+        JSONObject object = new JSONObject();
         try {
-            object.put("id",id);
-            socket.emit("get-player-info",object);
+            object.put("id", id);
+            socket.emit("get-player-info", object);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -392,13 +391,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
     }
 
     @Override
-    public void consumeLootboxRequest(LatLng coord){
+    public void consumeLootboxRequest(LatLng coord) {
         JSONObject object = new JSONObject();
 
         try {
-            object.put("id",playerID);
-            object.put("geoPos",new JSONObject().put("latitude",coord.latitude).put("longitude",coord.longitude));
-            socket.emit("consume-lootbox",object);
+            object.put("id", playerID);
+            object.put("geoPos", new JSONObject().put("latitude", coord.latitude).put("longitude", coord.longitude));
+            socket.emit("consume-lootbox", object);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -406,35 +405,35 @@ public class ConnectivityLayer implements IConnectivityLayer {
     }
 
     @Override
-    public void requestItemBuy(Integer itemId, String itemType){
+    public void requestItemBuy(Integer itemId, String itemType) {
         JSONObject object = new JSONObject();
 
-        try{
+        try {
 
-            object.put("playerId",playerID);
-            object.put("itemId",itemId);
-            object.put("itemType",itemType);
+            object.put("playerId", playerID);
+            object.put("itemId", itemId);
+            object.put("itemType", itemType);
 
-            socket.emit("buy-item",object);
+            socket.emit("buy-item", object);
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void requestItemSell(Integer itemId, String itemType){
+    public void requestItemSell(Integer itemId, String itemType) {
         JSONObject object = new JSONObject();
 
-        try{
+        try {
 
-            object.put("playerId",playerID);
-            object.put("itemId",itemId);
-            object.put("itemType",itemType);
+            object.put("playerId", playerID);
+            object.put("itemId", itemId);
+            object.put("itemType", itemType);
 
-            socket.emit("sell-item",object);
+            socket.emit("sell-item", object);
 
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
