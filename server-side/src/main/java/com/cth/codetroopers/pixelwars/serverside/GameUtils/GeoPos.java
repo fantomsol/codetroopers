@@ -23,14 +23,6 @@ public class GeoPos {
 		setLongitude(longitude);
 	}
 
-	public Double getLatitude() {
-		return this.latitude;
-	}
-
-	public Double getLongitude() {
-		return this.longitude;
-	}
-
 	void setLatitude(Double newLatitude) throws GeographicalException {
 		if (newLatitude > 90 || newLatitude < 0) {
 			throw new GeographicalException("Latitude values is not correct: " + newLatitude);
@@ -78,4 +70,14 @@ public class GeoPos {
 
 		return stringBuilder.toString();
 	}
+
+
+	public Double getLatitude() {
+		return this.latitude;
+	}
+
+	public Double getLongitude() {
+		return this.longitude;
+	}
+
 }
