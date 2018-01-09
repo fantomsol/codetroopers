@@ -208,6 +208,13 @@ public class ConnectivityLayer implements IConnectivityLayer {
         This address the one the emulator uses to connect to localhost on the hosting machine
         If connecting to a remote server online, this URI address needs to be changed
          */
+
+        //LOCAL:
+        /*
+        socket = IO.socket("http://10.0.2.2:3000");
+        */
+
+        //MOBILE NETWORK:
         socket = IO.socket("http://192.168.43.98:3000");
 
 
