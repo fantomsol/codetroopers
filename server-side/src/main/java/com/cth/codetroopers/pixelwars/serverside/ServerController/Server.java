@@ -119,6 +119,7 @@ public class Server implements IServer {
 	public void playerSignin(Object p, SocketIOClient socketIOClient) {
 		map.put(p, socketIOClient);
 
+		System.out.print("Player signin method reached");
 		//updateNearbyPlayers(p);
 		updatePlayer(p);
 	}
