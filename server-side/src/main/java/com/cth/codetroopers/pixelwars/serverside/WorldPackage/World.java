@@ -99,11 +99,11 @@ public abstract class World {
 	public Being getCharacterById(final String id) throws GameException {
 		Being res = characters.get(id);
 		if (res != null) {
-			return res;
-		} else {
-			throw new GameException("No such player", id + " is not registered");
-		}
+		return res;
+	} else {
+		throw new GameException("No such player", id + " is not registered");
 	}
+}
 
 
 	public void registerPlayer(Player player) {
