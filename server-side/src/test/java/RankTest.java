@@ -1,11 +1,9 @@
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
-import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
-import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsFactory;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.Player.Player;
-import com.cth.codetroopers.pixelwars.serverside.WorldPackage.World;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,83 +11,61 @@ import org.junit.Test;
  */
 public class RankTest {
 
-    @Test
-    public void killEqual() throws FactoryException, CooldownException, CombatException, GeographicalException {
-        IPlayer Nemo = new Player("Nemo", new GeoPos(0.0,0.0));
-        Nemo.setHp(1.0);
-        Nemo.setExp(400);
-        Player Fafne = new Player("Fafne", new GeoPos(0.0,0.0));
-        Fafne.setHp(1.0);
-        Fafne.setExp(400);
+	Player nemo;
+	Player fafne;
+	//World world = new World();
 
-        Nemo.attackOtherPlayer(Fafne);
-        Assert.assertTrue(Nemo.getExp()==450);
-        Assert.assertTrue(Fafne.getExp()==360);
-    }
+	@Before
+	public void initRankTest() throws GeographicalException, FactoryException {
+		nemo = new Player("nemo", new GeoPos(0.0, 0.0));
+		fafne = new Player("fafne", new GeoPos(0.0, 0.0));
+		//world.registerPlayer(nemo);
+		//world.registerPlayer(fafne);
+		//world.setMediator(new ServerModelMediator(new ServerMock(), world));
+	}
 
-    @Test
-    public void attackUnArmed() throws GameException {
-        IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
-        IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
+	@Test
+	public void killEqual() throws CooldownException, CombatException {
+		nemo.setHp(1.0);
+		nemo.setExp(400);
+		fafne.setHp(1.0);
+		fafne.setExp(400);
+		nemo.attackOtherPlayer(fafne);
+		Assert.assertTrue(nemo.getExp() == 450);
+		Assert.assertTrue(fafne.getExp() == 400 * 0.9);
+	}
 
-        palle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
-        palle.switchWeapon(WeaponsDirectory.WHITEFLAG);
+	/*@Test
+	public void killUnArmed() throws GameException {
+		fafne.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
+		fafne.switchWeapon(WeaponsDirectory.WHITEFLAG);
+		fafne.setHp(1.0);
 
-        kalle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.SHOTGUN));
-        kalle.switchWeapon(WeaponsDirectory.SHOTGUN);
+		nemo.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.SHOTGUN));
+		nemo.switchWeapon(WeaponsDirectory.SHOTGUN);
 
-        World world= new World();
-        world.registerPlayer(kalle);
-        world.registerPlayer(palle);
+		int exp = nemo.getExp();
 
-        int exp=kalle.getExp();
+		world.performAttack("nemo", "fafne");
 
-        world.performAttack("kalle","palle");
-
-        Assert.assertTrue(kalle.getExp()==(exp-10));
-
-    }
-
-    @Test
-    public void killUnArmed() throws GameException {
-        IPlayer kalle=new Player("kalle", new GeoPos(0.0,0.0));
-        IPlayer palle= new Player("palle", new GeoPos(0.0,0.0));
-
-        palle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
-        palle.switchWeapon(WeaponsDirectory.WHITEFLAG);
-        palle.setHp(1.0);
-
-        kalle.grantWeapon(WeaponsFactory.createWeapon(WeaponsDirectory.SHOTGUN));
-        kalle.switchWeapon(WeaponsDirectory.SHOTGUN);
-
-        World world= new World();
-        world.registerPlayer(kalle);
-        world.registerPlayer(palle);
-
-        int exp=kalle.getExp();
-
-        world.performAttack("kalle","palle");
-
-        Assert.assertTrue(!palle.getIsAlive());
-        Assert.assertTrue(kalle.getExp().equals(exp-10));
-
-    }
+		Assert.assertTrue(!fafne.getIsAlive());
+		Assert.assertTrue(nemo.getExp().equals(exp - 10));
+	}*/
 
 
-    @Test
-    public void killStrong() throws FactoryException, CooldownException, CombatException, GeographicalException {
-        IPlayer Nemo = new Player("Nemo", new GeoPos(0.0,0.0));
-        Nemo.setHp(1.0);
-        Nemo.setExp(400);
-        Player Fafne = new Player("Fafne", new GeoPos(0.0,0.0));
-        Fafne.setHp(1.0);
-        Fafne.setExp(800);
+	@Test
+	public void killStrong() throws FactoryException, CooldownException, CombatException, GeographicalException {
+		IPlayer nemo = new Player("nemo", new GeoPos(0.0, 0.0));
+		nemo.setHp(1.0);
+		nemo.setExp(400);
+		Player fafne = new Player("fafne", new GeoPos(0.0, 0.0));
+		fafne.setHp(1.0);
+		fafne.setExp(800);
 
-        Nemo.attackOtherPlayer(Fafne);
-        Assert.assertTrue(Nemo.getExp()==600);
-        Assert.assertTrue(Fafne.getExp()==720);
-    }
-
+		nemo.attackOtherPlayer(fafne);
+		Assert.assertTrue(nemo.getExp() == 600);
+		Assert.assertTrue(fafne.getExp() == 720);
+	}
 
 
 }

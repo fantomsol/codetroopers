@@ -1,7 +1,7 @@
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.EmptyLootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
-import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
-import com.cth.codetroopers.pixelwars.serverside.Lootbox.Lootbox;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.ILootbox;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.Lootbox;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import Mocks.PlayerMock;
 import org.junit.Assert;
@@ -23,9 +23,9 @@ public class LootboxTest {
 		try {
 			lootbox.consume(player);
 		} catch (EmptyLootbox e) {
-			Assert.assertTrue(1==2);
+			Assert.assertTrue(false);
 		} catch (FactoryException e){
-			Assert.assertTrue(1==2);
+			Assert.assertTrue(false);
 		}
 
 		Assert.assertTrue(player.getGold()==oldGold+250);

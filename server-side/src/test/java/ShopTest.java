@@ -1,18 +1,20 @@
-import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.DuplicateItemException;
-import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
-import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
-import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.InsufficientException;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
+import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.ArmoursDirectory;
+import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
+import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.Weapon;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.WeaponsDirectory;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
-import com.cth.codetroopers.pixelwars.serverside.Shop.IShop;
-import com.cth.codetroopers.pixelwars.serverside.Shop.Shop;
-import com.cth.codetroopers.pixelwars.serverside.Shop.ShopConstants;
+import com.cth.codetroopers.pixelwars.serverside.Player.Player;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerConstants;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Shop.Shop;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Shop.ShopConstants;
 import Mocks.WeaponMock;
 import Mocks.PlayerMock;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -21,78 +23,103 @@ import java.util.List;
  * Created by Hugo on 5/1/17.
  */
 public class ShopTest {
-    @Test
-    public void getItemsListTest(){
-        IShop shop= new Shop();
 
-        List<Item> items= null;
-        try {
-            items = shop.getItems();
-        } catch (FactoryException e) {
-            Assert.assertTrue(1==2);
-        }
+	private Shop shop = new Shop();
+	GeoPos pos;
+	IPlayer player;
 
-        Assert.assertEquals(WeaponsDirectory.NUMBER_OF_WEAPONS+ ArmoursDirectory.NUMBER_OF_ARMOURS,items.size());
+	@Before
+	public void initShopTest() throws GeographicalException, FactoryException {
+		this.pos = new GeoPos(0.0, 0.0);
+		this.player = new Player("p", pos);
+	}
 
-    }
+	@Test
+	public void getItemsTest() {
+		List<Item> items = null;
+		try {
+			items = shop.getItems();
+		} catch (FactoryException e) {
+			Assert.fail();
+		}
+		for (Object item : items) {
+			Assert.assertTrue(item instanceof Weapon || item instanceof IArmour);
+		}
 
-    @Test
-    public void itemBuyTest() throws FactoryException {
+		Assert.assertEquals(WeaponsDirectory.NUMBER_OF_WEAPONS + ArmoursDirectory.NUMBER_OF_ARMOURS, items.size());
+	}
 
-        IPlayer p1 =  new PlayerMock();
-        IWeapon weapon = new WeaponMock();
-        IShop shop = new Shop();
+	@Test
+	public void itemBuyTest() {
+		// Make sure exception is thrown and no money drawn when attempting to buy with insufficient money
+		IWeapon weapon = new WeaponMock(PlayerConstants.START_GOLD + 1);
+		try {
+			shop.buyItem(player, weapon);
+		} catch (DuplicateItemException e) {
+			Assert.fail();
+		} catch (InsufficientException e) {
+			Assert.assertTrue(player.getGold() == PlayerConstants.START_GOLD);
+		}
 
+		// Grant money to buy the weapon, make sure nothing fails
+		player.grantGold(1);
+		try {
+			shop.buyItem(player, weapon);
+		} catch (DuplicateItemException e) {
+			Assert.fail();
+		} catch (InsufficientException e) {
+			Assert.fail();
+		}
+		Assert.assertTrue(player.getWeapons().contains(weapon));
 
-        p1.grantGold(weapon.getCost()-100);
-        int goldF=p1.getGold();
+		// Grant money and try again. Duplicate exception should be thrown.
+		int pGold = PlayerConstants.START_GOLD + 1;
+		player.grantGold(pGold);
+		try {
+			shop.buyItem(player, weapon);
+		} catch (DuplicateItemException e) {
+			Assert.assertTrue(player.getGold() == pGold);
+		} catch (InsufficientException e) {
+			Assert.fail();
+		}
+	}
 
-        try {
-            shop.buyItem(p1, weapon);
-        } catch (DuplicateItemException e) {
-            Assert.assertTrue(1==2);
-        } catch (InsufficientException e) {
-           Assert.assertTrue(true);
-        }
+	@Test
+	public void itemSellTest() throws InsufficientException, DuplicateItemException {
+		IWeapon weapon = new WeaponMock();
+		shop.buyItem(player, weapon);
 
-        Assert.assertTrue(p1.getGold()== goldF);
+		try {
+			shop.sellItem(player, weapon);
+		} catch (GameException e) {
+			Assert.fail();
+		}
+		double moneyAfterSelling = weapon.getCost() * ShopConstants.REFUND_PERCENTAGE;
+		Assert.assertTrue(player.getGold() == moneyAfterSelling);
+		Assert.assertFalse(player.getWeapons().contains(weapon));
 
-        p1.grantGold(100);
+		// Try to sell again, should not work, should gain no money
+		try {
+			shop.sellItem(player, weapon);
+		} catch (GameException e) {
+			Assert.assertTrue(player.getGold() == moneyAfterSelling);
+		}
+	}
 
-        try {
-            shop.buyItem(p1,weapon);
-        } catch (DuplicateItemException e) {
-            Assert.assertTrue(1==2);
-        } catch (InsufficientException e) {
-            Assert.assertTrue(1==2);
-        }
+	@Test
+	public void getItemTest() throws FactoryException {
+		Item kevlar = shop.getItem(ArmoursDirectory.KEVLAR, "armour");
+		Assert.assertTrue(kevlar instanceof IArmour && kevlar.getName().equals("Kevlar"));
 
+		Item shotgun = shop.getItem(WeaponsDirectory.SHOTGUN, "Weapon");
+		Assert.assertTrue(shotgun instanceof Weapon && shotgun.getName().equals("Shotgun"));
 
-    }
+		// Exception should be thrown when no such item exists
+		try {
+			shop.getItem(13, "Armour");
+		} catch (FactoryException e) {
+			Assert.assertTrue(true);
+		}
+	}
 
-    @Test
-    public void itemSellTest() throws InsufficientException, DuplicateItemException {
-
-        IPlayer p1 =  new PlayerMock();
-        IShop shop = new Shop();
-
-        IWeapon weapon= new WeaponMock();
-
-        p1.grantGold(weapon.getCost());
-
-        shop.buyItem(p1, weapon);
-
-
-        try {
-            shop.sellItem(p1,weapon);
-        } catch (GameException e) {
-            Assert.assertTrue(1==2);
-        }
-
-
-        Assert.assertTrue(p1.getGold()==weapon.getCost()* ShopConstants.REFUND_PERCENTAGE);
-
-
-
-    }
 }
