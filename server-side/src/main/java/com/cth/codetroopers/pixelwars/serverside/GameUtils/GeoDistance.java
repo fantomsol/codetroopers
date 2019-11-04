@@ -19,11 +19,7 @@ public final class GeoDistance {
 		return (dist);
 	}
 
-
-
-
-
-	private static double deg2rad(double deg) {
+		private static double deg2rad(double deg) {
 		return (deg * Math.PI / 180.0);
 	}
 

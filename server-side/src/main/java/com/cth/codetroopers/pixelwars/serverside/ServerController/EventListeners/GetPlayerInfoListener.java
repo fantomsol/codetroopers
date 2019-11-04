@@ -11,16 +11,11 @@ import com.corundumstudio.socketio.listener.DataListener;
  */
 public class GetPlayerInfoListener extends EventListener implements DataListener<GetPlayerInfoEvent> {
 
-
 	public GetPlayerInfoListener(IMediator mediator) {
 		super(mediator);
 	}
 
 	public void onData(SocketIOClient socketIOClient, GetPlayerInfoEvent getPlayerInfoEvent, AckRequest ackRequest) throws Exception {
-
 		mediator.sendPlayerInfo(getPlayerInfoEvent.getId());
-
-
-
 	}
 }

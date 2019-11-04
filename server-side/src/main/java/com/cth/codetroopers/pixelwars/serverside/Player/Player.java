@@ -3,8 +3,8 @@ package com.cth.codetroopers.pixelwars.serverside.Player;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.*;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
-import com.cth.codetroopers.pixelwars.serverside.Player.Experience.Exp;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils.*;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.ILootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoDistance;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.ArmoursDirectory;
@@ -23,231 +23,185 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Created by latiif and Hugo on 3/22/17.
  */
 public class Player implements IPlayer {
-	public Integer getArmour() {
-		return armour;
-	}
 
-	private Boolean onlineStatus=false;
-	private Boolean canGoOffline=false;
+	private Boolean onlineStatus = false;
+	private Boolean canGoOffline = false;
 
 	private Avatar avatar = Avatar.JIM;
 
 	@JsonProperty
-	private Long offlineCooldownStops=Long.valueOf(0);
+	private Long offlineCooldownStops = Long.valueOf(0);
 
 	public void setOfflineCooldownStops(Long time) {
 		this.offlineCooldownStops = time;
 	}
 
+	private final String id;
 	private GeoPos geoPos;
 	private Double hp;
-	private Integer armour;
 	public Score score;
+	private Boolean isAlive;
 
-	private Integer exp;
-	private Integer gold;
-	private Integer vision=PlayerConstants.START_VISION;
-	private Integer offlineCooldown=PlayerConstants.START_COOLDOWN;
+	private Integer exp, gold, armour;
+	private Integer vision = PlayerConstants.START_VISION;
+	private Integer offlineCooldown = PlayerConstants.START_COOLDOWN;
+
+	public IWeapon weaponEquipped;
+
 	private Ranks rank = Ranks.PRIVATE;
 
 	@JsonProperty
 	private List<IWeapon> weapons = new ArrayList<IWeapon>();
-
 	@JsonProperty
-	private List<IArmour> armours= new ArrayList<IArmour>();
+	private List<IArmour> armours = new ArrayList<IArmour>();
+	@JsonIgnore
+	private transient List<IPlayer> playersNearby = new ArrayList<IPlayer>();
+	@JsonIgnore
+	private transient List<ILootbox> visibleLootboxes = new ArrayList<ILootbox>();
 
-	private Boolean isAlive;
+	public Player(final String id) throws FactoryException {
+		this.id = id;
+		hp = PlayerConstants.MAX_HEALTH;
+		gold = PlayerConstants.START_GOLD;
+		exp = PlayerConstants.START_EXP;
+		this.isAlive = Boolean.TRUE;
+		score = new Score(0, 0);
+		armours = new ArrayList<IArmour>();
+		weapons= new ArrayList<IWeapon>();
+		armours.add(ArmoursFactory.createArmour(ArmoursDirectory.SHIELD_OF_VALOR));
+		updateArmourValue();
+
+		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.PISTOL));
+		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.WHITEFLAG));
+
+		weaponEquipped = weapons.get(0);
+	}
 
 
-	public void switchWeapon(Integer weaponID){
-		for (IWeapon weapon:weapons){
-			if (weapon.getId().intValue()==weaponID.intValue()){
-				weaponEquipped=weapon;
+	public void switchWeapon(Integer weaponID) {
+		for (IWeapon weapon : weapons) {
+			if (weapon.getId().intValue() == weaponID.intValue()) {
+				weaponEquipped = weapon;
 				return;
 			}
 		}
 	}
 
-	public void grantGold(Integer amount){
-		this.gold+=amount;
-	}
+	private boolean hasItem(Item item) {
 
-
-	private boolean hasItem(Item item){
-
-		for(IWeapon weapon: weapons){
-			if (weapon.getName().equals(item.getName())){
+		for (IWeapon weapon : weapons) {
+			if (weapon.getName().equals(item.getName())) {
 				return true;
 			}
 		}
 
 
-		for (IArmour armour:armours){
-			if (armour.getName().equals(item.getName())){
+		for (IArmour armour : armours) {
+			if (armour.getName().equals(item.getName())) {
 				return true;
 			}
 		}
-
-
 		return false;
 	}
+
 	public void sellItem(Item item, Integer refund) throws NoItemException {
-		if (!hasItem(item)){
+		if (!hasItem(item)) {
 			throw new NoItemException("Cannot sell an item you don't have");
 		}
 
 		grantGold(refund);
 
-		if (item instanceof  Weapon){
+		if (item instanceof Weapon) {
 			removeFromWeapons((Weapon) item);
 		}
-		if (item instanceof IArmour){
+		if (item instanceof IArmour) {
 			removeFromArmours((IArmour) item);
 		}
 	}
 
-	private void removeFromArmours(IArmour armour){
-		for (IArmour a:armours){
-			if (a.getName().equals(armour.getName())){
+	private void removeFromArmours(IArmour armour) {
+		for (IArmour a : armours) {
+			if (a.getName().equals(armour.getName())) {
 				armours.remove(a);
 				break;
 			}
 		}
 	}
 
-	private void removeFromWeapons(Weapon weapon){
-
-		boolean shouldSwitch=false;
-		if (weaponEquipped.getName().equals(weapon.getName())){
-			shouldSwitch=true;
+	private void removeFromWeapons(Weapon weapon) {
+		boolean shouldSwitch = false;
+		if (weaponEquipped.getName().equals(weapon.getName())) {
+			shouldSwitch = true;
 		}
 
-		for (IWeapon w:weapons){
-			if (w.getName().equals(weapon.getName())){
+		for (IWeapon w : weapons) {
+			if (w.getName().equals(weapon.getName())) {
 				weapons.remove(w);
 				break;
 			}
 		}
-
-		if (shouldSwitch && weapons.size()>0){
-			weaponEquipped=weapons.get(0);
+		if (shouldSwitch && weapons.size() > 0) {
+			weaponEquipped = weapons.get(0);
 		}
-
 	}
 
 	public void buyItem(Item item) throws InsufficientException, DuplicateItemException {
-		if (item.getCost()>this.gold){
+		if (item.getCost() > this.gold) {
 			throw new InsufficientException("Life is hard, deal with it!");
 		}
-		if (hasItem(item)){
+		if (hasItem(item)) {
 			throw new DuplicateItemException("You already have the item");
 		}
 
-
-
-		this.gold-=item.getCost();
-		if (item instanceof Weapon){//We know its a weapon
-			Weapon weaponBought = (Weapon)item;
+		this.gold -= item.getCost();
+		if (item instanceof Weapon) {
+			Weapon weaponBought = (Weapon) item;
 			weapons.add(weaponBought);
-		}
-		else if (item instanceof IArmour){
+		} else if (item instanceof IArmour) {
 			IArmour armourBought = (IArmour) item;
 			armours.add(armourBought);
 			updateArmourValue();
 		}
-
 	}
-	public IWeapon weaponEquipped;
-
-	private final String id;
 
 
-
-	private void updateArmourValue(){
-		armour=0;
-		for (IArmour a:armours){
-			armour+=a.getValue();
+	private void updateArmourValue() {
+		armour = 0;
+		for (IArmour a : armours) {
+			armour += a.getValue();
 		}
 	}
 
 
-
-	public Player(final String id) throws FactoryException {
-		this.id=id;
-
-		hp=PlayerConstants.MAX_HEALTH;
-
-		gold = PlayerConstants.START_GOLD;
-
-		exp=PlayerConstants.START_EXP;
-
-		this.isAlive=Boolean.TRUE;
-
-		score= new Score(0,0);
-
-
-		armours= new ArrayList<IArmour>();
-		//weapons= new ArrayList<Weapon>();
-
-		armours.add(ArmoursFactory.createArmour(ArmoursDirectory.SHIELD_OF_VALOR));
-		updateArmourValue();
-
-		weapons.add(WeaponsFactory.createWeapon(WeaponsDirectory.PISTOL));
-		weaponEquipped =weapons.get(0);
-
-
-	}
-
-	public Player(final String id, final GeoPos pos) throws GeographicalException,FactoryException {
+	public Player(final String id, final GeoPos pos) throws GeographicalException, FactoryException {
 		this(id);
-		this.geoPos= pos;
+		this.geoPos = pos;
 	}
 
-	public Double getHp(){
-		return Double.valueOf(hp);
-	}
+	public void getAttacked(final Integer damage) {
+		Double actualDamage = PlayerConstants.damageCaluculation(damage, this.armour);
+		hp -= actualDamage;
 
-	public Ranks getRank() {
-		return this.rank;
-	}
-
-	public Boolean getIsAlive(){
-		return isAlive;
-	}
-
-	public void updatePos(final GeoPos newPos){
-		geoPos=newPos;
-	}
-
-
-	public void getAttacked(final Integer damage){
-		Double actualDamage= PlayerConstants.damageCaluculation(damage,this.armour);
-		hp-=actualDamage;
-
-		if (hp<=0){
-			isAlive=false;
+		if (hp <= 0) {
+			isAlive = false;
 			score.increaseDeaths();
-			this.rank= Rank.getRank(this.exp);
+			this.rank = Rank.getRank(this.exp);
 			(new RespawnCooldown(PlayerConstants.RESPAWN_COOLDWON, this)).start();
 		}
 	}
 
 
-
-	public void attackOtherPlayer(final IPlayer otherPlayer) throws CombatException,CooldownException {
+	public void attackOtherPlayer(final IPlayer otherPlayer) throws CombatException, CooldownException {
 		if (!getIsAlive()) {
 			throw new CombatException("You cannot attack when you're dead");
 		}
-
 		if (!otherPlayer.getIsAlive()) {
 			throw new CombatException("You cannot attack the dead");
 		}
-
 		if (GeoDistance.getDistance(otherPlayer.getGeoPos(), this.geoPos) > this.weaponEquipped.getRange()) {
 			throw new CombatException("They are out of your reach");
 		}
@@ -270,54 +224,74 @@ public class Player implements IPlayer {
 	}
 
 	@Override
-	public String toString(){
-
-		StringBuilder sb= new StringBuilder();
-
-		sb.append(this.id+" ").append(this.hp+" ").append(this.getIsAlive()).append("@").append(geoPos).append(" "+score);
-
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.id + " ").append(this.hp + " ").append(this.getIsAlive()).append("@").append(geoPos).append(" " + score);
 		sb.append("sees: ");
 
-		for(IPlayer p: playersNearby){
+		for (IPlayer p : playersNearby) {
 			sb.append(p.getID()).append('\n');
 		}
-
-
 		return sb.toString();
 	}
 
 
-	public void goOnline(){
-		if (isOnline()){
+	public void goOnline() {
+		if (isOnline()) {
 			return;
 		}
-		onlineStatus=true;
-		new RadarCooldown(PlayerConstants.START_COOLDOWN,this).start();
+		onlineStatus = true;
+		new RadarCooldown(PlayerConstants.START_COOLDOWN, this).start();
 	}
 
 	public void goOffline() throws CooldownException {
-		if (!isOnline()){
+		if (!isOnline()) {
 			return;
 		}
-
-		if (getCanGoOffline()){
-			onlineStatus=false;
+		if (getCanGoOffline()) {
+			onlineStatus = false;
 			setCanGoOffline(false);
-		}
-		else {
+		} else {
 			throw new CooldownException("You cannot go offline yet");
 		}
 
 
-
 	}
 
-	public Boolean isOnline(){
+	public Boolean isOnline() {
 		return onlineStatus;
 	}
 
-	public Integer getOfflineCooldown(){
+	public Double getHp() {
+		return Double.valueOf(hp);
+	}
+
+	public Ranks getRank() {
+		return this.rank;
+	}
+
+	public Boolean getIsAlive() {
+		return isAlive;
+	}
+
+	public Integer getArmour() {
+		return armour;
+	}
+
+	public void updatePos(final GeoPos newPos) {
+		geoPos = newPos;
+	}
+
+	public Boolean getOnlineStatus() {
+		return onlineStatus;
+	}
+
+	public Integer getOfflineCooldown() {
 		return this.offlineCooldown;
+	}
+
+	public void grantGold(Integer amount) {
+		this.gold += amount;
 	}
 
 	public void grantWeapon(IWeapon weapon) {
@@ -329,19 +303,27 @@ public class Player implements IPlayer {
 		updateArmourValue();
 	}
 
-	public void setCanGoOffline(Boolean value){
-		this.canGoOffline=value;
+	public void setCanGoOffline(Boolean value) {
+		this.canGoOffline = value;
 	}
 
 	public IWeapon getWeaponEquipped() {
 		return weaponEquipped;
 	}
 
-	public Boolean getCanGoOffline(){
+	public List<IWeapon> getWeapons() {
+		return weapons;
+	}
+
+	public List<IArmour> getArmours() {
+		return armours;
+	}
+
+	public Boolean getCanGoOffline() {
 		return canGoOffline;
 	}
 
-	public String getID(){
+	public String getID() {
 		return this.id;
 	}
 
@@ -349,15 +331,15 @@ public class Player implements IPlayer {
 		return exp;
 	}
 
-	public GeoPos getGeoPos(){
+	public GeoPos getGeoPos() {
 		return this.geoPos;
 	}
 
-	public Integer getVision(){
+	public Integer getVision() {
 		return this.vision;
 	}
 
-	public Integer getGold(){
+	public Integer getGold() {
 		return gold;
 	}
 
@@ -376,26 +358,35 @@ public class Player implements IPlayer {
 
 	public void setExp(Integer exp) {
 		this.exp = exp;
-		this.rank=Rank.getRank(this.exp);
+		this.rank = Rank.getRank(this.exp);
 	}
 
-	@JsonIgnore
-	private transient List<IPlayer> playersNearby= new ArrayList<IPlayer>();
-
-	public List<IPlayer> getPlayersNearby(){
+	public List<IPlayer> getPlayersNearby() {
 		return (this.playersNearby);
 	}
 
-	public void addNearbyPlayer(IPlayer IPlayer){
-		this.playersNearby.add(IPlayer);
+	public void addNearbyPlayer(IPlayer p) {
+		this.playersNearby.add(p);
+	}
+
+	public void removeNearbyPlayer(IPlayer p) {
+		this.playersNearby.remove(p);
+	}
+
+	public List<ILootbox> getVisibleLootboxes() {
+		return (this.visibleLootboxes);
+	}
+
+	public void addVisibleLootbox(ILootbox lootbox) {
+		this.visibleLootboxes.add(lootbox);
+	}
+
+	public void removeVisibleLootbox(ILootbox lootbox) {
+		this.visibleLootboxes.remove(lootbox);
 	}
 
 
-	public void removeNearbyPlayer(IPlayer IPlayer){
-		this.playersNearby.remove(IPlayer);
-	}
-
-	public void setIsAlive (boolean life) {
+	public void setIsAlive(boolean life) {
 		this.isAlive = life;
 	}
 
@@ -412,6 +403,5 @@ public class Player implements IPlayer {
 	public int hashCode() {
 		return id.hashCode();
 	}
-
 
 }

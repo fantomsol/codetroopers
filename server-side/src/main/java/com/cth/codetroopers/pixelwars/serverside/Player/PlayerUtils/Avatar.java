@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Player.Avatar;
+package com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils;
 
 /**
  * Created by lumo on 13/05/17.

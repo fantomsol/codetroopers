@@ -1,4 +1,6 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils;
+
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 
 /**
  * Created by latiif on 5/15/17.

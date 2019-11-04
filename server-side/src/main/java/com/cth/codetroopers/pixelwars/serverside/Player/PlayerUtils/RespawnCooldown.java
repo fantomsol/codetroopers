@@ -1,4 +1,7 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils;
+
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerConstants;
 
 /**
  * Created by latiif on 5/15/17.

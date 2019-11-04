@@ -1,13 +1,13 @@
 package Mediator;
 
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
-import com.cth.codetroopers.pixelwars.serverside.Lootbox.ILootbox;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.ILootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.GameException;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.cth.codetroopers.pixelwars.serverside.ServerController.IServer;
-import com.cth.codetroopers.pixelwars.serverside.WorldPackage.IWorld;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.World;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface IMediator {
 	void playerChangePos(String id, Double latitude,Double longitude);
 	IPlayer getPlayerById(String id);
 
-	void setWorld(IWorld world);
+	void setWorld(World world);
 	void setServer(IServer server);
 
 	void registerPlayer(String ID);
@@ -52,4 +52,8 @@ public interface IMediator {
 
 	void sendPlayerSpecificException(IPlayer p,GameException gameException);
 	void sendException(GameException gameException);
+
+	public IServer getServer();
+
+	public World getWorld();
 }

@@ -1,30 +1,10 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils;
 
 /**
  * Created by latiif on 4/9/17.
  */
 public class Score {
 	private Integer kills,deaths;
-
-	public Integer getKills() {
-		return kills;
-	}
-
-	public void setKills(Integer kills) {
-		this.kills = kills;
-	}
-
-	public Integer getDeaths() {
-		return deaths;
-	}
-
-	public void setDeaths(Integer deaths) {
-		this.deaths = deaths;
-	}
-
-	public Score(){
-
-	}
 
 
 	public void increaseDeaths(){

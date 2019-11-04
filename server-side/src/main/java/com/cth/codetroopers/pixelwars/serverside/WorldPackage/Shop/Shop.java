@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Shop;
+package com.cth.codetroopers.pixelwars.serverside.WorldPackage.Shop;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.DuplicateItemException;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;
@@ -17,21 +17,18 @@ import java.util.List;
 /**
  * Created by Hugo on 5/1/17.
  */
-public class Shop implements IShop {
+public class Shop {
     public List<Item> getItems() throws FactoryException {
-        List<Item> result =  new ArrayList<Item>();
+        List<Item> items =  new ArrayList<Item>();
 
-
-        //Här lägger vi till alla armours
         for (int i = 1; i<= ArmoursDirectory.NUMBER_OF_ARMOURS; i++){
-            result.add(ArmoursFactory.createArmour(i));
+            items.add(ArmoursFactory.createArmour(i));
         }
 
-        //Här lägger vi till alla weapons
         for (int i = 1; i<= WeaponsDirectory.NUMBER_OF_WEAPONS; i++){
-            result.add(WeaponsFactory.createWeapon(i));
+            items.add(WeaponsFactory.createWeapon(i));
         }
-        return result;
+        return items;
     }
 
 
@@ -44,11 +41,12 @@ public class Shop implements IShop {
     }
 
     public Item getItem(Integer itemID, String itemType) throws FactoryException {
-        if (itemType.equals("armour")){
+        if (itemType.equals("armour") || itemType.equals("Armour")){
             return ArmoursFactory.createArmour(itemID);
         }
-        else {
+        else if (itemType.equals("weapon") || itemType.equals("Weapon")) {
             return WeaponsFactory.createWeapon(itemID);
         }
+        else throw new FactoryException("No such item found");
     }
 }

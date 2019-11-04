@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Lootbox;
+package com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox;
 
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.EmptyLootbox;
 import com.cth.codetroopers.pixelwars.serverside.GameUtils.Exceptions.FactoryException;

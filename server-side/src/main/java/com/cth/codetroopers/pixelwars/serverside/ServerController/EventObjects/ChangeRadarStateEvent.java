@@ -7,6 +7,15 @@ public class ChangeRadarStateEvent {
 	public String playerId;
 	public boolean wantToGoOnline;
 
+	public ChangeRadarStateEvent() {
+
+	}
+
+	public ChangeRadarStateEvent(String playerId, boolean wantToGoOnline) {
+		this.playerId = playerId;
+		this.wantToGoOnline = wantToGoOnline;
+	}
+
 	public String getPlayerId() {
 		return playerId;
 	}
@@ -19,17 +28,8 @@ public class ChangeRadarStateEvent {
 		return wantToGoOnline;
 	}
 
-
-	public ChangeRadarStateEvent(){
-
-	}
-
 	public void setWantToGoOnline(boolean wantToGoOnline) {
 		this.wantToGoOnline = wantToGoOnline;
 	}
 
-	public ChangeRadarStateEvent(String playerId, boolean wantToGoOnline) {
-		this.playerId = playerId;
-		this.wantToGoOnline = wantToGoOnline;
-	}
 }

@@ -1,4 +1,4 @@
-package com.cth.codetroopers.pixelwars.serverside.Shop;
+package com.cth.codetroopers.pixelwars.serverside.WorldPackage.Shop;
 
 /**
  * Created by latiif on 5/1/17.

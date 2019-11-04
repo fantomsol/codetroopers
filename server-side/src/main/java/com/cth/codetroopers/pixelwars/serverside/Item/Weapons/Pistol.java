@@ -6,8 +6,6 @@ package com.cth.codetroopers.pixelwars.serverside.Item.Weapons;
 class Pistol extends Weapon{
 
 
-
-
 	public Integer getId() {
 		return 1;
 	}

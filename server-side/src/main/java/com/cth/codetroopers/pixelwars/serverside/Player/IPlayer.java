@@ -6,7 +6,8 @@ import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.ILootbox;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 
 import java.util.List;
@@ -46,7 +47,9 @@ public interface IPlayer {
 
 	Boolean isOnline();
 
-	Integer getOfflineCooldown();
+	public Boolean getOnlineStatus();
+
+		Integer getOfflineCooldown();
 
 	void grantWeapon(IWeapon weapon);
 	void grantArmour(IArmour armour);
@@ -54,6 +57,11 @@ public interface IPlayer {
 	void setCanGoOffline(Boolean value);
 
 	IWeapon getWeaponEquipped();
+
+	List<IWeapon> getWeapons();
+
+	List <IArmour> getArmours();
+
 	Boolean getCanGoOffline();
 
 	String getID();
@@ -80,6 +88,11 @@ public interface IPlayer {
 
 	void addNearbyPlayer(IPlayer IPlayer);
 
-
 	void removeNearbyPlayer(IPlayer IPlayer);
+
+	public List<ILootbox> getVisibleLootboxes();
+
+	public void addVisibleLootbox(ILootbox lootbox);
+
+	public void removeVisibleLootbox(ILootbox lootbox);
 }

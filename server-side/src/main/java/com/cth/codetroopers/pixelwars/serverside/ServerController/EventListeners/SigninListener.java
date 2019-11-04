@@ -17,8 +17,7 @@ public class SigninListener extends EventListener implements DataListener<Signin
 	}
 
 	public void onData(SocketIOClient socketIOClient, SigninEvent signinEvent, AckRequest ackRequest) throws Exception {
-
 		mediator.playerSignin(signinEvent.getId(), socketIOClient);
-		}
-		
+	}
+
 }

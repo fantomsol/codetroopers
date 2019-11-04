@@ -1,11 +1,13 @@
-package com.cth.codetroopers.pixelwars.serverside.Player;
+package com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils;
+
+import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 
 /**
  * Created by latiif on 3/29/17.
  */
 public class RadarCooldown extends Cooldown {
 
-	protected RadarCooldown(int cooldownDuration, IPlayer iPlayer) {
+	public RadarCooldown(int cooldownDuration, IPlayer iPlayer) {
 		super(cooldownDuration, iPlayer);
 	}
 

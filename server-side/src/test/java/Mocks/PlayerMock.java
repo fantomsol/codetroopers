@@ -5,7 +5,8 @@ import com.cth.codetroopers.pixelwars.serverside.GameUtils.GeoPos;
 import com.cth.codetroopers.pixelwars.serverside.Item.Armours.IArmour;
 import com.cth.codetroopers.pixelwars.serverside.Item.Item;
 import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.IWeapon;
-import com.cth.codetroopers.pixelwars.serverside.Player.Avatar.Avatar;
+import com.cth.codetroopers.pixelwars.serverside.WorldPackage.Lootbox.ILootbox;
+import com.cth.codetroopers.pixelwars.serverside.Player.PlayerUtils.Avatar;
 import com.cth.codetroopers.pixelwars.serverside.Player.IPlayer;
 import com.cth.codetroopers.pixelwars.serverside.Ranking.Ranks;
 
@@ -93,11 +94,22 @@ public class PlayerMock implements IPlayer{
 
 	}
 
+	public Boolean getOnlineStatus() {
+		return true;
+	}
+
 	public void setCanGoOffline(Boolean value) {
 
 	}
 
 	public IWeapon getWeaponEquipped() {
+		return null;
+	}
+	public List<IWeapon> getWeapons() {
+		return null;
+	}
+
+	public List<IArmour> getArmours() {
 		return null;
 	}
 
@@ -156,4 +168,17 @@ public class PlayerMock implements IPlayer{
 	public void removeNearbyPlayer(IPlayer IPlayer) {
 
 	}
+
+	public List<ILootbox> getVisibleLootboxes() {
+		return null;
+	}
+
+	public void addVisibleLootbox(ILootbox lootbox) {
+
+	}
+
+	public void removeVisibleLootbox(ILootbox lootbox) {
+
+	}
+
 }

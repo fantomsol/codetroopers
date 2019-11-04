@@ -13,7 +13,4 @@ public interface IArmour extends Item {
 
 	//The value of the Armours
 	Integer getValue();
-
-
-
 }

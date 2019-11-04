@@ -17,7 +17,6 @@ class ServerEventListeners {
 
 		this.mediator=mediator;
 		addServerEventListeners(socketIOServer);
-
 	}
 
 	private void addServerEventListeners(SocketIOServer socketIOServer){

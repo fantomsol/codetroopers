@@ -6,6 +6,16 @@ import com.cth.codetroopers.pixelwars.serverside.Item.Weapons.Weapon;
  * Created by latiif on 5/19/17.
  */
 public class WeaponMock extends Weapon {
+
+	private Integer cost;
+
+	public WeaponMock(){
+		this.cost = 100;
+	}
+	public WeaponMock(int cost){
+		this.cost = cost;
+	}
+
 	public Integer getId() {
 		return 9;
 	}
@@ -15,7 +25,7 @@ public class WeaponMock extends Weapon {
 	}
 
 	public Integer getCost() {
-		return 500;
+		return cost;
 	}
 
 	public Integer getDamage() {
